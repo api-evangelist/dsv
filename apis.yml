@@ -45,6 +45,9 @@ apis:
   baseURL: https://api.dsv.com/my-demo/oauth/v1
   tags:
   - Authentication
+  - Tokens
+  tags_raw:
+  - Authentication
   - OAuth
   - Tokens
   properties:
@@ -96,6 +99,10 @@ apis:
   humanURL: https://developer.dsv.com/api-details#api=generic-tracking-demo-v2
   baseURL: https://api.dsv.com/my-demo/tracking/v2
   tags:
+  - Track and Trace
+  - Shipments
+  - Event
+  tags_raw:
   - Track and Trace
   - Shipments
   - Events
@@ -258,6 +265,11 @@ apis:
   humanURL: https://developer.dsv.com/api-details#api=es-webhook-demo-v1
   baseURL: https://api.dsv.com/my-demo/webhook/v1
   tags:
+  - Webhook
+  - Event
+  - Notification
+  - Track and Trace
+  tags_raw:
   - Webhooks
   - Events
   - Notifications
@@ -282,6 +294,10 @@ apis:
   humanURL: https://developer.dsv.com/api-details#api=es-webhook-int-v1
   baseURL: https://api.dsv.com/my-int/webhook/v1
   tags:
+  - Webhook
+  - Event
+  - Warehousing
+  tags_raw:
   - Webhooks
   - Events
   - Warehousing
@@ -454,6 +470,10 @@ apis:
   baseURL: https://api.dsv.com/om/v2
   tags:
   - Supply Chain
+  - Order
+  - SCM
+  tags_raw:
+  - Supply Chain
   - Orders
   - SCM
   properties:
@@ -570,6 +590,11 @@ apis:
   baseURL: https://api.dsv.com/om/events/v2
   tags:
   - Supply Chain
+  - Event
+  - SCM
+  - Track and Trace
+  tags_raw:
+  - Supply Chain
   - Events
   - SCM
   - Track and Trace
@@ -593,6 +618,10 @@ apis:
   humanURL: https://developer.dsv.com/api-details#api=edc-neom-api-v2
   baseURL: https://api.dsv.com/om/neom/v2
   tags:
+  - Supply Chain
+  - SCM
+  - Project
+  tags_raw:
   - Supply Chain
   - SCM
   - Projects
