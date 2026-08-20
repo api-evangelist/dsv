@@ -1,0 +1,343 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Visibility (DEMO) - Air, Sea, Rail, XPress",
+    "description": "Retrieve live tracking data from DSV Visibility",
+    "version": "v1"
+  },
+  "servers": [
+    {
+      "url": "https://api.dsv.com/my-demo/visibility/v1"
+    }
+  ],
+  "paths": {
+    "/shipments/deviceReadings": {
+      "post": {
+        "tags": [
+          "Shipment details"
+        ],
+        "summary": "Get device readings by search filter",
+        "description": "Retrieve detailed device readings by search filter",
+        "operationId": "Shipment_Post",
+        "parameters": [
+          {
+            "name": "api-version",
+            "in": "header",
+            "description": "api-version",
+            "schema": {
+              "type": "string"
+            },
+            "example": 1
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Insert your Access Token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeviceReadingFilterDto"
+              },
+              "example": {
+                "shipmentId": "SH0000000000",
+                "measuredAtStartDateTime": "2023-01-01T12:00:00.0000000+00:00",
+                "measuredAtEndDateTime": "2023-01-31T11:59:00.0000000+00:00",
+                "measuredAtPredefinedRange": "PAST_MONTH"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeviceReadingResultModelDto"
+                },
+                "example": {
+                  "shipmentId": "SH0000000000",
+                  "shipmentStatus": "Delivered",
+                  "transportType": "FTL",
+                  "info": null,
+                  "referenceType05": "050000000000000000000",
+                  "stages": [
+                    "Road",
+                    "Rail",
+                    "Air"
+                  ],
+                  "readings": [
+                    {
+                      "id": "xxxxxxx",
+                      "trackerReadingId": null,
+                      "type": "Device",
+                      "measuredAt": "2023-08-16T11:00:59.0000000+00:00",
+                      "geoMode": "GSM",
+                      "latitude": 55.291673,
+                      "longitude": 12.444475,
+                      "address": "Demo city, Denmark",
+                      "batteryLevel": 53,
+                      "temperature": 26.21,
+                      "probeTemperature": 26.21,
+                      "humidity": 47.91,
+                      "light": 23.59,
+                      "shock": 0.96
+                    },
+                    {
+                      "id": "yyyyyyy",
+                      "trackerReadingId": null,
+                      "type": "Device",
+                      "measuredAt": "2023-08-16T01:58:58.0000000+00:00",
+                      "geoMode": "GPS",
+                      "latitude": 0,
+                      "longitude": 0,
+                      "address": "Demo city, Denmark",
+                      "batteryLevel": 57,
+                      "temperature": 23.26,
+                      "probeTemperature": 26.55,
+                      "humidity": 54.79,
+                      "light": 20.58,
+                      "shock": 1.01
+                    },
+                    {
+                      "id": "zzzzzzz",
+                      "trackerReadingId": null,
+                      "type": "Device",
+                      "measuredAt": "2023-08-16T01:28:59.0000000+00:00",
+                      "geoMode": "GPS",
+                      "latitude": 55.291673,
+                      "longitude": 12.444475,
+                      "address": "Demo, Denmark",
+                      "batteryLevel": 57,
+                      "temperature": 23.25,
+                      "probeTemperature": 22.23,
+                      "humidity": 54.97,
+                      "light": 21.71,
+                      "shock": 1
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "DeviceReadingResultModelDto": {
+        "type": "object",
+        "properties": {
+          "shipmentId": {
+            "type": "string",
+            "description": "Identifier of the Shipment",
+            "nullable": true,
+            "example": "SH0000000000"
+          },
+          "shipmentStatus": {
+            "type": "string",
+            "description": "Status of the shipment: \n- Planned  \n- Loading  \n- Ongoing  \n- Delivering \n- Offloading \n- Delivered \n- Terminated",
+            "nullable": true,
+            "example": "Delivered"
+          },
+          "transportType": {
+            "type": "string",
+            "description": "Transport Type",
+            "nullable": true,
+            "example": "GRP"
+          },
+          "info": {
+            "type": "string",
+            "description": "Info",
+            "nullable": true,
+            "example": "No readings available for this transport type"
+          },
+          "stages": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Routing information",
+            "nullable": true,
+            "example": "[Road, Rail, Air]"
+          },
+          "readings": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DeviceReadingDto"
+            },
+            "description": "Device readings",
+            "nullable": true,
+            "example": "Readings"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Device reading result model"
+      },
+      "DeviceReadingDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Device Id (IMEI) - Identifier of the device, Trailer or Container",
+            "nullable": true,
+            "example": "xxxxxxx"
+          },
+          "trackerReadingId": {
+            "type": "string",
+            "description": "Tracker Reading Id",
+            "nullable": true,
+            "example": "xxxxxxxxxxx"
+          },
+          "type": {
+            "type": "string",
+            "description": "\n- Device \n- Vessel \n- Trailer",
+            "nullable": true,
+            "example": "Device"
+          },
+          "measuredAt": {
+            "type": "string",
+            "description": "Reading measured at (Coordinated Universal Time (UTC))",
+            "format": "date-time",
+            "example": "2023-08-16T11:00:59.0000000+00:00"
+          },
+          "geoMode": {
+            "type": "string",
+            "description": "Geo mode",
+            "nullable": true,
+            "example": "GSM"
+          },
+          "latitude": {
+            "type": "number",
+            "description": "Latitude",
+            "format": "decimal",
+            "nullable": true,
+            "example": 55.291673
+          },
+          "longitude": {
+            "type": "number",
+            "description": "Longitude",
+            "format": "decimal",
+            "nullable": true,
+            "example": 12.444475
+          },
+          "address": {
+            "type": "string",
+            "description": "Address",
+            "nullable": true,
+            "example": "Demo city, Denmark"
+          },
+          "batteryLevel": {
+            "type": "integer",
+            "description": "Battery (%)",
+            "format": "int32",
+            "nullable": true,
+            "example": 53
+          },
+          "temperature": {
+            "type": "number",
+            "description": "Temperature (C)",
+            "format": "double",
+            "nullable": true,
+            "example": 26
+          },
+          "probeTemperature": {
+            "type": "number",
+            "description": "External Temperature (C) (e.g probe)",
+            "format": "double",
+            "nullable": true,
+            "example": 26
+          },
+          "humidity": {
+            "type": "number",
+            "description": "Humidity (%)",
+            "format": "double",
+            "nullable": true,
+            "example": 47.9000015258789
+          },
+          "light": {
+            "type": "number",
+            "description": "Light (Lx)",
+            "format": "double",
+            "nullable": true,
+            "example": 23.59
+          },
+          "shock": {
+            "type": "number",
+            "description": "Shock (G)",
+            "format": "double",
+            "nullable": true,
+            "example": 0.969757540573931
+          }
+        },
+        "additionalProperties": false,
+        "description": "Device reading dto "
+      },
+      "DeviceReadingFilterDto": {
+        "type": "object",
+        "properties": {
+          "shipmentId": {
+            "type": "string",
+            "description": "Shipment Id",
+            "nullable": true,
+            "example": "SH0000000000"
+          },
+          "measuredAtStartDateTime": {
+            "type": "string",
+            "description": "Device reading measured at (Start date and time in 24 hrs format). Format - yyyy-MM-dd HH:mm",
+            "nullable": true,
+            "example": "2023-01-01 00:00"
+          },
+          "measuredAtEndDateTime": {
+            "type": "string",
+            "description": "Device reading measured at (End date and time in 24 hrs format). Format - yyyy-MM-dd HH:mm",
+            "nullable": true,
+            "example": "2023-01-31 23:59"
+          },
+          "measuredAtPredefinedRange": {
+            "type": "string",
+            "description": "Measured at predefined date range. Possible values are: \n- PAST_MONTH \n- PAST_WEEK \n- YESTERDAY \n- TODAY",
+            "nullable": true,
+            "example": "PAST_MONTH"
+          }
+        },
+        "additionalProperties": false,
+        "description": "DeviceReadingFilterDto"
+      }
+    },
+    "securitySchemes": {
+      "apiKeyHeader": {
+        "type": "apiKey",
+        "name": "DSV-Subscription-Key",
+        "in": "header"
+      },
+      "apiKeyQuery": {
+        "type": "apiKey",
+        "name": "DSV-Subscription-Key",
+        "in": "query"
+      }
+    }
+  },
+  "security": [
+    {
+      "apiKeyHeader": []
+    },
+    {
+      "apiKeyQuery": []
+    }
+  ]
+}

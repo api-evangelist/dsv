@@ -1,0 +1,235 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Connect Tracking API (DEMO)",
+    "description": "DB Schenker Standard Tracking SOAP API",
+    "version": "v1"
+  },
+  "servers": [
+    {
+      "url": "https://api.dsv.com/connect-demo/tracking/v1"
+    }
+  ],
+  "paths": {
+    "/trackingWebServiceV3": {
+      "post": {
+        "summary": "Get shipment tracking details",
+        "description": "Get shipment tracking details",
+        "operationId": "post-trackingwebservicev3",
+        "requestBody": {
+          "content": {
+            "text/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/SoapRequest"
+              },
+              "example": "<Envelope> <getPublicServiceShipmentDetails> <AccessKey>string</AccessKey> <in> <ApplicationArea> <requestId>string</requestId> <CreationDateTime>string</CreationDateTime> </ApplicationArea> <referenceType>string</referenceType> <referenceNumber>string</referenceNumber> <transportNature>string</transportNature> <shipmentDateFrom>string</shipmentDateFrom> <shipmentDateTo>string</shipmentDateTo> </in> </getPublicServiceShipmentDetails> </Envelope>"
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Tracking response",
+            "content": {
+              "text/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/SoapResponse"
+                },
+                "example": "<SoapResponse> <Body> <out> <RequestID>string</RequestID> <TimeOfRequest>string</TimeOfRequest> <Shipment> <TransportMode>string</TransportMode> <ShipmentInfo> <ShipmentBasicInfo> <UniqueID>string</UniqueID> <ShipmentNumberExport>string</ShipmentNumberExport> <Location> <LocationName>string</LocationName> <type>string</type> </Location> <StatusEventList> <Status>string</Status> <Date>string</Date> <Time>string</Time> <StatusInfo>string</StatusInfo> </StatusEventList> </ShipmentBasicInfo> </ShipmentInfo> </Shipment> </out> </Body> </SoapResponse>"
+              }
+            }
+          },
+          "500": {
+            "description": "SOAP Fault"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "SoapRequest": {
+        "type": "object",
+        "properties": {
+          "Body": {
+            "$ref": "#/components/schemas/GetShipmentDetailsRequest"
+          }
+        },
+        "xml": {
+          "name": "Envelope"
+        }
+      },
+      "GetShipmentDetailsRequest": {
+        "type": "object",
+        "properties": {
+          "AccessKey": {
+            "type": "string",
+            "description": "Authentication key"
+          },
+          "in": {
+            "$ref": "#/components/schemas/ShipmentDetailsRequest"
+          }
+        },
+        "xml": {
+          "name": "getPublicServiceShipmentDetails"
+        }
+      },
+      "ShipmentDetailsRequest": {
+        "type": "object",
+        "properties": {
+          "ApplicationArea": {
+            "$ref": "#/components/schemas/ApplicationArea"
+          },
+          "referenceType": {
+            "type": "string",
+            "description": "Type of reference (ff, aw, bm, BID, etc.)"
+          },
+          "referenceNumber": {
+            "type": "string",
+            "description": "Reference value"
+          },
+          "transportNature": {
+            "type": "string",
+            "description": "int (Air/Ocean) or exp (Land)"
+          },
+          "shipmentDateFrom": {
+            "type": "string",
+            "format": "date"
+          },
+          "shipmentDateTo": {
+            "type": "string",
+            "format": "date"
+          }
+        }
+      },
+      "ApplicationArea": {
+        "type": "object",
+        "properties": {
+          "requestId": {
+            "type": "string"
+          },
+          "CreationDateTime": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "SoapResponse": {
+        "type": "object",
+        "properties": {
+          "Body": {
+            "$ref": "#/components/schemas/GetShipmentDetailsResponse"
+          }
+        }
+      },
+      "GetShipmentDetailsResponse": {
+        "type": "object",
+        "properties": {
+          "out": {
+            "properties": {
+              "RequestID": {
+                "type": "string"
+              },
+              "TimeOfRequest": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "Shipment": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Shipment"
+                }
+              }
+            }
+          }
+        }
+      },
+      "Shipment": {
+        "type": "object",
+        "properties": {
+          "TransportMode": {
+            "type": "string",
+            "description": "1=Ocean, 3=Road, 4=Air"
+          },
+          "ShipmentInfo": {
+            "properties": {
+              "ShipmentBasicInfo": {
+                "$ref": "#/components/schemas/ShipmentBasicInfo"
+              }
+            }
+          }
+        }
+      },
+      "ShipmentBasicInfo": {
+        "type": "object",
+        "properties": {
+          "UniqueID": {
+            "type": "string"
+          },
+          "ShipmentNumberExport": {
+            "type": "string"
+          },
+          "Location": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Location"
+            }
+          },
+          "StatusEventList": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/StatusEvent"
+            }
+          }
+        }
+      },
+      "Location": {
+        "type": "object",
+        "properties": {
+          "LocationName": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          }
+        }
+      },
+      "StatusEvent": {
+        "type": "object",
+        "properties": {
+          "Status": {
+            "type": "string"
+          },
+          "Date": {
+            "type": "string"
+          },
+          "Time": {
+            "type": "string"
+          },
+          "StatusInfo": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "apiKeyHeader": {
+        "type": "apiKey",
+        "name": "DSV-Subscription-Key",
+        "in": "header"
+      },
+      "apiKeyQuery": {
+        "type": "apiKey",
+        "name": "DSV-Subscription-Key",
+        "in": "query"
+      }
+    }
+  },
+  "security": [
+    {
+      "apiKeyHeader": []
+    },
+    {
+      "apiKeyQuery": []
+    }
+  ]
+}

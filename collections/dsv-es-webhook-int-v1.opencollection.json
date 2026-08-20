@@ -1,0 +1,97 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Webhook API (INT)",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "DSV-Subscription-Key",
+      "value": "{{DSV-Subscription-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Webhook",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Subscribe to an event",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.dsv.com/my-int/webhook/v1/subscriptions/subscribe",
+            "headers": [
+              {
+                "name": "api-version",
+                "value": "1"
+              },
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Subscribes a client to receive warehousing events.  \nThe provided push URL will be validated first by sending an OPTIONS request.  \nIf the OPTIONS request is not allowed or fails, a POST request will be sent instead\nwith the following JSON payload:\n\n{\n  \"event\": \"string\",\n  \"message\": \"string\"\n}"
+        },
+        {
+          "info": {
+            "name": "Unsubscribe from an event",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.dsv.com/my-int/webhook/v1/subscriptions/unsubscribe",
+            "headers": [
+              {
+                "name": "api-version",
+                "value": "1"
+              },
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Unsubscribe subscription by providing subscription event name"
+        },
+        {
+          "info": {
+            "name": "Get all subscriptions for the current user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dsv.com/my-int/webhook/v1/subscriptions",
+            "headers": [
+              {
+                "name": "api-version",
+                "value": "1"
+              },
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Get all subscriptions for the current user"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

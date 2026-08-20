@@ -1,0 +1,76 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "WMS Delivery Notification (DEMO)",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "DSV-Subscription-Key",
+      "value": "{{DSV-Subscription-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Delivery",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create Delivery Notification(s)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.dsv.com/cl-demo/delivery/v1/deliveryNotification",
+            "headers": [
+              {
+                "name": "api-version",
+                "value": "1"
+              },
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create Delivery Notification Order(s)"
+        },
+        {
+          "info": {
+            "name": "Update Delivery Notification(s)",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.dsv.com/cl-demo/delivery/v1/deliveryNotification",
+            "headers": [
+              {
+                "name": "api-version",
+                "value": "1"
+              },
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update existing Delivery Notification Order(s)"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

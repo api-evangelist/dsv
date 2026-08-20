@@ -1,0 +1,484 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Webhook API (INT)",
+    "description": "Webhook for Invoice and Visibility APIs (INT)",
+    "version": "v1"
+  },
+  "servers": [
+    {
+      "url": "https://api.dsv.com/my-int/webhook/v1"
+    }
+  ],
+  "paths": {
+    "/subscriptions/subscribe": {
+      "post": {
+        "tags": [
+          "Webhook"
+        ],
+        "summary": "Subscribe to an event",
+        "description": "Subscribes a client to receive warehousing events.  \nThe provided push URL will be validated first by sending an OPTIONS request.  \nIf the OPTIONS request is not allowed or fails, a POST request will be sent instead\nwith the following JSON payload:\n\n{\n  \"event\": \"string\",\n  \"message\": \"string\"\n}",
+        "operationId": "Webhook_Subscribe",
+        "parameters": [
+          {
+            "name": "api-version",
+            "in": "header",
+            "description": "api-version",
+            "schema": {
+              "type": "string"
+            },
+            "example": 1
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "OAuth header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Subscriber data to be saved",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SubscriberDto"
+              },
+              "example": {
+                "subscriptionEvent": "ShipmentDeviceReading",
+                "pushUrl": "http://mysite.com",
+                "customerIds": {
+                  "type": "string",
+                  "values": []
+                },
+                "authenticationData": {
+                  "type": "Basic",
+                  "basic": {
+                    "username": "test-user",
+                    "password": "test-password"
+                  },
+                  "oAuth": {
+                    "tokenGenerationUrl": "https://mytokensite.com",
+                    "accessTokenRequest": {
+                      "headers": [
+                        {
+                          "name": "client-key",
+                          "value": "client-key-value"
+                        }
+                      ],
+                      "body": {
+                        "formUrlEncodedValues": [
+                          {
+                            "name": "client-key",
+                            "value": "client-key-value"
+                          }
+                        ]
+                      }
+                    },
+                    "refreshTokenRequest": {
+                      "headers": [
+                        {
+                          "name": "client-key",
+                          "value": "client-key-value"
+                        }
+                      ],
+                      "body": {
+                        "formUrlEncodedValues": [
+                          {
+                            "name": "client-key",
+                            "value": "client-key-value"
+                          }
+                        ]
+                      }
+                    }
+                  }
+                },
+                "headers": [
+                  {
+                    "name": "client-key",
+                    "value": "client-key-value"
+                  }
+                ],
+                "createdAt": "0001-01-01T12:00:00.0000000+00:00",
+                "lastModifiedAt": null,
+                "subscribedBy": "string"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success/Failure Status"
+          },
+          "400": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/subscriptions/unsubscribe": {
+      "post": {
+        "tags": [
+          "Webhook"
+        ],
+        "summary": "Unsubscribe from an event",
+        "description": "Unsubscribe subscription by providing subscription event name",
+        "operationId": "Webhook_Unsubscribe",
+        "parameters": [
+          {
+            "name": "api-version",
+            "in": "header",
+            "description": "api-version",
+            "schema": {
+              "type": "string"
+            },
+            "example": 1
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "OAuth header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Possible values are:\n\n WAREHOUSING APIs \n- WMSInboundNotificationStatusChange, \n- WMSDeliveryConfirmation, \n- WMSReceiptConfirmation, \n- WMSInventoryChange, \n- WMSOrderStatusChange, \n- WMSInventoryFull,",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UnsubscriberDto"
+              },
+              "example": {
+                "subscriptionEvent": "string",
+                "customerIds": {
+                  "type": "string",
+                  "values": []
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/subscriptions": {
+      "get": {
+        "tags": [
+          "Webhook"
+        ],
+        "summary": "Get all subscriptions for the current user",
+        "description": "Get all subscriptions for the current user",
+        "operationId": "Webhook_GetSubscriptions",
+        "parameters": [
+          {
+            "name": "api-version",
+            "in": "header",
+            "description": "api-version",
+            "schema": {
+              "type": "string"
+            },
+            "example": 1
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "OAuth header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns the list of subscriptions",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SubscriberDto"
+                  }
+                },
+                "example": [
+                  {
+                    "subscriptionEvent": "ShipmentDeviceReading",
+                    "pushUrl": "http://mysite.com",
+                    "customerIds": {
+                      "type": "string",
+                      "values": []
+                    },
+                    "authenticationData": {
+                      "type": "Basic",
+                      "basic": {
+                        "username": "test-user",
+                        "password": "test-password"
+                      },
+                      "oAuth": {
+                        "tokenGenerationUrl": "https://mytokensite.com",
+                        "accessTokenRequest": {
+                          "headers": [
+                            {
+                              "name": "client-key",
+                              "value": "client-key-value"
+                            }
+                          ],
+                          "body": {
+                            "formUrlEncodedValues": [
+                              {
+                                "name": "client-key",
+                                "value": "client-key-value"
+                              }
+                            ]
+                          }
+                        },
+                        "refreshTokenRequest": {
+                          "headers": [
+                            {
+                              "name": "client-key",
+                              "value": "client-key-value"
+                            }
+                          ],
+                          "body": {
+                            "formUrlEncodedValues": [
+                              {
+                                "name": "client-key",
+                                "value": "client-key-value"
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    },
+                    "headers": [
+                      {
+                        "name": "client-key",
+                        "value": "client-key-value"
+                      }
+                    ],
+                    "createdAt": "0001-01-01T12:00:00.0000000+00:00",
+                    "lastModifiedAt": null,
+                    "subscribedBy": "string"
+                  }
+                ]
+              }
+            }
+          },
+          "500": {
+            "description": "If there is an internal server error"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "SubscriberDto": {
+        "type": "object",
+        "properties": {
+          "subscriptionEvent": {
+            "type": "string",
+            "description": "Possible values are:\n\n WAREHOUSING APIs \n- WMSInboundNotificationStatusChange \n- WMSDeliveryConfirmation \n- WMSReceiptConfirmation \n- WMSInventoryChange \n- WMSOrderStatusChange \n- WMSInventoryFull",
+            "example": "WMSInboundNotificationStatusChange"
+          },
+          "pushUrl": {
+            "type": "string",
+            "description": "Provide the URL where you want the data to be delivered",
+            "example": "http://mysite.com"
+          },
+          "customerIds": {
+            "$ref": "#/components/schemas/CustomerIdsDto"
+          },
+          "authenticationData": {
+            "$ref": "#/components/schemas/AuthenticationDto"
+          },
+          "headers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/KeyValueDto"
+            },
+            "description": "Include any necessary headers. Make sure these headers match the requirements of the system receiving the data via webhook",
+            "example": "Headers"
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "When the customer subscribed to the event",
+            "format": "date-time"
+          },
+          "lastModifiedAt": {
+            "type": "string",
+            "description": "When the customer last modified the subscription",
+            "format": "date-time"
+          },
+          "subscribedBy": {
+            "type": "string",
+            "description": "who subscribed to this event"
+          }
+        },
+        "description": "Subscriber Dto"
+      },
+      "CustomerIdsDto": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Type of customer identifier (MDM or WarehouseID)",
+            "example": "MDM"
+          },
+          "values": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of customer identifier values",
+            "example": "6400000000"
+          }
+        },
+        "description": "Section to specify Customer ID"
+      },
+      "AuthenticationDto": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Authentication type",
+            "example": "Basic"
+          },
+          "basic": {
+            "$ref": "#/components/schemas/BasicAuthDto"
+          },
+          "oAuth": {
+            "$ref": "#/components/schemas/OAuthDto"
+          }
+        },
+        "description": "Authentication object"
+      },
+      "BasicAuthDto": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string",
+            "description": "Username",
+            "example": "test-user"
+          },
+          "password": {
+            "type": "string",
+            "description": "Password",
+            "example": "test-password"
+          }
+        },
+        "description": "Object to hold basic auth information"
+      },
+      "OAuthDto": {
+        "type": "object",
+        "properties": {
+          "tokenGenerationUrl": {
+            "type": "string",
+            "description": "Token generation url",
+            "example": "https://mytokensite.com"
+          },
+          "accessTokenRequest": {
+            "$ref": "#/components/schemas/TokenRequestDto"
+          },
+          "refreshTokenRequest": {
+            "$ref": "#/components/schemas/TokenRequestDto"
+          }
+        },
+        "description": "Object to hold OAuth information"
+      },
+      "TokenRequestDto": {
+        "type": "object",
+        "properties": {
+          "headers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/KeyValueDto"
+            },
+            "description": "Token request headers",
+            "example": "Headers"
+          },
+          "body": {
+            "$ref": "#/components/schemas/RequestBodyDto"
+          }
+        },
+        "description": "TokenRequestDto to hold token request for access Token or refresh Token"
+      },
+      "KeyValueDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Name",
+            "example": "client-key"
+          },
+          "value": {
+            "type": "string",
+            "description": "Value",
+            "example": "client-key-value"
+          }
+        },
+        "description": "Dto to store name value pair data (in headers, body)"
+      },
+      "RequestBodyDto": {
+        "type": "object",
+        "properties": {
+          "formUrlEncodedValues": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/KeyValueDto"
+            },
+            "description": "List of FormUrlEncodedValues values in name-value pair",
+            "example": "FormUrlEncodedValues"
+          }
+        },
+        "description": "Dto to hold request body parameters"
+      },
+      "UnsubscriberDto": {
+        "type": "object",
+        "properties": {
+          "subscriptionEvent": {
+            "type": "string"
+          },
+          "customerIds": {
+            "$ref": "#/components/schemas/CustomerIdsDto"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "apiKeyHeader": {
+        "type": "apiKey",
+        "name": "DSV-Subscription-Key",
+        "in": "header"
+      },
+      "apiKeyQuery": {
+        "type": "apiKey",
+        "name": "DSV-Subscription-Key",
+        "in": "query"
+      }
+    }
+  },
+  "security": [
+    {
+      "apiKeyHeader": []
+    },
+    {
+      "apiKeyQuery": []
+    }
+  ]
+}

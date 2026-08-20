@@ -1,0 +1,87 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "WMS Inventory (DEMO)",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "DSV-Subscription-Key",
+      "value": "{{DSV-Subscription-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Inventory",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Request a full inventory",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dsv.com/cl-demo/inventory/v1/inventory/:warehouseId",
+            "headers": [
+              {
+                "name": "api-version",
+                "value": "1"
+              },
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "warehouseId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "This message is sent by Client to DSV Warehouse to retrieve a full inventory report over Webhook"
+        },
+        {
+          "info": {
+            "name": "Get inventory by a single Product Id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dsv.com/cl-demo/inventory/v1/inventory/:warehouseId/:productId",
+            "headers": [
+              {
+                "name": "api-version",
+                "value": "1"
+              },
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "warehouseId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "productId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "This message is sent by Client to DSV Warehouse to retrieve inventory report on a particular Product id."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,29 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Connect Tracking API (DEMO)",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "DSV-Subscription-Key",
+      "value": "{{DSV-Subscription-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Get shipment tracking details",
+        "type": "http"
+      },
+      "http": {
+        "method": "POST",
+        "url": "https://api.dsv.com/connect-demo/tracking/v1/trackingWebServiceV3"
+      },
+      "docs": "Get shipment tracking details"
+    }
+  ],
+  "bundled": true
+}

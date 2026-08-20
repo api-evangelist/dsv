@@ -1,0 +1,647 @@
+{
+  "item": [
+    {
+      "id": "68af5609-18c0-44dd-b90b-3bb8c26ccae8",
+      "name": "Inbound",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a576a356-a132-44b7-9366-325dcf242f71",
+          "name": "Create Inbound Notification(s)",
+          "request": {
+            "name": "Create Inbound Notification(s)",
+            "description": {
+              "content": "Create Inbound Notification Order(s)",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "inboundNotification"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "api-version",
+                "key": "api-version",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"inboundNotifications\": [\n    {\n      \"warehouseId\": \"<string>\",\n      \"inboundId\": \"<string>\",\n      \"inboundType\": \"<string>\",\n      \"lineDetails\": [\n        {\n          \"lineId\": \"<integer>\",\n          \"productId\": \"<string>\",\n          \"quantity\": \"<integer>\",\n          \"sscc\": \"<string>\",\n          \"conditionOfProduct\": \"<string>\",\n          \"origin\": \"<string>\",\n          \"expirationDate\": \"<string>\",\n          \"lotId\": \"<string>\",\n          \"productValue\": {\n            \"valueOfProduct\": \"<number>\",\n            \"currency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"additionalInformations\": {\n            \"numericFields\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"textFields\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"inboundNotes\": [\n            {\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"text\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"text\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"serialNumbers\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        },\n        {\n          \"lineId\": \"<integer>\",\n          \"productId\": \"<string>\",\n          \"quantity\": \"<integer>\",\n          \"sscc\": \"<string>\",\n          \"conditionOfProduct\": \"<string>\",\n          \"origin\": \"<string>\",\n          \"expirationDate\": \"<string>\",\n          \"lotId\": \"<string>\",\n          \"productValue\": {\n            \"valueOfProduct\": \"<number>\",\n            \"currency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"additionalInformations\": {\n            \"numericFields\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"textFields\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"inboundNotes\": [\n            {\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"text\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"text\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"serialNumbers\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        }\n      ],\n      \"expectedArrivalDate\": \"<string>\",\n      \"incoterms\": {\n        \"code\": \"<string>\",\n        \"location\": \"<string>\"\n      },\n      \"transportDetails\": {\n        \"carrierName\": \"<string>\",\n        \"carrierReference\": \"<string>\",\n        \"modeOfTransport\": \"<string>\",\n        \"containerType\": \"<string>\",\n        \"containerNumber\": \"<string>\"\n      },\n      \"supplier\": {\n        \"reference\": \"<string>\",\n        \"address\": {\n          \"partyId\": \"<string>\",\n          \"companyName\": \"<string>\",\n          \"addressLine1\": \"<string>\",\n          \"addressLine2\": \"<string>\",\n          \"city\": \"<string>\",\n          \"state\": \"<string>\",\n          \"zipCode\": \"<string>\",\n          \"countryCode\": \"<string>\",\n          \"vatNumber\": \"<string>\",\n          \"contactName\": \"<string>\",\n          \"contactPhone\": \"<string>\",\n          \"contactEmail\": \"<email>\",\n          \"contactMobile\": \"<string>\"\n        }\n      },\n      \"additionalInformations\": {\n        \"numericFields\": [\n          {\n            \"sequence\": \"<integer>\",\n            \"value\": \"<number>\"\n          },\n          {\n            \"sequence\": \"<integer>\",\n            \"value\": \"<number>\"\n          }\n        ],\n        \"textFields\": [\n          {\n            \"sequence\": \"<integer>\",\n            \"value\": \"<string>\"\n          },\n          {\n            \"sequence\": \"<integer>\",\n            \"value\": \"<string>\"\n          }\n        ]\n      },\n      \"inboundNotes\": [\n        {\n          \"code\": \"<string>\",\n          \"text\": \"<string>\"\n        },\n        {\n          \"code\": \"<string>\",\n          \"text\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"warehouseId\": \"<string>\",\n      \"inboundId\": \"<string>\",\n      \"inboundType\": \"<string>\",\n      \"lineDetails\": [\n        {\n          \"lineId\": \"<integer>\",\n          \"productId\": \"<string>\",\n          \"quantity\": \"<integer>\",\n          \"sscc\": \"<string>\",\n          \"conditionOfProduct\": \"<string>\",\n          \"origin\": \"<string>\",\n          \"expirationDate\": \"<string>\",\n          \"lotId\": \"<string>\",\n          \"productValue\": {\n            \"valueOfProduct\": \"<number>\",\n            \"currency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"additionalInformations\": {\n            \"numericFields\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"textFields\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"inboundNotes\": [\n            {\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"text\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"text\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"serialNumbers\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        },\n        {\n          \"lineId\": \"<integer>\",\n          \"productId\": \"<string>\",\n          \"quantity\": \"<integer>\",\n          \"sscc\": \"<string>\",\n          \"conditionOfProduct\": \"<string>\",\n          \"origin\": \"<string>\",\n          \"expirationDate\": \"<string>\",\n          \"lotId\": \"<string>\",\n          \"productValue\": {\n            \"valueOfProduct\": \"<number>\",\n            \"currency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"additionalInformations\": {\n            \"numericFields\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"textFields\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"inboundNotes\": [\n            {\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"text\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"text\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"serialNumbers\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        }\n      ],\n      \"expectedArrivalDate\": \"<string>\",\n      \"incoterms\": {\n        \"code\": \"<string>\",\n        \"location\": \"<string>\"\n      },\n      \"transportDetails\": {\n        \"carrierName\": \"<string>\",\n        \"carrierReference\": \"<string>\",\n        \"modeOfTransport\": \"<string>\",\n        \"containerType\": \"<string>\",\n        \"containerNumber\": \"<string>\"\n      },\n      \"supplier\": {\n        \"reference\": \"<string>\",\n        \"address\": {\n          \"partyId\": \"<string>\",\n          \"companyName\": \"<string>\",\n          \"addressLine1\": \"<string>\",\n          \"addressLine2\": \"<string>\",\n          \"city\": \"<string>\",\n          \"state\": \"<string>\",\n          \"zipCode\": \"<string>\",\n          \"countryCode\": \"<string>\",\n          \"vatNumber\": \"<string>\",\n          \"contactName\": \"<string>\",\n          \"contactPhone\": \"<string>\",\n          \"contactEmail\": \"<email>\",\n          \"contactMobile\": \"<string>\"\n        }\n      },\n      \"additionalInformations\": {\n        \"numericFields\": [\n          {\n            \"sequence\": \"<integer>\",\n            \"value\": \"<number>\"\n          },\n          {\n            \"sequence\": \"<integer>\",\n            \"value\": \"<number>\"\n          }\n        ],\n        \"textFields\": [\n          {\n            \"sequence\": \"<integer>\",\n            \"value\": \"<string>\"\n          },\n          {\n            \"sequence\": \"<integer>\",\n            \"value\": \"<string>\"\n          }\n        ]\n      },\n      \"inboundNotes\": [\n        {\n          \"code\": \"<string>\",\n          \"text\": \"<string>\"\n        },\n        {\n          \"code\": \"<string>\",\n          \"text\": \"<string>\"\n        }\n      ]\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "058f180f-ff53-4dcc-9d99-7e42d3424a2d",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "inboundNotification"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "DSV-Subscription-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "api-version",
+                    "key": "api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "OAuth header",
+                    "key": "Authorization",
+                    "value": "string"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"inboundNotifications\": [\n    {\n      \"warehouseId\": \"wid1234567\",\n      \"inboundId\": \"iid123456\",\n      \"inboundType\": \"NORMAL\",\n      \"expectedArrivalDate\": \"2025-03-25T12:30:00.0000000+00:00\",\n      \"incoterms\": {\n        \"code\": \"EXW\",\n        \"location\": \"Denmark\"\n      },\n      \"transportDetails\": {\n        \"carrierName\": \"FedEx\",\n        \"carrierReference\": \"#123456\",\n        \"modeOfTransport\": \"Road\",\n        \"containerType\": \"20FT\",\n        \"containerNumber\": \"#123456\"\n      },\n      \"supplier\": {\n        \"reference\": \"ABC\",\n        \"address\": {\n          \"partyId\": \"PId123456\",\n          \"companyName\": \"DSV\",\n          \"addressLine1\": \"AddressLine1\",\n          \"addressLine2\": \"AddressLine2\",\n          \"city\": \"Copenhagen\",\n          \"state\": \"Capital Region of Denmark\",\n          \"zipCode\": \"1000\",\n          \"countryCode\": \"AF\",\n          \"vatNumber\": \"#123456\",\n          \"contactName\": \"Test\",\n          \"contactPhone\": \"+1123456789\",\n          \"contactEmail\": \"test@gmail.com\",\n          \"contactMobile\": \"+1123456789\"\n        }\n      },\n      \"additionalInformations\": {\n        \"numericFields\": [\n          {\n            \"sequence\": 1,\n            \"value\": 999999999.999999\n          }\n        ],\n        \"textFields\": [\n          {\n            \"sequence\": 1,\n            \"value\": \"Value1\"\n          }\n        ]\n      },\n      \"inboundNotes\": [\n        {\n          \"code\": \"#123456\",\n          \"text\": \"This is Test\"\n        }\n      ],\n      \"lineDetails\": [\n        {\n          \"lineId\": 1,\n          \"productId\": \"PId123456\",\n          \"quantity\": 1,\n          \"sscc\": \"123456789012345678\",\n          \"conditionOfProduct\": \"OK1\",\n          \"origin\": \"AF\",\n          \"expirationDate\": \"2025-03-25\",\n          \"lotId\": \"LId123456789\",\n          \"productValue\": {\n            \"valueOfProduct\": 999,\n            \"currency\": \"AED\"\n          },\n          \"additionalInformations\": {\n            \"numericFields\": [\n              {\n                \"sequence\": 1,\n                \"value\": 999999999.999999\n              }\n            ],\n            \"textFields\": [\n              {\n                \"sequence\": 1,\n                \"value\": \"Value1\"\n              }\n            ]\n          },\n          \"inboundNotes\": [\n            {\n              \"code\": \"#123456\",\n              \"text\": \"This is Test\"\n            }\n          ],\n          \"serialNumbers\": [\n            \"SN1234567890\",\n            \"SN1234567891\"\n          ]\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8396d17c-6d61-45db-8d51-d3b29b7d4d0b",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "inboundNotification"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "DSV-Subscription-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "api-version",
+                    "key": "api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "OAuth header",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"inboundNotifications\": [\n    {\n      \"warehouseId\": \"wid1234567\",\n      \"inboundId\": \"iid123456\",\n      \"inboundType\": \"NORMAL\",\n      \"expectedArrivalDate\": \"2025-03-25T12:30:00.0000000+00:00\",\n      \"incoterms\": {\n        \"code\": \"EXW\",\n        \"location\": \"Denmark\"\n      },\n      \"transportDetails\": {\n        \"carrierName\": \"FedEx\",\n        \"carrierReference\": \"#123456\",\n        \"modeOfTransport\": \"Road\",\n        \"containerType\": \"20FT\",\n        \"containerNumber\": \"#123456\"\n      },\n      \"supplier\": {\n        \"reference\": \"ABC\",\n        \"address\": {\n          \"partyId\": \"PId123456\",\n          \"companyName\": \"DSV\",\n          \"addressLine1\": \"AddressLine1\",\n          \"addressLine2\": \"AddressLine2\",\n          \"city\": \"Copenhagen\",\n          \"state\": \"Capital Region of Denmark\",\n          \"zipCode\": \"1000\",\n          \"countryCode\": \"AF\",\n          \"vatNumber\": \"#123456\",\n          \"contactName\": \"Test\",\n          \"contactPhone\": \"+1123456789\",\n          \"contactEmail\": \"test@gmail.com\",\n          \"contactMobile\": \"+1123456789\"\n        }\n      },\n      \"additionalInformations\": {\n        \"numericFields\": [\n          {\n            \"sequence\": 1,\n            \"value\": 999999999.999999\n          }\n        ],\n        \"textFields\": [\n          {\n            \"sequence\": 1,\n            \"value\": \"Value1\"\n          }\n        ]\n      },\n      \"inboundNotes\": [\n        {\n          \"code\": \"#123456\",\n          \"text\": \"This is Test\"\n        }\n      ],\n      \"lineDetails\": [\n        {\n          \"lineId\": 1,\n          \"productId\": \"PId123456\",\n          \"quantity\": 1,\n          \"sscc\": \"123456789012345678\",\n          \"conditionOfProduct\": \"OK1\",\n          \"origin\": \"AF\",\n          \"expirationDate\": \"2025-03-25\",\n          \"lotId\": \"LId123456789\",\n          \"productValue\": {\n            \"valueOfProduct\": 999,\n            \"currency\": \"AED\"\n          },\n          \"additionalInformations\": {\n            \"numericFields\": [\n              {\n                \"sequence\": 1,\n                \"value\": 999999999.999999\n              }\n            ],\n            \"textFields\": [\n              {\n                \"sequence\": 1,\n                \"value\": \"Value1\"\n              }\n            ]\n          },\n          \"inboundNotes\": [\n            {\n              \"code\": \"#123456\",\n              \"text\": \"This is Test\"\n            }\n          ],\n          \"serialNumbers\": [\n            \"SN1234567890\",\n            \"SN1234567891\"\n          ]\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"ERR12345\",\n  \"message\": \"Not found id : 4025988810785188\",\n  \"fields\": [\n    {\n      \"name\": \"field_name\",\n      \"message\": \"validation error\",\n      \"code\": \"ERR12345\"\n    }\n  ],\n  \"development\": {\n    \"message\": \"string\",\n    \"exception\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5c38fd48-599d-4aab-b937-7a57485027f0",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "inboundNotification"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "DSV-Subscription-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "api-version",
+                    "key": "api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "OAuth header",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"inboundNotifications\": [\n    {\n      \"warehouseId\": \"wid1234567\",\n      \"inboundId\": \"iid123456\",\n      \"inboundType\": \"NORMAL\",\n      \"expectedArrivalDate\": \"2025-03-25T12:30:00.0000000+00:00\",\n      \"incoterms\": {\n        \"code\": \"EXW\",\n        \"location\": \"Denmark\"\n      },\n      \"transportDetails\": {\n        \"carrierName\": \"FedEx\",\n        \"carrierReference\": \"#123456\",\n        \"modeOfTransport\": \"Road\",\n        \"containerType\": \"20FT\",\n        \"containerNumber\": \"#123456\"\n      },\n      \"supplier\": {\n        \"reference\": \"ABC\",\n        \"address\": {\n          \"partyId\": \"PId123456\",\n          \"companyName\": \"DSV\",\n          \"addressLine1\": \"AddressLine1\",\n          \"addressLine2\": \"AddressLine2\",\n          \"city\": \"Copenhagen\",\n          \"state\": \"Capital Region of Denmark\",\n          \"zipCode\": \"1000\",\n          \"countryCode\": \"AF\",\n          \"vatNumber\": \"#123456\",\n          \"contactName\": \"Test\",\n          \"contactPhone\": \"+1123456789\",\n          \"contactEmail\": \"test@gmail.com\",\n          \"contactMobile\": \"+1123456789\"\n        }\n      },\n      \"additionalInformations\": {\n        \"numericFields\": [\n          {\n            \"sequence\": 1,\n            \"value\": 999999999.999999\n          }\n        ],\n        \"textFields\": [\n          {\n            \"sequence\": 1,\n            \"value\": \"Value1\"\n          }\n        ]\n      },\n      \"inboundNotes\": [\n        {\n          \"code\": \"#123456\",\n          \"text\": \"This is Test\"\n        }\n      ],\n      \"lineDetails\": [\n        {\n          \"lineId\": 1,\n          \"productId\": \"PId123456\",\n          \"quantity\": 1,\n          \"sscc\": \"123456789012345678\",\n          \"conditionOfProduct\": \"OK1\",\n          \"origin\": \"AF\",\n          \"expirationDate\": \"2025-03-25\",\n          \"lotId\": \"LId123456789\",\n          \"productValue\": {\n            \"valueOfProduct\": 999,\n            \"currency\": \"AED\"\n          },\n          \"additionalInformations\": {\n            \"numericFields\": [\n              {\n                \"sequence\": 1,\n                \"value\": 999999999.999999\n              }\n            ],\n            \"textFields\": [\n              {\n                \"sequence\": 1,\n                \"value\": \"Value1\"\n              }\n            ]\n          },\n          \"inboundNotes\": [\n            {\n              \"code\": \"#123456\",\n              \"text\": \"This is Test\"\n            }\n          ],\n          \"serialNumbers\": [\n            \"SN1234567890\",\n            \"SN1234567891\"\n          ]\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"ERR12345\",\n  \"message\": \"Not found id : 4025988810785188\",\n  \"fields\": [\n    {\n      \"name\": \"field_name\",\n      \"message\": \"validation error\",\n      \"code\": \"ERR12345\"\n    }\n  ],\n  \"development\": {\n    \"message\": \"string\",\n    \"exception\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "be4f6bd9-7e92-4fb6-b148-4eab20826f61",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "inboundNotification"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "DSV-Subscription-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "api-version",
+                    "key": "api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "OAuth header",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"inboundNotifications\": [\n    {\n      \"warehouseId\": \"wid1234567\",\n      \"inboundId\": \"iid123456\",\n      \"inboundType\": \"NORMAL\",\n      \"expectedArrivalDate\": \"2025-03-25T12:30:00.0000000+00:00\",\n      \"incoterms\": {\n        \"code\": \"EXW\",\n        \"location\": \"Denmark\"\n      },\n      \"transportDetails\": {\n        \"carrierName\": \"FedEx\",\n        \"carrierReference\": \"#123456\",\n        \"modeOfTransport\": \"Road\",\n        \"containerType\": \"20FT\",\n        \"containerNumber\": \"#123456\"\n      },\n      \"supplier\": {\n        \"reference\": \"ABC\",\n        \"address\": {\n          \"partyId\": \"PId123456\",\n          \"companyName\": \"DSV\",\n          \"addressLine1\": \"AddressLine1\",\n          \"addressLine2\": \"AddressLine2\",\n          \"city\": \"Copenhagen\",\n          \"state\": \"Capital Region of Denmark\",\n          \"zipCode\": \"1000\",\n          \"countryCode\": \"AF\",\n          \"vatNumber\": \"#123456\",\n          \"contactName\": \"Test\",\n          \"contactPhone\": \"+1123456789\",\n          \"contactEmail\": \"test@gmail.com\",\n          \"contactMobile\": \"+1123456789\"\n        }\n      },\n      \"additionalInformations\": {\n        \"numericFields\": [\n          {\n            \"sequence\": 1,\n            \"value\": 999999999.999999\n          }\n        ],\n        \"textFields\": [\n          {\n            \"sequence\": 1,\n            \"value\": \"Value1\"\n          }\n        ]\n      },\n      \"inboundNotes\": [\n        {\n          \"code\": \"#123456\",\n          \"text\": \"This is Test\"\n        }\n      ],\n      \"lineDetails\": [\n        {\n          \"lineId\": 1,\n          \"productId\": \"PId123456\",\n          \"quantity\": 1,\n          \"sscc\": \"123456789012345678\",\n          \"conditionOfProduct\": \"OK1\",\n          \"origin\": \"AF\",\n          \"expirationDate\": \"2025-03-25\",\n          \"lotId\": \"LId123456789\",\n          \"productValue\": {\n            \"valueOfProduct\": 999,\n            \"currency\": \"AED\"\n          },\n          \"additionalInformations\": {\n            \"numericFields\": [\n              {\n                \"sequence\": 1,\n                \"value\": 999999999.999999\n              }\n            ],\n            \"textFields\": [\n              {\n                \"sequence\": 1,\n                \"value\": \"Value1\"\n              }\n            ]\n          },\n          \"inboundNotes\": [\n            {\n              \"code\": \"#123456\",\n              \"text\": \"This is Test\"\n            }\n          ],\n          \"serialNumbers\": [\n            \"SN1234567890\",\n            \"SN1234567891\"\n          ]\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"ERR12345\",\n  \"message\": \"Not found id : 4025988810785188\",\n  \"fields\": [\n    {\n      \"name\": \"field_name\",\n      \"message\": \"validation error\",\n      \"code\": \"ERR12345\"\n    }\n  ],\n  \"development\": {\n    \"message\": \"string\",\n    \"exception\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "20d6f98a-14b0-4ea3-84c3-43e33c3e4a46",
+          "name": "Update Inbound Notification(s)",
+          "request": {
+            "name": "Update Inbound Notification(s)",
+            "description": {
+              "content": "Update the data of the PreAdvice to be delivered to the DSV warehouse.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "inboundNotification"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "api-version",
+                "key": "api-version",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"inboundNotifications\": [\n    {\n      \"warehouseId\": \"<string>\",\n      \"inboundId\": \"<string>\",\n      \"inboundType\": \"<string>\",\n      \"lineDetails\": [\n        {\n          \"lineId\": \"<integer>\",\n          \"productId\": \"<string>\",\n          \"quantity\": \"<integer>\",\n          \"sscc\": \"<string>\",\n          \"conditionOfProduct\": \"<string>\",\n          \"origin\": \"<string>\",\n          \"expirationDate\": \"<string>\",\n          \"lotId\": \"<string>\",\n          \"productValue\": {\n            \"valueOfProduct\": \"<number>\",\n            \"currency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"additionalInformations\": {\n            \"numericFields\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"textFields\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"inboundNotes\": [\n            {\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"text\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"text\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"serialNumbers\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        },\n        {\n          \"lineId\": \"<integer>\",\n          \"productId\": \"<string>\",\n          \"quantity\": \"<integer>\",\n          \"sscc\": \"<string>\",\n          \"conditionOfProduct\": \"<string>\",\n          \"origin\": \"<string>\",\n          \"expirationDate\": \"<string>\",\n          \"lotId\": \"<string>\",\n          \"productValue\": {\n            \"valueOfProduct\": \"<number>\",\n            \"currency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"additionalInformations\": {\n            \"numericFields\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"textFields\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"inboundNotes\": [\n            {\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"text\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"text\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"serialNumbers\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        }\n      ],\n      \"expectedArrivalDate\": \"<string>\",\n      \"incoterms\": {\n        \"code\": \"<string>\",\n        \"location\": \"<string>\"\n      },\n      \"transportDetails\": {\n        \"carrierName\": \"<string>\",\n        \"carrierReference\": \"<string>\",\n        \"modeOfTransport\": \"<string>\",\n        \"containerType\": \"<string>\",\n        \"containerNumber\": \"<string>\"\n      },\n      \"supplier\": {\n        \"reference\": \"<string>\",\n        \"address\": {\n          \"partyId\": \"<string>\",\n          \"companyName\": \"<string>\",\n          \"addressLine1\": \"<string>\",\n          \"addressLine2\": \"<string>\",\n          \"city\": \"<string>\",\n          \"state\": \"<string>\",\n          \"zipCode\": \"<string>\",\n          \"countryCode\": \"<string>\",\n          \"vatNumber\": \"<string>\",\n          \"contactName\": \"<string>\",\n          \"contactPhone\": \"<string>\",\n          \"contactEmail\": \"<email>\",\n          \"contactMobile\": \"<string>\"\n        }\n      },\n      \"additionalInformations\": {\n        \"numericFields\": [\n          {\n            \"sequence\": \"<integer>\",\n            \"value\": \"<number>\"\n          },\n          {\n            \"sequence\": \"<integer>\",\n            \"value\": \"<number>\"\n          }\n        ],\n        \"textFields\": [\n          {\n            \"sequence\": \"<integer>\",\n            \"value\": \"<string>\"\n          },\n          {\n            \"sequence\": \"<integer>\",\n            \"value\": \"<string>\"\n          }\n        ]\n      },\n      \"inboundNotes\": [\n        {\n          \"code\": \"<string>\",\n          \"text\": \"<string>\"\n        },\n        {\n          \"code\": \"<string>\",\n          \"text\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"warehouseId\": \"<string>\",\n      \"inboundId\": \"<string>\",\n      \"inboundType\": \"<string>\",\n      \"lineDetails\": [\n        {\n          \"lineId\": \"<integer>\",\n          \"productId\": \"<string>\",\n          \"quantity\": \"<integer>\",\n          \"sscc\": \"<string>\",\n          \"conditionOfProduct\": \"<string>\",\n          \"origin\": \"<string>\",\n          \"expirationDate\": \"<string>\",\n          \"lotId\": \"<string>\",\n          \"productValue\": {\n            \"valueOfProduct\": \"<number>\",\n            \"currency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"additionalInformations\": {\n            \"numericFields\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"textFields\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"inboundNotes\": [\n            {\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"text\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"text\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"serialNumbers\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        },\n        {\n          \"lineId\": \"<integer>\",\n          \"productId\": \"<string>\",\n          \"quantity\": \"<integer>\",\n          \"sscc\": \"<string>\",\n          \"conditionOfProduct\": \"<string>\",\n          \"origin\": \"<string>\",\n          \"expirationDate\": \"<string>\",\n          \"lotId\": \"<string>\",\n          \"productValue\": {\n            \"valueOfProduct\": \"<number>\",\n            \"currency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"additionalInformations\": {\n            \"numericFields\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"textFields\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"inboundNotes\": [\n            {\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"text\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"text\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"serialNumbers\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        }\n      ],\n      \"expectedArrivalDate\": \"<string>\",\n      \"incoterms\": {\n        \"code\": \"<string>\",\n        \"location\": \"<string>\"\n      },\n      \"transportDetails\": {\n        \"carrierName\": \"<string>\",\n        \"carrierReference\": \"<string>\",\n        \"modeOfTransport\": \"<string>\",\n        \"containerType\": \"<string>\",\n        \"containerNumber\": \"<string>\"\n      },\n      \"supplier\": {\n        \"reference\": \"<string>\",\n        \"address\": {\n          \"partyId\": \"<string>\",\n          \"companyName\": \"<string>\",\n          \"addressLine1\": \"<string>\",\n          \"addressLine2\": \"<string>\",\n          \"city\": \"<string>\",\n          \"state\": \"<string>\",\n          \"zipCode\": \"<string>\",\n          \"countryCode\": \"<string>\",\n          \"vatNumber\": \"<string>\",\n          \"contactName\": \"<string>\",\n          \"contactPhone\": \"<string>\",\n          \"contactEmail\": \"<email>\",\n          \"contactMobile\": \"<string>\"\n        }\n      },\n      \"additionalInformations\": {\n        \"numericFields\": [\n          {\n            \"sequence\": \"<integer>\",\n            \"value\": \"<number>\"\n          },\n          {\n            \"sequence\": \"<integer>\",\n            \"value\": \"<number>\"\n          }\n        ],\n        \"textFields\": [\n          {\n            \"sequence\": \"<integer>\",\n            \"value\": \"<string>\"\n          },\n          {\n            \"sequence\": \"<integer>\",\n            \"value\": \"<string>\"\n          }\n        ]\n      },\n      \"inboundNotes\": [\n        {\n          \"code\": \"<string>\",\n          \"text\": \"<string>\"\n        },\n        {\n          \"code\": \"<string>\",\n          \"text\": \"<string>\"\n        }\n      ]\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "293ea045-1a40-4cd9-96b0-f3b3689e9120",
+              "name": "Returns a success message with the received data.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "inboundNotification"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "DSV-Subscription-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "api-version",
+                    "key": "api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "OAuth header",
+                    "key": "Authorization",
+                    "value": "string"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"inboundNotifications\": [\n    {\n      \"warehouseId\": \"wid1234567\",\n      \"inboundId\": \"iid123456\",\n      \"inboundType\": \"NORMAL\",\n      \"expectedArrivalDate\": \"2025-03-25T12:30:00.0000000+00:00\",\n      \"incoterms\": {\n        \"code\": \"EXW\",\n        \"location\": \"Denmark\"\n      },\n      \"transportDetails\": {\n        \"carrierName\": \"FedEx\",\n        \"carrierReference\": \"#123456\",\n        \"modeOfTransport\": \"Road\",\n        \"containerType\": \"20FT\",\n        \"containerNumber\": \"#123456\"\n      },\n      \"supplier\": {\n        \"reference\": \"ABC\",\n        \"address\": {\n          \"partyId\": \"PId123456\",\n          \"companyName\": \"DSV\",\n          \"addressLine1\": \"AddressLine1\",\n          \"addressLine2\": \"AddressLine2\",\n          \"city\": \"Copenhagen\",\n          \"state\": \"Capital Region of Denmark\",\n          \"zipCode\": \"1000\",\n          \"countryCode\": \"AF\",\n          \"vatNumber\": \"#123456\",\n          \"contactName\": \"Test\",\n          \"contactPhone\": \"+1123456789\",\n          \"contactEmail\": \"test@gmail.com\",\n          \"contactMobile\": \"+1123456789\"\n        }\n      },\n      \"additionalInformations\": {\n        \"numericFields\": [\n          {\n            \"sequence\": 1,\n            \"value\": 999999999.999999\n          }\n        ],\n        \"textFields\": [\n          {\n            \"sequence\": 1,\n            \"value\": \"Value1\"\n          }\n        ]\n      },\n      \"inboundNotes\": [\n        {\n          \"code\": \"#123456\",\n          \"text\": \"This is Test\"\n        }\n      ],\n      \"lineDetails\": [\n        {\n          \"lineId\": 1,\n          \"productId\": \"PId123456\",\n          \"quantity\": 1,\n          \"sscc\": \"123456789012345678\",\n          \"conditionOfProduct\": \"OK1\",\n          \"origin\": \"AF\",\n          \"expirationDate\": \"2025-03-25\",\n          \"lotId\": \"LId123456789\",\n          \"productValue\": {\n            \"valueOfProduct\": 999,\n            \"currency\": \"AED\"\n          },\n          \"additionalInformations\": {\n            \"numericFields\": [\n              {\n                \"sequence\": 1,\n                \"value\": 999999999.999999\n              }\n            ],\n            \"textFields\": [\n              {\n                \"sequence\": 1,\n                \"value\": \"Value1\"\n              }\n            ]\n          },\n          \"inboundNotes\": [\n            {\n              \"code\": \"#123456\",\n              \"text\": \"This is Test\"\n            }\n          ],\n          \"serialNumbers\": [\n            \"SN1234567890\",\n            \"SN1234567891\"\n          ]\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "cda46a46-bcb6-4b02-8caf-94e6c6c3c126",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "inboundNotification"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "DSV-Subscription-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "api-version",
+                    "key": "api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "OAuth header",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"inboundNotifications\": [\n    {\n      \"warehouseId\": \"wid1234567\",\n      \"inboundId\": \"iid123456\",\n      \"inboundType\": \"NORMAL\",\n      \"expectedArrivalDate\": \"2025-03-25T12:30:00.0000000+00:00\",\n      \"incoterms\": {\n        \"code\": \"EXW\",\n        \"location\": \"Denmark\"\n      },\n      \"transportDetails\": {\n        \"carrierName\": \"FedEx\",\n        \"carrierReference\": \"#123456\",\n        \"modeOfTransport\": \"Road\",\n        \"containerType\": \"20FT\",\n        \"containerNumber\": \"#123456\"\n      },\n      \"supplier\": {\n        \"reference\": \"ABC\",\n        \"address\": {\n          \"partyId\": \"PId123456\",\n          \"companyName\": \"DSV\",\n          \"addressLine1\": \"AddressLine1\",\n          \"addressLine2\": \"AddressLine2\",\n          \"city\": \"Copenhagen\",\n          \"state\": \"Capital Region of Denmark\",\n          \"zipCode\": \"1000\",\n          \"countryCode\": \"AF\",\n          \"vatNumber\": \"#123456\",\n          \"contactName\": \"Test\",\n          \"contactPhone\": \"+1123456789\",\n          \"contactEmail\": \"test@gmail.com\",\n          \"contactMobile\": \"+1123456789\"\n        }\n      },\n      \"additionalInformations\": {\n        \"numericFields\": [\n          {\n            \"sequence\": 1,\n            \"value\": 999999999.999999\n          }\n        ],\n        \"textFields\": [\n          {\n            \"sequence\": 1,\n            \"value\": \"Value1\"\n          }\n        ]\n      },\n      \"inboundNotes\": [\n        {\n          \"code\": \"#123456\",\n          \"text\": \"This is Test\"\n        }\n      ],\n      \"lineDetails\": [\n        {\n          \"lineId\": 1,\n          \"productId\": \"PId123456\",\n          \"quantity\": 1,\n          \"sscc\": \"123456789012345678\",\n          \"conditionOfProduct\": \"OK1\",\n          \"origin\": \"AF\",\n          \"expirationDate\": \"2025-03-25\",\n          \"lotId\": \"LId123456789\",\n          \"productValue\": {\n            \"valueOfProduct\": 999,\n            \"currency\": \"AED\"\n          },\n          \"additionalInformations\": {\n            \"numericFields\": [\n              {\n                \"sequence\": 1,\n                \"value\": 999999999.999999\n              }\n            ],\n            \"textFields\": [\n              {\n                \"sequence\": 1,\n                \"value\": \"Value1\"\n              }\n            ]\n          },\n          \"inboundNotes\": [\n            {\n              \"code\": \"#123456\",\n              \"text\": \"This is Test\"\n            }\n          ],\n          \"serialNumbers\": [\n            \"SN1234567890\",\n            \"SN1234567891\"\n          ]\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"ERR12345\",\n  \"message\": \"Not found id : 4025988810785188\",\n  \"fields\": [\n    {\n      \"name\": \"field_name\",\n      \"message\": \"validation error\",\n      \"code\": \"ERR12345\"\n    }\n  ],\n  \"development\": {\n    \"message\": \"string\",\n    \"exception\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "30224fb3-0395-4384-9890-b308ce00b5bd",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "inboundNotification"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "DSV-Subscription-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "api-version",
+                    "key": "api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "OAuth header",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"inboundNotifications\": [\n    {\n      \"warehouseId\": \"wid1234567\",\n      \"inboundId\": \"iid123456\",\n      \"inboundType\": \"NORMAL\",\n      \"expectedArrivalDate\": \"2025-03-25T12:30:00.0000000+00:00\",\n      \"incoterms\": {\n        \"code\": \"EXW\",\n        \"location\": \"Denmark\"\n      },\n      \"transportDetails\": {\n        \"carrierName\": \"FedEx\",\n        \"carrierReference\": \"#123456\",\n        \"modeOfTransport\": \"Road\",\n        \"containerType\": \"20FT\",\n        \"containerNumber\": \"#123456\"\n      },\n      \"supplier\": {\n        \"reference\": \"ABC\",\n        \"address\": {\n          \"partyId\": \"PId123456\",\n          \"companyName\": \"DSV\",\n          \"addressLine1\": \"AddressLine1\",\n          \"addressLine2\": \"AddressLine2\",\n          \"city\": \"Copenhagen\",\n          \"state\": \"Capital Region of Denmark\",\n          \"zipCode\": \"1000\",\n          \"countryCode\": \"AF\",\n          \"vatNumber\": \"#123456\",\n          \"contactName\": \"Test\",\n          \"contactPhone\": \"+1123456789\",\n          \"contactEmail\": \"test@gmail.com\",\n          \"contactMobile\": \"+1123456789\"\n        }\n      },\n      \"additionalInformations\": {\n        \"numericFields\": [\n          {\n            \"sequence\": 1,\n            \"value\": 999999999.999999\n          }\n        ],\n        \"textFields\": [\n          {\n            \"sequence\": 1,\n            \"value\": \"Value1\"\n          }\n        ]\n      },\n      \"inboundNotes\": [\n        {\n          \"code\": \"#123456\",\n          \"text\": \"This is Test\"\n        }\n      ],\n      \"lineDetails\": [\n        {\n          \"lineId\": 1,\n          \"productId\": \"PId123456\",\n          \"quantity\": 1,\n          \"sscc\": \"123456789012345678\",\n          \"conditionOfProduct\": \"OK1\",\n          \"origin\": \"AF\",\n          \"expirationDate\": \"2025-03-25\",\n          \"lotId\": \"LId123456789\",\n          \"productValue\": {\n            \"valueOfProduct\": 999,\n            \"currency\": \"AED\"\n          },\n          \"additionalInformations\": {\n            \"numericFields\": [\n              {\n                \"sequence\": 1,\n                \"value\": 999999999.999999\n              }\n            ],\n            \"textFields\": [\n              {\n                \"sequence\": 1,\n                \"value\": \"Value1\"\n              }\n            ]\n          },\n          \"inboundNotes\": [\n            {\n              \"code\": \"#123456\",\n              \"text\": \"This is Test\"\n            }\n          ],\n          \"serialNumbers\": [\n            \"SN1234567890\",\n            \"SN1234567891\"\n          ]\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"ERR12345\",\n  \"message\": \"Not found id : 4025988810785188\",\n  \"fields\": [\n    {\n      \"name\": \"field_name\",\n      \"message\": \"validation error\",\n      \"code\": \"ERR12345\"\n    }\n  ],\n  \"development\": {\n    \"message\": \"string\",\n    \"exception\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f6fa16a6-7997-458f-9f10-3c31a14f8781",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "inboundNotification"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "DSV-Subscription-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "api-version",
+                    "key": "api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "OAuth header",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"inboundNotifications\": [\n    {\n      \"warehouseId\": \"wid1234567\",\n      \"inboundId\": \"iid123456\",\n      \"inboundType\": \"NORMAL\",\n      \"expectedArrivalDate\": \"2025-03-25T12:30:00.0000000+00:00\",\n      \"incoterms\": {\n        \"code\": \"EXW\",\n        \"location\": \"Denmark\"\n      },\n      \"transportDetails\": {\n        \"carrierName\": \"FedEx\",\n        \"carrierReference\": \"#123456\",\n        \"modeOfTransport\": \"Road\",\n        \"containerType\": \"20FT\",\n        \"containerNumber\": \"#123456\"\n      },\n      \"supplier\": {\n        \"reference\": \"ABC\",\n        \"address\": {\n          \"partyId\": \"PId123456\",\n          \"companyName\": \"DSV\",\n          \"addressLine1\": \"AddressLine1\",\n          \"addressLine2\": \"AddressLine2\",\n          \"city\": \"Copenhagen\",\n          \"state\": \"Capital Region of Denmark\",\n          \"zipCode\": \"1000\",\n          \"countryCode\": \"AF\",\n          \"vatNumber\": \"#123456\",\n          \"contactName\": \"Test\",\n          \"contactPhone\": \"+1123456789\",\n          \"contactEmail\": \"test@gmail.com\",\n          \"contactMobile\": \"+1123456789\"\n        }\n      },\n      \"additionalInformations\": {\n        \"numericFields\": [\n          {\n            \"sequence\": 1,\n            \"value\": 999999999.999999\n          }\n        ],\n        \"textFields\": [\n          {\n            \"sequence\": 1,\n            \"value\": \"Value1\"\n          }\n        ]\n      },\n      \"inboundNotes\": [\n        {\n          \"code\": \"#123456\",\n          \"text\": \"This is Test\"\n        }\n      ],\n      \"lineDetails\": [\n        {\n          \"lineId\": 1,\n          \"productId\": \"PId123456\",\n          \"quantity\": 1,\n          \"sscc\": \"123456789012345678\",\n          \"conditionOfProduct\": \"OK1\",\n          \"origin\": \"AF\",\n          \"expirationDate\": \"2025-03-25\",\n          \"lotId\": \"LId123456789\",\n          \"productValue\": {\n            \"valueOfProduct\": 999,\n            \"currency\": \"AED\"\n          },\n          \"additionalInformations\": {\n            \"numericFields\": [\n              {\n                \"sequence\": 1,\n                \"value\": 999999999.999999\n              }\n            ],\n            \"textFields\": [\n              {\n                \"sequence\": 1,\n                \"value\": \"Value1\"\n              }\n            ]\n          },\n          \"inboundNotes\": [\n            {\n              \"code\": \"#123456\",\n              \"text\": \"This is Test\"\n            }\n          ],\n          \"serialNumbers\": [\n            \"SN1234567890\",\n            \"SN1234567891\"\n          ]\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"ERR12345\",\n  \"message\": \"Not found id : 4025988810785188\",\n  \"fields\": [\n    {\n      \"name\": \"field_name\",\n      \"message\": \"validation error\",\n      \"code\": \"ERR12345\"\n    }\n  ],\n  \"development\": {\n    \"message\": \"string\",\n    \"exception\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.dsv.com/cl-demo/inbound/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "DSV-Subscription-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "aa435f99-a369-403b-ba21-59c8626c7d1d",
+    "name": "WMS Inbound Notification (DEMO)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Contract Logistics API - WMS Inbound Notification",
+      "type": "text/plain"
+    }
+  }
+}

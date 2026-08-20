@@ -1,0 +1,774 @@
+{
+  "item": [
+    {
+      "id": "bc392d1e-2278-4da7-8e69-d29ebc601bfa",
+      "name": "Shipment list",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a653b555-7ca5-4c89-a27d-31e6072bcccb",
+          "name": "Shipment list",
+          "request": {
+            "name": "Shipment list",
+            "description": {
+              "content": "Retrieve a list of shipments for a specific period, transport mode or shipment status.<BR><BR>\nDEMO ACCOUNT<BR>\nAuthorization: client_id: api.demo@demo.dsv.com, client_secret: Demo12345</I> ",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "shipments",
+                "list"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "ListParams",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b5dcfb03-dcd1-42d3-9032-ef76d81c89b7",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipments",
+                    "list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "DSV-Subscription-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) DSV Oauth header",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "ListParams",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"mainTmsShipmentId\": \"string\",\n    \"shipmentId\": \"string\",\n    \"bookingId\": \"string\",\n    \"carrierTrackingId\": \"string\",\n    \"parties\": {\n      \"sender\": {\n        \"address\": {\n          \"companyName\": \"Test Company Name Inc.\",\n          \"addressId\": \"AddressID123\",\n          \"addressLine1\": \"Test Address Line 1\",\n          \"addressLine2\": \"Test Address Line 2\",\n          \"addressLine3\": \"string\",\n          \"city\": \"Test Address City\",\n          \"countryCode\": \"DK\",\n          \"state\": \"range[-infinity, 40]\",\n          \"zipCode\": \"1234\",\n          \"instructions\": \"Specific Address Party Instrution\",\n          \"mdm\": \"6412345678\"\n        },\n        \"contact\": {\n          \"name\": \"Test Name\",\n          \"email\": \"testemail@testcompany.com\",\n          \"telephone\": \"+4512345678\"\n        }\n      },\n      \"receiver\": {\n        \"address\": {\n          \"companyName\": \"Test Company Name Inc.\",\n          \"addressId\": \"AddressID123\",\n          \"addressLine1\": \"Test Address Line 1\",\n          \"addressLine2\": \"Test Address Line 2\",\n          \"addressLine3\": \"string\",\n          \"city\": \"Test Address City\",\n          \"countryCode\": \"DK\",\n          \"state\": \"range[-infinity, 40]\",\n          \"zipCode\": \"1234\",\n          \"instructions\": \"Specific Address Party Instrution\",\n          \"mdm\": \"6412345678\"\n        },\n        \"contact\": {\n          \"name\": \"Test Name\",\n          \"email\": \"testemail@testcompany.com\",\n          \"telephone\": \"+4512345678\"\n        }\n      },\n      \"delivery\": {\n        \"address\": {\n          \"companyName\": \"Test Company Name Inc.\",\n          \"addressId\": \"AddressID123\",\n          \"addressLine1\": \"Test Address Line 1\",\n          \"addressLine2\": \"Test Address Line 2\",\n          \"addressLine3\": \"string\",\n          \"city\": \"Test Address City\",\n          \"countryCode\": \"DK\",\n          \"state\": \"range[-infinity, 40]\",\n          \"zipCode\": \"1234\",\n          \"instructions\": \"Specific Address Party Instrution\",\n          \"mdm\": \"6412345678\"\n        },\n        \"contact\": {\n          \"name\": \"Test Name\",\n          \"email\": \"testemail@testcompany.com\",\n          \"telephone\": \"+4512345678\"\n        }\n      },\n      \"pickup\": {\n        \"address\": {\n          \"companyName\": \"Test Company Name Inc.\",\n          \"addressId\": \"AddressID123\",\n          \"addressLine1\": \"Test Address Line 1\",\n          \"addressLine2\": \"Test Address Line 2\",\n          \"addressLine3\": \"string\",\n          \"city\": \"Test Address City\",\n          \"countryCode\": \"DK\",\n          \"state\": \"range[-infinity, 40]\",\n          \"zipCode\": \"1234\",\n          \"instructions\": \"Specific Address Party Instrution\",\n          \"mdm\": \"6412345678\"\n        },\n        \"contact\": {\n          \"name\": \"Test Name\",\n          \"email\": \"testemail@testcompany.com\",\n          \"telephone\": \"+4512345678\"\n        }\n      }\n    },\n    \"fromDate\": \"string\",\n    \"toDate\": \"string\",\n    \"SubmodeOfTransport\": \"string\",\n    \"status\": \"Draft\",\n    \"references\": [\n      {\n        \"type\": \"string\",\n        \"value\": \"string\"\n      }\n    ],\n    \"bookedBy\": \"string\",\n    \"incoTerms\": \"string\",\n    \"incoTermsLocation\": \"string\",\n    \"goods\": {\n      \"totalColli\": 0,\n      \"totalWeight\": 0,\n      \"totalVolume\": 0,\n      \"totalLoadMeters\": 0\n    },\n    \"requestedPickup\": \"string\",\n    \"actualPickup\": \"string\",\n    \"requestedDelivery\": \"string\",\n    \"actualDelivery\": \"string\",\n    \"barcode\": \"string\",\n    \"barcodeLatestEvent\": \"string\",\n    \"fromDateType\": \"Booking\",\n    \"fromDateStart\": \"string\",\n    \"fromDateEnd\": \"string\",\n    \"toDateType\": \"Booking\",\n    \"toDateStart\": \"string\",\n    \"toDateEnd\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "0525ad34-02c2-4cc5-b421-3448911a5fa5",
+      "name": "Shipment details",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b2fcef29-e385-4a1f-9574-95c21ff9612b",
+          "name": "Shipment details by DSV Booking ID",
+          "request": {
+            "name": "Shipment details by DSV Booking ID",
+            "description": {
+              "content": "Retrieve detailed shipment data for a specific shipment by searching the DSV booking ID received from API booking or bookings submitted via myDSV.<BR>\n<BR>\nAuthorization: client_id: api.demo@demo.dsv.com, client_secret: Demo12345</I> <BR><BR>\nSample Booking IDs: 40257145990010760574, 40257145990010760581 ",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "shipments",
+                "bookingId",
+                ":bookingId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "bookingId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8ab04ba8-8a7e-4900-b20c-faaaace8a16e",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipments",
+                    "bookingId",
+                    ":bookingId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "bookingId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "DSV-Subscription-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) DSV Oauth header",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"bookingId\": \"string\",\n  \"shipmentId\": \"string\",\n  \"masterShipmentId\": \"string\",\n  \"childShipmentIds\": [\n    \"string\"\n  ],\n  \"status\": \"string\",\n  \"product\": {\n    \"name\": \"Sea\",\n    \"billOfLading\": \"Original\",\n    \"containerMode\": \"FCL\",\n    \"containers\": [\n      {\n        \"ref\": \"TestContainerNumber1\",\n        \"type\": \"20RE\",\n        \"genset\": true,\n        \"temp\": -20\n      }\n    ],\n    \"dropOff\": false,\n    \"subModeOfTransport\": \"FSA\"\n  },\n  \"parties\": {\n    \"sender\": {\n      \"address\": {\n        \"companyName\": \"Test Company Name Inc.\",\n        \"addressId\": \"AddressID123\",\n        \"addressLine1\": \"Test Address Line 1\",\n        \"addressLine2\": \"Test Address Line 2\",\n        \"addressLine3\": \"string\",\n        \"city\": \"Test Address City\",\n        \"countryCode\": \"DK\",\n        \"state\": \"range[-infinity, 40]\",\n        \"zipCode\": \"1234\",\n        \"instructions\": \"Specific Address Party Instrution\",\n        \"mdm\": \"6412345678\"\n      },\n      \"contact\": {\n        \"name\": \"Test Name\",\n        \"email\": \"testemail@testcompany.com\",\n        \"telephone\": \"+4512345678\"\n      }\n    },\n    \"receiver\": {\n      \"address\": {\n        \"companyName\": \"Test Company Name Inc.\",\n        \"addressId\": \"AddressID123\",\n        \"addressLine1\": \"Test Address Line 1\",\n        \"addressLine2\": \"Test Address Line 2\",\n        \"addressLine3\": \"string\",\n        \"city\": \"Test Address City\",\n        \"countryCode\": \"DK\",\n        \"state\": \"range[-infinity, 40]\",\n        \"zipCode\": \"1234\",\n        \"instructions\": \"Specific Address Party Instrution\",\n        \"mdm\": \"6412345678\"\n      },\n      \"contact\": {\n        \"name\": \"Test Name\",\n        \"email\": \"testemail@testcompany.com\",\n        \"telephone\": \"+4512345678\"\n      }\n    },\n    \"delivery\": {\n      \"address\": {\n        \"companyName\": \"Test Company Name Inc.\",\n        \"addressId\": \"AddressID123\",\n        \"addressLine1\": \"Test Address Line 1\",\n        \"addressLine2\": \"Test Address Line 2\",\n        \"addressLine3\": \"string\",\n        \"city\": \"Test Address City\",\n        \"countryCode\": \"DK\",\n        \"state\": \"range[-infinity, 40]\",\n        \"zipCode\": \"1234\",\n        \"instructions\": \"Specific Address Party Instrution\",\n        \"mdm\": \"6412345678\"\n      },\n      \"contact\": {\n        \"name\": \"Test Name\",\n        \"email\": \"testemail@testcompany.com\",\n        \"telephone\": \"+4512345678\"\n      }\n    },\n    \"pickup\": {\n      \"address\": {\n        \"companyName\": \"Test Company Name Inc.\",\n        \"addressId\": \"AddressID123\",\n        \"addressLine1\": \"Test Address Line 1\",\n        \"addressLine2\": \"Test Address Line 2\",\n        \"addressLine3\": \"string\",\n        \"city\": \"Test Address City\",\n        \"countryCode\": \"DK\",\n        \"state\": \"range[-infinity, 40]\",\n        \"zipCode\": \"1234\",\n        \"instructions\": \"Specific Address Party Instrution\",\n        \"mdm\": \"6412345678\"\n      },\n      \"contact\": {\n        \"name\": \"Test Name\",\n        \"email\": \"testemail@testcompany.com\",\n        \"telephone\": \"+4512345678\"\n      }\n    },\n    \"notify\": {\n      \"address\": {\n        \"companyName\": \"Test Company Name Inc.\",\n        \"addressId\": \"AddressID123\",\n        \"addressLine1\": \"Test Address Line 1\",\n        \"addressLine2\": \"Test Address Line 2\",\n        \"addressLine3\": \"string\",\n        \"city\": \"Test Address City\",\n        \"countryCode\": \"DK\",\n        \"state\": \"range[-infinity, 40]\",\n        \"zipCode\": \"1234\",\n        \"instructions\": \"Specific Address Party Instrution\",\n        \"mdm\": \"6412345678\"\n      },\n      \"contact\": {\n        \"name\": \"Test Name\",\n        \"email\": \"testemail@testcompany.com\",\n        \"telephone\": \"+4512345678\"\n      }\n    },\n    \"freightPayer\": {\n      \"address\": {\n        \"companyName\": \"Test Company Name Inc.\",\n        \"addressId\": \"AddressID123\",\n        \"addressLine1\": \"Test Address Line 1\",\n        \"addressLine2\": \"Test Address Line 2\",\n        \"addressLine3\": \"string\",\n        \"city\": \"Test Address City\",\n        \"countryCode\": \"DK\",\n        \"state\": \"range[-infinity, 40]\",\n        \"zipCode\": \"1234\",\n        \"instructions\": \"Specific Address Party Instrution\",\n        \"mdm\": \"6412345678\"\n      },\n      \"contact\": {\n        \"name\": \"Test Name\",\n        \"email\": \"testemail@testcompany.com\",\n        \"telephone\": \"+4512345678\"\n      }\n    },\n    \"bookingParty\": {\n      \"address\": {\n        \"companyName\": \"Test Company Name Inc.\",\n        \"addressId\": \"AddressID123\",\n        \"addressLine1\": \"Test Address Line 1\",\n        \"addressLine2\": \"Test Address Line 2\",\n        \"addressLine3\": \"string\",\n        \"city\": \"Test Address City\",\n        \"countryCode\": \"DK\",\n        \"state\": \"range[-infinity, 40]\",\n        \"zipCode\": \"1234\",\n        \"instructions\": \"Specific Address Party Instrution\",\n        \"mdm\": \"6412345678\"\n      },\n      \"contact\": {\n        \"name\": \"Test Name\",\n        \"email\": \"testemail@testcompany.com\",\n        \"telephone\": \"+4512345678\"\n      }\n    },\n    \"carrier\": {\n      \"address\": {\n        \"companyName\": \"Test Company Name Inc.\",\n        \"addressId\": \"AddressID123\",\n        \"addressLine1\": \"Test Address Line 1\",\n        \"addressLine2\": \"Test Address Line 2\",\n        \"addressLine3\": \"string\",\n        \"city\": \"Test Address City\",\n        \"countryCode\": \"DK\",\n        \"state\": \"range[-infinity, 40]\",\n        \"zipCode\": \"1234\",\n        \"instructions\": \"Specific Address Party Instrution\",\n        \"mdm\": \"6412345678\"\n      },\n      \"contact\": {\n        \"name\": \"Test Name\",\n        \"email\": \"testemail@testcompany.com\",\n        \"telephone\": \"+4512345678\"\n      }\n    },\n    \"party\": [\n      {\n        \"address\": {\n          \"companyName\": \"Test Company Name Inc.\",\n          \"addressId\": \"AddressID123\",\n          \"addressLine1\": \"Test Address Line 1\",\n          \"addressLine2\": \"Test Address Line 2\",\n          \"addressLine3\": \"string\",\n          \"city\": \"Test Address City\",\n          \"countryCode\": \"DK\",\n          \"state\": \"range[-infinity, 40]\",\n          \"zipCode\": \"1234\",\n          \"instructions\": \"Specific Address Party Instrution\",\n          \"mdm\": \"6412345678\"\n        },\n        \"contact\": {\n          \"name\": \"Test Name\",\n          \"email\": \"testemail@testcompany.com\",\n          \"telephone\": \"+4512345678\"\n        },\n        \"role\": \"string\"\n      }\n    ]\n  },\n  \"dateTime\": {\n    \"pickupTime\": {\n      \"date\": \"2020-08-30\",\n      \"start\": \"2023-08-07\",\n      \"end\": \"2023-08-07\"\n    },\n    \"deliveryTime\": {\n      \"date\": \"2020-08-30\",\n      \"start\": \"2023-08-07\",\n      \"end\": \"2023-08-07\"\n    }\n  },\n  \"references\": [\n    {\n      \"type\": \"string\",\n      \"value\": \"string\"\n    }\n  ],\n  \"bookedBy\": \"string\",\n  \"events\": [\n    {\n      \"eventDate\": \"string\",\n      \"eventGroup\": \"string\",\n      \"eventCode\": \"string\",\n      \"eventDescription\": \"string\",\n      \"eventType\": \"string\",\n      \"eventTypeValue\": \"string\",\n      \"location\": {\n        \"countryCode\": \"string\",\n        \"unlocode\": \"string\",\n        \"place\": \"string\"\n      },\n      \"transportMode\": \"string\",\n      \"vesselName\": \"string\",\n      \"voyageId\": \"string\"\n    }\n  ],\n  \"packages\": [\n    {\n      \"stackable\": {},\n      \"length\": 0,\n      \"lengthUOM\": \"string\",\n      \"loadingMeters\": 0,\n      \"palletSpace\": 0,\n      \"grossWeight\": 0,\n      \"netWeight\": 0,\n      \"quantity\": 0,\n      \"totalVolume\": 0,\n      \"volumeUOM\": \"string\",\n      \"totalWeight\": 0,\n      \"width\": 0,\n      \"widthUOM\": \"string\",\n      \"height\": 0,\n      \"heightUOM\": \"string\",\n      \"packageType\": \"BAG\",\n      \"temperatureMin\": 0,\n      \"temperatureMax\": 0,\n      \"description\": \"string\",\n      \"shippingMarks\": \"string\",\n      \"isDangerous\": true,\n      \"dangerous\": [\n        {\n          \"className\": \"string\",\n          \"subRisk\": \"string\",\n          \"flashPoint\": 0,\n          \"limitedQuantity\": true,\n          \"marinePollutant\": true,\n          \"packingGroup\": \"string\",\n          \"properShippingName\": \"string\",\n          \"technicalName\": \"string\",\n          \"technicalNameNational\": \"string\",\n          \"temperatureFrom\": 0,\n          \"temperatureTo\": 0,\n          \"type\": \"string\",\n          \"unCode\": 0,\n          \"tunnelCode\": \"string\",\n          \"packagesCount\": 0,\n          \"packingKind\": \"BAG\",\n          \"netQuantity\": 0,\n          \"netQuantityUnit\": \"KG\",\n          \"grossQuantity\": 0,\n          \"grossQuantityUnit\": \"KG\",\n          \"empty\": true\n        }\n      ],\n      \"containerNo\": \"MAEU7654213\",\n      \"trackingNumbers\": [\n        \"string\"\n      ],\n      \"cargoAircraftOnly\": true,\n      \"temperatureControlled\": true,\n      \"goodsType\": \"string\",\n      \"references\": [\n        {\n          \"reference\": \"string\",\n          \"qualifier\": \"string\"\n        }\n      ]\n    }\n  ],\n  \"transport\": {\n    \"houseBillNumber\": \"string\",\n    \"masterBillNumber\": \"string\",\n    \"awb\": \"string\",\n    \"originName\": \"string\",\n    \"originCode\": \"string\",\n    \"destinationName\": \"string\",\n    \"destinationCode\": \"string\"\n  },\n  \"containers\": [\n    {\n      \"containerNumber\": \"string\",\n      \"containerType\": \"string\",\n      \"sealNumber\": \"string\"\n    }\n  ],\n  \"deliveryInstructions\": \"string\",\n  \"pickupInstructions\": \"string\",\n  \"shipmentNotes\": \"string\",\n  \"incoterms\": {\n    \"code\": \"string\",\n    \"location\": \"string\"\n  },\n  \"serviceLevel\": {\n    \"code\": \"string\",\n    \"description\": \"string\"\n  },\n  \"goods\": {\n    \"grossWeightUom\": \"string\",\n    \"grossWeightValue\": 0,\n    \"loadingMetersUom\": \"string\",\n    \"loadingMetersValue\": 0,\n    \"quantityUom\": \"string\",\n    \"quantityValue\": 0,\n    \"volumeUom\": \"string\",\n    \"volumeValue\": 0,\n    \"description\": \"string\"\n  },\n  \"issues\": [\n    {\n      \"issueDate\": \"string\",\n      \"issuePointCode\": \"string\",\n      \"issuePointDescription\": \"string\",\n      \"issuePartyCode\": \"string\",\n      \"issuePartyDescription\": \"string\",\n      \"issueTypeCode\": \"string\",\n      \"issueTypeDescription\": \"string\",\n      \"issueReasonCode\": \"string\",\n      \"issueReasonDescription\": \"string\",\n      \"issueNotes\": \"string\",\n      \"issueResolved\": \"string\"\n    }\n  ],\n  \"publicShipmentId\": \"string\",\n  \"carrierTrackingId\": \"string\",\n  \"proofsOfDelivery\": [\n    {\n      \"documentId\": \"string\",\n      \"documentType\": \"string\",\n      \"typeDescription\": \"string\",\n      \"createDate\": \"string\",\n      \"fileName\": \"string\",\n      \"fileType\": \"string\",\n      \"downloadUrl\": \"string\"\n    }\n  ],\n  \"selectedServices\": [\n    {\n      \"name\": \"string\",\n      \"code\": \"string\",\n      \"details\": {}\n    }\n  ],\n  \"customs\": {\n    \"shippedOnboardDate\": \"string\",\n    \"customsStatus\": \"string\",\n    \"entryNumber\": [\n      \"string\"\n    ],\n    \"forwarder\": {\n      \"address\": {\n        \"companyName\": \"Test Company Name Inc.\",\n        \"addressId\": \"AddressID123\",\n        \"addressLine1\": \"Test Address Line 1\",\n        \"addressLine2\": \"Test Address Line 2\",\n        \"addressLine3\": \"string\",\n        \"city\": \"Test Address City\",\n        \"countryCode\": \"DK\",\n        \"state\": \"range[-infinity, 40]\",\n        \"zipCode\": \"1234\",\n        \"instructions\": \"Specific Address Party Instrution\",\n        \"mdm\": \"6412345678\"\n      },\n      \"contact\": {\n        \"name\": \"Test Name\",\n        \"email\": \"testemail@testcompany.com\",\n        \"telephone\": \"+4512345678\"\n      }\n    },\n    \"removalMode\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ff3755e4-3a49-4673-bf03-75612478dca4",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipments",
+                    "bookingId",
+                    ":bookingId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "bookingId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "DSV-Subscription-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) DSV Oauth header",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"ERR12345\",\n  \"message\": \"Not found booking: 40257145990010785188\",\n  \"fields\": [\n    {\n      \"name\": \"field_name\",\n      \"message\": \"validation error\",\n      \"code\": \"ERR12345\"\n    }\n  ],\n  \"development\": {\n    \"message\": \"string\",\n    \"exception\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "db15289d-640e-4c78-a604-fb27e9fd7023",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipments",
+                    "bookingId",
+                    ":bookingId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "bookingId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "DSV-Subscription-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) DSV Oauth header",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "body": "null",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d831d469-f49a-45bc-a7ae-2055521b78cb",
+          "name": "Shipment details by DSV Shipment ID",
+          "request": {
+            "name": "Shipment details by DSV Shipment ID",
+            "description": {
+              "content": "Retrieve detailed shipment data for a specific shipment by searching the DSV Shipment ID.<BR>\n<BR>\nDEMO ACCOUNT<BR>Authorization: client_id: api.demo@demo.dsv.com, client_secret: Demo12345</I> <BR><BR>\nSample TMS IDs: SDSV0069726, SDSV0069727, SDFW0090209 ",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "shipments",
+                "tmsId",
+                ":tmsId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "tmsId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9d0c8e6a-b723-486f-9376-f90a8639303f",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipments",
+                    "tmsId",
+                    ":tmsId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tmsId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "DSV-Subscription-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) DSV Oauth header",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"bookingId\": \"string\",\n  \"shipmentId\": \"string\",\n  \"masterShipmentId\": \"string\",\n  \"childShipmentIds\": [\n    \"string\"\n  ],\n  \"status\": \"string\",\n  \"product\": {\n    \"name\": \"Sea\",\n    \"billOfLading\": \"Original\",\n    \"containerMode\": \"FCL\",\n    \"containers\": [\n      {\n        \"ref\": \"TestContainerNumber1\",\n        \"type\": \"20RE\",\n        \"genset\": true,\n        \"temp\": -20\n      }\n    ],\n    \"dropOff\": false,\n    \"subModeOfTransport\": \"FSA\"\n  },\n  \"parties\": {\n    \"sender\": {\n      \"address\": {\n        \"companyName\": \"Test Company Name Inc.\",\n        \"addressId\": \"AddressID123\",\n        \"addressLine1\": \"Test Address Line 1\",\n        \"addressLine2\": \"Test Address Line 2\",\n        \"addressLine3\": \"string\",\n        \"city\": \"Test Address City\",\n        \"countryCode\": \"DK\",\n        \"state\": \"range[-infinity, 40]\",\n        \"zipCode\": \"1234\",\n        \"instructions\": \"Specific Address Party Instrution\",\n        \"mdm\": \"6412345678\"\n      },\n      \"contact\": {\n        \"name\": \"Test Name\",\n        \"email\": \"testemail@testcompany.com\",\n        \"telephone\": \"+4512345678\"\n      }\n    },\n    \"receiver\": {\n      \"address\": {\n        \"companyName\": \"Test Company Name Inc.\",\n        \"addressId\": \"AddressID123\",\n        \"addressLine1\": \"Test Address Line 1\",\n        \"addressLine2\": \"Test Address Line 2\",\n        \"addressLine3\": \"string\",\n        \"city\": \"Test Address City\",\n        \"countryCode\": \"DK\",\n        \"state\": \"range[-infinity, 40]\",\n        \"zipCode\": \"1234\",\n        \"instructions\": \"Specific Address Party Instrution\",\n        \"mdm\": \"6412345678\"\n      },\n      \"contact\": {\n        \"name\": \"Test Name\",\n        \"email\": \"testemail@testcompany.com\",\n        \"telephone\": \"+4512345678\"\n      }\n    },\n    \"delivery\": {\n      \"address\": {\n        \"companyName\": \"Test Company Name Inc.\",\n        \"addressId\": \"AddressID123\",\n        \"addressLine1\": \"Test Address Line 1\",\n        \"addressLine2\": \"Test Address Line 2\",\n        \"addressLine3\": \"string\",\n        \"city\": \"Test Address City\",\n        \"countryCode\": \"DK\",\n        \"state\": \"range[-infinity, 40]\",\n        \"zipCode\": \"1234\",\n        \"instructions\": \"Specific Address Party Instrution\",\n        \"mdm\": \"6412345678\"\n      },\n      \"contact\": {\n        \"name\": \"Test Name\",\n        \"email\": \"testemail@testcompany.com\",\n        \"telephone\": \"+4512345678\"\n      }\n    },\n    \"pickup\": {\n      \"address\": {\n        \"companyName\": \"Test Company Name Inc.\",\n        \"addressId\": \"AddressID123\",\n        \"addressLine1\": \"Test Address Line 1\",\n        \"addressLine2\": \"Test Address Line 2\",\n        \"addressLine3\": \"string\",\n        \"city\": \"Test Address City\",\n        \"countryCode\": \"DK\",\n        \"state\": \"range[-infinity, 40]\",\n        \"zipCode\": \"1234\",\n        \"instructions\": \"Specific Address Party Instrution\",\n        \"mdm\": \"6412345678\"\n      },\n      \"contact\": {\n        \"name\": \"Test Name\",\n        \"email\": \"testemail@testcompany.com\",\n        \"telephone\": \"+4512345678\"\n      }\n    },\n    \"notify\": {\n      \"address\": {\n        \"companyName\": \"Test Company Name Inc.\",\n        \"addressId\": \"AddressID123\",\n        \"addressLine1\": \"Test Address Line 1\",\n        \"addressLine2\": \"Test Address Line 2\",\n        \"addressLine3\": \"string\",\n        \"city\": \"Test Address City\",\n        \"countryCode\": \"DK\",\n        \"state\": \"range[-infinity, 40]\",\n        \"zipCode\": \"1234\",\n        \"instructions\": \"Specific Address Party Instrution\",\n        \"mdm\": \"6412345678\"\n      },\n      \"contact\": {\n        \"name\": \"Test Name\",\n        \"email\": \"testemail@testcompany.com\",\n        \"telephone\": \"+4512345678\"\n      }\n    },\n    \"freightPayer\": {\n      \"address\": {\n        \"companyName\": \"Test Company Name Inc.\",\n        \"addressId\": \"AddressID123\",\n        \"addressLine1\": \"Test Address Line 1\",\n        \"addressLine2\": \"Test Address Line 2\",\n        \"addressLine3\": \"string\",\n        \"city\": \"Test Address City\",\n        \"countryCode\": \"DK\",\n        \"state\": \"range[-infinity, 40]\",\n        \"zipCode\": \"1234\",\n        \"instructions\": \"Specific Address Party Instrution\",\n        \"mdm\": \"6412345678\"\n      },\n      \"contact\": {\n        \"name\": \"Test Name\",\n        \"email\": \"testemail@testcompany.com\",\n        \"telephone\": \"+4512345678\"\n      }\n    },\n    \"bookingParty\": {\n      \"address\": {\n        \"companyName\": \"Test Company Name Inc.\",\n        \"addressId\": \"AddressID123\",\n        \"addressLine1\": \"Test Address Line 1\",\n        \"addressLine2\": \"Test Address Line 2\",\n        \"addressLine3\": \"string\",\n        \"city\": \"Test Address City\",\n        \"countryCode\": \"DK\",\n        \"state\": \"range[-infinity, 40]\",\n        \"zipCode\": \"1234\",\n        \"instructions\": \"Specific Address Party Instrution\",\n        \"mdm\": \"6412345678\"\n      },\n      \"contact\": {\n        \"name\": \"Test Name\",\n        \"email\": \"testemail@testcompany.com\",\n        \"telephone\": \"+4512345678\"\n      }\n    },\n    \"carrier\": {\n      \"address\": {\n        \"companyName\": \"Test Company Name Inc.\",\n        \"addressId\": \"AddressID123\",\n        \"addressLine1\": \"Test Address Line 1\",\n        \"addressLine2\": \"Test Address Line 2\",\n        \"addressLine3\": \"string\",\n        \"city\": \"Test Address City\",\n        \"countryCode\": \"DK\",\n        \"state\": \"range[-infinity, 40]\",\n        \"zipCode\": \"1234\",\n        \"instructions\": \"Specific Address Party Instrution\",\n        \"mdm\": \"6412345678\"\n      },\n      \"contact\": {\n        \"name\": \"Test Name\",\n        \"email\": \"testemail@testcompany.com\",\n        \"telephone\": \"+4512345678\"\n      }\n    },\n    \"party\": [\n      {\n        \"address\": {\n          \"companyName\": \"Test Company Name Inc.\",\n          \"addressId\": \"AddressID123\",\n          \"addressLine1\": \"Test Address Line 1\",\n          \"addressLine2\": \"Test Address Line 2\",\n          \"addressLine3\": \"string\",\n          \"city\": \"Test Address City\",\n          \"countryCode\": \"DK\",\n          \"state\": \"range[-infinity, 40]\",\n          \"zipCode\": \"1234\",\n          \"instructions\": \"Specific Address Party Instrution\",\n          \"mdm\": \"6412345678\"\n        },\n        \"contact\": {\n          \"name\": \"Test Name\",\n          \"email\": \"testemail@testcompany.com\",\n          \"telephone\": \"+4512345678\"\n        },\n        \"role\": \"string\"\n      }\n    ]\n  },\n  \"dateTime\": {\n    \"pickupTime\": {\n      \"date\": \"2020-08-30\",\n      \"start\": \"2023-08-07\",\n      \"end\": \"2023-08-07\"\n    },\n    \"deliveryTime\": {\n      \"date\": \"2020-08-30\",\n      \"start\": \"2023-08-07\",\n      \"end\": \"2023-08-07\"\n    }\n  },\n  \"references\": [\n    {\n      \"type\": \"string\",\n      \"value\": \"string\"\n    }\n  ],\n  \"bookedBy\": \"string\",\n  \"events\": [\n    {\n      \"eventDate\": \"string\",\n      \"eventGroup\": \"string\",\n      \"eventCode\": \"string\",\n      \"eventDescription\": \"string\",\n      \"eventType\": \"string\",\n      \"eventTypeValue\": \"string\",\n      \"location\": {\n        \"countryCode\": \"string\",\n        \"unlocode\": \"string\",\n        \"place\": \"string\"\n      },\n      \"transportMode\": \"string\",\n      \"vesselName\": \"string\",\n      \"voyageId\": \"string\"\n    }\n  ],\n  \"packages\": [\n    {\n      \"stackable\": {},\n      \"length\": 0,\n      \"lengthUOM\": \"string\",\n      \"loadingMeters\": 0,\n      \"palletSpace\": 0,\n      \"grossWeight\": 0,\n      \"netWeight\": 0,\n      \"quantity\": 0,\n      \"totalVolume\": 0,\n      \"volumeUOM\": \"string\",\n      \"totalWeight\": 0,\n      \"width\": 0,\n      \"widthUOM\": \"string\",\n      \"height\": 0,\n      \"heightUOM\": \"string\",\n      \"packageType\": \"BAG\",\n      \"temperatureMin\": 0,\n      \"temperatureMax\": 0,\n      \"description\": \"string\",\n      \"shippingMarks\": \"string\",\n      \"isDangerous\": true,\n      \"dangerous\": [\n        {\n          \"className\": \"string\",\n          \"subRisk\": \"string\",\n          \"flashPoint\": 0,\n          \"limitedQuantity\": true,\n          \"marinePollutant\": true,\n          \"packingGroup\": \"string\",\n          \"properShippingName\": \"string\",\n          \"technicalName\": \"string\",\n          \"technicalNameNational\": \"string\",\n          \"temperatureFrom\": 0,\n          \"temperatureTo\": 0,\n          \"type\": \"string\",\n          \"unCode\": 0,\n          \"tunnelCode\": \"string\",\n          \"packagesCount\": 0,\n          \"packingKind\": \"BAG\",\n          \"netQuantity\": 0,\n          \"netQuantityUnit\": \"KG\",\n          \"grossQuantity\": 0,\n          \"grossQuantityUnit\": \"KG\",\n          \"empty\": true\n        }\n      ],\n      \"containerNo\": \"MAEU7654213\",\n      \"trackingNumbers\": [\n        \"string\"\n      ],\n      \"cargoAircraftOnly\": true,\n      \"temperatureControlled\": true,\n      \"goodsType\": \"string\",\n      \"references\": [\n        {\n          \"reference\": \"string\",\n          \"qualifier\": \"string\"\n        }\n      ]\n    }\n  ],\n  \"transport\": {\n    \"houseBillNumber\": \"string\",\n    \"masterBillNumber\": \"string\",\n    \"awb\": \"string\",\n    \"originName\": \"string\",\n    \"originCode\": \"string\",\n    \"destinationName\": \"string\",\n    \"destinationCode\": \"string\"\n  },\n  \"containers\": [\n    {\n      \"containerNumber\": \"string\",\n      \"containerType\": \"string\",\n      \"sealNumber\": \"string\"\n    }\n  ],\n  \"deliveryInstructions\": \"string\",\n  \"pickupInstructions\": \"string\",\n  \"shipmentNotes\": \"string\",\n  \"incoterms\": {\n    \"code\": \"string\",\n    \"location\": \"string\"\n  },\n  \"serviceLevel\": {\n    \"code\": \"string\",\n    \"description\": \"string\"\n  },\n  \"goods\": {\n    \"grossWeightUom\": \"string\",\n    \"grossWeightValue\": 0,\n    \"loadingMetersUom\": \"string\",\n    \"loadingMetersValue\": 0,\n    \"quantityUom\": \"string\",\n    \"quantityValue\": 0,\n    \"volumeUom\": \"string\",\n    \"volumeValue\": 0,\n    \"description\": \"string\"\n  },\n  \"issues\": [\n    {\n      \"issueDate\": \"string\",\n      \"issuePointCode\": \"string\",\n      \"issuePointDescription\": \"string\",\n      \"issuePartyCode\": \"string\",\n      \"issuePartyDescription\": \"string\",\n      \"issueTypeCode\": \"string\",\n      \"issueTypeDescription\": \"string\",\n      \"issueReasonCode\": \"string\",\n      \"issueReasonDescription\": \"string\",\n      \"issueNotes\": \"string\",\n      \"issueResolved\": \"string\"\n    }\n  ],\n  \"publicShipmentId\": \"string\",\n  \"carrierTrackingId\": \"string\",\n  \"proofsOfDelivery\": [\n    {\n      \"documentId\": \"string\",\n      \"documentType\": \"string\",\n      \"typeDescription\": \"string\",\n      \"createDate\": \"string\",\n      \"fileName\": \"string\",\n      \"fileType\": \"string\",\n      \"downloadUrl\": \"string\"\n    }\n  ],\n  \"selectedServices\": [\n    {\n      \"name\": \"string\",\n      \"code\": \"string\",\n      \"details\": {}\n    }\n  ],\n  \"customs\": {\n    \"shippedOnboardDate\": \"string\",\n    \"customsStatus\": \"string\",\n    \"entryNumber\": [\n      \"string\"\n    ],\n    \"forwarder\": {\n      \"address\": {\n        \"companyName\": \"Test Company Name Inc.\",\n        \"addressId\": \"AddressID123\",\n        \"addressLine1\": \"Test Address Line 1\",\n        \"addressLine2\": \"Test Address Line 2\",\n        \"addressLine3\": \"string\",\n        \"city\": \"Test Address City\",\n        \"countryCode\": \"DK\",\n        \"state\": \"range[-infinity, 40]\",\n        \"zipCode\": \"1234\",\n        \"instructions\": \"Specific Address Party Instrution\",\n        \"mdm\": \"6412345678\"\n      },\n      \"contact\": {\n        \"name\": \"Test Name\",\n        \"email\": \"testemail@testcompany.com\",\n        \"telephone\": \"+4512345678\"\n      }\n    },\n    \"removalMode\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4b52e309-5456-44ca-a869-6d9e8cca7bad",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipments",
+                    "tmsId",
+                    ":tmsId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tmsId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "DSV-Subscription-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) DSV Oauth header",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"ERR12345\",\n  \"message\": \"Not found booking: 40257145990010785188\",\n  \"fields\": [\n    {\n      \"name\": \"field_name\",\n      \"message\": \"validation error\",\n      \"code\": \"ERR12345\"\n    }\n  ],\n  \"development\": {\n    \"message\": \"string\",\n    \"exception\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "88d2e95e-f1df-4e64-8b6f-0d26a7b2823f",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipments",
+                    "tmsId",
+                    ":tmsId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tmsId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "DSV-Subscription-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) DSV Oauth header",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "body": "null",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f0c59c3c-bf47-4a0a-810a-e28347a5259e",
+          "name": "Shipment details by Customer reference",
+          "request": {
+            "name": "Shipment details by Customer reference",
+            "description": {
+              "content": "Retrieve detailed shipment data for a specific shipment by searching a Customer reference.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "shipments",
+                "reference",
+                ":*reference"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "*reference",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "63b5a5f1-5308-44b0-afc3-11c6e7234ee0",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipments",
+                    "reference",
+                    ":*reference"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "*reference",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "DSV-Subscription-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) DSV Oauth header",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"bookingId\": \"string\",\n  \"shipmentId\": \"string\",\n  \"masterShipmentId\": \"string\",\n  \"childShipmentIds\": [\n    \"string\"\n  ],\n  \"status\": \"string\",\n  \"product\": {\n    \"name\": \"Sea\",\n    \"billOfLading\": \"Original\",\n    \"containerMode\": \"FCL\",\n    \"containers\": [\n      {\n        \"ref\": \"TestContainerNumber1\",\n        \"type\": \"20RE\",\n        \"genset\": true,\n        \"temp\": -20\n      }\n    ],\n    \"dropOff\": false,\n    \"subModeOfTransport\": \"FSA\"\n  },\n  \"parties\": {\n    \"sender\": {\n      \"address\": {\n        \"companyName\": \"Test Company Name Inc.\",\n        \"addressId\": \"AddressID123\",\n        \"addressLine1\": \"Test Address Line 1\",\n        \"addressLine2\": \"Test Address Line 2\",\n        \"addressLine3\": \"string\",\n        \"city\": \"Test Address City\",\n        \"countryCode\": \"DK\",\n        \"state\": \"range[-infinity, 40]\",\n        \"zipCode\": \"1234\",\n        \"instructions\": \"Specific Address Party Instrution\",\n        \"mdm\": \"6412345678\"\n      },\n      \"contact\": {\n        \"name\": \"Test Name\",\n        \"email\": \"testemail@testcompany.com\",\n        \"telephone\": \"+4512345678\"\n      }\n    },\n    \"receiver\": {\n      \"address\": {\n        \"companyName\": \"Test Company Name Inc.\",\n        \"addressId\": \"AddressID123\",\n        \"addressLine1\": \"Test Address Line 1\",\n        \"addressLine2\": \"Test Address Line 2\",\n        \"addressLine3\": \"string\",\n        \"city\": \"Test Address City\",\n        \"countryCode\": \"DK\",\n        \"state\": \"range[-infinity, 40]\",\n        \"zipCode\": \"1234\",\n        \"instructions\": \"Specific Address Party Instrution\",\n        \"mdm\": \"6412345678\"\n      },\n      \"contact\": {\n        \"name\": \"Test Name\",\n        \"email\": \"testemail@testcompany.com\",\n        \"telephone\": \"+4512345678\"\n      }\n    },\n    \"delivery\": {\n      \"address\": {\n        \"companyName\": \"Test Company Name Inc.\",\n        \"addressId\": \"AddressID123\",\n        \"addressLine1\": \"Test Address Line 1\",\n        \"addressLine2\": \"Test Address Line 2\",\n        \"addressLine3\": \"string\",\n        \"city\": \"Test Address City\",\n        \"countryCode\": \"DK\",\n        \"state\": \"range[-infinity, 40]\",\n        \"zipCode\": \"1234\",\n        \"instructions\": \"Specific Address Party Instrution\",\n        \"mdm\": \"6412345678\"\n      },\n      \"contact\": {\n        \"name\": \"Test Name\",\n        \"email\": \"testemail@testcompany.com\",\n        \"telephone\": \"+4512345678\"\n      }\n    },\n    \"pickup\": {\n      \"address\": {\n        \"companyName\": \"Test Company Name Inc.\",\n        \"addressId\": \"AddressID123\",\n        \"addressLine1\": \"Test Address Line 1\",\n        \"addressLine2\": \"Test Address Line 2\",\n        \"addressLine3\": \"string\",\n        \"city\": \"Test Address City\",\n        \"countryCode\": \"DK\",\n        \"state\": \"range[-infinity, 40]\",\n        \"zipCode\": \"1234\",\n        \"instructions\": \"Specific Address Party Instrution\",\n        \"mdm\": \"6412345678\"\n      },\n      \"contact\": {\n        \"name\": \"Test Name\",\n        \"email\": \"testemail@testcompany.com\",\n        \"telephone\": \"+4512345678\"\n      }\n    },\n    \"notify\": {\n      \"address\": {\n        \"companyName\": \"Test Company Name Inc.\",\n        \"addressId\": \"AddressID123\",\n        \"addressLine1\": \"Test Address Line 1\",\n        \"addressLine2\": \"Test Address Line 2\",\n        \"addressLine3\": \"string\",\n        \"city\": \"Test Address City\",\n        \"countryCode\": \"DK\",\n        \"state\": \"range[-infinity, 40]\",\n        \"zipCode\": \"1234\",\n        \"instructions\": \"Specific Address Party Instrution\",\n        \"mdm\": \"6412345678\"\n      },\n      \"contact\": {\n        \"name\": \"Test Name\",\n        \"email\": \"testemail@testcompany.com\",\n        \"telephone\": \"+4512345678\"\n      }\n    },\n    \"freightPayer\": {\n      \"address\": {\n        \"companyName\": \"Test Company Name Inc.\",\n        \"addressId\": \"AddressID123\",\n        \"addressLine1\": \"Test Address Line 1\",\n        \"addressLine2\": \"Test Address Line 2\",\n        \"addressLine3\": \"string\",\n        \"city\": \"Test Address City\",\n        \"countryCode\": \"DK\",\n        \"state\": \"range[-infinity, 40]\",\n        \"zipCode\": \"1234\",\n        \"instructions\": \"Specific Address Party Instrution\",\n        \"mdm\": \"6412345678\"\n      },\n      \"contact\": {\n        \"name\": \"Test Name\",\n        \"email\": \"testemail@testcompany.com\",\n        \"telephone\": \"+4512345678\"\n      }\n    },\n    \"bookingParty\": {\n      \"address\": {\n        \"companyName\": \"Test Company Name Inc.\",\n        \"addressId\": \"AddressID123\",\n        \"addressLine1\": \"Test Address Line 1\",\n        \"addressLine2\": \"Test Address Line 2\",\n        \"addressLine3\": \"string\",\n        \"city\": \"Test Address City\",\n        \"countryCode\": \"DK\",\n        \"state\": \"range[-infinity, 40]\",\n        \"zipCode\": \"1234\",\n        \"instructions\": \"Specific Address Party Instrution\",\n        \"mdm\": \"6412345678\"\n      },\n      \"contact\": {\n        \"name\": \"Test Name\",\n        \"email\": \"testemail@testcompany.com\",\n        \"telephone\": \"+4512345678\"\n      }\n    },\n    \"carrier\": {\n      \"address\": {\n        \"companyName\": \"Test Company Name Inc.\",\n        \"addressId\": \"AddressID123\",\n        \"addressLine1\": \"Test Address Line 1\",\n        \"addressLine2\": \"Test Address Line 2\",\n        \"addressLine3\": \"string\",\n        \"city\": \"Test Address City\",\n        \"countryCode\": \"DK\",\n        \"state\": \"range[-infinity, 40]\",\n        \"zipCode\": \"1234\",\n        \"instructions\": \"Specific Address Party Instrution\",\n        \"mdm\": \"6412345678\"\n      },\n      \"contact\": {\n        \"name\": \"Test Name\",\n        \"email\": \"testemail@testcompany.com\",\n        \"telephone\": \"+4512345678\"\n      }\n    },\n    \"party\": [\n      {\n        \"address\": {\n          \"companyName\": \"Test Company Name Inc.\",\n          \"addressId\": \"AddressID123\",\n          \"addressLine1\": \"Test Address Line 1\",\n          \"addressLine2\": \"Test Address Line 2\",\n          \"addressLine3\": \"string\",\n          \"city\": \"Test Address City\",\n          \"countryCode\": \"DK\",\n          \"state\": \"range[-infinity, 40]\",\n          \"zipCode\": \"1234\",\n          \"instructions\": \"Specific Address Party Instrution\",\n          \"mdm\": \"6412345678\"\n        },\n        \"contact\": {\n          \"name\": \"Test Name\",\n          \"email\": \"testemail@testcompany.com\",\n          \"telephone\": \"+4512345678\"\n        },\n        \"role\": \"string\"\n      }\n    ]\n  },\n  \"dateTime\": {\n    \"pickupTime\": {\n      \"date\": \"2020-08-30\",\n      \"start\": \"2023-08-07\",\n      \"end\": \"2023-08-07\"\n    },\n    \"deliveryTime\": {\n      \"date\": \"2020-08-30\",\n      \"start\": \"2023-08-07\",\n      \"end\": \"2023-08-07\"\n    }\n  },\n  \"references\": [\n    {\n      \"type\": \"string\",\n      \"value\": \"string\"\n    }\n  ],\n  \"bookedBy\": \"string\",\n  \"events\": [\n    {\n      \"eventDate\": \"string\",\n      \"eventGroup\": \"string\",\n      \"eventCode\": \"string\",\n      \"eventDescription\": \"string\",\n      \"eventType\": \"string\",\n      \"eventTypeValue\": \"string\",\n      \"location\": {\n        \"countryCode\": \"string\",\n        \"unlocode\": \"string\",\n        \"place\": \"string\"\n      },\n      \"transportMode\": \"string\",\n      \"vesselName\": \"string\",\n      \"voyageId\": \"string\"\n    }\n  ],\n  \"packages\": [\n    {\n      \"stackable\": {},\n      \"length\": 0,\n      \"lengthUOM\": \"string\",\n      \"loadingMeters\": 0,\n      \"palletSpace\": 0,\n      \"grossWeight\": 0,\n      \"netWeight\": 0,\n      \"quantity\": 0,\n      \"totalVolume\": 0,\n      \"volumeUOM\": \"string\",\n      \"totalWeight\": 0,\n      \"width\": 0,\n      \"widthUOM\": \"string\",\n      \"height\": 0,\n      \"heightUOM\": \"string\",\n      \"packageType\": \"BAG\",\n      \"temperatureMin\": 0,\n      \"temperatureMax\": 0,\n      \"description\": \"string\",\n      \"shippingMarks\": \"string\",\n      \"isDangerous\": true,\n      \"dangerous\": [\n        {\n          \"className\": \"string\",\n          \"subRisk\": \"string\",\n          \"flashPoint\": 0,\n          \"limitedQuantity\": true,\n          \"marinePollutant\": true,\n          \"packingGroup\": \"string\",\n          \"properShippingName\": \"string\",\n          \"technicalName\": \"string\",\n          \"technicalNameNational\": \"string\",\n          \"temperatureFrom\": 0,\n          \"temperatureTo\": 0,\n          \"type\": \"string\",\n          \"unCode\": 0,\n          \"tunnelCode\": \"string\",\n          \"packagesCount\": 0,\n          \"packingKind\": \"BAG\",\n          \"netQuantity\": 0,\n          \"netQuantityUnit\": \"KG\",\n          \"grossQuantity\": 0,\n          \"grossQuantityUnit\": \"KG\",\n          \"empty\": true\n        }\n      ],\n      \"containerNo\": \"MAEU7654213\",\n      \"trackingNumbers\": [\n        \"string\"\n      ],\n      \"cargoAircraftOnly\": true,\n      \"temperatureControlled\": true,\n      \"goodsType\": \"string\",\n      \"references\": [\n        {\n          \"reference\": \"string\",\n          \"qualifier\": \"string\"\n        }\n      ]\n    }\n  ],\n  \"transport\": {\n    \"houseBillNumber\": \"string\",\n    \"masterBillNumber\": \"string\",\n    \"awb\": \"string\",\n    \"originName\": \"string\",\n    \"originCode\": \"string\",\n    \"destinationName\": \"string\",\n    \"destinationCode\": \"string\"\n  },\n  \"containers\": [\n    {\n      \"containerNumber\": \"string\",\n      \"containerType\": \"string\",\n      \"sealNumber\": \"string\"\n    }\n  ],\n  \"deliveryInstructions\": \"string\",\n  \"pickupInstructions\": \"string\",\n  \"shipmentNotes\": \"string\",\n  \"incoterms\": {\n    \"code\": \"string\",\n    \"location\": \"string\"\n  },\n  \"serviceLevel\": {\n    \"code\": \"string\",\n    \"description\": \"string\"\n  },\n  \"goods\": {\n    \"grossWeightUom\": \"string\",\n    \"grossWeightValue\": 0,\n    \"loadingMetersUom\": \"string\",\n    \"loadingMetersValue\": 0,\n    \"quantityUom\": \"string\",\n    \"quantityValue\": 0,\n    \"volumeUom\": \"string\",\n    \"volumeValue\": 0,\n    \"description\": \"string\"\n  },\n  \"issues\": [\n    {\n      \"issueDate\": \"string\",\n      \"issuePointCode\": \"string\",\n      \"issuePointDescription\": \"string\",\n      \"issuePartyCode\": \"string\",\n      \"issuePartyDescription\": \"string\",\n      \"issueTypeCode\": \"string\",\n      \"issueTypeDescription\": \"string\",\n      \"issueReasonCode\": \"string\",\n      \"issueReasonDescription\": \"string\",\n      \"issueNotes\": \"string\",\n      \"issueResolved\": \"string\"\n    }\n  ],\n  \"publicShipmentId\": \"string\",\n  \"carrierTrackingId\": \"string\",\n  \"proofsOfDelivery\": [\n    {\n      \"documentId\": \"string\",\n      \"documentType\": \"string\",\n      \"typeDescription\": \"string\",\n      \"createDate\": \"string\",\n      \"fileName\": \"string\",\n      \"fileType\": \"string\",\n      \"downloadUrl\": \"string\"\n    }\n  ],\n  \"selectedServices\": [\n    {\n      \"name\": \"string\",\n      \"code\": \"string\",\n      \"details\": {}\n    }\n  ],\n  \"customs\": {\n    \"shippedOnboardDate\": \"string\",\n    \"customsStatus\": \"string\",\n    \"entryNumber\": [\n      \"string\"\n    ],\n    \"forwarder\": {\n      \"address\": {\n        \"companyName\": \"Test Company Name Inc.\",\n        \"addressId\": \"AddressID123\",\n        \"addressLine1\": \"Test Address Line 1\",\n        \"addressLine2\": \"Test Address Line 2\",\n        \"addressLine3\": \"string\",\n        \"city\": \"Test Address City\",\n        \"countryCode\": \"DK\",\n        \"state\": \"range[-infinity, 40]\",\n        \"zipCode\": \"1234\",\n        \"instructions\": \"Specific Address Party Instrution\",\n        \"mdm\": \"6412345678\"\n      },\n      \"contact\": {\n        \"name\": \"Test Name\",\n        \"email\": \"testemail@testcompany.com\",\n        \"telephone\": \"+4512345678\"\n      }\n    },\n    \"removalMode\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "60c3c5d4-f499-4de8-8c43-9a1b35dcd590",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipments",
+                    "reference",
+                    ":*reference"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "*reference",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "DSV-Subscription-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) DSV Oauth header",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"ERR12345\",\n  \"message\": \"Not found booking: 40257145990010785188\",\n  \"fields\": [\n    {\n      \"name\": \"field_name\",\n      \"message\": \"validation error\",\n      \"code\": \"ERR12345\"\n    }\n  ],\n  \"development\": {\n    \"message\": \"string\",\n    \"exception\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.dsv.com/my-demo/tracking/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "DSV-Subscription-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "3a9c16c8-6834-443e-bcc3-d0977902aaf9",
+    "name": "TRACKING (DEMO)- Air, Sea, Road (EU), Rail",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Submit trackings to DSV via the tracking API. Supported transport modes: Air, Sea, Road (EU) and Rail.",
+      "type": "text/plain"
+    }
+  }
+}

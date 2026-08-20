@@ -1,0 +1,3725 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "QUOTE API DEMO",
+    "description": "Submit a quote request",
+    "version": "v1"
+  },
+  "servers": [
+    {
+      "url": "https://api.dsv.com/qs-demo/quote/v1"
+    }
+  ],
+  "paths": {
+    "/quotes": {
+      "post": {
+        "tags": [
+          "Public"
+        ],
+        "summary": "Submit quote request",
+        "description": "Send a quote request to DSV to receive offers for Air, Sea, and Road freight",
+        "operationId": "Create",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "OAuth 2.0 Bearer token. Format: Bearer <access_token>.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "DSV-Subscription-Key",
+            "in": "header",
+            "description": "Subscription key required to access the API. Provided by DSV",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/QuoteRequest"
+              },
+              "example": {
+                "requestedBy": {
+                  "userId": "string",
+                  "firstName": "string",
+                  "lastName": "string",
+                  "email": "string",
+                  "language": "string",
+                  "phone": "string"
+                },
+                "bookingParty": {
+                  "mdm": "string",
+                  "mainMdm": "string",
+                  "name": "string",
+                  "address1": "string",
+                  "address2": "string",
+                  "address3": "string",
+                  "country": "string",
+                  "state": "string",
+                  "zipCode": "string",
+                  "city": "string"
+                },
+                "from": {
+                  "mdm": "string",
+                  "mainMdm": "string",
+                  "name": "string",
+                  "address1": "string",
+                  "address2": "string",
+                  "address3": "string",
+                  "country": "string",
+                  "state": "string",
+                  "zipCode": "string",
+                  "city": "string"
+                },
+                "to": {
+                  "mdm": "string",
+                  "mainMdm": "string",
+                  "name": "string",
+                  "address1": "string",
+                  "address2": "string",
+                  "address3": "string",
+                  "country": "string",
+                  "state": "string",
+                  "zipCode": "string",
+                  "city": "string"
+                },
+                "cargoType": "LCL",
+                "pickupType": "DSV",
+                "pickupDate": "string",
+                "deliveryType": "DDS",
+                "deliveryDate": "string",
+                "references": [
+                  {
+                    "name": "string",
+                    "type": "Shipper reference",
+                    "value": "TestReference1"
+                  }
+                ],
+                "insurance": {
+                  "insuranceType": "DSVProtect",
+                  "goodsType": "STD",
+                  "goodsValue": {
+                    "value": 100,
+                    "currency": "EUR"
+                  }
+                },
+                "packages": [
+                  {
+                    "id": "string",
+                    "goodsDescription": "string",
+                    "packageType": "BAG",
+                    "quantity": 0,
+                    "totalWeight": 0,
+                    "length": 0,
+                    "width": 0,
+                    "height": 0,
+                    "totalVolume": 0,
+                    "stackable": "NotStackable",
+                    "palletSpace": 0,
+                    "loadMeters": 0,
+                    "temperatureControlled": {
+                      "minTemperature": 0,
+                      "maxTemperature": 0
+                    },
+                    "dangerousGoods": [
+                      {
+                        "unCode": "string",
+                        "grossWeight": 0,
+                        "subRisk": "string",
+                        "packingGroup": "string",
+                        "properShippingName": "string",
+                        "cargoAircraftOnly": true
+                      }
+                    ],
+                    "shippingMark": "string"
+                  }
+                ],
+                "containers": [
+                  {
+                    "type": "40HC",
+                    "totalWeight": 0,
+                    "description": "string",
+                    "dangerousGoods": [
+                      {
+                        "unCode": "string",
+                        "grossWeight": 0,
+                        "subRisk": "string",
+                        "packingGroup": "string",
+                        "properShippingName": "string",
+                        "cargoAircraftOnly": true
+                      }
+                    ],
+                    "temperatureControlledGoods": {
+                      "minTemperature": 0,
+                      "maxTemperature": 0
+                    },
+                    "temperatureControlledContainer": {
+                      "genSet": true,
+                      "temperature": 0
+                    }
+                  }
+                ],
+                "totalWeight": 0,
+                "air": {
+                  "originAirport": "string",
+                  "destinationAirport": "string",
+                  "batteries": "None - No battery",
+                  "incoterms": {
+                    "code": "EXW",
+                    "location": "string"
+                  },
+                  "serviceLevel": "string",
+                  "notes": "string"
+                },
+                "sea": {
+                  "originPort": "string",
+                  "destinationPort": "string",
+                  "incoterms": {
+                    "code": "EXW",
+                    "location": "string"
+                  },
+                  "serviceLevel": "string",
+                  "notes": "string"
+                },
+                "road": {
+                  "incoterms": {
+                    "code": "EXW",
+                    "location": "string"
+                  },
+                  "serviceAndSurchargeCodes": [
+                    "string"
+                  ],
+                  "serviceLevel": "string",
+                  "notes": "string"
+                },
+                "unitsOfMeasurement": {
+                  "dimension": "CM",
+                  "weight": "KG",
+                  "volume": "M3",
+                  "temperature": "C"
+                },
+                "source": "myDSV",
+                "files": [
+                  {
+                    "type": "INV",
+                    "fileName": "string",
+                    "file": "string"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/QuoteRequest"
+              },
+              "example": {
+                "requestedBy": {
+                  "userId": "string",
+                  "firstName": "string",
+                  "lastName": "string",
+                  "email": "string",
+                  "language": "string",
+                  "phone": "string"
+                },
+                "bookingParty": {
+                  "mdm": "string",
+                  "mainMdm": "string",
+                  "name": "string",
+                  "address1": "string",
+                  "address2": "string",
+                  "address3": "string",
+                  "country": "string",
+                  "state": "string",
+                  "zipCode": "string",
+                  "city": "string"
+                },
+                "from": {
+                  "mdm": "string",
+                  "mainMdm": "string",
+                  "name": "string",
+                  "address1": "string",
+                  "address2": "string",
+                  "address3": "string",
+                  "country": "string",
+                  "state": "string",
+                  "zipCode": "string",
+                  "city": "string"
+                },
+                "to": {
+                  "mdm": "string",
+                  "mainMdm": "string",
+                  "name": "string",
+                  "address1": "string",
+                  "address2": "string",
+                  "address3": "string",
+                  "country": "string",
+                  "state": "string",
+                  "zipCode": "string",
+                  "city": "string"
+                },
+                "cargoType": "LCL",
+                "pickupType": "DSV",
+                "pickupDate": "string",
+                "deliveryType": "DDS",
+                "deliveryDate": "string",
+                "references": [
+                  {
+                    "name": "string",
+                    "type": "Shipper reference",
+                    "value": "TestReference1"
+                  }
+                ],
+                "insurance": {
+                  "insuranceType": "DSVProtect",
+                  "goodsType": "STD",
+                  "goodsValue": {
+                    "value": 100,
+                    "currency": "EUR"
+                  }
+                },
+                "packages": [
+                  {
+                    "id": "string",
+                    "goodsDescription": "string",
+                    "packageType": "BAG",
+                    "quantity": 0,
+                    "totalWeight": 0,
+                    "length": 0,
+                    "width": 0,
+                    "height": 0,
+                    "totalVolume": 0,
+                    "stackable": "NotStackable - Goods are not stackable",
+                    "palletSpace": 0,
+                    "loadMeters": 0,
+                    "temperatureControlled": {
+                      "minTemperature": 0,
+                      "maxTemperature": 0
+                    },
+                    "dangerousGoods": [
+                      {
+                        "unCode": "string",
+                        "grossWeight": 0,
+                        "subRisk": "string",
+                        "packingGroup": "string",
+                        "properShippingName": "string",
+                        "cargoAircraftOnly": true
+                      }
+                    ],
+                    "shippingMark": "string"
+                  }
+                ],
+                "containers": [
+                  {
+                    "type": "40HC",
+                    "totalWeight": 0,
+                    "description": "string",
+                    "dangerousGoods": [
+                      {
+                        "unCode": "string",
+                        "grossWeight": 0,
+                        "subRisk": "string",
+                        "packingGroup": "string",
+                        "properShippingName": "string",
+                        "cargoAircraftOnly": true
+                      }
+                    ],
+                    "temperatureControlledGoods": {
+                      "minTemperature": 0,
+                      "maxTemperature": 0
+                    },
+                    "temperatureControlledContainer": {
+                      "genSet": true,
+                      "temperature": 0
+                    }
+                  }
+                ],
+                "totalWeight": 0,
+                "air": {
+                  "originAirport": "string",
+                  "destinationAirport": "string",
+                  "batteries": "None - No battery",
+                  "incoterms": {
+                    "code": "EXW - Ex works",
+                    "location": "string"
+                  },
+                  "serviceLevel": "string",
+                  "notes": "string"
+                },
+                "sea": {
+                  "originPort": "string",
+                  "destinationPort": "string",
+                  "incoterms": {
+                    "code": "EXW",
+                    "location": "string"
+                  },
+                  "serviceLevel": "string",
+                  "notes": "string"
+                },
+                "road": {
+                  "incoterms": {
+                    "code": "EXW",
+                    "location": "string"
+                  },
+                  "serviceAndSurchargeCodes": [
+                    "string"
+                  ],
+                  "serviceLevel": "string",
+                  "notes": "string"
+                },
+                "unitsOfMeasurement": {
+                  "dimension": "CM",
+                  "weight": "KG",
+                  "volume": "M3",
+                  "temperature": "C"
+                },
+                "source": "myDSV",
+                "files": [
+                  {
+                    "type": "INV",
+                    "fileName": "string",
+                    "file": "string"
+                  }
+                ]
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/QuoteRequest"
+              },
+              "example": {
+                "requestedBy": {
+                  "userId": "string",
+                  "firstName": "string",
+                  "lastName": "string",
+                  "email": "string",
+                  "language": "string",
+                  "phone": "string"
+                },
+                "bookingParty": {
+                  "mdm": "string",
+                  "mainMdm": "string",
+                  "name": "string",
+                  "address1": "string",
+                  "address2": "string",
+                  "address3": "string",
+                  "country": "string",
+                  "state": "string",
+                  "zipCode": "string",
+                  "city": "string"
+                },
+                "from": {
+                  "mdm": "string",
+                  "mainMdm": "string",
+                  "name": "string",
+                  "address1": "string",
+                  "address2": "string",
+                  "address3": "string",
+                  "country": "string",
+                  "state": "string",
+                  "zipCode": "string",
+                  "city": "string"
+                },
+                "to": {
+                  "mdm": "string",
+                  "mainMdm": "string",
+                  "name": "string",
+                  "address1": "string",
+                  "address2": "string",
+                  "address3": "string",
+                  "country": "string",
+                  "state": "string",
+                  "zipCode": "string",
+                  "city": "string"
+                },
+                "cargoType": "LCL",
+                "pickupType": "DSV",
+                "pickupDate": "string",
+                "deliveryType": "DDS",
+                "deliveryDate": "string",
+                "references": [
+                  {
+                    "name": "string",
+                    "type": "Shipper reference",
+                    "value": "TestReference1"
+                  }
+                ],
+                "insurance": {
+                  "insuranceType": "DSVProtect",
+                  "goodsType": "STD",
+                  "goodsValue": {
+                    "value": 100,
+                    "currency": "EUR"
+                  }
+                },
+                "packages": [
+                  {
+                    "id": "string",
+                    "goodsDescription": "string",
+                    "packageType": "BAG - Bag",
+                    "quantity": 0,
+                    "totalWeight": 0,
+                    "length": 0,
+                    "width": 0,
+                    "height": 0,
+                    "totalVolume": 0,
+                    "stackable": "NotStackable - Goods are not stackable",
+                    "palletSpace": 0,
+                    "loadMeters": 0,
+                    "temperatureControlled": {
+                      "minTemperature": 0,
+                      "maxTemperature": 0
+                    },
+                    "dangerousGoods": [
+                      {
+                        "unCode": "string",
+                        "grossWeight": 0,
+                        "subRisk": "string",
+                        "packingGroup": "string",
+                        "properShippingName": "string",
+                        "cargoAircraftOnly": true
+                      }
+                    ],
+                    "shippingMark": "string"
+                  }
+                ],
+                "containers": [
+                  {
+                    "type": "40HC",
+                    "totalWeight": 0,
+                    "description": "string",
+                    "dangerousGoods": [
+                      {
+                        "unCode": "string",
+                        "grossWeight": 0,
+                        "subRisk": "string",
+                        "packingGroup": "string",
+                        "properShippingName": "string",
+                        "cargoAircraftOnly": true
+                      }
+                    ],
+                    "temperatureControlledGoods": {
+                      "minTemperature": 0,
+                      "maxTemperature": 0
+                    },
+                    "temperatureControlledContainer": {
+                      "genSet": true,
+                      "temperature": 0
+                    }
+                  }
+                ],
+                "totalWeight": 0,
+                "air": {
+                  "originAirport": "string",
+                  "destinationAirport": "string",
+                  "batteries": "None - No battery",
+                  "incoterms": {
+                    "code": "EXW",
+                    "location": "string"
+                  },
+                  "serviceLevel": "string",
+                  "notes": "string"
+                },
+                "sea": {
+                  "originPort": "string",
+                  "destinationPort": "string",
+                  "incoterms": {
+                    "code": "EXW",
+                    "location": "string"
+                  },
+                  "serviceLevel": "string",
+                  "notes": "string"
+                },
+                "road": {
+                  "incoterms": {
+                    "code": "EXW",
+                    "location": "string"
+                  },
+                  "serviceAndSurchargeCodes": [
+                    "string"
+                  ],
+                  "serviceLevel": "string",
+                  "notes": "string"
+                },
+                "unitsOfMeasurement": {
+                  "dimension": "CM",
+                  "weight": "KG",
+                  "volume": "M3",
+                  "temperature": "C"
+                },
+                "source": "myDSV",
+                "files": [
+                  {
+                    "type": "INV",
+                    "fileName": "string",
+                    "file": "string"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Quote request submitted successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuoteResponse"
+                },
+                "example": {
+                  "createdDate": "string",
+                  "lastModifiedDate": "string",
+                  "quoteRequestId": "string",
+                  "code": "string",
+                  "requestedBy": {
+                    "userId": "string",
+                    "firstName": "string",
+                    "lastName": "string",
+                    "email": "string",
+                    "language": "string",
+                    "phone": "string"
+                  },
+                  "requestDate": "string",
+                  "readyForBookDate": "string",
+                  "status": "Draft",
+                  "bookingParty": {
+                    "mdm": "string",
+                    "mainMdm": "string",
+                    "name": "string",
+                    "address1": "string",
+                    "address2": "string",
+                    "address3": "string",
+                    "country": "string",
+                    "state": "string",
+                    "zipCode": "string",
+                    "city": "string"
+                  },
+                  "pickupType": "DSV",
+                  "deliveryType": "DDS",
+                  "from": {
+                    "mdm": "string",
+                    "mainMdm": "string",
+                    "name": "string",
+                    "address1": "string",
+                    "address2": "string",
+                    "address3": "string",
+                    "country": "string",
+                    "state": "string",
+                    "zipCode": "string",
+                    "city": "string"
+                  },
+                  "to": {
+                    "mdm": "string",
+                    "mainMdm": "string",
+                    "name": "string",
+                    "address1": "string",
+                    "address2": "string",
+                    "address3": "string",
+                    "country": "string",
+                    "state": "string",
+                    "zipCode": "string",
+                    "city": "string"
+                  },
+                  "pickupDate": "string",
+                  "deliveryDate": "string",
+                  "references": [
+                    {
+                      "name": "string",
+                      "type": "Shipper reference",
+                      "value": "TestReference1"
+                    }
+                  ],
+                  "insurance": {
+                    "insuranceType": "DSVProtect",
+                    "goodsType": "STD",
+                    "goodsValue": {
+                      "value": 100,
+                      "currency": "EUR"
+                    }
+                  },
+                  "cargoType": "LCL",
+                  "source": "myDSV",
+                  "packages": [
+                    {
+                      "id": "string",
+                      "goodsDescription": "string",
+                      "packageType": "BAG",
+                      "quantity": 0,
+                      "totalWeight": 0,
+                      "length": 0,
+                      "width": 0,
+                      "height": 0,
+                      "totalVolume": 0,
+                      "stackable": "NotStackable",
+                      "palletSpace": 0,
+                      "loadMeters": 0,
+                      "temperatureControlled": {
+                        "minTemperature": 0,
+                        "maxTemperature": 0
+                      },
+                      "dangerousGoods": [
+                        {
+                          "unCode": "string",
+                          "grossWeight": 0,
+                          "subRisk": "string",
+                          "packingGroup": "string",
+                          "properShippingName": "string",
+                          "cargoAircraftOnly": true
+                        }
+                      ],
+                      "shippingMark": "string"
+                    }
+                  ],
+                  "containers": [
+                    {
+                      "type": "40HC",
+                      "totalWeight": 0,
+                      "description": "string",
+                      "dangerousGoods": [
+                        {
+                          "unCode": "string",
+                          "grossWeight": 0,
+                          "subRisk": "string",
+                          "packingGroup": "string",
+                          "properShippingName": "string",
+                          "cargoAircraftOnly": true
+                        }
+                      ],
+                      "temperatureControlledGoods": {
+                        "minTemperature": 0,
+                        "maxTemperature": 0
+                      },
+                      "temperatureControlledContainer": {
+                        "genSet": true,
+                        "temperature": 0
+                      }
+                    }
+                  ],
+                  "air": {
+                    "originAirport": "string",
+                    "destinationAirport": "string",
+                    "batteries": "None",
+                    "incoterms": {
+                      "code": "EXW",
+                      "location": "string"
+                    },
+                    "serviceLevel": "string",
+                    "notes": "string"
+                  },
+                  "sea": {
+                    "originPort": "string",
+                    "destinationPort": "string",
+                    "incoterms": {
+                      "code": "EXW",
+                      "location": "string"
+                    },
+                    "serviceLevel": "string",
+                    "notes": "string"
+                  },
+                  "road": {
+                    "incoterms": {
+                      "code": "EXW",
+                      "location": "string"
+                    },
+                    "serviceAndSurchargeCodes": [
+                      "string"
+                    ],
+                    "serviceLevel": "string",
+                    "notes": "string"
+                  },
+                  "unitsOfMeasurement": {
+                    "dimension": "CM",
+                    "weight": "KG",
+                    "volume": "M3",
+                    "temperature": "C"
+                  },
+                  "quotes": [
+                    {
+                      "id": "string",
+                      "quoteId": "string",
+                      "code": "string",
+                      "version": "string",
+                      "quoteRequestId": "string",
+                      "quoteProvider": "Air",
+                      "status": "AvailableForCalculation",
+                      "submissionDate": "string",
+                      "responseDate": "string",
+                      "validUntil": "string",
+                      "type": "Tariff",
+                      "modeOfTransport": "Road",
+                      "revocationReason": "string",
+                      "serviceLevel": "string",
+                      "attachmentId": "string",
+                      "price": {
+                        "value": 0,
+                        "currency": "string"
+                      },
+                      "serviceAndSurcharges": [
+                        {
+                          "name": "string",
+                          "amount": {
+                            "value": 0,
+                            "currency": "string"
+                          },
+                          "id": "string",
+                          "type": "Undefined",
+                          "selected": true,
+                          "productCode": "string",
+                          "activityCode": "string",
+                          "serviceCode": "string",
+                          "myDSVServiceType": "string"
+                        }
+                      ],
+                      "manualReview": true,
+                      "wasManualReview": true,
+                      "validStart": "string",
+                      "frequency": "string",
+                      "transitTime": "string",
+                      "scheduledDeparture": "string",
+                      "surchargeInclusive": true,
+                      "hideSurchargePricing": true,
+                      "notes": "string",
+                      "showNotes": true,
+                      "manualReviewReason": "string",
+                      "quoteProviderStatus": "string",
+                      "bookingId": "string",
+                      "quoteProviderCreatedDate": "string"
+                    }
+                  ],
+                  "totalWeight": 0,
+                  "quotingCountry": "string",
+                  "financialOwners": [
+                    {
+                      "modeOfTransport": "Road",
+                      "country": "string",
+                      "includedInRwf": true
+                    }
+                  ],
+                  "acceptanceDate": "string",
+                  "reconfigurationTimestamp": "string",
+                  "attachments": [
+                    {
+                      "modeOfTransport": "Road",
+                      "attachmentId": "string",
+                      "type": "INV",
+                      "contentType": "string",
+                      "fileName": "string"
+                    }
+                  ],
+                  "errors": [
+                    {
+                      "source": "string",
+                      "code": "string",
+                      "field": "string",
+                      "message": "string",
+                      "arg": {}
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Request contains not valid data or internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommandResult"
+                },
+                "example": {
+                  "success": true,
+                  "errors": [
+                    {
+                      "source": "string",
+                      "code": "string",
+                      "field": "string",
+                      "message": "string",
+                      "arg": {}
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authorized"
+          },
+          "403": {
+            "description": "Lack of privileges to use this method"
+          },
+          "404": {
+            "description": "Quote request not found"
+          }
+        }
+      }
+    },
+    "/quotes/{quoteRequestId}": {
+      "get": {
+        "tags": [
+          "Public"
+        ],
+        "summary": "Get quote request",
+        "description": "Get quote request details by specifying the Quote request ID or Quote ID",
+        "operationId": "GetQuoteRequest",
+        "parameters": [
+          {
+            "name": "quoteRequestId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "OAuth 2.0 Bearer token. Format: Bearer <access_token>.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "DSV-Subscription-Key",
+            "in": "header",
+            "description": "Subscription key required to access the API. Provided by DSV",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Quote request was returned successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuoteResponse"
+                },
+                "example": {
+                  "createdDate": "string",
+                  "lastModifiedDate": "string",
+                  "quoteRequestId": "string",
+                  "code": "string",
+                  "requestedBy": {
+                    "userId": "string",
+                    "firstName": "string",
+                    "lastName": "string",
+                    "email": "string",
+                    "language": "string",
+                    "phone": "string"
+                  },
+                  "requestDate": "string",
+                  "readyForBookDate": "string",
+                  "status": "Draft",
+                  "bookingParty": {
+                    "mdm": "string",
+                    "mainMdm": "string",
+                    "name": "string",
+                    "address1": "string",
+                    "address2": "string",
+                    "address3": "string",
+                    "country": "string",
+                    "state": "string",
+                    "zipCode": "string",
+                    "city": "string"
+                  },
+                  "pickupType": "DSV",
+                  "deliveryType": "DDS",
+                  "from": {
+                    "mdm": "string",
+                    "mainMdm": "string",
+                    "name": "string",
+                    "address1": "string",
+                    "address2": "string",
+                    "address3": "string",
+                    "country": "string",
+                    "state": "string",
+                    "zipCode": "string",
+                    "city": "string"
+                  },
+                  "to": {
+                    "mdm": "string",
+                    "mainMdm": "string",
+                    "name": "string",
+                    "address1": "string",
+                    "address2": "string",
+                    "address3": "string",
+                    "country": "string",
+                    "state": "string",
+                    "zipCode": "string",
+                    "city": "string"
+                  },
+                  "pickupDate": "string",
+                  "deliveryDate": "string",
+                  "references": [
+                    {
+                      "name": "string",
+                      "type": "Shipper reference",
+                      "value": "TestReference1"
+                    }
+                  ],
+                  "insurance": {
+                    "insuranceType": "DSVProtect",
+                    "goodsType": "STD",
+                    "goodsValue": {
+                      "value": 100,
+                      "currency": "EUR"
+                    }
+                  },
+                  "cargoType": "LCL",
+                  "source": "myDSV",
+                  "packages": [
+                    {
+                      "id": "string",
+                      "goodsDescription": "string",
+                      "packageType": "BAG",
+                      "quantity": 0,
+                      "totalWeight": 0,
+                      "length": 0,
+                      "width": 0,
+                      "height": 0,
+                      "totalVolume": 0,
+                      "stackable": "NotStackable",
+                      "palletSpace": 0,
+                      "loadMeters": 0,
+                      "temperatureControlled": {
+                        "minTemperature": 0,
+                        "maxTemperature": 0
+                      },
+                      "dangerousGoods": [
+                        {
+                          "unCode": "string",
+                          "grossWeight": 0,
+                          "subRisk": "string",
+                          "packingGroup": "string",
+                          "properShippingName": "string",
+                          "cargoAircraftOnly": true
+                        }
+                      ],
+                      "shippingMark": "string"
+                    }
+                  ],
+                  "containers": [
+                    {
+                      "type": "40HC",
+                      "totalWeight": 0,
+                      "description": "string",
+                      "dangerousGoods": [
+                        {
+                          "unCode": "string",
+                          "grossWeight": 0,
+                          "subRisk": "string",
+                          "packingGroup": "string",
+                          "properShippingName": "string",
+                          "cargoAircraftOnly": true
+                        }
+                      ],
+                      "temperatureControlledGoods": {
+                        "minTemperature": 0,
+                        "maxTemperature": 0
+                      },
+                      "temperatureControlledContainer": {
+                        "genSet": true,
+                        "temperature": 0
+                      }
+                    }
+                  ],
+                  "air": {
+                    "originAirport": "string",
+                    "destinationAirport": "string",
+                    "batteries": "None - No battery",
+                    "incoterms": {
+                      "code": "EXW",
+                      "location": "string"
+                    },
+                    "serviceLevel": "string",
+                    "notes": "string"
+                  },
+                  "sea": {
+                    "originPort": "string",
+                    "destinationPort": "string",
+                    "incoterms": {
+                      "code": "EXW",
+                      "location": "string"
+                    },
+                    "serviceLevel": "string",
+                    "notes": "string"
+                  },
+                  "road": {
+                    "incoterms": {
+                      "code": "EXW",
+                      "location": "string"
+                    },
+                    "serviceAndSurchargeCodes": [
+                      "string"
+                    ],
+                    "serviceLevel": "string",
+                    "notes": "string"
+                  },
+                  "unitsOfMeasurement": {
+                    "dimension": "CM",
+                    "weight": "KG",
+                    "volume": "M3",
+                    "temperature": "C"
+                  },
+                  "quotes": [
+                    {
+                      "id": "string",
+                      "quoteId": "string",
+                      "code": "string",
+                      "version": "string",
+                      "quoteRequestId": "string",
+                      "quoteProvider": "Air",
+                      "status": "AvailableForCalculation",
+                      "submissionDate": "string",
+                      "responseDate": "string",
+                      "validUntil": "string",
+                      "type": "Tariff - Tariff",
+                      "modeOfTransport": "Road",
+                      "revocationReason": "string",
+                      "serviceLevel": "string",
+                      "attachmentId": "string",
+                      "price": {
+                        "value": 0,
+                        "currency": "string"
+                      },
+                      "serviceAndSurcharges": [
+                        {
+                          "name": "string",
+                          "amount": {
+                            "value": 0,
+                            "currency": "string"
+                          },
+                          "id": "string",
+                          "type": "Undefined",
+                          "selected": true,
+                          "productCode": "string",
+                          "activityCode": "string",
+                          "serviceCode": "string",
+                          "myDSVServiceType": "string"
+                        }
+                      ],
+                      "manualReview": true,
+                      "wasManualReview": true,
+                      "validStart": "string",
+                      "frequency": "string",
+                      "transitTime": "string",
+                      "scheduledDeparture": "string",
+                      "surchargeInclusive": true,
+                      "hideSurchargePricing": true,
+                      "notes": "string",
+                      "showNotes": true,
+                      "manualReviewReason": "string",
+                      "quoteProviderStatus": "string",
+                      "bookingId": "string",
+                      "quoteProviderCreatedDate": "string"
+                    }
+                  ],
+                  "totalWeight": 0,
+                  "quotingCountry": "string",
+                  "financialOwners": [
+                    {
+                      "modeOfTransport": "Road",
+                      "country": "string",
+                      "includedInRwf": true
+                    }
+                  ],
+                  "acceptanceDate": "string",
+                  "reconfigurationTimestamp": "string",
+                  "attachments": [
+                    {
+                      "modeOfTransport": "Road",
+                      "attachmentId": "string",
+                      "type": "INV",
+                      "contentType": "string",
+                      "fileName": "string"
+                    }
+                  ],
+                  "errors": [
+                    {
+                      "source": "string",
+                      "code": "string",
+                      "field": "string",
+                      "message": "string",
+                      "arg": {}
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Request contains not valid data or internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommandResult"
+                },
+                "example": {
+                  "success": true,
+                  "errors": [
+                    {
+                      "source": "string",
+                      "code": "string",
+                      "field": "string",
+                      "message": "string",
+                      "arg": {}
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authorized"
+          },
+          "403": {
+            "description": "Lack of privileges to use this method"
+          },
+          "404": {
+            "description": "Quote request not found"
+          }
+        }
+      }
+    },
+    "/quotes/filter": {
+      "post": {
+        "tags": [
+          "Public"
+        ],
+        "summary": "Filter quote request",
+        "description": "Apply Filters to Quote API Requests",
+        "operationId": "FilterQuoteRequest",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "OAuth 2.0 Bearer token. Format: Bearer <access_token>.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "DSV-Subscription-Key",
+            "in": "header",
+            "description": "Subscription key required to access the API. Provided by DSV",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/QuoteRequestFilter"
+              },
+              "example": {
+                "pageNumber": 0,
+                "pageSize": 0,
+                "sort": {
+                  "property": "CREATED_BY",
+                  "direction": "ASC"
+                },
+                "searchText": "string",
+                "statuses": [
+                  "Draft"
+                ],
+                "mots": [
+                  "Road"
+                ],
+                "fromCountry": "string",
+                "toCountry": "string",
+                "createdBy": "string"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/QuoteRequestFilter"
+              },
+              "example": {
+                "pageNumber": 0,
+                "pageSize": 0,
+                "sort": {
+                  "property": "CREATED_BY",
+                  "direction": "ASC"
+                },
+                "searchText": "string",
+                "statuses": [
+                  "Draft"
+                ],
+                "mots": [
+                  "Road"
+                ],
+                "fromCountry": "string",
+                "toCountry": "string",
+                "createdBy": "string"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/QuoteRequestFilter"
+              },
+              "example": {
+                "pageNumber": 0,
+                "pageSize": 0,
+                "sort": {
+                  "property": "CREATED_BY",
+                  "direction": "ASC"
+                },
+                "searchText": "string",
+                "statuses": [
+                  "Draft"
+                ],
+                "mots": [
+                  "Road"
+                ],
+                "fromCountry": "string",
+                "toCountry": "string",
+                "createdBy": "string"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "List of quote requests was returned successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuoteRequestResult"
+                },
+                "example": {
+                  "pageNumber": 0,
+                  "pageSize": 0,
+                  "totalPages": 0,
+                  "totalResults": 0,
+                  "results": [
+                    {
+                      "createdDate": "string",
+                      "lastModifiedDate": "string",
+                      "quoteRequestId": "string",
+                      "code": "string",
+                      "requestedBy": {
+                        "userId": "string",
+                        "firstName": "string",
+                        "lastName": "string",
+                        "email": "string",
+                        "language": "string",
+                        "phone": "string"
+                      },
+                      "requestDate": "string",
+                      "readyForBookDate": "string",
+                      "status": "Draft",
+                      "bookingParty": {
+                        "mdm": "string",
+                        "mainMdm": "string",
+                        "name": "string",
+                        "address1": "string",
+                        "address2": "string",
+                        "address3": "string",
+                        "country": "string",
+                        "state": "string",
+                        "zipCode": "string",
+                        "city": "string"
+                      },
+                      "pickupType": "DSV",
+                      "deliveryType": "DDS",
+                      "from": {
+                        "mdm": "string",
+                        "mainMdm": "string",
+                        "name": "string",
+                        "address1": "string",
+                        "address2": "string",
+                        "address3": "string",
+                        "country": "string",
+                        "state": "string",
+                        "zipCode": "string",
+                        "city": "string"
+                      },
+                      "to": {
+                        "mdm": "string",
+                        "mainMdm": "string",
+                        "name": "string",
+                        "address1": "string",
+                        "address2": "string",
+                        "address3": "string",
+                        "country": "string",
+                        "state": "string",
+                        "zipCode": "string",
+                        "city": "string"
+                      },
+                      "pickupDate": "string",
+                      "deliveryDate": "string",
+                      "references": [
+                        {
+                          "name": "string",
+                          "type": "Shipper reference",
+                          "value": "TestReference1"
+                        }
+                      ],
+                      "insurance": {
+                        "insuranceType": "DSVProtect",
+                        "goodsType": "STD",
+                        "goodsValue": {
+                          "value": 100,
+                          "currency": "EUR"
+                        }
+                      },
+                      "cargoType": "LCL",
+                      "source": "myDSV",
+                      "packages": [
+                        {
+                          "id": "string",
+                          "goodsDescription": "string",
+                          "packageType": "BAG",
+                          "quantity": 0,
+                          "totalWeight": 0,
+                          "length": 0,
+                          "width": 0,
+                          "height": 0,
+                          "totalVolume": 0,
+                          "stackable": "NotStackable",
+                          "palletSpace": 0,
+                          "loadMeters": 0,
+                          "temperatureControlled": {
+                            "minTemperature": 0,
+                            "maxTemperature": 0
+                          },
+                          "dangerousGoods": [
+                            {
+                              "unCode": "string",
+                              "grossWeight": 0,
+                              "subRisk": "string",
+                              "packingGroup": "string",
+                              "properShippingName": "string",
+                              "cargoAircraftOnly": true
+                            }
+                          ],
+                          "shippingMark": "string"
+                        }
+                      ],
+                      "containers": [
+                        {
+                          "type": "40HC",
+                          "totalWeight": 0,
+                          "description": "string",
+                          "dangerousGoods": [
+                            {
+                              "unCode": "string",
+                              "grossWeight": 0,
+                              "subRisk": "string",
+                              "packingGroup": "string",
+                              "properShippingName": "string",
+                              "cargoAircraftOnly": true
+                            }
+                          ],
+                          "temperatureControlledGoods": {
+                            "minTemperature": 0,
+                            "maxTemperature": 0
+                          },
+                          "temperatureControlledContainer": {
+                            "genSet": true,
+                            "temperature": 0
+                          }
+                        }
+                      ],
+                      "air": {
+                        "originAirport": "string",
+                        "destinationAirport": "string",
+                        "batteries": "None",
+                        "incoterms": {
+                          "code": "EXW",
+                          "location": "string"
+                        },
+                        "serviceLevel": "string",
+                        "notes": "string"
+                      },
+                      "sea": {
+                        "originPort": "string",
+                        "destinationPort": "string",
+                        "incoterms": {
+                          "code": "EXW",
+                          "location": "string"
+                        },
+                        "serviceLevel": "string",
+                        "notes": "string"
+                      },
+                      "road": {
+                        "incoterms": {
+                          "code": "EXW",
+                          "location": "string"
+                        },
+                        "serviceAndSurchargeCodes": [
+                          "string"
+                        ],
+                        "serviceLevel": "string",
+                        "notes": "string"
+                      },
+                      "unitsOfMeasurement": {
+                        "dimension": "CM",
+                        "weight": "KG",
+                        "volume": "M3",
+                        "temperature": "C"
+                      },
+                      "quotes": [
+                        {
+                          "id": "string",
+                          "quoteId": "string",
+                          "code": "string",
+                          "version": "string",
+                          "quoteRequestId": "string",
+                          "quoteProvider": "Air",
+                          "status": "AvailableForCalculation",
+                          "submissionDate": "string",
+                          "responseDate": "string",
+                          "validUntil": "string",
+                          "type": "Tariff",
+                          "modeOfTransport": "Road",
+                          "revocationReason": "string",
+                          "serviceLevel": "string",
+                          "attachmentId": "string",
+                          "price": {
+                            "value": 0,
+                            "currency": "string"
+                          },
+                          "serviceAndSurcharges": [
+                            {
+                              "name": "string",
+                              "amount": {
+                                "value": 0,
+                                "currency": "string"
+                              },
+                              "id": "string",
+                              "type": "Undefined",
+                              "selected": true,
+                              "productCode": "string",
+                              "activityCode": "string",
+                              "serviceCode": "string",
+                              "myDSVServiceType": "string"
+                            }
+                          ],
+                          "manualReview": true,
+                          "wasManualReview": true,
+                          "validStart": "string",
+                          "frequency": "string",
+                          "transitTime": "string",
+                          "scheduledDeparture": "string",
+                          "surchargeInclusive": true,
+                          "hideSurchargePricing": true,
+                          "notes": "string",
+                          "showNotes": true,
+                          "manualReviewReason": "string",
+                          "quoteProviderStatus": "string",
+                          "bookingId": "string",
+                          "quoteProviderCreatedDate": "string"
+                        }
+                      ],
+                      "totalWeight": 0,
+                      "quotingCountry": "string",
+                      "financialOwners": [
+                        {
+                          "modeOfTransport": "Road",
+                          "country": "string",
+                          "includedInRwf": true
+                        }
+                      ],
+                      "acceptanceDate": "string",
+                      "reconfigurationTimestamp": "string",
+                      "attachments": [
+                        {
+                          "modeOfTransport": "Road",
+                          "attachmentId": "string",
+                          "type": "INV",
+                          "contentType": "string",
+                          "fileName": "string"
+                        }
+                      ],
+                      "errors": [
+                        {
+                          "source": "string",
+                          "code": "string",
+                          "field": "string",
+                          "message": "string",
+                          "arg": {}
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Request contains not valid data or internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommandResult"
+                },
+                "example": {
+                  "success": true,
+                  "errors": [
+                    {
+                      "source": "string",
+                      "code": "string",
+                      "field": "string",
+                      "message": "string",
+                      "arg": {}
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authorized"
+          },
+          "403": {
+            "description": "Lack of privileges to use this method"
+          },
+          "404": {
+            "description": "None of quote requests were found using the criteria"
+          }
+        }
+      }
+    },
+    "/quotes/{quoteRequestId}/cancel": {
+      "post": {
+        "tags": [
+          "Public"
+        ],
+        "summary": "Cancel quote request",
+        "description": "Cancel previously submitted quote requests",
+        "operationId": "CancelQuoteRequest",
+        "parameters": [
+          {
+            "name": "quoteRequestId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "OAuth 2.0 Bearer token. Format: Bearer <access_token>.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "DSV-Subscription-Key",
+            "in": "header",
+            "description": "Subscription key required to access the API. Provided by DSV",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "204": {
+            "description": "Quote request was canceled successfully"
+          },
+          "400": {
+            "description": "Request contains not valid data or internal server error",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommandResult"
+                },
+                "examples": {
+                  "default": {
+                    "value": null
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommandResult"
+                },
+                "example": {
+                  "success": true,
+                  "errors": [
+                    {
+                      "source": "string",
+                      "code": "string",
+                      "field": "string",
+                      "message": "string",
+                      "arg": {}
+                    }
+                  ]
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommandResult"
+                },
+                "example": {
+                  "success": true,
+                  "errors": [
+                    {
+                      "source": "string",
+                      "code": "string",
+                      "field": "string",
+                      "message": "string",
+                      "arg": {}
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authorized"
+          },
+          "403": {
+            "description": "Lack of privileges to use this method"
+          },
+          "404": {
+            "description": "Quote request not found"
+          }
+        }
+      }
+    },
+    "/quotes/{quoteRequestId}/attachments/{attachmentId}": {
+      "get": {
+        "tags": [
+          "Public"
+        ],
+        "summary": "Get quote attachment",
+        "description": "Get a specific quote attachment by providing the Quote Request ID or Attachment ID",
+        "operationId": "GetQuoteAttachment",
+        "parameters": [
+          {
+            "name": "quoteRequestId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "attachmentId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "OAuth 2.0 Bearer token. Format: Bearer <access_token>.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "DSV-Subscription-Key",
+            "in": "header",
+            "description": "Subscription key required to access the API. Provided by DSV",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Quote attachment was returned successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                },
+                "example": "string"
+              },
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                },
+                "examples": {
+                  "default": {
+                    "value": null
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Request contains not valid data or internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommandResult"
+                },
+                "example": {
+                  "success": true,
+                  "errors": [
+                    {
+                      "source": "string",
+                      "code": "string",
+                      "field": "string",
+                      "message": "string",
+                      "arg": {}
+                    }
+                  ]
+                }
+              },
+              "application/octet-stream": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommandResult"
+                },
+                "examples": {
+                  "default": {
+                    "value": null
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authorized"
+          },
+          "403": {
+            "description": "Lack of privileges to use this method"
+          },
+          "404": {
+            "description": "Quote attachment not found"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AttachmentType": {
+        "enum": [
+          "INV",
+          "GDS",
+          "CUS",
+          "HAZ",
+          "PKL",
+          "QUO"
+        ],
+        "type": "string",
+        "description": "Attachment type. INV = Invoice document. GDS = Goods description. CUS = Customs document. HAZ = Hazardous materials document. PKL = Packing list. QUO = Quote with prices for customer."
+      },
+      "BatteryType": {
+        "enum": [
+          "None",
+          "Lithium",
+          "Dry"
+        ],
+        "type": "string",
+        "description": "Battery type. None = No battery. Lithium = Lithium battery. Dry = Dry battery."
+      },
+      "CargoType": {
+        "enum": [
+          "LCL",
+          "FCL",
+          "LTL"
+        ],
+        "type": "string",
+        "description": "Indicates the type of cargo handling mode \u2014 LCL (Loose Cargo), FCL (Full Container Load), or LTL (Less Truck Load)."
+      },
+      "ContainerType": {
+        "enum": [
+          "20DC",
+          "40DC",
+          "40HC",
+          "45HC",
+          "20RE",
+          "40RE",
+          "40REHC",
+          "45REHC",
+          "20OT",
+          "40OT",
+          "20FR",
+          "20PL",
+          "40PL",
+          "20GOH",
+          "40GOH",
+          "20DC_HT",
+          "20GP_SO",
+          "20HC",
+          "20OT_SO",
+          "22T0",
+          "20TC_SO",
+          "40DC_HT",
+          "40HC_HT",
+          "40HC_SO",
+          "40OT_SO",
+          "40DC_PW",
+          "40HC_PW",
+          "45HC_SO",
+          "45GPHC",
+          "45CS",
+          "20GP",
+          "40GP",
+          "20GP_FG",
+          "40GP_FG",
+          "40HC_FG",
+          "40RT"
+        ],
+        "type": "string",
+        "description": "Container type. Examples: 20DC = 20' dry. 40HC = 40' high cube. 20RE = 20' reefer."
+      },
+      "DeliveryType": {
+        "enum": [
+          "DDS",
+          "CCX"
+        ],
+        "type": "string",
+        "description": "Defines whether delivery is handled by DSV (DDS) or if cargo is handover by DSV at warehouse or terminal (CCX)."
+      },
+      "DimensionUOM": {
+        "enum": [
+          "CM",
+          "IN"
+        ],
+        "type": "string",
+        "description": "Unit of measurement used for dimensions like length, width, and height (e.g., CM, IN)."
+      },
+      "IncotermsCode": {
+        "enum": [
+          "EXW",
+          "FCA",
+          "CPT",
+          "CIP",
+          "DAP",
+          "DPU",
+          "DDP",
+          "FAS",
+          "FOB",
+          "CFR",
+          "CIF"
+        ],
+        "type": "string",
+        "description": "Incoterms 2020 code. EXW = Ex works. FCA = Free carrier. CPT = Carriage paid to. CIP = Carriage and insurance paid to. DAP = Delivered at place. DPU = Delivered at place unloaded. DDP = Delivered duty paid. FAS = Free alongside ship. FOB = Free on board. CFR = Cost and freight. CIF = Cost insurance and freight."
+      },
+      "InsuranceGoodsType": {
+        "enum": [
+          "STD",
+          "MTR",
+          "HHD",
+          "FRAGILE",
+          "UUG"
+        ],
+        "type": "string",
+        "description": "Insurance goods type. STD = Standard goods. MTR = Motor vehicles, aircrafts, water- and pleasure crafts. HHD = Household goods. FRAGILE = Fragile goods, furniture, marble ceramics, art, antiques. UUG = Used and/or unpacked goods."
+      },
+      "InsuranceType": {
+        "enum": [
+          "DSVProtect",
+          "CargoInsurance"
+        ],
+        "type": "string",
+        "description": "Defines the selected insurance coverage option, DSVProtect = DSV Protect. CargoInsurance = DSV Cargo Insurance"
+      },
+      "KafkaConsumer": {
+        "enum": [
+          "AirSeaQuote",
+          "RoadQuote",
+          "RoadQuoteStatus",
+          "RoadQuoteRequest",
+          "RoadQuoteReconfiguration",
+          "QuoteServiceActions"
+        ],
+        "type": "string",
+        "description": "Kafka consumer name. AirSeaQuote = AirSeaQuote. RoadQuote = RoadQuote. RoadQuoteStatus = RoadQuoteStatus. RoadQuoteRequest = RoadQuoteRequest. RoadQuoteReconfiguration = RoadQuoteReconfiguration. QuoteServiceActions = QuoteServiceActions."
+      },
+      "ModeOfTransport": {
+        "enum": [
+          "Road",
+          "Air",
+          "Sea",
+          "Rail",
+          "Xpress"
+        ],
+        "type": "string",
+        "description": "Indicates the primary mode of transportation \u2014 Road, Air, Sea, Rail, or Express."
+      },
+      "PackageType": {
+        "enum": [
+          "BAG",
+          "CAN",
+          "CAS",
+          "CLL",
+          "CON",
+          "CRT",
+          "CTN",
+          "DRM",
+          "EUR",
+          "GIB",
+          "HPL",
+          "IBC",
+          "IPL",
+          "JCN",
+          "LOT",
+          "PKG",
+          "PLL",
+          "PLT",
+          "PXL",
+          "QPL",
+          "UPL",
+          "LOAD",
+          "RLL",
+          "LD",
+          "PPL"
+        ],
+        "type": "string",
+        "description": "Describes the physical packaging or load unit of the shipment. BAG = Bag. CAN = Can. CAS = Case. CLL = Colli. CON = Pallet container. CRT = Crate. CTN = Carton / box. DRM = Drum. EUR = Euro pallet. GIB = Gitterbox. HPL = Half pallet. IBC = IBC. IPL = Pallet 120x100. JCN = Jerry can. LOT = Lot. PKG = Package. PLL = Pallet 120x80. PLT = Pallet 110x110. PXL = Pallet 120x120. QPL = Quarter pallet. UPL = Pallet 120x110. LOAD = Load. RLL = Roll. LD = Load. PPL = Pallet 110x110."
+      },
+      "PickupType": {
+        "enum": [
+          "DSV",
+          "DropOff"
+        ],
+        "type": "string",
+        "description": "Defines the pickup method. DSV = Pickup by DSV. DropOff = Cargo handover to DSV at warehouse or terminal."
+      },
+      "QuoteProvider": {
+        "enum": [
+          "Air",
+          "Sea",
+          "Road",
+          "Xpress",
+          "AirSeaRoad"
+        ],
+        "type": "string",
+        "description": "Identifies the DSV system or service responsible for providing the quote (e.g., Air = Air. Sea = Sea. Road = Road. Xpress = Express. AirSeaRoad = A&S road.)"
+      },
+      "QuoteRequestStatus": {
+        "enum": [
+          "Draft",
+          "AwaitingForOptions",
+          "CannotProvideQuotes",
+          "AwaitingUserInformation",
+          "AwaitingForQuotes",
+          "Cancelled",
+          "ReadyForBook",
+          "NoLongerValid",
+          "Accepted",
+          "Close"
+        ],
+        "type": "string",
+        "description": "Displays the processing status of a submitted quote request (e.g., Draft = Draft. AwaitingForOptions = Awaiting for options. CannotProvideQuotes = Cannot provide quotes. AwaitingUserInformation = Awaiting user information. AwaitingForQuotes = Awaiting for quotes. Cancelled = Cancelled. ReadyForBook = Ready for book. NoLongerValid = No longer valid. Accepted = Accepted. Closed = Closed.)"
+      },
+      "QuoteStatus": {
+        "enum": [
+          "AvailableForCalculation",
+          "Expired",
+          "Pending",
+          "RejectedByDSV",
+          "Cancelled",
+          "ReadyForBook",
+          "RevokedByDSV",
+          "RejectedByUser",
+          "Accepted",
+          "Closed"
+        ],
+        "type": "string",
+        "description": "Represents the current lifecycle status of a quote (e.g., AvailableForCalculation = Available for calculation. Expired = Expired. Pending = Pending. RejectedByDSV = Rejected by DSV. Cancelled = Cancelled. ReadyForBook = Ready for book. RevokedByDSV = Revoked by DSV. RejectedByUser = Rejected by user. Accepted = Accepted. Closed = Closed.)"
+      },
+      "QuoteType": {
+        "enum": [
+          "Tariff",
+          "Spot",
+          "Tender"
+        ],
+        "type": "string",
+        "description": "Specifies the category of the quote \u2014 Tariff (contract rate), Spot (ad-hoc rate), or Tender."
+      },
+      "ReferenceType": {
+        "enum": [
+          "Shipper",
+          "Consignee",
+          "OrderNumber",
+          "Other",
+          "Invoice"
+        ],
+        "type": "string",
+        "description": "Classifies reference numbers linked to the shipment, such as Shipper = Sender reference. Consignee = Receiver reference. OrderNumber = Order reference. Other = Other. Invoice = Invoicing reference."
+      },
+      "ServiceAndSurchargeType": {
+        "enum": [
+          "Undefined",
+          "TransportServices",
+          "Surcharges"
+        ],
+        "type": "string",
+        "description": "Defines whether a charge relates to a service or a surcharge (e.g.,Undefined = Undefined type. TransportServices = Transport services. Surcharges = Surcharges)"
+      },
+      "SortDirection": {
+        "enum": [
+          "ASC",
+          "DESC"
+        ],
+        "type": "string",
+        "description": "Defines the sorting order for query results \u2014 ascending (ASC) or descending (DESC)."
+      },
+      "SortProperty": {
+        "enum": [
+          "CREATED_BY",
+          "CREATED_DATE"
+        ],
+        "type": "string",
+        "description": "Sort property. CREATED_BY = Sort by user who created quote request. CREATED_DATE = Sort by date when quote request was created."
+      },
+      "Source": {
+        "enum": [
+          "myDSV",
+          "Road",
+          "AirSea",
+          "CRM",
+          "Public"
+        ],
+        "type": "string",
+        "description": "Indicates the originating source of the request, such as myDSV = myDSV. Road = Road. AirSea = A&S. CRM = CRM. Public = Request originated from Public API."
+      },
+      "Stackable": {
+        "enum": [
+          "NotStackable",
+          "Stackable",
+          "Stacked"
+        ],
+        "type": "string",
+        "description": "Defines whether goods can be stacked during transport (e.g., NotStackable = Goods are not stackable. Stackable = Goods are capable of being stacked with other goods. Stacked = Goods are stacked prior to pickup.)"
+      },
+      "TemperatureUOM": {
+        "enum": [
+          "C",
+          "F"
+        ],
+        "type": "string",
+        "description": "Unit of measurement for temperature \u2014 Celsius (C) or Fahrenheit (F)."
+      },
+      "VolumeUOM": {
+        "enum": [
+          "M3",
+          "F3",
+          "FT3"
+        ],
+        "type": "string",
+        "description": "Volume unit of measure. M3 = Cubic meter. F3 = Cubic feet. FT3 = Cubic feet."
+      },
+      "WeightUOM": {
+        "enum": [
+          "KG",
+          "LB"
+        ],
+        "type": "string",
+        "description": "Weight unit of measure. KG = Kilogram. LB = Pound."
+      },
+      "Address": {
+        "required": [
+          "city",
+          "country"
+        ],
+        "type": "object",
+        "properties": {
+          "mdm": {
+            "type": "string",
+            "description": "DSV debtor number (MDM number) identifying the customer in DSV systems.",
+            "nullable": true
+          },
+          "mainMdm": {
+            "type": "string",
+            "description": "Main DSV debtor number (MDM number) identifying the customer in DSV systems.",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "Party or company name.",
+            "nullable": true
+          },
+          "address1": {
+            "type": "string",
+            "description": "Address line 1",
+            "nullable": true
+          },
+          "address2": {
+            "type": "string",
+            "description": "Address line 2",
+            "nullable": true
+          },
+          "address3": {
+            "type": "string",
+            "description": "Address line 3",
+            "nullable": true
+          },
+          "country": {
+            "pattern": "^[A-Z]{2}$",
+            "type": "string",
+            "description": "ISO 3166-1 alpha-2 country code."
+          },
+          "state": {
+            "type": "string",
+            "description": "State/province/region (use official short code where applicable).",
+            "nullable": true
+          },
+          "zipCode": {
+            "type": "string",
+            "description": "Postal/ZIP code (country-appropriate format).",
+            "nullable": true
+          },
+          "city": {
+            "type": "string",
+            "description": "City/locality."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Details of the address"
+      },
+      "Amount": {
+        "required": [
+          "value",
+          "currency"
+        ],
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "number",
+            "description": "Amount value",
+            "format": "double"
+          },
+          "currency": {
+            "type": "string",
+            "description": "ISO 4217 currency code. (e.g. USD, EUR)"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Monetary amount with currency"
+      },
+      "BaseUpload": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "$ref": "#/components/schemas/AttachmentType"
+          },
+          "fileName": {
+            "type": "string",
+            "description": "Uploaded file name.",
+            "nullable": true,
+            "example": "invoice-12345.pdf"
+          },
+          "file": {
+            "type": "string",
+            "description": "Base64-encoded file content.",
+            "format": "byte",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Base file upload with metadata"
+      },
+      "CommandResult": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "description": "Indicates whether the request completed successfully."
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "description": "List of validation or processing errors, if any.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Standard result wrapper containing success status and errors."
+      },
+      "Container": {
+        "required": [
+          "description"
+        ],
+        "type": "object",
+        "properties": {
+          "type": {
+            "$ref": "#/components/schemas/ContainerType"
+          },
+          "totalWeight": {
+            "type": "number",
+            "description": "Total container weight in kilograms.",
+            "format": "double",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "description": "Description of the container contents."
+          },
+          "dangerousGoods": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ContainerDangerousGoods"
+            },
+            "description": "Dangerous goods included in the container.",
+            "nullable": true
+          },
+          "temperatureControlledGoods": {
+            "$ref": "#/components/schemas/TemperatureControlledGoods"
+          },
+          "temperatureControlledContainer": {
+            "$ref": "#/components/schemas/TemperatureControlledContainer"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Details of a shipping container"
+      },
+      "Error": {
+        "type": "object",
+        "properties": {
+          "source": {
+            "type": "string",
+            "description": "Error source",
+            "nullable": true
+          },
+          "code": {
+            "type": "string",
+            "description": "Error code",
+            "nullable": true
+          },
+          "field": {
+            "type": "string",
+            "description": "Field related to error",
+            "nullable": true
+          },
+          "message": {
+            "type": "string",
+            "description": "Error message",
+            "nullable": true
+          },
+          "arg": {
+            "description": "Value of the field that the error concerns",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Error in reponse"
+      },
+      "Incoterms": {
+        "required": [
+          "code",
+          "location"
+        ],
+        "type": "object",
+        "properties": {
+          "code": {
+            "$ref": "#/components/schemas/IncotermsCode"
+          },
+          "location": {
+            "type": "string",
+            "description": "Named place for the selected Incoterms\u00ae 2020 rule."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Details of Incoterms\u00ae 2020 rule and named place."
+      },
+      "Insurance": {
+        "required": [
+          "insuranceType",
+          "goodsType",
+          "goodsValue"
+        ],
+        "type": "object",
+        "properties": {
+          "insuranceType": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/InsuranceType"
+              }
+            ],
+            "description": "Selected insurance coverage option (e.g., DSV Protect or Cargo Insurance)."
+          },
+          "goodsType": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/InsuranceGoodsType"
+              }
+            ],
+            "description": "Risk category of the shipped goods used for insurance rating (e.g., standard, fragile, used)."
+          },
+          "goodsValue": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Amount"
+              }
+            ],
+            "description": "Insured value of the goods including currency (ISO 4217)."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Insurance details for the quote, including coverage type, goods risk category, and insured value."
+      },
+      "Package": {
+        "required": [
+          "goodsDescription",
+          "packageType",
+          "quantity",
+          "totalWeight",
+          "length",
+          "width",
+          "height",
+          "totalVolume",
+          "stackable"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Package ID",
+            "nullable": true
+          },
+          "goodsDescription": {
+            "type": "string",
+            "description": "Package contents description"
+          },
+          "packageType": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PackageType"
+              }
+            ],
+            "description": "Packaging unit (e.g., pallet, box, crate)."
+          },
+          "quantity": {
+            "type": "integer",
+            "description": "Item quantity in the package",
+            "format": "int32"
+          },
+          "totalWeight": {
+            "type": "number",
+            "description": "Package total weight in kilograms (kg) or as per SelectedUOM.weight.",
+            "format": "double"
+          },
+          "length": {
+            "type": "number",
+            "description": "Package length",
+            "format": "double"
+          },
+          "width": {
+            "type": "number",
+            "description": "Package width",
+            "format": "double"
+          },
+          "height": {
+            "type": "number",
+            "description": "Package height",
+            "format": "double"
+          },
+          "totalVolume": {
+            "type": "number",
+            "description": "Package total volume (typically L\u00d7W\u00d7H) in cubic units per SelectedUOM.volume.",
+            "format": "double"
+          },
+          "stackable": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Stackable"
+              }
+            ],
+            "description": "Whether packages can be stacked."
+          },
+          "palletSpace": {
+            "type": "integer",
+            "description": "Pallet space for package",
+            "format": "int32",
+            "nullable": true
+          },
+          "loadMeters": {
+            "type": "number",
+            "description": "Load meters for package",
+            "format": "double",
+            "nullable": true
+          },
+          "temperatureControlled": {
+            "$ref": "#/components/schemas/TemperatureControlledGoods"
+          },
+          "dangerousGoods": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PackageDangerousGoods"
+            },
+            "description": "Details about dangerous goods in package",
+            "nullable": true
+          },
+          "shippingMark": {
+            "type": "string",
+            "description": "Marks & numbers printed on the package.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Package details, dimensions, weight, and handling.",
+        "example": {
+          "goodsDescription": "Printed brochures",
+          "packageType": "PLL - Pallet - 120cm x 80cm",
+          "quantity": 10,
+          "totalWeight": 220.5,
+          "length": 120,
+          "width": 80,
+          "height": 150,
+          "totalVolume": 1.44,
+          "stackable": "Stackable",
+          "palletSpace": 1,
+          "loadMeters": 0.4,
+          "shippingMark": "PO#12345 / Box 1-10"
+        }
+      },
+      "QuoteAttachment": {
+        "required": [
+          "type",
+          "fileName",
+          "file"
+        ],
+        "type": "object",
+        "properties": {
+          "modeOfTransport": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ModeOfTransport"
+              }
+            ],
+            "description": "Mode of transport associated with the attachment (e.g. Air, Sea only)."
+          },
+          "attachmentId": {
+            "type": "string",
+            "description": "Unique identifier of the uploaded or generated attachment file.",
+            "nullable": true
+          },
+          "type": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/AttachmentType"
+              }
+            ],
+            "description": "Attachment type identifying the kind of file uploaded (e.g., INV - Invoice document, PKL - Packing list)."
+          },
+          "contentType": {
+            "type": "string",
+            "description": "MIME type of the file (e.g., application/pdf, image/png).",
+            "nullable": true
+          },
+          "file": {
+            "type": "string",
+            "description": "File content encoded as a Base64 string.",
+            "format": "byte",
+            "example": "JVBERi0xLjQKJcTl8uXrp/Og0MTGCi4uLg=="
+          },
+          "fileName": {
+            "type": "string",
+            "description": "Original file name including extension.",
+            "example": "test-invoice-0001.pdf"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Metadata and identification details of a quote-related file or document.",
+        "example": {
+          "type": "INV - Invoice document",
+          "fileName": "test-invoice-0001.pdf",
+          "file": "JVBERi0xLjQKJcTl8uXrp/Og0MTGCi4uLg=="
+        }
+      },
+      "QuoteRequest": {
+        "required": [
+          "requestedBy",
+          "bookingParty",
+          "from",
+          "to",
+          "cargoType",
+          "pickupType",
+          "deliveryType",
+          "pickupDate",
+          "deliveryDate",
+          "totalWeight",
+          "unitsOfMeasurement",
+          "source"
+        ],
+        "type": "object",
+        "properties": {
+          "requestedBy": {
+            "$ref": "#/components/schemas/Requestor"
+          },
+          "bookingParty": {
+            "$ref": "#/components/schemas/BookingPartyAddress"
+          },
+          "from": {
+            "$ref": "#/components/schemas/FromAddress"
+          },
+          "to": {
+            "$ref": "#/components/schemas/ToAddress"
+          },
+          "cargoType": {
+            "$ref": "#/components/schemas/CargoType"
+          },
+          "pickupType": {
+            "$ref": "#/components/schemas/PickupType"
+          },
+          "pickupDate": {
+            "type": "string",
+            "description": "Pickup date (YYYY-MM-DD)",
+            "format": "date"
+          },
+          "deliveryType": {
+            "$ref": "#/components/schemas/DeliveryType"
+          },
+          "deliveryDate": {
+            "type": "string",
+            "description": "Delivery date (YYYY-MM-DD)",
+            "format": "date"
+          },
+          "references": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Reference"
+            },
+            "description": "Quote request references",
+            "nullable": true
+          },
+          "insurance": {
+            "$ref": "#/components/schemas/Insurance"
+          },
+          "packages": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Package"
+            },
+            "description": "List of packages included in the shipment",
+            "nullable": true
+          },
+          "containers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Container"
+            },
+            "description": "List of containers in the shipment",
+            "nullable": true
+          },
+          "totalWeight": {
+            "type": "number",
+            "description": "Shipment total weight",
+            "format": "double"
+          },
+          "air": {
+            "$ref": "#/components/schemas/AirDetails"
+          },
+          "sea": {
+            "$ref": "#/components/schemas/SeaDetails"
+          },
+          "road": {
+            "$ref": "#/components/schemas/RoadDetails"
+          },
+          "unitsOfMeasurement": {
+            "$ref": "#/components/schemas/SelectedUOM"
+          },
+          "source": {
+            "$ref": "#/components/schemas/Source"
+          },
+          "files": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BaseUpload"
+            },
+            "description": "Optional attachments; supported for Air and Sea only.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Details of quote request"
+      },
+      "QuoteRequestFilter": {
+        "type": "object",
+        "properties": {
+          "pageNumber": {
+            "type": "integer",
+            "description": "Page number (1-based).",
+            "format": "int32"
+          },
+          "pageSize": {
+            "type": "integer",
+            "description": "Items per page (pagination)",
+            "format": "int32"
+          },
+          "sort": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Sort"
+              }
+            ],
+            "description": "Sort criteria (property and direction)."
+          },
+          "searchText": {
+            "type": "string",
+            "description": "Search text in quote requests",
+            "nullable": true
+          },
+          "statuses": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/QuoteRequestStatus"
+            },
+            "description": "Filter by quote request statuses.",
+            "format": "Accepted, AwaitingForOptions, AwaitingForQuotes, AwaitingUserInformation, Cancelled, CannotProvideQuotes, Closed, Draft, NoLongerValid, ReadyForBook",
+            "nullable": true
+          },
+          "mots": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ModeOfTransport"
+            },
+            "description": "List of main transport mode the shipment",
+            "format": "Air, Road, Sea",
+            "nullable": true
+          },
+          "fromCountry": {
+            "pattern": "^[A-Z]{2}$",
+            "type": "string",
+            "description": "Origin country (ISO 3166-1 alpha-2).",
+            "nullable": true,
+            "example": "DE"
+          },
+          "toCountry": {
+            "pattern": "^[A-Z]{2}$",
+            "type": "string",
+            "description": "Destination country (ISO 3166-1 alpha-2).",
+            "nullable": true,
+            "example": "US"
+          },
+          "createdBy": {
+            "type": "string",
+            "description": "Identifier of the user who created the quote request (user ID or email).",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Search criteria for filtering and paging quote requests.",
+        "example": {
+          "pageNumber": 1,
+          "pageSize": 25,
+          "sort": {
+            "property": "CREATED_DATE",
+            "direction": "DESC"
+          },
+          "searchText": "booking party acme",
+          "statuses": [
+            "AwaitingForQuotes",
+            "ReadyForBook"
+          ],
+          "mots": [
+            "Air - Air",
+            "Sea - Sea"
+          ],
+          "fromCountry": "DK",
+          "toCountry": "US",
+          "createdBy": "XYZ@testsample.com"
+        }
+      },
+      "QuoteRequestResult": {
+        "type": "object",
+        "properties": {
+          "pageNumber": {
+            "type": "integer",
+            "description": "Current page number (1-based).",
+            "format": "int32"
+          },
+          "pageSize": {
+            "type": "integer",
+            "description": "Number of items per page.",
+            "format": "int32"
+          },
+          "totalPages": {
+            "type": "integer",
+            "description": "Total number of pages available.",
+            "format": "int32"
+          },
+          "totalResults": {
+            "type": "integer",
+            "description": "Total number of results matching the filter.",
+            "format": "int32"
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/QuoteResponse"
+                }
+              ],
+              "description": "Page of results. Returns an empty array when no data is found."
+            }
+          }
+        },
+        "additionalProperties": false,
+        "description": "Paged result set for quote requests."
+      },
+      "QuoteResponse": {
+        "required": [
+          "bookingParty",
+          "cargoType",
+          "from",
+          "pickupDate",
+          "pickupType",
+          "requestedBy",
+          "source",
+          "to",
+          "unitsOfMeasurement",
+          "deliveryType"
+        ],
+        "type": "object",
+        "properties": {
+          "createdDate": {
+            "type": "string",
+            "description": "Created date-time (UTC).",
+            "format": "date-time",
+            "nullable": true
+          },
+          "lastModifiedDate": {
+            "type": "string",
+            "description": "Last modified date-time (UTC).",
+            "format": "date-time",
+            "nullable": true
+          },
+          "quoteRequestId": {
+            "type": "string",
+            "description": "Quote request ID",
+            "nullable": true
+          },
+          "code": {
+            "type": "string",
+            "description": "Quote request code",
+            "nullable": true
+          },
+          "requestedBy": {
+            "$ref": "#/components/schemas/Requestor"
+          },
+          "requestDate": {
+            "type": "string",
+            "description": "Quote request date-time (UTC).",
+            "format": "date-time",
+            "nullable": true
+          },
+          "readyForBookDate": {
+            "type": "string",
+            "description": "Ready-for-booking date-time (UTC).",
+            "format": "date-time",
+            "nullable": true
+          },
+          "status": {
+            "$ref": "#/components/schemas/QuoteRequestStatus"
+          },
+          "bookingParty": {
+            "$ref": "#/components/schemas/Address"
+          },
+          "pickupType": {
+            "$ref": "#/components/schemas/PickupType"
+          },
+          "from": {
+            "$ref": "#/components/schemas/Address"
+          },
+          "to": {
+            "$ref": "#/components/schemas/Address"
+          },
+          "pickupDate": {
+            "type": "string",
+            "description": "Pickup date (YYYY-MM-DD).",
+            "format": "date",
+            "nullable": true
+          },
+          "deliveryType": {
+            "$ref": "#/components/schemas/DeliveryType"
+          },
+          "deliveryDate": {
+            "type": "string",
+            "description": "Delivery date (YYYY-MM-DD).",
+            "format": "date",
+            "nullable": true
+          },
+          "references": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Reference"
+            },
+            "description": "Quote request references",
+            "nullable": true
+          },
+          "insurance": {
+            "$ref": "#/components/schemas/Insurance"
+          },
+          "cargoType": {
+            "$ref": "#/components/schemas/CargoType"
+          },
+          "source": {
+            "$ref": "#/components/schemas/Source"
+          },
+          "packages": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Package"
+            },
+            "description": "List of packages included in the shipment",
+            "nullable": true
+          },
+          "containers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Container"
+            },
+            "description": "List of containers in the shipment",
+            "nullable": true
+          },
+          "air": {
+            "$ref": "#/components/schemas/AirDetails"
+          },
+          "sea": {
+            "$ref": "#/components/schemas/SeaDetails"
+          },
+          "road": {
+            "$ref": "#/components/schemas/RoadDetails"
+          },
+          "unitsOfMeasurement": {
+            "$ref": "#/components/schemas/SelectedUOM"
+          },
+          "quotes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Quote"
+            },
+            "description": "Quotes list",
+            "nullable": true
+          },
+          "totalWeight": {
+            "type": "number",
+            "description": "Shipment total weight in kilograms (kg) or as per unitsOfMeasurement.weight.",
+            "format": "double",
+            "nullable": true
+          },
+          "quotingCountry": {
+            "type": "string",
+            "description": "Quoting country (ISO 3166-1 alpha-2).",
+            "nullable": true
+          },
+          "financialOwners": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FinancialOwner"
+            },
+            "description": "List of financial owners",
+            "nullable": true
+          },
+          "acceptanceDate": {
+            "type": "string",
+            "description": "Acceptance date-time (UTC).",
+            "format": "date-time",
+            "nullable": true
+          },
+          "reconfigurationTimestamp": {
+            "type": "string",
+            "description": "Reconfiguration timestamp (UTC).",
+            "format": "date-time",
+            "nullable": true
+          },
+          "attachments": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/QuoteAttachment"
+            },
+            "description": "List of saved attachments",
+            "nullable": true
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "description": "List of errors",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Details of quote request"
+      },
+      "RoadDetails": {
+        "required": [
+          "incoterms",
+          "serviceLevel"
+        ],
+        "type": "object",
+        "properties": {
+          "incoterms": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Incoterms"
+              }
+            ],
+            "description": "Incoterms\u00ae 2020 rule and named place. Defines responsibilities, cost, and risk transfer between buyer and seller. For more information check https://www.dsv.com/en/insights/expert-opinions/what-are-incoterms"
+          },
+          "serviceAndSurchargeCodes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Service and surcharge codes for road shipment",
+            "nullable": true
+          },
+          "serviceLevel": {
+            "type": "string",
+            "description": "Please enter the 3 letter/digit code of the requested service level. Please contact your local DSV contact for more information."
+          },
+          "notes": {
+            "type": "string",
+            "description": "Additional notes or special instructions for the road shipment.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Details of road transport shipment, including incoterms, service level, and applicable surcharge codes."
+      },
+      "Reference": {
+        "required": [
+          "type",
+          "value"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Reference name"
+          },
+          "type": {
+            "$ref": "#/components/schemas/ReferenceType"
+          },
+          "value": {
+            "type": "string",
+            "description": "Reference value as provided by the customer or system."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Typed reference attached to the quote/booking (e.g., CustomerReference, OrderNumber)."
+      },
+      "Requestor": {
+        "required": [
+          "userId",
+          "firstName",
+          "lastName",
+          "email",
+          "language",
+          "phone"
+        ],
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "string",
+            "description": "Requestor unique ID"
+          },
+          "firstName": {
+            "type": "string",
+            "description": "Requestor first name"
+          },
+          "lastName": {
+            "type": "string",
+            "description": "Requestor last name"
+          },
+          "email": {
+            "type": "string",
+            "description": "Requestor email address",
+            "format": "email"
+          },
+          "language": {
+            "type": "string",
+            "description": "Requestor preferred language"
+          },
+          "phone": {
+            "type": "string",
+            "description": "Requestor phone number"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Details of the user who initiated the quote request."
+      },
+      "SelectedUOM": {
+        "required": [
+          "dimension",
+          "weight",
+          "volume",
+          "temperature"
+        ],
+        "type": "object",
+        "properties": {
+          "dimension": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/DimensionUOM"
+              }
+            ],
+            "description": "Unit for length/width/height (applies to fields such as package length/width/height)."
+          },
+          "weight": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/WeightUOM"
+              }
+            ],
+            "description": "Unit for weight values (e.g., package totalWeight, shipment totalWeight)."
+          },
+          "volume": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/VolumeUOM"
+              }
+            ],
+            "description": "Unit for volume values (e.g., package totalVolume)."
+          },
+          "temperature": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/TemperatureUOM"
+              }
+            ],
+            "description": "Unit for temperature values used in temperature-controlled goods/containers."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Units of measurement (UOM) used for all dimensional, weight, volume, and temperature fields. Provided by the requester in the quote request and echoed in the response to confirm the applied measurement units."
+      },
+      "ServiceAndSurcharge": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Name of the service or surcharge (e.g., Fuel Surcharge, Linehaul).",
+            "nullable": true
+          },
+          "amount": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Amount"
+              }
+            ],
+            "description": "Price or charge amount with currency."
+          },
+          "id": {
+            "type": "string",
+            "description": "Unique identifier for the service or surcharge.",
+            "nullable": true
+          },
+          "type": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ServiceAndSurchargeType"
+              }
+            ],
+            "description": "Indicates whether this is a transport service or surcharge."
+          },
+          "selected": {
+            "type": "boolean",
+            "description": "Indicates whether this service or surcharge has been selected by the user.",
+            "nullable": true
+          },
+          "productCode": {
+            "type": "string",
+            "description": "Product code associated with the service or surcharge.",
+            "nullable": true
+          },
+          "activityCode": {
+            "type": "string",
+            "description": "Service or surcharge activity code",
+            "nullable": true
+          },
+          "serviceCode": {
+            "type": "string",
+            "description": "Service or surcharge code",
+            "nullable": true
+          },
+          "myDSVServiceType": {
+            "type": "string",
+            "description": "myDSV-specific service type",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Details about individual services or surcharges applicable to the quote."
+      },
+      "Sort": {
+        "required": [
+          "property",
+          "direction"
+        ],
+        "type": "object",
+        "properties": {
+          "property": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/SortProperty"
+              }
+            ],
+            "description": "Field used for sorting the results. Common values: CREATED_BY, CREATED_DATE."
+          },
+          "direction": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/SortDirection"
+              }
+            ],
+            "description": "Sorting order: ASC for ascending, DESC for descending."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Sorting criteria for query results (e.g., sort quote requests by creation date or creator)."
+      },
+      "TemperatureControlledContainer": {
+        "required": [
+          "genSet",
+          "temperature"
+        ],
+        "type": "object",
+        "properties": {
+          "genSet": {
+            "type": "boolean",
+            "description": "Indicates whether a generator set (GenSet) is required to maintain the container\u2019s temperature during transit."
+          },
+          "temperature": {
+            "type": "number",
+            "description": "Target temperature setting for the container, as specified in the selected temperature unit (\u00b0C or \u00b0F)",
+            "format": "double"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Details of a temperature-controlled container, including GenSet requirement and target temperature setting."
+      },
+      "TemperatureControlledGoods": {
+        "required": [
+          "maxTemperature",
+          "minTemperature"
+        ],
+        "type": "object",
+        "properties": {
+          "minTemperature": {
+            "type": "number",
+            "description": "Minimum allowable temperature for the goods, expressed in the selected temperature unit (\u00b0C or \u00b0F).",
+            "format": "double"
+          },
+          "maxTemperature": {
+            "type": "number",
+            "description": "Maximum allowable temperature for the goods, expressed in the selected temperature unit (\u00b0C or \u00b0F).",
+            "format": "double"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Details of temperature-controlled goods, specifying the acceptable minimum and maximum temperature thresholds in the selected unit of measurement."
+      },
+      "Quote": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Quote ID \u2014 Internal unique identifier for the quote within DSV systems.",
+            "nullable": true
+          },
+          "quoteId": {
+            "type": "string",
+            "description": "Provider's quote ID"
+          },
+          "code": {
+            "type": "string",
+            "description": "Quote reference code used for business tracking.",
+            "nullable": true
+          },
+          "version": {
+            "type": "string",
+            "description": "Quote version number when multiple revisions exist.",
+            "nullable": true
+          },
+          "quoteRequestId": {
+            "type": "string",
+            "description": "Identifier of the quote request from which this quote was generated.",
+            "nullable": true
+          },
+          "quoteProvider": {
+            "$ref": "#/components/schemas/QuoteProvider"
+          },
+          "status": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/QuoteStatus"
+              }
+            ],
+            "description": "Current lifecycle status of the quote (e.g., ReadyForBook, Accepted, Expired)."
+          },
+          "submissionDate": {
+            "type": "string",
+            "description": "Date and time when the quote was submitted for processing.",
+            "format": "date-time",
+            "nullable": true,
+            "example": "2025-10-07T10:25:32.0000000+00:00"
+          },
+          "responseDate": {
+            "type": "string",
+            "description": "Date and time when the quote provider returned a response.",
+            "format": "date-time",
+            "nullable": true,
+            "example": "2025-10-07T10:45:32.0000000+00:00"
+          },
+          "validUntil": {
+            "type": "string",
+            "description": "Expiration date of the quote validity.",
+            "format": "date-time",
+            "nullable": true,
+            "example": "2025-10-15T11:59:59.0000000+00:00"
+          },
+          "type": {
+            "$ref": "#/components/schemas/QuoteType"
+          },
+          "modeOfTransport": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ModeOfTransport"
+              }
+            ],
+            "description": "Primary mode of transport (Air, Sea, Road, etc.)."
+          },
+          "revocationReason": {
+            "type": "string",
+            "description": "Quote revocation reason",
+            "nullable": true
+          },
+          "serviceLevel": {
+            "type": "string",
+            "description": "Quote service level",
+            "nullable": true
+          },
+          "attachmentId": {
+            "type": "string",
+            "description": "Quote attachment ID",
+            "nullable": true
+          },
+          "price": {
+            "$ref": "#/components/schemas/Amount"
+          },
+          "serviceAndSurcharges": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ServiceAndSurcharge"
+            },
+            "description": "List of services and surcharges",
+            "nullable": true
+          },
+          "manualReview": {
+            "type": "boolean",
+            "description": "Manual review requirement"
+          },
+          "wasManualReview": {
+            "type": "boolean",
+            "description": "Manual review status",
+            "nullable": true
+          },
+          "validStart": {
+            "type": "string",
+            "description": "Start date from which the quote becomes valid.",
+            "format": "date-time",
+            "nullable": true,
+            "example": "2025-10-07T12:00:00.0000000+00:00"
+          },
+          "frequency": {
+            "type": "string",
+            "description": "Service frequency",
+            "nullable": true
+          },
+          "transitTime": {
+            "type": "string",
+            "description": "Transit time in quote",
+            "nullable": true
+          },
+          "scheduledDeparture": {
+            "type": "string",
+            "description": "Scheduled departure date",
+            "format": "date",
+            "nullable": true
+          },
+          "surchargeInclusive": {
+            "type": "boolean",
+            "description": "Surcharge inclusion in quote",
+            "nullable": true
+          },
+          "hideSurchargePricing": {
+            "type": "boolean",
+            "description": "Surcharge pricing visibility",
+            "nullable": true
+          },
+          "notes": {
+            "type": "string",
+            "description": "Additional quote notes",
+            "nullable": true
+          },
+          "showNotes": {
+            "type": "boolean",
+            "description": "Notes visibility in quote",
+            "nullable": true
+          },
+          "manualReviewReason": {
+            "type": "string",
+            "description": "Manual review reason",
+            "nullable": true
+          },
+          "quoteProviderStatus": {
+            "type": "string",
+            "description": "Provider-reported quote status",
+            "nullable": true
+          },
+          "bookingId": {
+            "type": "string",
+            "description": "Booking ID",
+            "nullable": true
+          },
+          "quoteProviderCreatedDate": {
+            "type": "string",
+            "description": "Provider creation date",
+            "format": "date-time",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Detailed quote information including pricing, transport mode, validity, and conditions."
+      },
+      "FinancialOwner": {
+        "type": "object",
+        "properties": {
+          "modeOfTransport": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ModeOfTransport"
+              }
+            ],
+            "description": "Mode of transport for which this financial owner applies (e.g., Road, Air, Sea, Rail, Xpress)."
+          },
+          "country": {
+            "type": "string",
+            "description": "ISO 3166-1 alpha-2 country code (e.g., US, DK).",
+            "nullable": true
+          },
+          "includedInRwf": {
+            "type": "boolean",
+            "description": "Indicates whether the financial owner participates in the Revenue & Freight Workflow (RWF).",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Financial owner details by mode and country."
+      },
+      "AirDetails": {
+        "required": [
+          "originAirport",
+          "destinationAirport",
+          "batteries",
+          "incoterms",
+          "serviceLevel"
+        ],
+        "type": "object",
+        "properties": {
+          "originAirport": {
+            "type": "string",
+            "description": "UN/LOCODE (5-character) of the first departure airport (e.g., DKCPH, USNYC). Note: IATA 3-letter codes (e.g., CPH, JFK) are not supported."
+          },
+          "destinationAirport": {
+            "type": "string",
+            "description": "UN/LOCODE (5-character) of the final arrival airport (e.g., DKCPH, USNYC). Note: IATA 3-letter codes (e.g., CPH, JFK) are not supported."
+          },
+          "batteries": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/BatteryType"
+              }
+            ],
+            "description": "Battery type classification for air transport compliance (e.g., None, Lithium, Dry)."
+          },
+          "incoterms": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Incoterms"
+              }
+            ],
+            "description": "Incoterms\u00ae 2020 rule and named place for the air shipment."
+          },
+          "serviceLevel": {
+            "type": "string",
+            "description": "3-character service level code (contact your DSV representative for valid codes)."
+          },
+          "notes": {
+            "type": "string",
+            "description": "Additional notes or special instructions for the air shipment.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Details of the air transport shipment, including airports, battery declaration, Incoterms\u00ae, and service level."
+      },
+      "SeaDetails": {
+        "required": [
+          "originPort",
+          "destinationPort",
+          "incoterms",
+          "serviceLevel"
+        ],
+        "type": "object",
+        "properties": {
+          "originPort": {
+            "type": "string",
+            "description": "UN/LOCODE of the origin port (e.g., DEHAM for Hamburg)."
+          },
+          "destinationPort": {
+            "type": "string",
+            "description": "UN/LOCODE of the destination port (e.g., NLRTM for Rotterdam)."
+          },
+          "incoterms": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Incoterms"
+              }
+            ],
+            "description": "Incoterms\u00ae 2020 rule and named place for the sea shipment."
+          },
+          "serviceLevel": {
+            "type": "string",
+            "description": "3-character service level code (contact your DSV representative for valid codes e.g., STD )."
+          },
+          "notes": {
+            "type": "string",
+            "description": "Additional notes or special instructions for the sea shipment.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Details of the sea transport shipment, including UN/LOCODE ports, Incoterms\u00ae, and service level."
+      },
+      "BookingPartyAddress": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Address"
+          },
+          {
+            "required": [
+              "mdm",
+              "country",
+              "zipCode",
+              "city"
+            ],
+            "type": "object",
+            "properties": {
+              "mdm": {
+                "type": "string",
+                "description": "DSV debtor number (MDM number) identifying the customer in DSV systems."
+              },
+              "country": {
+                "type": "string",
+                "description": "ISO 3166-1 alpha-2 country code (e.g., DK, US)."
+              },
+              "zipCode": {
+                "type": "string",
+                "description": "Postal/ZIP code."
+              },
+              "city": {
+                "type": "string",
+                "description": "City name."
+              }
+            }
+          }
+        ],
+        "description": "Name and address of the party that created the booking."
+      },
+      "FromAddress": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Address"
+          },
+          {
+            "required": [
+              "country",
+              "zipCode",
+              "city"
+            ],
+            "type": "object",
+            "properties": {
+              "country": {
+                "type": "string",
+                "description": "ISO 3166-1 alpha-2 country code (e.g., DK, US)."
+              },
+              "zipCode": {
+                "type": "string",
+                "description": "Postal/ZIP code."
+              },
+              "city": {
+                "type": "string",
+                "description": "City name."
+              }
+            }
+          }
+        ],
+        "description": "Origin (shipper) address details from where the cargo will be picked up."
+      },
+      "ToAddress": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Address"
+          },
+          {
+            "required": [
+              "mdm",
+              "country",
+              "zipCode",
+              "city"
+            ],
+            "type": "object",
+            "properties": {
+              "mdm": {
+                "type": "string",
+                "description": "DSV debtor number (MDM number) identifying the customer in DSV systems."
+              },
+              "country": {
+                "type": "string",
+                "description": "ISO 3166-1 alpha-2 country code (e.g., DK, US)."
+              },
+              "zipCode": {
+                "type": "string",
+                "description": "Postal/ZIP code."
+              },
+              "city": {
+                "type": "string",
+                "description": "City name."
+              }
+            }
+          }
+        ],
+        "description": "Destination address details where the cargo will be delivered."
+      },
+      "PackageDangerousGoods": {
+        "required": [
+          "unCode",
+          "grossWeight",
+          "packingGroup",
+          "cargoAircraftOnly",
+          "subRisk",
+          "properShippingName"
+        ],
+        "type": "object",
+        "properties": {
+          "unCode": {
+            "type": "string",
+            "description": "UN number identifying the dangerous goods (e.g., 1203 for Gasoline)."
+          },
+          "grossWeight": {
+            "type": "number",
+            "description": "Gross weight of the dangerous goods in kilograms (kg).",
+            "format": "double"
+          },
+          "subRisk": {
+            "type": "string",
+            "description": "Sub-risk classification, if applicable (e.g., Class 3 for flammable liquids).",
+            "nullable": true
+          },
+          "packingGroup": {
+            "type": "string",
+            "description": "Packing group according to UN classification \u2014 I (high danger), II (medium danger), or III (low danger)."
+          },
+          "properShippingName": {
+            "type": "string",
+            "description": "Proper Shipping Name (PSN) as per UN dangerous goods list (e.g., Gasoline).",
+            "nullable": true
+          },
+          "cargoAircraftOnly": {
+            "type": "boolean",
+            "description": "Indicates whether the dangerous goods shipment is restricted to cargo aircraft only (not permitted on passenger aircraft)."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Details about dangerous goods contained within a package, including UN number, packing group, and weight specifications."
+      },
+      "ContainerDangerousGoods": {
+        "required": [
+          "unCode",
+          "grossWeight",
+          "subRisk",
+          "packingGroup",
+          "properShippingName",
+          "cargoAircraftOnly"
+        ],
+        "type": "object",
+        "properties": {
+          "unCode": {
+            "type": "string",
+            "description": "UN number identifying the dangerous goods (e.g., 1203 for Gasoline)."
+          },
+          "grossWeight": {
+            "type": "number",
+            "description": "Gross weight of the dangerous goods in kilograms (kg).",
+            "format": "double"
+          },
+          "subRisk": {
+            "type": "string",
+            "description": "Sub-risk classification, if applicable (e.g., Class 3 for flammable liquids).",
+            "nullable": true
+          },
+          "packingGroup": {
+            "type": "string",
+            "description": "Packing group according to UN classification \u2014 I (high danger), II (medium danger), or III (low danger).",
+            "nullable": true
+          },
+          "properShippingName": {
+            "type": "string",
+            "description": "Proper Shipping Name (PSN) as per the UN dangerous goods list (e.g., Gasoline).",
+            "nullable": true
+          },
+          "cargoAircraftOnly": {
+            "type": "boolean",
+            "description": "Indicates whether the dangerous goods shipment is restricted to cargo aircraft only (not permitted on passenger aircraft)."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Details about dangerous goods loaded within a shipping container, including UN number, weight, and classification data."
+      }
+    },
+    "securitySchemes": {
+      "apiKeyHeader": {
+        "type": "apiKey",
+        "name": "DSV-Subscription-Key",
+        "in": "header"
+      },
+      "apiKeyQuery": {
+        "type": "apiKey",
+        "name": "DSV-Subscription-Key",
+        "in": "query"
+      }
+    }
+  },
+  "security": [
+    {
+      "apiKeyHeader": []
+    },
+    {
+      "apiKeyQuery": []
+    }
+  ]
+}

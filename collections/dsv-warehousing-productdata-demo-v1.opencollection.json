@@ -1,0 +1,76 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "WMS Product Data (DEMO)",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "DSV-Subscription-Key",
+      "value": "{{DSV-Subscription-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "ProductData",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create new Product Data record(s)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.dsv.com/cl-demo/productdata/v1/productData",
+            "headers": [
+              {
+                "name": "api-version",
+                "value": "1"
+              },
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create new Product Data records with full product information via API"
+        },
+        {
+          "info": {
+            "name": "Update Product Data record(s)",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.dsv.com/cl-demo/productdata/v1/productData",
+            "headers": [
+              {
+                "name": "api-version",
+                "value": "1"
+              },
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Request used to update previously created product data records."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

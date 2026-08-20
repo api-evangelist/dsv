@@ -1,0 +1,165 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "QUOTE API DEMO",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "DSV-Subscription-Key",
+      "value": "{{DSV-Subscription-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Public",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Submit quote request",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.dsv.com/qs-demo/quote/v1/quotes",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "DSV-Subscription-Key",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Send a quote request to DSV to receive offers for Air, Sea, and Road freight"
+        },
+        {
+          "info": {
+            "name": "Get quote request",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dsv.com/qs-demo/quote/v1/quotes/:quoteRequestId",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "DSV-Subscription-Key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "quoteRequestId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get quote request details by specifying the Quote request ID or Quote ID"
+        },
+        {
+          "info": {
+            "name": "Filter quote request",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.dsv.com/qs-demo/quote/v1/quotes/filter",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "DSV-Subscription-Key",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Apply Filters to Quote API Requests"
+        },
+        {
+          "info": {
+            "name": "Cancel quote request",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.dsv.com/qs-demo/quote/v1/quotes/:quoteRequestId/cancel",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "DSV-Subscription-Key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "quoteRequestId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Cancel previously submitted quote requests"
+        },
+        {
+          "info": {
+            "name": "Get quote attachment",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dsv.com/qs-demo/quote/v1/quotes/:quoteRequestId/attachments/:attachmentId",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "DSV-Subscription-Key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "quoteRequestId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "attachmentId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get a specific quote attachment by providing the Quote Request ID or Attachment ID"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

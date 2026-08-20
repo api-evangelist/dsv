@@ -1,0 +1,726 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Quote - XPress",
+    "description": "Request quotes based on agreed tariff rates and view the different service options.",
+    "version": "v2"
+  },
+  "servers": [
+    {
+      "url": "https://api.dsv.com/xp/comparator/v2"
+    }
+  ],
+  "paths": {
+    "/compare": {
+      "post": {
+        "tags": [
+          "Quote"
+        ],
+        "summary": "Rate & Service request",
+        "description": "Request quotes based on agreed tariff rates and obtain estimated times of arrival.",
+        "operationId": "compareServiceAndRates",
+        "parameters": [
+          {
+            "name": "dsv-service-auth",
+            "in": "header",
+            "description": "DSV XPress service auth for the selected API (found on DSV XPress API profile page)",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "x-pat",
+            "in": "header",
+            "description": "DSV XPress personal access token (found on DSV XPress API profile page)",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Service comparator request object",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ServiceComparatorRequest"
+              },
+              "example": {
+                "dsvAccount": 6400000000,
+                "pickupCountryCode": "DK",
+                "pickupCity": "Copenhagen",
+                "deliveryCountryCode": "DE",
+                "deliveryCity": "Munchen",
+                "serviceOptions": {
+                  "packageType": "PARCELS",
+                  "saturdayDelivery": false,
+                  "insurance": {
+                    "currencyCode": "DKK",
+                    "monetaryValue": 2000
+                  }
+                },
+                "dimensionUnit": "CM",
+                "weightUnit": "KG",
+                "residentialDelivery": false,
+                "ddp": false,
+                "specialContent": "DRY_ICE",
+                "packages": [
+                  {
+                    "length": 20,
+                    "width": 30,
+                    "height": 30,
+                    "grossWeight": 6.5
+                  }
+                ],
+                "collectDate": "2000-09-25"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation. Return the list of available services and their rates.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServiceComparatorResponse"
+                },
+                "example": {
+                  "services": [
+                    {
+                      "serviceCode": "DSVAirExpress",
+                      "serviceDescription": "DSV XPress",
+                      "etaMin": "2020-04-17",
+                      "etaMax": "2020-04-19",
+                      "rates": {
+                        "currency": "EUR",
+                        "freight": 42.8,
+                        "fuel": 6.8,
+                        "total": 52.6,
+                        "priceBreakdown": [
+                          {
+                            "code": "24",
+                            "description": "Courrier shipment",
+                            "monetaryValue": 42.8
+                          },
+                          {
+                            "code": "1",
+                            "description": "Fuel surcharge",
+                            "monetaryValue": 6.8
+                          },
+                          {
+                            "code": "30",
+                            "description": "Insurance",
+                            "monetaryValue": 3
+                          }
+                        ],
+                        "otherSurcharges": [
+                          {
+                            "code": "10",
+                            "description": "Proof of Delivery",
+                            "monetaryValue": 3.4
+                          },
+                          {
+                            "code": "11",
+                            "description": "Additional Handling Charge",
+                            "monetaryValue": 9
+                          },
+                          {
+                            "code": "117",
+                            "description": "DSV Protect",
+                            "monetaryValue": 3
+                          },
+                          {
+                            "code": "2",
+                            "description": "DDP (Duty/Taxes Paid )",
+                            "monetaryValue": 25
+                          },
+                          {
+                            "code": "29",
+                            "description": "Disbursement Fee",
+                            "monetaryValue": 20
+                          },
+                          {
+                            "code": "3",
+                            "description": "Dangerous Goods",
+                            "monetaryValue": 70
+                          },
+                          {
+                            "code": "7",
+                            "description": "Remote Area Delivery",
+                            "monetaryValue": 25
+                          },
+                          {
+                            "code": "8",
+                            "description": "Address Correction",
+                            "monetaryValue": 12
+                          },
+                          {
+                            "code": "9",
+                            "description": "Residential Delivery Service",
+                            "monetaryValue": 2.9
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ServiceComparatorRequest": {
+        "required": [
+          "dsvAccount",
+          "pickupCountryCode",
+          "deliveryCountryCode",
+          "serviceOptions",
+          "packages"
+        ],
+        "type": "object",
+        "properties": {
+          "dsvAccount": {
+            "type": "integer",
+            "description": "Shipper's DSV account number. The account must be a valid DSV account number that is active.",
+            "format": "int64"
+          },
+          "pickupCountryCode": {
+            "$ref": "#/components/schemas/CountryCodeList"
+          },
+          "pickupZipCode": {
+            "type": "string",
+            "description": "Pickup Address Zip Code"
+          },
+          "pickupCity": {
+            "maxLength": 80,
+            "type": "string",
+            "description": "Pickup Address City"
+          },
+          "deliveryCountryCode": {
+            "$ref": "#/components/schemas/CountryCodeList"
+          },
+          "deliveryZipCode": {
+            "type": "string",
+            "description": "Delivery Address Zip Code"
+          },
+          "deliveryCity": {
+            "maxLength": 80,
+            "type": "string",
+            "description": "Delivery Address City"
+          },
+          "residentialDelivery": {
+            "type": "boolean",
+            "description": "Flag to identify if this delivery address is residential. Default is false"
+          },
+          "serviceOptions": {
+            "$ref": "#/components/schemas/ServiceOptions"
+          },
+          "ddp": {
+            "type": "boolean",
+            "description": "Delivered Duty Paid\nA shipment is considered DDP when :\n* For EXPORT Shipment, the Duties and taxes are paid by the `SENDER` or a `THIRD_PARTY`\n* For IMPORT Shipment, the Duties and taxes are paid by a `THIRD_PARTY`\n"
+          },
+          "specialContent": {
+            "maxLength": 20,
+            "type": "string",
+            "description": "Type of regulated good. Supported codes:\n * `ADR` - Transport of dangerous goods by road\n * `ADR_LQ` - Transport of dangerous goods by road in limited quantities\n * `DGR` - Transport of dangerous goods by Air (IATA regulations)\n * `LITHIUM` - Transport of goods consisting of or containing Lithium Batteries\n * `EXQ` - Transport of dangerous goods in Excepted Quantities\n * `DRY_ICE` - Transport of cargo containing Dry Ice\n"
+          },
+          "dimensionUnit": {
+            "maxLength": 2,
+            "type": "string",
+            "description": "Unit of measurement for dimensions. Could be CM - centimeter or IN - inch. Default is CM.",
+            "default": "CM"
+          },
+          "weightUnit": {
+            "type": "string",
+            "description": "Weight unit of measurement. Could be KG - Kilogram or LBS - Pound. Default is KG.",
+            "default": "KG"
+          },
+          "packages": {
+            "maxItems": 100,
+            "minItems": 1,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PackageDetail"
+            },
+            "description": "Packages information. For Envelope shipment only one package is allowed."
+          },
+          "collectDate": {
+            "type": "string",
+            "description": "Collect Date. Not mandatory, the default value is today. <br>Expected date format : yyyy-MM-dd.<br>. please note the date can be in future but not in past.",
+            "format": "date"
+          }
+        },
+        "description": "Container for Shipment",
+        "example": {
+          "dsvAccount": 6400000000,
+          "pickupCountryCode": "DK",
+          "pickupCity": "Copenhagen",
+          "deliveryCountryCode": "DE",
+          "deliveryCity": "Munchen",
+          "serviceOptions": {
+            "packageType": "PARCELS",
+            "saturdayDelivery": false,
+            "insurance": {
+              "currencyCode": "DKK",
+              "monetaryValue": 2000
+            }
+          },
+          "dimensionUnit": "CM",
+          "weightUnit": "KG",
+          "residentialDelivery": false,
+          "ddp": false,
+          "specialContent": "DRY_ICE",
+          "packages": [
+            {
+              "length": 20,
+              "width": 30,
+              "height": 30,
+              "grossWeight": 6.5
+            }
+          ],
+          "collectDate": "2000-09-25"
+        }
+      },
+      "CountryCodeList": {
+        "maxLength": 2,
+        "type": "string",
+        "description": "ISO_3166_1 Country Code",
+        "example": "DK"
+      },
+      "ServiceOptions": {
+        "required": [
+          "packageType"
+        ],
+        "type": "object",
+        "properties": {
+          "timeOption": {
+            "maxLength": 80,
+            "type": "string",
+            "description": "Delivery Time Option, could be 9AM, 1030AM or 12PM"
+          },
+          "saturdayDelivery": {
+            "type": "boolean",
+            "description": "Saturday delivery. `false` by default. If `true`, saturday delivery is requested.",
+            "default": false
+          },
+          "packageType": {
+            "$ref": "#/components/schemas/PackageType"
+          },
+          "insurance": {
+            "$ref": "#/components/schemas/CurrencyMonetaryType"
+          }
+        },
+        "description": "Container for shipment service options",
+        "example": {
+          "timeOption": "9AM",
+          "saturdayDelivery": false,
+          "packageType": "PARCELS",
+          "insurance": {
+            "currencyCode": "DKK",
+            "monetaryValue": 2000
+          }
+        }
+      },
+      "PackageType": {
+        "enum": [
+          "PARCELS",
+          "DOCUMENT",
+          "ENVELOPE"
+        ],
+        "type": "string",
+        "description": "Package type. Could be PARCELS / DOCUMENT / ENVELOPE. PARCELS by default.",
+        "default": "PARCELS"
+      },
+      "PackageDetail": {
+        "required": [
+          "grossWeight"
+        ],
+        "type": "object",
+        "properties": {
+          "length": {
+            "minimum": 0.0,
+            "type": "number",
+            "description": "Package length. Length must be the longest dimension of the container.",
+            "format": "double",
+            "default": 0
+          },
+          "width": {
+            "minimum": 0.0,
+            "type": "number",
+            "description": "Package width.",
+            "format": "double",
+            "default": 0
+          },
+          "height": {
+            "minimum": 0.0,
+            "type": "number",
+            "description": "Package height.",
+            "format": "double",
+            "default": 0
+          },
+          "grossWeight": {
+            "minimum": 0.0,
+            "type": "number",
+            "description": "Package gross weight",
+            "format": "double",
+            "example": 6.5
+          }
+        },
+        "description": "Container for package",
+        "example": {
+          "length": 20,
+          "width": 30,
+          "height": 30,
+          "grossWeight": 8.5
+        }
+      },
+      "ServiceComparatorResponse": {
+        "type": "object",
+        "properties": {
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ErrorItem"
+            }
+          },
+          "warnings": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ErrorItem"
+            }
+          },
+          "services": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ServiceRates"
+            }
+          }
+        },
+        "description": "Container for DSV service and rates information response",
+        "example": {
+          "services": [
+            {
+              "serviceCode": "DSVAirExpress",
+              "serviceDescription": "DSV XPress",
+              "etaMin": "2020-04-17",
+              "etaMax": "2020-04-19",
+              "rates": {
+                "currency": "EUR",
+                "freight": 42.8,
+                "fuel": 6.8,
+                "total": 52.6,
+                "priceBreakdown": [
+                  {
+                    "code": "24",
+                    "description": "Courrier shipment",
+                    "monetaryValue": 42.8
+                  },
+                  {
+                    "code": "1",
+                    "description": "Fuel surcharge",
+                    "monetaryValue": 6.8
+                  },
+                  {
+                    "code": "30",
+                    "description": "Insurance",
+                    "monetaryValue": 3
+                  }
+                ],
+                "otherSurcharges": [
+                  {
+                    "code": "10",
+                    "description": "Proof of Delivery",
+                    "monetaryValue": 3.4
+                  },
+                  {
+                    "code": "11",
+                    "description": "Additional Handling Charge",
+                    "monetaryValue": 9
+                  },
+                  {
+                    "code": "117",
+                    "description": "DSV Protect",
+                    "monetaryValue": 3
+                  },
+                  {
+                    "code": "2",
+                    "description": "DDP (Duty/Taxes Paid )",
+                    "monetaryValue": 25
+                  },
+                  {
+                    "code": "29",
+                    "description": "Disbursement Fee",
+                    "monetaryValue": 20
+                  },
+                  {
+                    "code": "3",
+                    "description": "Dangerous Goods",
+                    "monetaryValue": 70
+                  },
+                  {
+                    "code": "7",
+                    "description": "Remote Area Delivery",
+                    "monetaryValue": 25
+                  },
+                  {
+                    "code": "8",
+                    "description": "Address Correction",
+                    "monetaryValue": 12
+                  },
+                  {
+                    "code": "9",
+                    "description": "Residential Delivery Service",
+                    "monetaryValue": 2.9
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "ErrorItem": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          },
+          "details": {
+            "type": "string"
+          }
+        }
+      },
+      "ServiceRates": {
+        "type": "object",
+        "properties": {
+          "serviceCode": {
+            "type": "string",
+            "description": "DSV service code",
+            "example": "DSVAirExpress"
+          },
+          "serviceDescription": {
+            "type": "string",
+            "description": "DSV service description",
+            "example": "DSV XPress"
+          },
+          "etaMin": {
+            "type": "string",
+            "description": "Estimated Minimum Arrival Date",
+            "format": "date"
+          },
+          "etaMax": {
+            "type": "string",
+            "description": "Estimated Maximum Arrival Date",
+            "format": "date"
+          },
+          "rates": {
+            "$ref": "#/components/schemas/Rates"
+          }
+        },
+        "description": "Container for DSV service and rates information"
+      },
+      "Rates": {
+        "type": "object",
+        "properties": {
+          "currency": {
+            "$ref": "#/components/schemas/CurrencyCodeList"
+          },
+          "freight": {
+            "maximum": 9999999.99,
+            "minimum": 0.0,
+            "type": "number",
+            "description": "Freight value amount. Amount is expressed exclusive tax.",
+            "format": "double",
+            "example": 250
+          },
+          "fuel": {
+            "maximum": 9999999.99,
+            "minimum": 0.0,
+            "type": "number",
+            "description": "Fuel value amount. Amount is expressed exclusive tax.",
+            "format": "double",
+            "example": 10
+          },
+          "total": {
+            "maximum": 9999999.99,
+            "minimum": 0.0,
+            "type": "number",
+            "description": "Total of priceBreakdown value amounts. Amount is expressed exclusive tax. Calculated based on data provided in request.",
+            "format": "double",
+            "example": 260
+          },
+          "priceBreakdown": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ServiceCharge"
+            }
+          },
+          "otherSurcharges": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ServiceCharge"
+            }
+          }
+        },
+        "description": "Container for service rates and options",
+        "example": {
+          "currency": "EUR",
+          "priceBreakdown": [
+            {
+              "code": "24",
+              "description": "Courrier shipment",
+              "monetaryValue": 42.8
+            },
+            {
+              "code": "1",
+              "description": "Fuel surcharge",
+              "monetaryValue": 6.8
+            },
+            {
+              "code": "30",
+              "description": "Insurance",
+              "monetaryValue": 3
+            }
+          ],
+          "otherSurcharges": [
+            {
+              "code": "10",
+              "description": "Proof of Delivery",
+              "monetaryValue": 3.4
+            },
+            {
+              "code": "11",
+              "description": "Additional Handling Charge",
+              "monetaryValue": 9
+            },
+            {
+              "code": "117",
+              "description": "DSV Protect",
+              "monetaryValue": 3
+            },
+            {
+              "code": "2",
+              "description": "DDP (Duty/Taxes Paid )",
+              "monetaryValue": 25
+            },
+            {
+              "code": "29",
+              "description": "Disbursement Fee",
+              "monetaryValue": 20
+            },
+            {
+              "code": "3",
+              "description": "Dangerous Goods",
+              "monetaryValue": 70
+            },
+            {
+              "code": "7",
+              "description": "Remote Area Delivery",
+              "monetaryValue": 25
+            },
+            {
+              "code": "8",
+              "description": "Address Correction",
+              "monetaryValue": 12
+            },
+            {
+              "code": "9",
+              "description": "Residential Delivery Service",
+              "monetaryValue": 2.9
+            }
+          ]
+        }
+      },
+      "ServiceCharge": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "Charge code",
+            "example": "30"
+          },
+          "description": {
+            "type": "string",
+            "description": "Charge description",
+            "example": "Insurance"
+          },
+          "monetaryValue": {
+            "maximum": 9999999.99,
+            "minimum": 0.0,
+            "type": "number",
+            "description": "Charge value amount. Amount is expressed exclusive tax.",
+            "format": "double",
+            "example": 16
+          }
+        },
+        "example": {
+          "code": "10",
+          "description": "Proof of Delivery",
+          "monetaryValue": 3.4
+        }
+      },
+      "CurrencyCodeList": {
+        "maxLength": 3,
+        "type": "string",
+        "description": "Currency Code supported (EUR by default if not provided):\n * CAD -  Canadian Dollar\n * CNY  - Yuan Renminbi\n * DKK  - Danish Krone\n * EUR  - Euro\n * GBP  - British Pound\n * HKD  - Hong Kong Dollar\n * NOK  - Norwegian Krone\n * SEK  - Swedish krona\n * SGD  - Singapore Dollar\n * USD  - Dollar\n * ZAR  - Rand\n",
+        "default": "EUR",
+        "example": "EUR"
+      },
+      "CurrencyMonetaryType": {
+        "required": [
+          "currencyCode",
+          "monetaryValue"
+        ],
+        "type": "object",
+        "properties": {
+          "currencyCode": {
+            "$ref": "#/components/schemas/CurrencyCodeList"
+          },
+          "monetaryValue": {
+            "minimum": 0.0,
+            "type": "number",
+            "description": "Monetary value",
+            "format": "double",
+            "example": 250
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "apiKeyHeader": {
+        "type": "apiKey",
+        "name": "DSV-Subscription-Key",
+        "in": "header"
+      },
+      "apiKeyQuery": {
+        "type": "apiKey",
+        "name": "DSV-Subscription-Key",
+        "in": "query"
+      }
+    }
+  },
+  "security": [
+    {
+      "apiKeyHeader": []
+    },
+    {
+      "apiKeyQuery": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Quote"
+    }
+  ]
+}

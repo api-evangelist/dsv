@@ -1,0 +1,243 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Labels (DEMO) - Air, Sea, Road(EU), Rail",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "DSV-Subscription-Key",
+      "value": "{{DSV-Subscription-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Label",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Download PDF label(s) via Booking ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dsv.com/my-demo/printing/v1/labels/:bookingId",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "bookingId",
+                "value": "",
+                "type": "path",
+                "description": "Booking identifier (GSIN)"
+              },
+              {
+                "name": "printFormat",
+                "value": "",
+                "type": "query",
+                "description": "These are the supported print formats\n- Landscape1Label\n- Landscape2Labels\n- Portrait1Label\n\nIf a \"printFormat\" is not added to the request the label response will default to \"Landscape1Label\""
+              }
+            ]
+          },
+          "docs": "Download PDF package labels via API for bookings submitted via the Booking API or online via DSV’s myDSV customer portal.<BR>\n<BR>\nDEMO ACCOUNT<BR>\nAuthorization: client_id: api.demo@demo.dsv.com, client_secret: Demo12345<BR>\nSample Booking IDs: 40257145990010760574, 40257145990010760581 "
+        },
+        {
+          "info": {
+            "name": "Download ZPL label(s) via Booking's reference",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dsv.com/my-demo/printing/v1/labels/reference/:reference/zpl",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "reference",
+                "value": "",
+                "type": "path",
+                "description": "Customer booking reference.\nReference must be unique (assigned to single shipment)"
+              },
+              {
+                "name": "zoom",
+                "value": "",
+                "type": "query",
+                "description": "Scaling of the label"
+              }
+            ]
+          },
+          "docs": "Download ZPL package labels via API using booking's reference"
+        },
+        {
+          "info": {
+            "name": "Download PDF label(s) via Shipment ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dsv.com/my-demo/printing/v1/labels/tmsId/:tmsId",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "tmsId",
+                "value": "",
+                "type": "path",
+                "description": "Booking identifier (GSIN)"
+              },
+              {
+                "name": "printFormat",
+                "value": "",
+                "type": "query",
+                "description": "These are the supported print formats\n- Landscape1Label\n- Landscape2Labels\n- Portrait1Label\n\nIf a \"printFormat\" is not added to the request the label response will default to \"Landscape1Label\""
+              }
+            ]
+          },
+          "docs": "Download PDF package labels via API using DSV Shipment ID"
+        },
+        {
+          "info": {
+            "name": "Download PDF label(s) via Booking's reference",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dsv.com/my-demo/printing/v1/labels/reference/:reference",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "reference",
+                "value": "",
+                "type": "path",
+                "description": "Booking identifier (GSIN)"
+              },
+              {
+                "name": "printFormat",
+                "value": "",
+                "type": "query",
+                "description": "These are the supported print formats\n- Landscape1Label\n- Landscape2Labels\n- Portrait1Label\n\nIf a \"printFormat\" is not added to the request the label response will default to \"Landscape1Label\""
+              }
+            ]
+          },
+          "docs": "Download PDF package labels via API using booking's reference"
+        },
+        {
+          "info": {
+            "name": "Download ZPL label(s) via Booking ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dsv.com/my-demo/printing/v1/labels/:bookingId/zpl",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "bookingId",
+                "value": "",
+                "type": "path",
+                "description": "Booking identifier (GSIN)"
+              },
+              {
+                "name": "zoom",
+                "value": "",
+                "type": "query",
+                "description": "Use the \"zoom\" to get the label(s) sized to your printer needs. If \"zoom\" is not added to the request, the label response will provide 10x15 cm label(s) in 203dpi.<br>To receive the 10x15 cm label(s) in other commonly used densities, use these \"zoom\" values:\n- 152dpi - zoom=0.85\n- 203dpi - zoom=1.00\n- 300dpi - zoom=1.20\n- 600dpi - zoom=1.70"
+              }
+            ]
+          },
+          "docs": "Download ZPL package labels via API for bookings submitted via the Booking API or online via DSV’s myDSV customer portal.<BR>\n<BR>\nDEMO ACCOUNT<BR>\nAuthorization: client_id: api.demo@demo.dsv.com, client_secret: Demo12345<BR>\nSample Booking IDs: 40257145990010760574, 40257145990010760581 "
+        },
+        {
+          "info": {
+            "name": "Download ZPL label(s) via Shipment ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dsv.com/my-demo/printing/v1/labels/tmsId/:tmsId/zpl",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "tmsId",
+                "value": "",
+                "type": "path",
+                "description": "DSV Shipment ID"
+              },
+              {
+                "name": "zoom",
+                "value": "",
+                "type": "query",
+                "description": "Scaling of the label"
+              }
+            ]
+          },
+          "docs": "Download ZPL package labels via API using DSV Shipment ID"
+        },
+        {
+          "info": {
+            "name": "Download booking documents",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dsv.com/my-demo/printing/v1/labels/documents/:bookingId",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "bookingId",
+                "value": "40257084630003400000",
+                "type": "path",
+                "description": "DSV Booking id - Identifier of the Booking"
+              },
+              {
+                "name": "documentType",
+                "value": "DeliveryNote",
+                "type": "query",
+                "description": "One of the supported document types:\n- DeliveryNote\n- PickupNote\n- ReceiptList\n- CMR"
+              }
+            ]
+          },
+          "docs": "Download documents for bookings submitted via the Booking API or online via DSV’s myDSV customer portal."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

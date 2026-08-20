@@ -1,0 +1,1510 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Invoice (DEMO) - Air, Sea, Rail",
+    "description": "Submit request for invoice demo details to DSV via the invoice demo API. The API supports single invoices, credit notes, and consolidated invoices. Supported transport modes: Air, Sea, and Rail.",
+    "version": "v1"
+  },
+  "servers": [
+    {
+      "url": "https://api.dsv.com/my-demo/invoice/v1"
+    }
+  ],
+  "paths": {
+    "/invoices": {
+      "post": {
+        "tags": [
+          "Invoices"
+        ],
+        "summary": "Invoices based on the filters",
+        "description": "Retrieve a list of DSV invoices including the invoice data via the Invoice list API - Supported transport modes: Air, Sea, Rail",
+        "operationId": "Invoices_Post",
+        "parameters": [
+          {
+            "name": "continuationToken",
+            "in": "query",
+            "description": "Token to get next page of invoices",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "OAuth header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Filters",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/InvoiceFilterDto"
+              },
+              "example": {
+                "countryCode": "US",
+                "transportMode": "Air",
+                "mdm": "6412345678",
+                "invoiceStartDateFilter": "2022-01-31",
+                "invoiceEndDateFilter": "2022-01-31",
+                "invoiceDueDateStartFilter": "2022-01-31",
+                "invoiceDueDateEndFilter": "2022-01-31",
+                "pageSize": "100"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PagedInvoicesDto"
+                },
+                "example": {
+                  "pagination": "Pagination : ContinuationToken - 2023-08-10T16:46:19.763000Z",
+                  "data": "Invoice list",
+                  "links": "https://invoice-service?continuationToken=2023-08-10T16:46:19.763000Z"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/invoices/{id}": {
+      "get": {
+        "tags": [
+          "Invoices"
+        ],
+        "summary": "Invoice by DSV Invoice Id",
+        "description": "Invoice by DSV Invoice Id",
+        "operationId": "Invoices_Get",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Invoice Id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "OAuth header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvoiceDto"
+                },
+                "example": {
+                  "chargesLineItems": "Charges Line Items",
+                  "customer": "Customer",
+                  "documentType": "INV",
+                  "dsvDetails": "DSV Details",
+                  "dueDate": "2023-09-22T12:00:00.0000000+00:00",
+                  "invoiceDate": "2023-08-23T12:00:00.0000000+00:00",
+                  "invoiceId": "1NV0000000",
+                  "issuedBy": "Issued By",
+                  "mdm": "64xxxxxx",
+                  "modesOfTransport": "Sea",
+                  "paymentTerm": "INV",
+                  "paymentTermDays": 30,
+                  "pdfDownloadUrl": "https://invoice-service/000000000001",
+                  "remittanceBankDetails": "Remittance Bank Details",
+                  "shipments": "Shipments",
+                  "totalCharges": "Total Charges",
+                  "transactionCategory": "FIN"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/invoices/shipments/{shipmentId}": {
+      "get": {
+        "tags": [
+          "Invoices"
+        ],
+        "summary": "Invoice by DSV Shipment Id",
+        "description": "Invoice by DSV Shipment Id",
+        "operationId": "Invoices_GetInvoicesByShipmentId",
+        "parameters": [
+          {
+            "name": "shipmentId",
+            "in": "path",
+            "description": "Shipment Id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "OAuth header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/InvoiceDto"
+                  }
+                },
+                "example": [
+                  {
+                    "chargesLineItems": "Charges Line Items",
+                    "customer": "Customer",
+                    "documentType": "INV",
+                    "dsvDetails": "DSV Details",
+                    "dueDate": "2023-09-22T12:00:00.0000000+00:00",
+                    "invoiceDate": "2023-08-23T12:00:00.0000000+00:00",
+                    "invoiceId": "1NV0000000",
+                    "issuedBy": "Issued By",
+                    "mdm": "64xxxxxx",
+                    "modesOfTransport": "Sea",
+                    "paymentTerm": "INV",
+                    "paymentTermDays": 30,
+                    "pdfDownloadUrl": "https://invoice-service/000000000001",
+                    "remittanceBankDetails": "Remittance Bank Details",
+                    "shipments": "Shipments",
+                    "totalCharges": "Total Charges",
+                    "transactionCategory": "FIN"
+                  }
+                ]
+              }
+            }
+          },
+          "400": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/invoices/referenceNumbers/{referenceNumber}": {
+      "get": {
+        "tags": [
+          "Invoices"
+        ],
+        "summary": "Invoice by Customer Reference",
+        "description": "Invoice by Customer Reference",
+        "operationId": "Invoices_GetInvoicesByReferenceNumber",
+        "parameters": [
+          {
+            "name": "referenceNumber",
+            "in": "path",
+            "description": "Reference number",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "OAuth header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/InvoiceDto"
+                  }
+                },
+                "example": [
+                  {
+                    "chargesLineItems": "Charges Line Items",
+                    "customer": "Customer",
+                    "documentType": "INV",
+                    "dsvDetails": "DSV Details",
+                    "dueDate": "2023-09-22T12:00:00.0000000+00:00",
+                    "invoiceDate": "2023-08-23T12:00:00.0000000+00:00",
+                    "invoiceId": "1NV0000000",
+                    "issuedBy": "Issued By",
+                    "mdm": "64xxxxxx",
+                    "modesOfTransport": "Sea",
+                    "paymentTerm": "INV",
+                    "paymentTermDays": 30,
+                    "pdfDownloadUrl": "https://invoice-service/000000000001",
+                    "remittanceBankDetails": "Remittance Bank Details",
+                    "shipments": "Shipments",
+                    "totalCharges": "Total Charges",
+                    "transactionCategory": "FIN"
+                  }
+                ]
+              }
+            }
+          },
+          "400": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/invoices/pdf/{id}": {
+      "get": {
+        "tags": [
+          "Invoices"
+        ],
+        "summary": "Invoice PDF by DSV Invoice Id",
+        "description": "Invoice PDF by DSV Invoice Id",
+        "operationId": "Invoices_GetInvoicePdfByInvoiceId",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Invoice Id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "OAuth header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          },
+          "400": {
+            "description": ""
+          },
+          "404": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "PagedInvoicesDto": {
+        "type": "object",
+        "properties": {
+          "pagination": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/PaginationDto"
+              }
+            ],
+            "description": "Pagination object",
+            "nullable": true,
+            "example": "Pagination : ContinuationToken - 2023-08-10T16:46:19.763000Z"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/InvoiceDto"
+            },
+            "description": "Invoice data page",
+            "nullable": true,
+            "example": "Invoice list"
+          },
+          "links": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/PageLinkDto"
+              }
+            ],
+            "description": "Next page link",
+            "nullable": true,
+            "example": "https://invoice-service?continuationToken=2023-08-10T16:46:19.763000Z"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PaginationDto": {
+        "type": "object",
+        "properties": {
+          "continuationToken": {
+            "type": "string",
+            "description": "Continuation token to get the next page of invoices",
+            "nullable": true,
+            "example": "2023-08-10T16:46:19.763Z"
+          }
+        },
+        "additionalProperties": false
+      },
+      "InvoiceDto": {
+        "type": "object",
+        "properties": {
+          "chargesLineItems": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ChargesLineItemDto"
+            },
+            "description": "Charges Line Items",
+            "nullable": true,
+            "example": "Charges Line Items"
+          },
+          "customer": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/CompanyDto"
+              }
+            ],
+            "description": "Customer",
+            "nullable": true,
+            "example": "Customer"
+          },
+          "documentType": {
+            "type": "string",
+            "description": "Document Type",
+            "nullable": true,
+            "example": "INV"
+          },
+          "dsvDetails": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/CompanyDto"
+              }
+            ],
+            "description": "DSV Details",
+            "nullable": true,
+            "example": "DSV Details"
+          },
+          "dueDate": {
+            "type": "string",
+            "description": "Due date of the invoice (Coordinated Universal Time (UTC))",
+            "format": "date-time",
+            "example": "2023-09-22T12:00:00.0000000+00:00"
+          },
+          "invoiceDate": {
+            "type": "string",
+            "description": "Issue date of the invoice (Coordinated Universal Time (UTC))",
+            "format": "date-time",
+            "example": "2023-08-23T12:00:00.0000000+00:00"
+          },
+          "invoiceId": {
+            "type": "string",
+            "description": "DSV Invoice ID",
+            "nullable": true,
+            "example": "1NV0000000"
+          },
+          "issuedBy": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/ContactDto"
+              }
+            ],
+            "description": "Issued by",
+            "nullable": true,
+            "example": "Issued By"
+          },
+          "mdm": {
+            "type": "integer",
+            "description": "DSV customer ID",
+            "format": "int64",
+            "example": "64xxxxxx"
+          },
+          "modesOfTransport": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Transport modes",
+            "nullable": true,
+            "example": "Sea"
+          },
+          "paymentTerm": {
+            "type": "string",
+            "description": "Payment term",
+            "nullable": true,
+            "example": "INV"
+          },
+          "paymentTermDays": {
+            "type": "integer",
+            "description": "Payment term days",
+            "format": "int32",
+            "example": 30
+          },
+          "pdfDownloadUrl": {
+            "type": "string",
+            "description": "URL to retrieve the pdf invoice",
+            "nullable": true,
+            "example": "https://invoice-service/000000000001"
+          },
+          "remittanceBankDetails": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/BankDetailsDto"
+              }
+            ],
+            "description": "Remittance Bank Details",
+            "nullable": true,
+            "example": "Remittance Bank Details"
+          },
+          "shipments": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ShipmentDto"
+            },
+            "description": "Shipments",
+            "nullable": true,
+            "example": "Shipments"
+          },
+          "totalCharges": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/TotalChargesDto"
+              }
+            ],
+            "description": "The total invoice charge of the invoice",
+            "nullable": true,
+            "example": "Total Charges"
+          },
+          "transactionCategory": {
+            "type": "string",
+            "description": "Invoice transaction category",
+            "nullable": true,
+            "example": "FIN"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ChargesLineItemDto": {
+        "type": "object",
+        "properties": {
+          "amount": {
+            "type": "number",
+            "description": "Amount of charge line item",
+            "format": "decimal",
+            "nullable": true,
+            "example": 631.5
+          },
+          "currency": {
+            "type": "string",
+            "description": "The currency of  the charge line item",
+            "nullable": true,
+            "example": "DKK"
+          },
+          "description": {
+            "type": "string",
+            "description": "Description of charge line item",
+            "nullable": true,
+            "example": "Delivery"
+          },
+          "taxCode": {
+            "type": "string",
+            "description": "Tax code of the charge line item",
+            "nullable": true,
+            "example": "FREEVAT"
+          },
+          "vatAmount": {
+            "type": "number",
+            "description": "VAT Amount of charge line item",
+            "format": "decimal",
+            "nullable": true,
+            "example": 0
+          },
+          "localAmount": {
+            "type": "number",
+            "description": "Local amount",
+            "format": "decimal",
+            "nullable": true,
+            "example": 631.5
+          },
+          "localTaxAmount": {
+            "type": "number",
+            "description": "Local tax amount",
+            "format": "decimal",
+            "nullable": true,
+            "example": 0
+          },
+          "localCurrency": {
+            "type": "string",
+            "description": "Local currency",
+            "nullable": true,
+            "example": "DKK"
+          },
+          "chargeAmount": {
+            "type": "number",
+            "description": "Charged Amount for line item",
+            "format": "decimal",
+            "nullable": true,
+            "example": 0
+          },
+          "chargeTaxAmount": {
+            "type": "number",
+            "description": "Charge tax amount",
+            "format": "decimal",
+            "nullable": true,
+            "example": 0
+          },
+          "chargeCurrency": {
+            "type": "string",
+            "description": "Charged Currency of line item",
+            "nullable": true,
+            "example": "DKK"
+          },
+          "currencyExchangeRate": {
+            "type": "number",
+            "description": "Currency exchange rate",
+            "format": "decimal",
+            "nullable": true,
+            "example": 1
+          }
+        },
+        "additionalProperties": false
+      },
+      "CompanyDto": {
+        "type": "object",
+        "properties": {
+          "vatNumber": {
+            "type": "string",
+            "description": "Value Added Tax number. Identification number for VAT purposes in the country where the number was issued",
+            "nullable": true,
+            "example": "xxxxxxxx"
+          },
+          "vatType": {
+            "type": "string",
+            "description": "VATType",
+            "nullable": true,
+            "example": "Demo type"
+          },
+          "companyName": {
+            "type": "string",
+            "description": "Company name",
+            "nullable": true,
+            "example": "Demo Company"
+          },
+          "address": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/AddressDto"
+              }
+            ],
+            "description": "Address",
+            "nullable": true,
+            "example": "Address"
+          },
+          "contact": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/ContactDto"
+              }
+            ],
+            "description": "Contact",
+            "nullable": true,
+            "example": "Contact"
+          },
+          "registrationNumbers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RegistrationNumberDto"
+            },
+            "description": "RegistrationNumbers",
+            "nullable": true,
+            "example": "Registration Numbers"
+          }
+        },
+        "additionalProperties": false
+      },
+      "AddressDto": {
+        "type": "object",
+        "properties": {
+          "city": {
+            "type": "string",
+            "description": "City name",
+            "nullable": true,
+            "example": "Copenhagen"
+          },
+          "country": {
+            "type": "string",
+            "description": "Country",
+            "nullable": true,
+            "example": "Denmark"
+          },
+          "countryCode": {
+            "type": "string",
+            "description": "2 letter ISO country code (e.g. US)",
+            "nullable": true,
+            "example": "DK"
+          },
+          "identifier": {
+            "type": "string",
+            "description": "Address ID",
+            "nullable": true,
+            "example": "xxxxxxx"
+          },
+          "line1": {
+            "type": "string",
+            "description": "Address line 1 (e.g. street and house number)",
+            "nullable": true,
+            "example": "Line 1"
+          },
+          "line2": {
+            "type": "string",
+            "description": "Additional address line",
+            "nullable": true,
+            "example": "Line 2"
+          },
+          "line3": {
+            "type": "string",
+            "description": "Additional address line",
+            "nullable": true,
+            "example": "Line 3"
+          },
+          "state": {
+            "type": "string",
+            "description": "State name",
+            "nullable": true,
+            "example": "State"
+          },
+          "unlocode": {
+            "type": "string",
+            "description": "2 letter  country code and 3 letter city according to ISO standard",
+            "nullable": true,
+            "example": "xxxxx"
+          },
+          "zip": {
+            "type": "string",
+            "description": "Postal code associated with the street address",
+            "nullable": true,
+            "example": "0"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ContactDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Name",
+            "nullable": true,
+            "example": "Demo name"
+          },
+          "email": {
+            "type": "string",
+            "description": "Email",
+            "nullable": true,
+            "example": "demo@demo.com"
+          },
+          "phone": {
+            "type": "string",
+            "description": "Phone",
+            "nullable": true,
+            "example": "+1111111111"
+          },
+          "code": {
+            "type": "string",
+            "description": "Code",
+            "nullable": true,
+            "example": "Demo code"
+          },
+          "fax": {
+            "type": "string",
+            "description": "Fax",
+            "nullable": true,
+            "example": "Demo fax"
+          }
+        },
+        "additionalProperties": false
+      },
+      "RegistrationNumberDto": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Type",
+            "nullable": true,
+            "example": "GCR"
+          },
+          "value": {
+            "type": "string",
+            "description": "Company registration number",
+            "nullable": true,
+            "example": "xxxxx"
+          },
+          "countryOfIssue": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/CountryDto"
+              }
+            ],
+            "description": "Company registration country",
+            "nullable": true,
+            "example": "DK"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CountryDto": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "2 letter ISO country code (e.g. US) Needs to be sent in case the address is not provided via \"mdm\", \"alias\" or based on a template",
+            "nullable": true,
+            "example": "DK"
+          }
+        },
+        "additionalProperties": false
+      },
+      "BankDetailsDto": {
+        "type": "object",
+        "properties": {
+          "accountName": {
+            "type": "string",
+            "nullable": true
+          },
+          "acccountNumber": {
+            "type": "string",
+            "description": "Account number",
+            "nullable": true,
+            "example": "xxxxxxxxxxxxxxx"
+          },
+          "bankAbbreviation": {
+            "type": "string",
+            "description": "Institution code",
+            "nullable": true,
+            "example": "xxx"
+          },
+          "bankCode": {
+            "type": "string",
+            "description": "Bank code",
+            "nullable": true,
+            "example": "xxxxxxxxxx"
+          },
+          "bankName": {
+            "type": "string",
+            "description": "Name of Bank institution",
+            "nullable": true,
+            "example": "Demo Bank"
+          },
+          "branchNumber": {
+            "type": "string",
+            "description": "Institution branch identifier",
+            "nullable": true,
+            "example": "Demo"
+          },
+          "description": {
+            "type": "string",
+            "description": "Bank description",
+            "nullable": true,
+            "example": "Demo Bank Account"
+          },
+          "bankAddress": {
+            "type": "string",
+            "description": "Bank address",
+            "nullable": true,
+            "example": "xxxxxxx"
+          },
+          "paymentReference": {
+            "type": "string",
+            "description": "Reference to be used with the payment",
+            "nullable": true,
+            "example": "640000"
+          },
+          "swiftCode": {
+            "type": "string",
+            "description": "SWIFT",
+            "nullable": true,
+            "example": "xxxxxxx"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ShipmentDto": {
+        "type": "object",
+        "properties": {
+          "chargeableWeight": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/MeasuredValueDto"
+              }
+            ],
+            "description": "Weight which is used for to calculate the charge",
+            "nullable": true,
+            "example": "ChargeableWeight : Unit - KG, Value - 344"
+          },
+          "delivery": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/PartyDto"
+              }
+            ],
+            "description": "Delivery",
+            "nullable": true,
+            "example": "Delivery : Company - xxxxxxx, Address - DK"
+          },
+          "departmentCode": {
+            "type": "string",
+            "description": "DSV department code of the responsible department of the shipment",
+            "nullable": true,
+            "example": "xxxx"
+          },
+          "destination": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/AddressDto"
+              }
+            ],
+            "description": "Destination",
+            "nullable": true,
+            "example": "Origin : City - Copenhagen, CountryCode - DK, Country - Denmark"
+          },
+          "eta": {
+            "type": "string",
+            "description": "Estimated time to arrival (Coordinated Universal Time (UTC))",
+            "format": "date-time",
+            "nullable": true,
+            "example": "2023-09-20T10:00:00.0000000+00:00"
+          },
+          "etd": {
+            "type": "string",
+            "description": "Estimated time of departure (Coordinated Universal Time (UTC))",
+            "format": "date-time",
+            "nullable": true,
+            "example": "2023-08-18T07:00:00.0000000+00:00"
+          },
+          "containers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EquipmentTypeDto"
+            },
+            "description": "Equipment types",
+            "nullable": true,
+            "example": "Containers : Type - Container, SizeTypeCode - 40HC"
+          },
+          "freightForwarder": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/PartyDto"
+              }
+            ],
+            "description": "Freight Forwarder",
+            "nullable": true,
+            "example": "FreightForwarder : Company - xxxxxxx, Address - DK"
+          },
+          "goodsDescription": {
+            "type": "string",
+            "description": "Package level cargo description",
+            "nullable": true,
+            "example": "Demo goods"
+          },
+          "houseBill": {
+            "type": "string",
+            "description": "Identification of the Bill of Lading issued by DSV to the customer",
+            "nullable": true,
+            "example": "xxxxxx"
+          },
+          "incoTerms": {
+            "type": "string",
+            "description": "Incoterm of the shipment",
+            "nullable": true,
+            "example": "xxxxxx"
+          },
+          "mainCarriage": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/StageDetailsDto"
+              }
+            ],
+            "description": "Main Carriage",
+            "nullable": true,
+            "example": "MainCarriage : Carrier - Demo Carrier, masterBill - xxxxx, MeansOfTransport - Demo express, VesselLloydsIMO - xxxxx"
+          },
+          "numberOfPackages": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/MeasuredValueDto"
+              }
+            ],
+            "description": "Number of package items on the shipment",
+            "nullable": true,
+            "example": "NumberOfPackages : Unit - Null, Value - 26"
+          },
+          "orderNumbers": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Order numbers",
+            "nullable": true,
+            "example": "OR1 OR2, OR3 OR4"
+          },
+          "origin": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/AddressDto"
+              }
+            ],
+            "description": "Origin",
+            "nullable": true,
+            "example": "Origin : City - Copenhagen, CountryCode - DK, Country - Denmark"
+          },
+          "pickup": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/PartyDto"
+              }
+            ],
+            "description": "Pickup",
+            "nullable": true,
+            "example": "FreightForwarder : Company - xxxxxxx, Address - DK"
+          },
+          "receiver": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/ConsigneeDto"
+              }
+            ],
+            "description": "Receiver details of the shipment",
+            "nullable": true,
+            "example": "Receiver : Company - xxxxxxx, Address - DK, Contact - Test Contact"
+          },
+          "references": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Customer invoice reference",
+            "nullable": true,
+            "example": "xxxx, xxxx"
+          },
+          "sender": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/PartyDto"
+              }
+            ],
+            "description": "Sender details of the shipment",
+            "nullable": true,
+            "example": "Sender : Company - xxxxxxx, Address - DK"
+          },
+          "serviceLevel": {
+            "type": "string",
+            "description": "The service level of the shipment",
+            "nullable": true,
+            "example": "STD"
+          },
+          "shipmentId": {
+            "type": "string",
+            "description": "DSV Identifier of the shipment",
+            "nullable": true,
+            "example": "SG123456789"
+          },
+          "routingInformation": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RoutingDto"
+            },
+            "description": "Routing information",
+            "nullable": true,
+            "example": "RoutingInformation : ModeOfTransport - Sea, ArrivalAddress - DK, DepartureAddress - DK"
+          },
+          "volume": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/MeasuredValueDto"
+              }
+            ],
+            "description": "Total volume of this package line.",
+            "nullable": true,
+            "example": "Volume : Unit - M3, Value - 2.1"
+          },
+          "weight": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/MeasuredValueDto"
+              }
+            ],
+            "description": "Total gross weight for this package line.",
+            "nullable": true,
+            "example": "Weight : Unit - KG, Value - 344"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Shipment Dto"
+      },
+      "MeasuredValueDto": {
+        "type": "object",
+        "properties": {
+          "unit": {
+            "type": "string",
+            "description": "Unit",
+            "nullable": true,
+            "example": "KG"
+          },
+          "value": {
+            "type": "number",
+            "description": "Value",
+            "format": "double",
+            "example": 344
+          }
+        },
+        "additionalProperties": false
+      },
+      "PartyDto": {
+        "type": "object",
+        "properties": {
+          "address": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/AddressDto"
+              }
+            ],
+            "description": "Address",
+            "nullable": true,
+            "example": "Origin : City - Copenhagen, CountryCode - DK, Country - Denmark"
+          },
+          "company": {
+            "type": "string",
+            "description": "Company",
+            "nullable": true,
+            "example": "Demo company"
+          },
+          "contact": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/ContactDto"
+              }
+            ],
+            "description": "Contact",
+            "nullable": true,
+            "example": "Contact"
+          }
+        },
+        "additionalProperties": false
+      },
+      "EquipmentTypeDto": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Equipment type",
+            "nullable": true,
+            "example": "Container"
+          },
+          "sizeTypeCode": {
+            "type": "string",
+            "description": "Size type code",
+            "nullable": true,
+            "example": "40HC"
+          },
+          "units": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EquipmentUnitDto"
+            },
+            "description": "Units",
+            "nullable": true,
+            "example": "Units"
+          }
+        },
+        "additionalProperties": false
+      },
+      "EquipmentUnitDto": {
+        "type": "object",
+        "properties": {
+          "unitId": {
+            "type": "string",
+            "description": "Unit id",
+            "nullable": true,
+            "example": "xxxxxx"
+          },
+          "sealId": {
+            "type": "string",
+            "description": "Seal id",
+            "nullable": true,
+            "example": "xxxxxx"
+          }
+        },
+        "additionalProperties": false
+      },
+      "StageDetailsDto": {
+        "type": "object",
+        "properties": {
+          "carrier": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/CarrierDto"
+              }
+            ],
+            "description": "Carrier",
+            "nullable": true,
+            "example": "Demo Carrier"
+          },
+          "masterBill": {
+            "type": "string",
+            "description": "Identification of the Bill of Lading issued by the carrier to DSV",
+            "nullable": true,
+            "example": "xxxxxxxxxx"
+          },
+          "meansOfTransport": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/TransportMeansDto"
+              }
+            ],
+            "description": "Means of Transport",
+            "nullable": true,
+            "example": "Demo EXPRESS"
+          },
+          "vesselLloydsIMO": {
+            "type": "string",
+            "description": "Carrier Name handling the main voyage",
+            "nullable": true,
+            "example": "xxxxxxxxx"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CarrierDto": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "Carrier id",
+            "nullable": true,
+            "example": "xxxxx"
+          },
+          "dakosyCode": {
+            "type": "string",
+            "description": "Dakosy code",
+            "nullable": true,
+            "example": "xxxxx"
+          },
+          "localCarrierCode": {
+            "type": "string",
+            "description": "Local carrier code",
+            "nullable": true,
+            "example": "xxxxx"
+          },
+          "name": {
+            "type": "string",
+            "description": "Carrier Name handling the main voyage",
+            "nullable": true,
+            "example": "Demo Carrier"
+          },
+          "nationality": {
+            "type": "string",
+            "description": "Carrier nationality",
+            "nullable": true,
+            "example": "DK"
+          },
+          "scac": {
+            "type": "string",
+            "description": "Carrier scac code (Only Sea)",
+            "nullable": true,
+            "example": "xxxx"
+          }
+        },
+        "additionalProperties": false
+      },
+      "TransportMeansDto": {
+        "type": "object",
+        "properties": {
+          "motId": {
+            "type": "string",
+            "description": "Voyage number on the main voyage.",
+            "nullable": true,
+            "example": "xxxx"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name",
+            "nullable": true,
+            "example": "Demo express"
+          },
+          "nationality": {
+            "type": "string",
+            "description": "Nationality",
+            "nullable": true,
+            "example": "DK"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ConsigneeDto": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/PartyDto"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "ean": {
+                "type": "string",
+                "description": "EAN number",
+                "nullable": true,
+                "example": "xxxxxxxx"
+              },
+              "vatNumber": {
+                "type": "string",
+                "description": "VAT Number",
+                "nullable": true,
+                "example": "xxxxxxxx"
+              }
+            },
+            "additionalProperties": false
+          }
+        ]
+      },
+      "RoutingDto": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/StageDetailsDto"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "arrivalAddress": {
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/AddressDto"
+                  }
+                ],
+                "description": "Arrival address",
+                "nullable": true,
+                "example": "ArrivalAddress : City - Copenhagen, CountryCode - DK, Country - Denmark"
+              },
+              "departureAddress": {
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/AddressDto"
+                  }
+                ],
+                "description": "Departure address",
+                "nullable": true,
+                "example": "DepartureAddress : City - Copenhagen, CountryCode - DK, Country - Denmark"
+              },
+              "eta": {
+                "type": "string",
+                "description": "Estimated time to arrival (Coordinated Universal Time (UTC))",
+                "format": "date-time",
+                "nullable": true,
+                "example": "2023-09-20T10:00:00.0000000+00:00"
+              },
+              "etd": {
+                "type": "string",
+                "description": "Estimated time of departure (Coordinated Universal Time (UTC))",
+                "format": "date-time",
+                "nullable": true,
+                "example": "2023-08-18T07:00:00.0000000+00:00"
+              },
+              "modeOfTransport": {
+                "type": "string",
+                "description": "Means of Transport",
+                "nullable": true,
+                "example": "Sea"
+              }
+            },
+            "additionalProperties": false
+          }
+        ]
+      },
+      "TotalChargesDto": {
+        "type": "object",
+        "properties": {
+          "subTotal": {
+            "type": "number",
+            "description": "Subtotal Amount before VAT",
+            "format": "decimal",
+            "nullable": true,
+            "example": 631.5
+          },
+          "total": {
+            "type": "number",
+            "description": "The total invoice charge of the invoice",
+            "format": "decimal",
+            "nullable": true,
+            "example": 631.5
+          },
+          "vat": {
+            "type": "number",
+            "description": "VAT of the total charge of the invoice",
+            "format": "decimal",
+            "nullable": true,
+            "example": 0
+          },
+          "currency": {
+            "type": "string",
+            "description": "Currency",
+            "nullable": true,
+            "example": "DKK"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PageLinkDto": {
+        "type": "object",
+        "properties": {
+          "next": {
+            "type": "string",
+            "description": "Next page link",
+            "nullable": true,
+            "example": "https://invoice-service?continuationToken=2023-08-10T16:46:19.763000Z"
+          }
+        },
+        "additionalProperties": false
+      },
+      "InvoiceFilterDto": {
+        "type": "object",
+        "properties": {
+          "countryCode": {
+            "type": "string",
+            "description": "2 letter ISO country code (e.g. US) Needs to be sent in case the address is not provided via \"mdm\", \"alias\" or based on a template",
+            "nullable": true,
+            "example": "US"
+          },
+          "transportMode": {
+            "type": "string",
+            "description": "Main transport mode selection - Air/Sea/Rail/Road",
+            "nullable": true,
+            "example": "Air"
+          },
+          "mdm": {
+            "type": "string",
+            "description": "Customer number as existing in the address book in DSV's myDSV customer portal",
+            "nullable": true,
+            "example": "6412345678"
+          },
+          "invoiceStartDateFilter": {
+            "type": "string",
+            "description": "Invoice Date (Start). Format - (yyyy-MM-dd).\nValue cannot be greater than today's date.\nIf InvoiceStartDateFilter and InvoiceEndDateFilter are not provided then default search range is -30 days from today.\nIf InvoiceEndDateFilter is provided and InvoiceStartDateFilter is empty then system automatically sets 30 days older date as its value.",
+            "nullable": true,
+            "example": "2022-01-31"
+          },
+          "invoiceEndDateFilter": {
+            "type": "string",
+            "description": "Invoice Date (End). Format - (yyyy-MM-dd).\nValue cannot be greater than today's date.\nIf InvoiceStartDateFilter and InvoiceEndDateFilter are not provided then default search range is -30 days from today.\nIf InvoiceStartDateFilter is provided and InvoiceEndDateFilter is empty then system automatically sets today's date as its value.",
+            "nullable": true,
+            "example": "2022-01-31"
+          },
+          "invoiceDueDateStartFilter": {
+            "type": "string",
+            "description": "Invoice Due Date (Start). Format - (yyyy-MM-dd).",
+            "nullable": true,
+            "example": "2022-01-31"
+          },
+          "invoiceDueDateEndFilter": {
+            "type": "string",
+            "description": "Invoice Due Date (End). Format - (yyyy-MM-dd).",
+            "nullable": true,
+            "example": "2022-01-31"
+          },
+          "pageSize": {
+            "type": "string",
+            "description": "Invoices returned per page.\nDefault value is 100. Max value is 100",
+            "nullable": true,
+            "example": "100"
+          }
+        },
+        "additionalProperties": false
+      },
+      "AuthenticationDto": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "nullable": true
+          },
+          "username": {
+            "type": "string",
+            "nullable": true
+          },
+          "password": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "RequestHeaderDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "value": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "securitySchemes": {
+      "apiKeyHeader": {
+        "type": "apiKey",
+        "name": "DSV-Subscription-Key",
+        "in": "header"
+      },
+      "apiKeyQuery": {
+        "type": "apiKey",
+        "name": "DSV-Subscription-Key",
+        "in": "query"
+      }
+    }
+  },
+  "security": [
+    {
+      "apiKeyHeader": []
+    },
+    {
+      "apiKeyQuery": []
+    }
+  ]
+}

@@ -1,0 +1,126 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Webhook (DEMO) - Air, Sea, Road(EU), Rail",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "DSV-Subscription-Key",
+      "value": "{{DSV-Subscription-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Status",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Check if application is up and running",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dsv.com/my-demo/webhook/v1/status/health",
+            "headers": [
+              {
+                "name": "api-version",
+                "value": "1"
+              },
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Check if application is up and running"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Webhook",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Subscribe to get notification of the relevant event",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.dsv.com/my-demo/webhook/v1/subscriptions/subscribe",
+            "headers": [
+              {
+                "name": "api-version",
+                "value": "1"
+              },
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Subscribe to get notification of the relevant event (Invoice, Visibility, Quote, Tracking, Warehousing, Customs and Downtime Notification. \nThe provided push URL will be validated first by sending an OPTIONS request.  \nIf the OPTIONS request is not allowed or fails, a POST request will be sent instead\nwith the following JSON payload:\n\n{\n  \"event\": \"string\",\n  \"message\": \"string\"\n}"
+        },
+        {
+          "info": {
+            "name": "Unsubscribe subscription by providing subscription event name",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.dsv.com/my-demo/webhook/v1/subscriptions/unsubscribe",
+            "headers": [
+              {
+                "name": "api-version",
+                "value": "1"
+              },
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Unsubscribe subscription by providing subscription event name"
+        },
+        {
+          "info": {
+            "name": "Get all subscriptions for the current user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dsv.com/my-demo/webhook/v1/subscriptions",
+            "headers": [
+              {
+                "name": "api-version",
+                "value": "1"
+              },
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Get all subscriptions for the current user"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

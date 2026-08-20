@@ -1,0 +1,127 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "TRACKING (DEMO)- Air, Sea, Road (EU), Rail",
+    "version": "v2"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "DSV-Subscription-Key",
+      "value": "{{DSV-Subscription-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Shipment list",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Shipment list",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.dsv.com/my-demo/tracking/v2/shipments/list",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Retrieve a list of shipments for a specific period, transport mode or shipment status.<BR><BR>\nDEMO ACCOUNT<BR>\nAuthorization: client_id: api.demo@demo.dsv.com, client_secret: Demo12345</I> "
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Shipment details",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Shipment details by DSV Booking ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dsv.com/my-demo/tracking/v2/shipments/bookingId/:bookingId",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "bookingId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve detailed shipment data for a specific shipment by searching the DSV booking ID received from API booking or bookings submitted via myDSV.<BR>\n<BR>\nAuthorization: client_id: api.demo@demo.dsv.com, client_secret: Demo12345</I> <BR><BR>\nSample Booking IDs: 40257145990010760574, 40257145990010760581 "
+        },
+        {
+          "info": {
+            "name": "Shipment details by DSV Shipment ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dsv.com/my-demo/tracking/v2/shipments/tmsId/:tmsId",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "tmsId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve detailed shipment data for a specific shipment by searching the DSV Shipment ID.<BR>\n<BR>\nDEMO ACCOUNT<BR>Authorization: client_id: api.demo@demo.dsv.com, client_secret: Demo12345</I> <BR><BR>\nSample TMS IDs: SDSV0069726, SDSV0069727, SDFW0090209 "
+        },
+        {
+          "info": {
+            "name": "Shipment details by Customer reference",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dsv.com/my-demo/tracking/v2/shipments/reference/:*reference",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "*reference",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve detailed shipment data for a specific shipment by searching a Customer reference."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,764 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "WMS Inventory (DEMO)",
+    "description": "Contract Logistics API - WMS Inventory (DEMO) ",
+    "version": "v1"
+  },
+  "servers": [
+    {
+      "url": "https://api.dsv.com/cl-demo/inventory/v1"
+    }
+  ],
+  "paths": {
+    "/inventory/{warehouseId}": {
+      "get": {
+        "tags": [
+          "Inventory"
+        ],
+        "summary": "Request a full inventory",
+        "description": "This message is sent by Client to DSV Warehouse to retrieve a full inventory report over Webhook",
+        "operationId": "Inventory_Get",
+        "parameters": [
+          {
+            "name": "warehouseId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "api-version",
+            "in": "header",
+            "description": "api-version",
+            "schema": {
+              "type": "string"
+            },
+            "example": 1
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "OAuth header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "401": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDTO"
+                },
+                "example": {
+                  "code": "ERR12345",
+                  "message": "Not found id : 4025988810785188",
+                  "fields": [
+                    {
+                      "name": "field_name",
+                      "message": "validation error",
+                      "code": "ERR12345"
+                    }
+                  ],
+                  "development": {
+                    "message": "string",
+                    "exception": "string"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDTO"
+                },
+                "example": {
+                  "code": "ERR12345",
+                  "message": "Not found id : 4025988810785188",
+                  "fields": [
+                    {
+                      "name": "field_name",
+                      "message": "validation error",
+                      "code": "ERR12345"
+                    }
+                  ],
+                  "development": {
+                    "message": "string",
+                    "exception": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/inventory/{warehouseId}/{productId}": {
+      "get": {
+        "tags": [
+          "Inventory"
+        ],
+        "summary": "Get inventory by a single Product Id",
+        "description": "This message is sent by Client to DSV Warehouse to retrieve inventory report on a particular Product id.",
+        "operationId": "Inventory_Get2",
+        "parameters": [
+          {
+            "name": "warehouseId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "productId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "api-version",
+            "in": "header",
+            "description": "api-version",
+            "schema": {
+              "type": "string"
+            },
+            "example": 1
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "OAuth header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InventoryByProductDto"
+                },
+                "example": {
+                  "warehouseId": "36643f9b7c1c48ef",
+                  "inventory": {
+                    "productId": "PId123",
+                    "details": [
+                      {
+                        "expirationDate": "2025-03-25",
+                        "lotId": "2025-03-25",
+                        "origin": "AF",
+                        "conditionOfProduct": "OK1",
+                        "quantities": {
+                          "totalQuantity": 10,
+                          "quantityReservedForOrders": 10
+                        },
+                        "additionalInformation": {
+                          "numericFields": [
+                            {
+                              "sequence": 1,
+                              "value": 999999999.999999
+                            }
+                          ],
+                          "textFields": [
+                            {
+                              "sequence": 1,
+                              "value": "Value1"
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDTO"
+                },
+                "example": {
+                  "code": "ERR12345",
+                  "message": "Not found id : 4025988810785188",
+                  "fields": [
+                    {
+                      "name": "field_name",
+                      "message": "validation error",
+                      "code": "ERR12345"
+                    }
+                  ],
+                  "development": {
+                    "message": "string",
+                    "exception": "string"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDTO"
+                },
+                "example": {
+                  "code": "ERR12345",
+                  "message": "Not found id : 4025988810785188",
+                  "fields": [
+                    {
+                      "name": "field_name",
+                      "message": "validation error",
+                      "code": "ERR12345"
+                    }
+                  ],
+                  "development": {
+                    "message": "string",
+                    "exception": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ErrorDTO": {
+        "required": [
+          "code",
+          "message"
+        ],
+        "type": "object",
+        "properties": {
+          "code": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Unique error code",
+            "example": "ERR12345"
+          },
+          "message": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Error message passed to the user",
+            "example": "Not found id : 4025988810785188"
+          },
+          "fields": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FieldDTO"
+            }
+          },
+          "development": {
+            "$ref": "#/components/schemas/DevelopmentDTO"
+          }
+        }
+      },
+      "FieldDTO": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Error name",
+            "example": "field_name"
+          },
+          "message": {
+            "type": "string",
+            "description": "Description of error",
+            "example": "validation error"
+          },
+          "code": {
+            "type": "string",
+            "description": "Type of error",
+            "example": "ERR12345"
+          }
+        }
+      },
+      "DevelopmentDTO": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "Verbose, plain language description of the problem for the app developer with hints on how to fix it"
+          },
+          "exception": {
+            "type": "string",
+            "description": "Dump from exception"
+          }
+        }
+      },
+      "InventoryByProductDto": {
+        "required": [
+          "warehouseId"
+        ],
+        "type": "object",
+        "properties": {
+          "warehouseId": {
+            "maxLength": 20,
+            "minLength": 0,
+            "type": "string",
+            "description": "To be resolved in Token database",
+            "example": "36643f9b7c1c48ef"
+          },
+          "inventory": {
+            "$ref": "#/components/schemas/InventoryDto"
+          }
+        }
+      },
+      "InventoryDto": {
+        "type": "object",
+        "properties": {
+          "productId": {
+            "maxLength": 50,
+            "minLength": 0,
+            "type": "string",
+            "description": "Stock Keeping Unit identifier",
+            "example": "PId123"
+          },
+          "details": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/InventoryDetailsDto"
+            },
+            "description": "Inventory Details"
+          }
+        },
+        "description": "Inventory"
+      },
+      "InventoryDetailsDto": {
+        "type": "object",
+        "properties": {
+          "expirationDate": {
+            "maxLength": 25,
+            "minLength": 0,
+            "type": "string",
+            "description": "Expiry date Format: CCYY-MM-DD",
+            "example": "2025-03-25"
+          },
+          "lotId": {
+            "maxLength": 20,
+            "minLength": 0,
+            "type": "string",
+            "description": "Batch identifier",
+            "example": "2025-03-25"
+          },
+          "origin": {
+            "$ref": "#/components/schemas/CountryCode"
+          },
+          "conditionOfProduct": {
+            "$ref": "#/components/schemas/ConditionCode"
+          },
+          "quantities": {
+            "$ref": "#/components/schemas/QuantityDto"
+          },
+          "additionalInformation": {
+            "$ref": "#/components/schemas/AdditionalInformationDto"
+          }
+        },
+        "description": "InventoryDetailsDto"
+      },
+      "CountryCode": {
+        "enum": [
+          "AF",
+          "AL",
+          "DZ",
+          "AS",
+          "AD",
+          "AO",
+          "AI",
+          "AQ",
+          "AG",
+          "AR",
+          "AM",
+          "AW",
+          "AU",
+          "AT",
+          "AZ",
+          "BS",
+          "BH",
+          "BD",
+          "BB",
+          "BY",
+          "BE",
+          "BZ",
+          "BJ",
+          "BM",
+          "BT",
+          "BO",
+          "BQ",
+          "BA",
+          "BW",
+          "BV",
+          "BR",
+          "IO",
+          "BN",
+          "BG",
+          "BF",
+          "BI",
+          "CV",
+          "KH",
+          "CM",
+          "CA",
+          "KY",
+          "CF",
+          "TD",
+          "CL",
+          "CN",
+          "CX",
+          "CC",
+          "CO",
+          "KM",
+          "CD",
+          "CG",
+          "CK",
+          "CR",
+          "HR",
+          "CU",
+          "CW",
+          "CY",
+          "CZ",
+          "CI",
+          "DK",
+          "DJ",
+          "DM",
+          "DO",
+          "EC",
+          "EG",
+          "SV",
+          "GQ",
+          "ER",
+          "EE",
+          "SZ",
+          "ET",
+          "FK",
+          "FO",
+          "FJ",
+          "FI",
+          "FR",
+          "GF",
+          "PF",
+          "TF",
+          "GA",
+          "GM",
+          "GE",
+          "DE",
+          "GH",
+          "GI",
+          "GR",
+          "GL",
+          "GD",
+          "GP",
+          "GU",
+          "GT",
+          "GG",
+          "GN",
+          "GW",
+          "GY",
+          "HT",
+          "HM",
+          "VA",
+          "HN",
+          "HK",
+          "HU",
+          "IS",
+          "IN",
+          "ID",
+          "IR",
+          "IQ",
+          "IE",
+          "IM",
+          "IL",
+          "IT",
+          "JM",
+          "JP",
+          "JE",
+          "JO",
+          "KZ",
+          "KE",
+          "KI",
+          "KP",
+          "KR",
+          "KW",
+          "KG",
+          "LA",
+          "LV",
+          "LB",
+          "LR",
+          "LY",
+          "LI",
+          "LT",
+          "LU",
+          "MO",
+          "MG",
+          "MW",
+          "MY",
+          "MV",
+          "ML",
+          "MT",
+          "MH",
+          "MQ",
+          "MR",
+          "MU",
+          "YT",
+          "MX",
+          "FM",
+          "MD",
+          "MC",
+          "MN",
+          "ME",
+          "MS",
+          "MA",
+          "MZ",
+          "MM",
+          "NA",
+          "NR",
+          "NP",
+          "NL",
+          "NC",
+          "NZ",
+          "NI",
+          "NE",
+          "NG",
+          "NU",
+          "NF",
+          "MP",
+          "NO",
+          "OM",
+          "PK",
+          "PW",
+          "PS",
+          "PA",
+          "PG",
+          "PY",
+          "PE",
+          "PH",
+          "PN",
+          "PL",
+          "PT",
+          "PR",
+          "QA",
+          "MK",
+          "RU",
+          "RW",
+          "RE",
+          "BL",
+          "SH",
+          "KN",
+          "LC",
+          "MF",
+          "PM",
+          "VC",
+          "WS",
+          "SM",
+          "ST",
+          "SA",
+          "SN",
+          "RS",
+          "SC",
+          "SL",
+          "SG",
+          "SX",
+          "SK",
+          "SI",
+          "SB",
+          "SO",
+          "ZA",
+          "GS",
+          "SS",
+          "ES",
+          "LK",
+          "SD",
+          "SR",
+          "SJ",
+          "SE",
+          "CH",
+          "SY",
+          "TW",
+          "TJ",
+          "TZ",
+          "TH",
+          "TL",
+          "TG",
+          "TK",
+          "TO",
+          "TT",
+          "TN",
+          "TR",
+          "TM",
+          "TC",
+          "TV",
+          "UG",
+          "UA",
+          "AE",
+          "GB",
+          "UM",
+          "US",
+          "UY",
+          "UZ",
+          "VU",
+          "VE",
+          "VN",
+          "VG",
+          "VI",
+          "WF",
+          "EH",
+          "YE",
+          "ZM",
+          "ZW",
+          "AX"
+        ],
+        "type": "string",
+        "description": ""
+      },
+      "ConditionCode": {
+        "enum": [
+          "OK1",
+          "OK2",
+          "DM1",
+          "DM2",
+          "HO1",
+          "HO2",
+          "QU1",
+          "QU2",
+          "RN1",
+          "RN2",
+          "SC1",
+          "SC2"
+        ],
+        "type": "string",
+        "description": ""
+      },
+      "QuantityDto": {
+        "type": "object",
+        "properties": {
+          "totalQuantity": {
+            "maximum": 999999999.0,
+            "minimum": 0.0,
+            "type": "integer",
+            "description": "Total stock quantity of OK1 condition subtracted allocated inventory",
+            "format": "int32",
+            "example": 10
+          },
+          "quantityReservedForOrders": {
+            "maximum": 999999999.0,
+            "minimum": 0.0,
+            "type": "integer",
+            "description": "Allocated quantity",
+            "format": "int32",
+            "example": 10
+          }
+        },
+        "description": "Quantity Dto"
+      },
+      "AdditionalInformationDto": {
+        "type": "object",
+        "properties": {
+          "numericFields": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NumericFieldDto"
+            },
+            "description": "User defined numeric fields"
+          },
+          "textFields": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TextFieldDto"
+            },
+            "description": "User defined text fields"
+          }
+        },
+        "description": "Additional Information"
+      },
+      "NumericFieldDto": {
+        "required": [
+          "sequence"
+        ],
+        "type": "object",
+        "properties": {
+          "sequence": {
+            "maximum": 4.0,
+            "minimum": 1.0,
+            "type": "integer",
+            "description": "User Def Num 1-4",
+            "format": "int32",
+            "example": 1
+          },
+          "value": {
+            "maximum": 999999999.999999,
+            "minimum": 0.0,
+            "type": "number",
+            "description": "min: 0, max: 999999999.999999 (9.6)",
+            "example": 999999999.999999
+          }
+        },
+        "description": "User defined numeric fields"
+      },
+      "TextFieldDto": {
+        "required": [
+          "sequence"
+        ],
+        "type": "object",
+        "properties": {
+          "sequence": {
+            "maximum": 8.0,
+            "minimum": 1.0,
+            "type": "integer",
+            "description": "User Def Type 1-8",
+            "format": "int32",
+            "example": 1
+          },
+          "value": {
+            "maxLength": 30,
+            "minLength": 0,
+            "type": "string",
+            "description": "Max length 30 characters",
+            "example": "Value1"
+          }
+        },
+        "description": "User defined text fields"
+      }
+    },
+    "securitySchemes": {
+      "apiKeyHeader": {
+        "type": "apiKey",
+        "name": "DSV-Subscription-Key",
+        "in": "header"
+      },
+      "apiKeyQuery": {
+        "type": "apiKey",
+        "name": "DSV-Subscription-Key",
+        "in": "query"
+      }
+    }
+  },
+  "security": [
+    {
+      "apiKeyHeader": []
+    },
+    {
+      "apiKeyQuery": []
+    }
+  ]
+}

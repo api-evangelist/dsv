@@ -1,0 +1,150 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Tracking - XPress",
+    "version": "v2"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "DSV-Subscription-Key",
+      "value": "{{DSV-Subscription-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Shipment",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Shipment details by DSV Shipment ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dsv.com/xp/tracking/v2/shipmentDetails/:shipmentId",
+            "headers": [
+              {
+                "name": "dsv-service-auth",
+                "value": ""
+              },
+              {
+                "name": "x-pat",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "shipmentId",
+                "value": "",
+                "type": "path",
+                "description": "ID of shipment to get details"
+              }
+            ]
+          },
+          "docs": "Retrieve detailed information for a specific shipment by searching for the DSV Shipment Id. (e.g. shipment addresses, service, pieces, weight, volume, revenue, references, ETA)"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Tracking",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Events by DSV Shipment ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dsv.com/xp/tracking/v2/shipments/shipmentId/:shipmentId",
+            "headers": [
+              {
+                "name": "dsv-service-auth",
+                "value": ""
+              },
+              {
+                "name": "x-pat",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "shipmentId",
+                "value": "",
+                "type": "path",
+                "description": "ID of shipment to track"
+              }
+            ]
+          },
+          "docs": "Retrieve actual events for a specific shipment by searching for the DSV Shipment Id. (e.g. actual departure, transit events, exception events, actual delivery etc.)"
+        },
+        {
+          "info": {
+            "name": "Events by Carrier tracking number",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dsv.com/xp/tracking/v2/shipments/carrierTrackingNumber/:carrierTrackingNumber",
+            "headers": [
+              {
+                "name": "dsv-service-auth",
+                "value": ""
+              },
+              {
+                "name": "x-pat",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "carrierTrackingNumber",
+                "value": "",
+                "type": "path",
+                "description": "Carrier tracking number of shipment to track"
+              }
+            ]
+          },
+          "docs": "Retrieve actual events for a specific shipment by searching for the Carrier tracking id. (e.g. actual departure, transit events, exception events, actual delivery etc.)"
+        },
+        {
+          "info": {
+            "name": "Events by AWB number",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dsv.com/xp/tracking/v2/shipments/awb/:awb",
+            "headers": [
+              {
+                "name": "dsv-service-auth",
+                "value": ""
+              },
+              {
+                "name": "x-pat",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "awb",
+                "value": "",
+                "type": "path",
+                "description": "AWB of shipment to track"
+              }
+            ]
+          },
+          "docs": "Retrieve actual events for a specific shipment by searching for the AWB number. (e.g. actual departure, transit events, exception events, actual delivery etc.)"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

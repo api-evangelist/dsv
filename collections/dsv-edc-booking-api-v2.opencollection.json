@@ -1,0 +1,155 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Booking - SCM",
+    "version": "v2"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "DSV-Subscription-Key",
+      "value": "{{DSV-Subscription-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Bookings",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "1. Search for Bookings by criteria",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.dsv.com/om/bookings/v2/Bookings/SearchCriteria",
+            "headers": [
+              {
+                "name": "authorization",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "1. Search for Bookings by criteria"
+        },
+        {
+          "info": {
+            "name": "2. Get Bookings by booking number",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dsv.com/om/bookings/v2/Bookings/:bookingNumber",
+            "headers": [
+              {
+                "name": "authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "bookingNumber",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "2. Get Bookings by booking number"
+        },
+        {
+          "info": {
+            "name": "3. Change state by booking number",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.dsv.com/om/bookings/v2/Bookings/ChangeState",
+            "headers": [
+              {
+                "name": "authorization",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "3. Change state by booking number"
+        },
+        {
+          "info": {
+            "name": "4. Create or Update Booking(s)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.dsv.com/om/bookings/v2/Bookings",
+            "headers": [
+              {
+                "name": "authorization",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create or Update Booking(s)"
+        },
+        {
+          "info": {
+            "name": "5. Post a collection of bookings asynchronously",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.dsv.com/om/bookings/v2/Bookings/UpsertAsync",
+            "headers": [
+              {
+                "name": "authorization",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Post a collection of bookings asynchronously"
+        },
+        {
+          "info": {
+            "name": "6. Reduce state by booking number ",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.dsv.com/om/bookings/v2/Bookings/ReduceState",
+            "headers": [
+              {
+                "name": "authorization",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "1. Reduce state by booking number"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

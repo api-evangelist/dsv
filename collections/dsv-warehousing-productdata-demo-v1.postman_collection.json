@@ -1,0 +1,647 @@
+{
+  "item": [
+    {
+      "id": "b901e89c-c2d4-4634-8b29-507cf5b51fe9",
+      "name": "ProductData",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b48cf04c-aefc-4f01-92a3-613921bb0457",
+          "name": "Create new Product Data record(s)",
+          "request": {
+            "name": "Create new Product Data record(s)",
+            "description": {
+              "content": "Create new Product Data records with full product information via API",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "productData"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "api-version",
+                "key": "api-version",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"products\": [\n    {\n      \"warehouseId\": \"<string>\",\n      \"productId\": \"<string>\",\n      \"productValue\": {\n        \"valueOfProduct\": \"<number>\",\n        \"currency\": \"<string>\"\n      },\n      \"productDescription\": [\n        {\n          \"description\": \"<string>\",\n          \"language\": \"<string>\"\n        },\n        {\n          \"description\": \"<string>\",\n          \"language\": \"<string>\"\n        }\n      ],\n      \"commodityCode\": \"<string>\",\n      \"commodityDescription\": \"<string>\",\n      \"productAttributes\": {\n        \"productGroup\": \"<string>\",\n        \"productSize\": \"<string>\",\n        \"hazmatId\": \"<string>\",\n        \"style\": \"<string>\",\n        \"gender\": \"<string>\",\n        \"colour\": \"<string>\",\n        \"ean\": \"<string>\",\n        \"upc\": \"<string>\"\n      },\n      \"productDimensions\": {\n        \"weight\": \"<number>\",\n        \"weightUOM\": \"<string>\",\n        \"volume\": \"<number>\",\n        \"volumeUOM\": \"<string>\",\n        \"height\": \"<number>\",\n        \"width\": \"<number>\",\n        \"depth\": \"<number>\",\n        \"dimensionUOM\": \"<string>\"\n      },\n      \"additionalProductAttributes\": {\n        \"productLotControlled\": \"<boolean>\",\n        \"productExpirationDateControlled\": \"<boolean>\",\n        \"productHoldsSerialNumber\": \"<boolean>\",\n        \"additionalProductId\": \"<string>\",\n        \"additionalProductDescription\": \"<string>\"\n      },\n      \"additionalInformation\": {\n        \"numericFields\": [\n          {\n            \"sequence\": \"<integer>\",\n            \"value\": \"<number>\"\n          },\n          {\n            \"sequence\": \"<integer>\",\n            \"value\": \"<number>\"\n          }\n        ],\n        \"textFields\": [\n          {\n            \"sequence\": \"<integer>\",\n            \"value\": \"<string>\"\n          },\n          {\n            \"sequence\": \"<integer>\",\n            \"value\": \"<string>\"\n          }\n        ]\n      },\n      \"productStackConfiguration\": [\n        {\n          \"productUOM\": \"<string>\",\n          \"quantityInUOM\": \"<integer>\",\n          \"weight\": \"<number>\",\n          \"weightUOM\": \"<string>\",\n          \"volume\": \"<number>\",\n          \"volumeUOM\": \"<string>\",\n          \"height\": \"<number>\",\n          \"width\": \"<number>\",\n          \"depth\": \"<number>\",\n          \"dimensionUOM\": \"<string>\"\n        },\n        {\n          \"productUOM\": \"<string>\",\n          \"quantityInUOM\": \"<integer>\",\n          \"weight\": \"<number>\",\n          \"weightUOM\": \"<string>\",\n          \"volume\": \"<number>\",\n          \"volumeUOM\": \"<string>\",\n          \"height\": \"<number>\",\n          \"width\": \"<number>\",\n          \"depth\": \"<number>\",\n          \"dimensionUOM\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"warehouseId\": \"<string>\",\n      \"productId\": \"<string>\",\n      \"productValue\": {\n        \"valueOfProduct\": \"<number>\",\n        \"currency\": \"<string>\"\n      },\n      \"productDescription\": [\n        {\n          \"description\": \"<string>\",\n          \"language\": \"<string>\"\n        },\n        {\n          \"description\": \"<string>\",\n          \"language\": \"<string>\"\n        }\n      ],\n      \"commodityCode\": \"<string>\",\n      \"commodityDescription\": \"<string>\",\n      \"productAttributes\": {\n        \"productGroup\": \"<string>\",\n        \"productSize\": \"<string>\",\n        \"hazmatId\": \"<string>\",\n        \"style\": \"<string>\",\n        \"gender\": \"<string>\",\n        \"colour\": \"<string>\",\n        \"ean\": \"<string>\",\n        \"upc\": \"<string>\"\n      },\n      \"productDimensions\": {\n        \"weight\": \"<number>\",\n        \"weightUOM\": \"<string>\",\n        \"volume\": \"<number>\",\n        \"volumeUOM\": \"<string>\",\n        \"height\": \"<number>\",\n        \"width\": \"<number>\",\n        \"depth\": \"<number>\",\n        \"dimensionUOM\": \"<string>\"\n      },\n      \"additionalProductAttributes\": {\n        \"productLotControlled\": \"<boolean>\",\n        \"productExpirationDateControlled\": \"<boolean>\",\n        \"productHoldsSerialNumber\": \"<boolean>\",\n        \"additionalProductId\": \"<string>\",\n        \"additionalProductDescription\": \"<string>\"\n      },\n      \"additionalInformation\": {\n        \"numericFields\": [\n          {\n            \"sequence\": \"<integer>\",\n            \"value\": \"<number>\"\n          },\n          {\n            \"sequence\": \"<integer>\",\n            \"value\": \"<number>\"\n          }\n        ],\n        \"textFields\": [\n          {\n            \"sequence\": \"<integer>\",\n            \"value\": \"<string>\"\n          },\n          {\n            \"sequence\": \"<integer>\",\n            \"value\": \"<string>\"\n          }\n        ]\n      },\n      \"productStackConfiguration\": [\n        {\n          \"productUOM\": \"<string>\",\n          \"quantityInUOM\": \"<integer>\",\n          \"weight\": \"<number>\",\n          \"weightUOM\": \"<string>\",\n          \"volume\": \"<number>\",\n          \"volumeUOM\": \"<string>\",\n          \"height\": \"<number>\",\n          \"width\": \"<number>\",\n          \"depth\": \"<number>\",\n          \"dimensionUOM\": \"<string>\"\n        },\n        {\n          \"productUOM\": \"<string>\",\n          \"quantityInUOM\": \"<integer>\",\n          \"weight\": \"<number>\",\n          \"weightUOM\": \"<string>\",\n          \"volume\": \"<number>\",\n          \"volumeUOM\": \"<string>\",\n          \"height\": \"<number>\",\n          \"width\": \"<number>\",\n          \"depth\": \"<number>\",\n          \"dimensionUOM\": \"<string>\"\n        }\n      ]\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7c272253-5afc-4346-affb-f78c17c16131",
+              "name": "Success/Failure Status",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "productData"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "DSV-Subscription-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "api-version",
+                    "key": "api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "OAuth header",
+                    "key": "Authorization",
+                    "value": "string"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"products\": [\n    {\n      \"warehouseId\": \"36643f9b7c1c48ef\",\n      \"productId\": \"11112222\",\n      \"commodityCode\": \"1023456789\",\n      \"commodityDescription\": \"1543234567\",\n      \"productAttributes\": {\n        \"productGroup\": \"Product\",\n        \"productSize\": \"Size1\",\n        \"hazmatId\": \"1234\",\n        \"style\": \"1234\",\n        \"gender\": \"F\",\n        \"colour\": \"Blue\",\n        \"ean\": \"12345678901234\",\n        \"upc\": \"12345678901234\"\n      },\n      \"productDimensions\": {\n        \"weight\": 9999999.999999,\n        \"weightUOM\": \"GRM\",\n        \"volume\": 9999999.999999,\n        \"volumeUOM\": \"MMQ\",\n        \"height\": 9999.999,\n        \"width\": 9999.999,\n        \"depth\": 9999.999,\n        \"dimensionUOM\": \"MMT\"\n      },\n      \"productValue\": {\n        \"valueOfProduct\": 999,\n        \"currency\": \"AED\"\n      },\n      \"additionalProductAttributes\": {\n        \"productLotControlled\": true,\n        \"productExpirationDateControlled\": false,\n        \"productHoldsSerialNumber\": true,\n        \"additionalProductId\": \"PRD12345678\",\n        \"additionalProductDescription\": \"AdditionalProductDescription\"\n      },\n      \"additionalInformation\": {\n        \"numericFields\": [\n          {\n            \"sequence\": 1,\n            \"value\": 999999999.999999\n          }\n        ],\n        \"textFields\": [\n          {\n            \"sequence\": 1,\n            \"value\": \"Value1\"\n          }\n        ]\n      },\n      \"productDescription\": [\n        {\n          \"language\": \"AF_ZA\",\n          \"description\": \"Product description\"\n        }\n      ],\n      \"productStackConfiguration\": [\n        {\n          \"productUOM\": \"EACH\",\n          \"quantityInUOM\": 999999,\n          \"weight\": 9999999.999999,\n          \"weightUOM\": \"GRM\",\n          \"volume\": 9999999.999999,\n          \"volumeUOM\": \"MMQ\",\n          \"height\": 9999.999,\n          \"width\": 9999.999,\n          \"depth\": 9999.999,\n          \"dimensionUOM\": \"MMT\"\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "300344ed-d623-4337-b9b0-be0ed200dffb",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "productData"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "DSV-Subscription-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "api-version",
+                    "key": "api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "OAuth header",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"products\": [\n    {\n      \"warehouseId\": \"36643f9b7c1c48ef\",\n      \"productId\": \"11112222\",\n      \"commodityCode\": \"1023456789\",\n      \"commodityDescription\": \"1543234567\",\n      \"productAttributes\": {\n        \"productGroup\": \"Product\",\n        \"productSize\": \"Size1\",\n        \"hazmatId\": \"1234\",\n        \"style\": \"1234\",\n        \"gender\": \"F\",\n        \"colour\": \"Blue\",\n        \"ean\": \"12345678901234\",\n        \"upc\": \"12345678901234\"\n      },\n      \"productDimensions\": {\n        \"weight\": 9999999.999999,\n        \"weightUOM\": \"GRM\",\n        \"volume\": 9999999.999999,\n        \"volumeUOM\": \"MMQ\",\n        \"height\": 9999.999,\n        \"width\": 9999.999,\n        \"depth\": 9999.999,\n        \"dimensionUOM\": \"MMT\"\n      },\n      \"productValue\": {\n        \"valueOfProduct\": 999,\n        \"currency\": \"AED\"\n      },\n      \"additionalProductAttributes\": {\n        \"productLotControlled\": true,\n        \"productExpirationDateControlled\": false,\n        \"productHoldsSerialNumber\": true,\n        \"additionalProductId\": \"PRD12345678\",\n        \"additionalProductDescription\": \"AdditionalProductDescription\"\n      },\n      \"additionalInformation\": {\n        \"numericFields\": [\n          {\n            \"sequence\": 1,\n            \"value\": 999999999.999999\n          }\n        ],\n        \"textFields\": [\n          {\n            \"sequence\": 1,\n            \"value\": \"Value1\"\n          }\n        ]\n      },\n      \"productDescription\": [\n        {\n          \"language\": \"AF_ZA\",\n          \"description\": \"Product description\"\n        }\n      ],\n      \"productStackConfiguration\": [\n        {\n          \"productUOM\": \"EACH\",\n          \"quantityInUOM\": 999999,\n          \"weight\": 9999999.999999,\n          \"weightUOM\": \"GRM\",\n          \"volume\": 9999999.999999,\n          \"volumeUOM\": \"MMQ\",\n          \"height\": 9999.999,\n          \"width\": 9999.999,\n          \"depth\": 9999.999,\n          \"dimensionUOM\": \"MMT\"\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"ERR12345\",\n  \"message\": \"Not found id : 4025988810785188\",\n  \"fields\": [\n    {\n      \"name\": \"field_name\",\n      \"message\": \"validation error\",\n      \"code\": \"ERR12345\"\n    }\n  ],\n  \"development\": {\n    \"message\": \"string\",\n    \"exception\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2dd9430a-d44a-475c-a812-71256b8e981e",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "productData"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "DSV-Subscription-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "api-version",
+                    "key": "api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "OAuth header",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"products\": [\n    {\n      \"warehouseId\": \"36643f9b7c1c48ef\",\n      \"productId\": \"11112222\",\n      \"commodityCode\": \"1023456789\",\n      \"commodityDescription\": \"1543234567\",\n      \"productAttributes\": {\n        \"productGroup\": \"Product\",\n        \"productSize\": \"Size1\",\n        \"hazmatId\": \"1234\",\n        \"style\": \"1234\",\n        \"gender\": \"F\",\n        \"colour\": \"Blue\",\n        \"ean\": \"12345678901234\",\n        \"upc\": \"12345678901234\"\n      },\n      \"productDimensions\": {\n        \"weight\": 9999999.999999,\n        \"weightUOM\": \"GRM\",\n        \"volume\": 9999999.999999,\n        \"volumeUOM\": \"MMQ\",\n        \"height\": 9999.999,\n        \"width\": 9999.999,\n        \"depth\": 9999.999,\n        \"dimensionUOM\": \"MMT\"\n      },\n      \"productValue\": {\n        \"valueOfProduct\": 999,\n        \"currency\": \"AED\"\n      },\n      \"additionalProductAttributes\": {\n        \"productLotControlled\": true,\n        \"productExpirationDateControlled\": false,\n        \"productHoldsSerialNumber\": true,\n        \"additionalProductId\": \"PRD12345678\",\n        \"additionalProductDescription\": \"AdditionalProductDescription\"\n      },\n      \"additionalInformation\": {\n        \"numericFields\": [\n          {\n            \"sequence\": 1,\n            \"value\": 999999999.999999\n          }\n        ],\n        \"textFields\": [\n          {\n            \"sequence\": 1,\n            \"value\": \"Value1\"\n          }\n        ]\n      },\n      \"productDescription\": [\n        {\n          \"language\": \"AF_ZA\",\n          \"description\": \"Product description\"\n        }\n      ],\n      \"productStackConfiguration\": [\n        {\n          \"productUOM\": \"EACH\",\n          \"quantityInUOM\": 999999,\n          \"weight\": 9999999.999999,\n          \"weightUOM\": \"GRM\",\n          \"volume\": 9999999.999999,\n          \"volumeUOM\": \"MMQ\",\n          \"height\": 9999.999,\n          \"width\": 9999.999,\n          \"depth\": 9999.999,\n          \"dimensionUOM\": \"MMT\"\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"ERR12345\",\n  \"message\": \"Not found id : 4025988810785188\",\n  \"fields\": [\n    {\n      \"name\": \"field_name\",\n      \"message\": \"validation error\",\n      \"code\": \"ERR12345\"\n    }\n  ],\n  \"development\": {\n    \"message\": \"string\",\n    \"exception\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cd4e8458-b42d-4408-bf46-d799e5e5311a",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "productData"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "DSV-Subscription-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "api-version",
+                    "key": "api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "OAuth header",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"products\": [\n    {\n      \"warehouseId\": \"36643f9b7c1c48ef\",\n      \"productId\": \"11112222\",\n      \"commodityCode\": \"1023456789\",\n      \"commodityDescription\": \"1543234567\",\n      \"productAttributes\": {\n        \"productGroup\": \"Product\",\n        \"productSize\": \"Size1\",\n        \"hazmatId\": \"1234\",\n        \"style\": \"1234\",\n        \"gender\": \"F\",\n        \"colour\": \"Blue\",\n        \"ean\": \"12345678901234\",\n        \"upc\": \"12345678901234\"\n      },\n      \"productDimensions\": {\n        \"weight\": 9999999.999999,\n        \"weightUOM\": \"GRM\",\n        \"volume\": 9999999.999999,\n        \"volumeUOM\": \"MMQ\",\n        \"height\": 9999.999,\n        \"width\": 9999.999,\n        \"depth\": 9999.999,\n        \"dimensionUOM\": \"MMT\"\n      },\n      \"productValue\": {\n        \"valueOfProduct\": 999,\n        \"currency\": \"AED\"\n      },\n      \"additionalProductAttributes\": {\n        \"productLotControlled\": true,\n        \"productExpirationDateControlled\": false,\n        \"productHoldsSerialNumber\": true,\n        \"additionalProductId\": \"PRD12345678\",\n        \"additionalProductDescription\": \"AdditionalProductDescription\"\n      },\n      \"additionalInformation\": {\n        \"numericFields\": [\n          {\n            \"sequence\": 1,\n            \"value\": 999999999.999999\n          }\n        ],\n        \"textFields\": [\n          {\n            \"sequence\": 1,\n            \"value\": \"Value1\"\n          }\n        ]\n      },\n      \"productDescription\": [\n        {\n          \"language\": \"AF_ZA\",\n          \"description\": \"Product description\"\n        }\n      ],\n      \"productStackConfiguration\": [\n        {\n          \"productUOM\": \"EACH\",\n          \"quantityInUOM\": 999999,\n          \"weight\": 9999999.999999,\n          \"weightUOM\": \"GRM\",\n          \"volume\": 9999999.999999,\n          \"volumeUOM\": \"MMQ\",\n          \"height\": 9999.999,\n          \"width\": 9999.999,\n          \"depth\": 9999.999,\n          \"dimensionUOM\": \"MMT\"\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"ERR12345\",\n  \"message\": \"Not found id : 4025988810785188\",\n  \"fields\": [\n    {\n      \"name\": \"field_name\",\n      \"message\": \"validation error\",\n      \"code\": \"ERR12345\"\n    }\n  ],\n  \"development\": {\n    \"message\": \"string\",\n    \"exception\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "23b3d2ab-eecc-4dc8-b80d-cffa1313e5d1",
+          "name": "Update Product Data record(s)",
+          "request": {
+            "name": "Update Product Data record(s)",
+            "description": {
+              "content": "Request used to update previously created product data records.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "productData"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "api-version",
+                "key": "api-version",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"products\": [\n    {\n      \"warehouseId\": \"<string>\",\n      \"productId\": \"<string>\",\n      \"productValue\": {\n        \"valueOfProduct\": \"<number>\",\n        \"currency\": \"<string>\"\n      },\n      \"productDescription\": [\n        {\n          \"description\": \"<string>\",\n          \"language\": \"<string>\"\n        },\n        {\n          \"description\": \"<string>\",\n          \"language\": \"<string>\"\n        }\n      ],\n      \"commodityCode\": \"<string>\",\n      \"commodityDescription\": \"<string>\",\n      \"productAttributes\": {\n        \"productGroup\": \"<string>\",\n        \"productSize\": \"<string>\",\n        \"hazmatId\": \"<string>\",\n        \"style\": \"<string>\",\n        \"gender\": \"<string>\",\n        \"colour\": \"<string>\",\n        \"ean\": \"<string>\",\n        \"upc\": \"<string>\"\n      },\n      \"productDimensions\": {\n        \"weight\": \"<number>\",\n        \"weightUOM\": \"<string>\",\n        \"volume\": \"<number>\",\n        \"volumeUOM\": \"<string>\",\n        \"height\": \"<number>\",\n        \"width\": \"<number>\",\n        \"depth\": \"<number>\",\n        \"dimensionUOM\": \"<string>\"\n      },\n      \"additionalProductAttributes\": {\n        \"productLotControlled\": \"<boolean>\",\n        \"productExpirationDateControlled\": \"<boolean>\",\n        \"productHoldsSerialNumber\": \"<boolean>\",\n        \"additionalProductId\": \"<string>\",\n        \"additionalProductDescription\": \"<string>\"\n      },\n      \"additionalInformation\": {\n        \"numericFields\": [\n          {\n            \"sequence\": \"<integer>\",\n            \"value\": \"<number>\"\n          },\n          {\n            \"sequence\": \"<integer>\",\n            \"value\": \"<number>\"\n          }\n        ],\n        \"textFields\": [\n          {\n            \"sequence\": \"<integer>\",\n            \"value\": \"<string>\"\n          },\n          {\n            \"sequence\": \"<integer>\",\n            \"value\": \"<string>\"\n          }\n        ]\n      },\n      \"productStackConfiguration\": [\n        {\n          \"productUOM\": \"<string>\",\n          \"quantityInUOM\": \"<integer>\",\n          \"weight\": \"<number>\",\n          \"weightUOM\": \"<string>\",\n          \"volume\": \"<number>\",\n          \"volumeUOM\": \"<string>\",\n          \"height\": \"<number>\",\n          \"width\": \"<number>\",\n          \"depth\": \"<number>\",\n          \"dimensionUOM\": \"<string>\"\n        },\n        {\n          \"productUOM\": \"<string>\",\n          \"quantityInUOM\": \"<integer>\",\n          \"weight\": \"<number>\",\n          \"weightUOM\": \"<string>\",\n          \"volume\": \"<number>\",\n          \"volumeUOM\": \"<string>\",\n          \"height\": \"<number>\",\n          \"width\": \"<number>\",\n          \"depth\": \"<number>\",\n          \"dimensionUOM\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"warehouseId\": \"<string>\",\n      \"productId\": \"<string>\",\n      \"productValue\": {\n        \"valueOfProduct\": \"<number>\",\n        \"currency\": \"<string>\"\n      },\n      \"productDescription\": [\n        {\n          \"description\": \"<string>\",\n          \"language\": \"<string>\"\n        },\n        {\n          \"description\": \"<string>\",\n          \"language\": \"<string>\"\n        }\n      ],\n      \"commodityCode\": \"<string>\",\n      \"commodityDescription\": \"<string>\",\n      \"productAttributes\": {\n        \"productGroup\": \"<string>\",\n        \"productSize\": \"<string>\",\n        \"hazmatId\": \"<string>\",\n        \"style\": \"<string>\",\n        \"gender\": \"<string>\",\n        \"colour\": \"<string>\",\n        \"ean\": \"<string>\",\n        \"upc\": \"<string>\"\n      },\n      \"productDimensions\": {\n        \"weight\": \"<number>\",\n        \"weightUOM\": \"<string>\",\n        \"volume\": \"<number>\",\n        \"volumeUOM\": \"<string>\",\n        \"height\": \"<number>\",\n        \"width\": \"<number>\",\n        \"depth\": \"<number>\",\n        \"dimensionUOM\": \"<string>\"\n      },\n      \"additionalProductAttributes\": {\n        \"productLotControlled\": \"<boolean>\",\n        \"productExpirationDateControlled\": \"<boolean>\",\n        \"productHoldsSerialNumber\": \"<boolean>\",\n        \"additionalProductId\": \"<string>\",\n        \"additionalProductDescription\": \"<string>\"\n      },\n      \"additionalInformation\": {\n        \"numericFields\": [\n          {\n            \"sequence\": \"<integer>\",\n            \"value\": \"<number>\"\n          },\n          {\n            \"sequence\": \"<integer>\",\n            \"value\": \"<number>\"\n          }\n        ],\n        \"textFields\": [\n          {\n            \"sequence\": \"<integer>\",\n            \"value\": \"<string>\"\n          },\n          {\n            \"sequence\": \"<integer>\",\n            \"value\": \"<string>\"\n          }\n        ]\n      },\n      \"productStackConfiguration\": [\n        {\n          \"productUOM\": \"<string>\",\n          \"quantityInUOM\": \"<integer>\",\n          \"weight\": \"<number>\",\n          \"weightUOM\": \"<string>\",\n          \"volume\": \"<number>\",\n          \"volumeUOM\": \"<string>\",\n          \"height\": \"<number>\",\n          \"width\": \"<number>\",\n          \"depth\": \"<number>\",\n          \"dimensionUOM\": \"<string>\"\n        },\n        {\n          \"productUOM\": \"<string>\",\n          \"quantityInUOM\": \"<integer>\",\n          \"weight\": \"<number>\",\n          \"weightUOM\": \"<string>\",\n          \"volume\": \"<number>\",\n          \"volumeUOM\": \"<string>\",\n          \"height\": \"<number>\",\n          \"width\": \"<number>\",\n          \"depth\": \"<number>\",\n          \"dimensionUOM\": \"<string>\"\n        }\n      ]\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "71a4de2a-76d2-4aaa-8cdd-81d1724d7d2a",
+              "name": "Success/Failure Status",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "productData"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "DSV-Subscription-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "api-version",
+                    "key": "api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "OAuth header",
+                    "key": "Authorization",
+                    "value": "string"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"products\": [\n    {\n      \"warehouseId\": \"36643f9b7c1c48ef\",\n      \"productId\": \"11112222\",\n      \"commodityCode\": \"1023456789\",\n      \"commodityDescription\": \"1543234567\",\n      \"productAttributes\": {\n        \"productGroup\": \"Product\",\n        \"productSize\": \"Size1\",\n        \"hazmatId\": \"1234\",\n        \"style\": \"1234\",\n        \"gender\": \"F\",\n        \"colour\": \"Blue\",\n        \"ean\": \"12345678901234\",\n        \"upc\": \"12345678901234\"\n      },\n      \"productDimensions\": {\n        \"weight\": 9999999.999999,\n        \"weightUOM\": \"GRM\",\n        \"volume\": 9999999.999999,\n        \"volumeUOM\": \"MMQ\",\n        \"height\": 9999.999,\n        \"width\": 9999.999,\n        \"depth\": 9999.999,\n        \"dimensionUOM\": \"MMT\"\n      },\n      \"productValue\": {\n        \"valueOfProduct\": 999,\n        \"currency\": \"AED\"\n      },\n      \"additionalProductAttributes\": {\n        \"productLotControlled\": true,\n        \"productExpirationDateControlled\": false,\n        \"productHoldsSerialNumber\": true,\n        \"additionalProductId\": \"PRD12345678\",\n        \"additionalProductDescription\": \"AdditionalProductDescription\"\n      },\n      \"additionalInformation\": {\n        \"numericFields\": [\n          {\n            \"sequence\": 1,\n            \"value\": 999999999.999999\n          }\n        ],\n        \"textFields\": [\n          {\n            \"sequence\": 1,\n            \"value\": \"Value1\"\n          }\n        ]\n      },\n      \"productDescription\": [\n        {\n          \"language\": \"AF_ZA\",\n          \"description\": \"Product description\"\n        }\n      ],\n      \"productStackConfiguration\": [\n        {\n          \"productUOM\": \"EACH\",\n          \"quantityInUOM\": 999999,\n          \"weight\": 9999999.999999,\n          \"weightUOM\": \"GRM\",\n          \"volume\": 9999999.999999,\n          \"volumeUOM\": \"MMQ\",\n          \"height\": 9999.999,\n          \"width\": 9999.999,\n          \"depth\": 9999.999,\n          \"dimensionUOM\": \"MMT\"\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "cccacaa1-cc29-440d-ba58-54a89563ffd9",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "productData"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "DSV-Subscription-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "api-version",
+                    "key": "api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "OAuth header",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"products\": [\n    {\n      \"warehouseId\": \"36643f9b7c1c48ef\",\n      \"productId\": \"11112222\",\n      \"commodityCode\": \"1023456789\",\n      \"commodityDescription\": \"1543234567\",\n      \"productAttributes\": {\n        \"productGroup\": \"Product\",\n        \"productSize\": \"Size1\",\n        \"hazmatId\": \"1234\",\n        \"style\": \"1234\",\n        \"gender\": \"F\",\n        \"colour\": \"Blue\",\n        \"ean\": \"12345678901234\",\n        \"upc\": \"12345678901234\"\n      },\n      \"productDimensions\": {\n        \"weight\": 9999999.999999,\n        \"weightUOM\": \"GRM\",\n        \"volume\": 9999999.999999,\n        \"volumeUOM\": \"MMQ\",\n        \"height\": 9999.999,\n        \"width\": 9999.999,\n        \"depth\": 9999.999,\n        \"dimensionUOM\": \"MMT\"\n      },\n      \"productValue\": {\n        \"valueOfProduct\": 999,\n        \"currency\": \"AED\"\n      },\n      \"additionalProductAttributes\": {\n        \"productLotControlled\": true,\n        \"productExpirationDateControlled\": false,\n        \"productHoldsSerialNumber\": true,\n        \"additionalProductId\": \"PRD12345678\",\n        \"additionalProductDescription\": \"AdditionalProductDescription\"\n      },\n      \"additionalInformation\": {\n        \"numericFields\": [\n          {\n            \"sequence\": 1,\n            \"value\": 999999999.999999\n          }\n        ],\n        \"textFields\": [\n          {\n            \"sequence\": 1,\n            \"value\": \"Value1\"\n          }\n        ]\n      },\n      \"productDescription\": [\n        {\n          \"language\": \"AF_ZA\",\n          \"description\": \"Product description\"\n        }\n      ],\n      \"productStackConfiguration\": [\n        {\n          \"productUOM\": \"EACH\",\n          \"quantityInUOM\": 999999,\n          \"weight\": 9999999.999999,\n          \"weightUOM\": \"GRM\",\n          \"volume\": 9999999.999999,\n          \"volumeUOM\": \"MMQ\",\n          \"height\": 9999.999,\n          \"width\": 9999.999,\n          \"depth\": 9999.999,\n          \"dimensionUOM\": \"MMT\"\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"ERR12345\",\n  \"message\": \"Not found id : 4025988810785188\",\n  \"fields\": [\n    {\n      \"name\": \"field_name\",\n      \"message\": \"validation error\",\n      \"code\": \"ERR12345\"\n    }\n  ],\n  \"development\": {\n    \"message\": \"string\",\n    \"exception\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9a76a881-63a6-4bed-9fa1-6c2f81882d09",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "productData"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "DSV-Subscription-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "api-version",
+                    "key": "api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "OAuth header",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"products\": [\n    {\n      \"warehouseId\": \"36643f9b7c1c48ef\",\n      \"productId\": \"11112222\",\n      \"commodityCode\": \"1023456789\",\n      \"commodityDescription\": \"1543234567\",\n      \"productAttributes\": {\n        \"productGroup\": \"Product\",\n        \"productSize\": \"Size1\",\n        \"hazmatId\": \"1234\",\n        \"style\": \"1234\",\n        \"gender\": \"F\",\n        \"colour\": \"Blue\",\n        \"ean\": \"12345678901234\",\n        \"upc\": \"12345678901234\"\n      },\n      \"productDimensions\": {\n        \"weight\": 9999999.999999,\n        \"weightUOM\": \"GRM\",\n        \"volume\": 9999999.999999,\n        \"volumeUOM\": \"MMQ\",\n        \"height\": 9999.999,\n        \"width\": 9999.999,\n        \"depth\": 9999.999,\n        \"dimensionUOM\": \"MMT\"\n      },\n      \"productValue\": {\n        \"valueOfProduct\": 999,\n        \"currency\": \"AED\"\n      },\n      \"additionalProductAttributes\": {\n        \"productLotControlled\": true,\n        \"productExpirationDateControlled\": false,\n        \"productHoldsSerialNumber\": true,\n        \"additionalProductId\": \"PRD12345678\",\n        \"additionalProductDescription\": \"AdditionalProductDescription\"\n      },\n      \"additionalInformation\": {\n        \"numericFields\": [\n          {\n            \"sequence\": 1,\n            \"value\": 999999999.999999\n          }\n        ],\n        \"textFields\": [\n          {\n            \"sequence\": 1,\n            \"value\": \"Value1\"\n          }\n        ]\n      },\n      \"productDescription\": [\n        {\n          \"language\": \"AF_ZA\",\n          \"description\": \"Product description\"\n        }\n      ],\n      \"productStackConfiguration\": [\n        {\n          \"productUOM\": \"EACH\",\n          \"quantityInUOM\": 999999,\n          \"weight\": 9999999.999999,\n          \"weightUOM\": \"GRM\",\n          \"volume\": 9999999.999999,\n          \"volumeUOM\": \"MMQ\",\n          \"height\": 9999.999,\n          \"width\": 9999.999,\n          \"depth\": 9999.999,\n          \"dimensionUOM\": \"MMT\"\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"ERR12345\",\n  \"message\": \"Not found id : 4025988810785188\",\n  \"fields\": [\n    {\n      \"name\": \"field_name\",\n      \"message\": \"validation error\",\n      \"code\": \"ERR12345\"\n    }\n  ],\n  \"development\": {\n    \"message\": \"string\",\n    \"exception\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "45e82efe-39ae-4cd6-8992-84e9cd05404f",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "productData"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "DSV-Subscription-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "api-version",
+                    "key": "api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "OAuth header",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"products\": [\n    {\n      \"warehouseId\": \"36643f9b7c1c48ef\",\n      \"productId\": \"11112222\",\n      \"commodityCode\": \"1023456789\",\n      \"commodityDescription\": \"1543234567\",\n      \"productAttributes\": {\n        \"productGroup\": \"Product\",\n        \"productSize\": \"Size1\",\n        \"hazmatId\": \"1234\",\n        \"style\": \"1234\",\n        \"gender\": \"F\",\n        \"colour\": \"Blue\",\n        \"ean\": \"12345678901234\",\n        \"upc\": \"12345678901234\"\n      },\n      \"productDimensions\": {\n        \"weight\": 9999999.999999,\n        \"weightUOM\": \"GRM\",\n        \"volume\": 9999999.999999,\n        \"volumeUOM\": \"MMQ\",\n        \"height\": 9999.999,\n        \"width\": 9999.999,\n        \"depth\": 9999.999,\n        \"dimensionUOM\": \"MMT\"\n      },\n      \"productValue\": {\n        \"valueOfProduct\": 999,\n        \"currency\": \"AED\"\n      },\n      \"additionalProductAttributes\": {\n        \"productLotControlled\": true,\n        \"productExpirationDateControlled\": false,\n        \"productHoldsSerialNumber\": true,\n        \"additionalProductId\": \"PRD12345678\",\n        \"additionalProductDescription\": \"AdditionalProductDescription\"\n      },\n      \"additionalInformation\": {\n        \"numericFields\": [\n          {\n            \"sequence\": 1,\n            \"value\": 999999999.999999\n          }\n        ],\n        \"textFields\": [\n          {\n            \"sequence\": 1,\n            \"value\": \"Value1\"\n          }\n        ]\n      },\n      \"productDescription\": [\n        {\n          \"language\": \"AF_ZA\",\n          \"description\": \"Product description\"\n        }\n      ],\n      \"productStackConfiguration\": [\n        {\n          \"productUOM\": \"EACH\",\n          \"quantityInUOM\": 999999,\n          \"weight\": 9999999.999999,\n          \"weightUOM\": \"GRM\",\n          \"volume\": 9999999.999999,\n          \"volumeUOM\": \"MMQ\",\n          \"height\": 9999.999,\n          \"width\": 9999.999,\n          \"depth\": 9999.999,\n          \"dimensionUOM\": \"MMT\"\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"ERR12345\",\n  \"message\": \"Not found id : 4025988810785188\",\n  \"fields\": [\n    {\n      \"name\": \"field_name\",\n      \"message\": \"validation error\",\n      \"code\": \"ERR12345\"\n    }\n  ],\n  \"development\": {\n    \"message\": \"string\",\n    \"exception\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.dsv.com/cl-demo/productdata/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "DSV-Subscription-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "e3644c1e-0015-4b6c-af2d-e23d1f56a948",
+    "name": "WMS Product Data (DEMO)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Contract Logistics API - WMS Product Data (DEMO)",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,137 @@
+{
+  "item": [
+    {
+      "id": "8a857f9a-fa8f-446c-a115-60c28d16cf60",
+      "name": "Unified SOAP endpoint",
+      "request": {
+        "name": "Unified SOAP endpoint",
+        "description": {
+          "content": "All operations are invoked via SOAP body:\n- getBookingRequestLand\n- getBookingRequestAir\n- getBookingRequestOceanLCL\n- getBookingRequestOceanFCL\n- getBookingCancelRequest\n- getBookingBarcodeRequest\n- getWaybillRequest\n- getFreightListRequest",
+          "type": "text/plain"
+        },
+        "url": {
+          "path": [
+            "BookingWebService"
+          ],
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "query": [],
+          "variable": []
+        },
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "text/xml"
+          },
+          {
+            "key": "Accept",
+            "value": "text/xml"
+          }
+        ],
+        "method": "POST",
+        "auth": null,
+        "body": {
+          "mode": "raw",
+          "raw": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<Envelope>\n  <Header>\n  </Header>\n  <getBookingRequestLand>\n    <in>\n      <applicationArea>\n        <accessKey>(string)</accessKey>\n        <groupId>(integer)</groupId>\n        <requestID>(string)</requestID>\n        <userId>(string)</userId>\n        <groupName>(string)</groupName>\n      </applicationArea>\n      <bookingLand>\n        <submitBooking>(boolean)</submitBooking>\n        <productCode>(string)</productCode>\n        <incoterm>(string)</incoterm>\n        <measurementType>(string)</measurementType>\n        <serviceType>(string)</serviceType>\n        <grossWeight>(number)</grossWeight>\n        <address>\n        </address>\n        <address>\n        </address>\n        <shippingInformation>\n          <grossWeight>(number)</grossWeight>\n          <volume>(number)</volume>\n        </shippingInformation>\n      </bookingLand>\n    </in>\n  </getBookingRequestLand>\n</Envelope>",
+          "options": {
+            "raw": {
+              "language": "xml"
+            }
+          }
+        }
+      },
+      "response": [
+        {
+          "id": "9da388ac-6711-4301-86da-543351fabcd2",
+          "name": "SOAP response",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "BookingWebService"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: apikey",
+                  "type": "text/plain"
+                },
+                "key": "DSV-Subscription-Key",
+                "value": "<API Key>"
+              },
+              {
+                "key": "Accept",
+                "value": "text/xml"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<Envelope> <Header /> <Body> <in> <applicationArea> <accessKey>string</accessKey> <groupId>0</groupId> <requestID>string</requestID> <userId>string</userId> <groupName>string</groupName> </applicationArea> <bookingLand> <submitBooking>true</submitBooking> <productCode>string</productCode> <incoterm>string</incoterm> <measurementType>string</measurementType> <serviceType>string</serviceType> <grossWeight>0</grossWeight> <address> <name1>string</name1> <street>string</street> <city>string</city> <postalCode>string</postalCode> <countryCode>string</countryCode> <type>string</type> </address> <shippingInformation> <shipmentPosition> <cargoDesc>string</cargoDesc> <volume>0</volume> <grossWeight>0</grossWeight> <packageType>string</packageType> <pieces>0</pieces> </shipmentPosition> <grossWeight>0</grossWeight> <volume>0</volume> </shippingInformation> </bookingLand> </in> </Body> </Envelope>",
+              "options": {
+                "raw": {
+                  "language": "xml"
+                }
+              }
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "text/xml"
+            }
+          ],
+          "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n",
+          "cookie": [],
+          "_postman_previewlanguage": "xml"
+        }
+      ],
+      "event": [],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      }
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.dsv.com/connect-demo/booking/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "DSV-Subscription-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "cfcda24a-8f9f-4712-a14a-5d29c88e9a14",
+    "name": "Connect Booking API (DEMO)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "SOAP-based Booking API supporting:\\n- Land\\n- Air\\n- Ocean (LCL / FCL)\\n- Booking cancel\\n- Barcode retrieval\\n- Waybill retrieval\\n- Freight list",
+      "type": "text/plain"
+    }
+  }
+}

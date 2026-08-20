@@ -1,0 +1,184 @@
+{
+  "item": [
+    {
+      "id": "79a184e7-afe5-4cf8-a8f8-301aa28de1e2",
+      "name": "Get shipment tracking details",
+      "request": {
+        "name": "Get shipment tracking details",
+        "description": {
+          "content": "Get shipment tracking details",
+          "type": "text/plain"
+        },
+        "url": {
+          "path": [
+            "trackingWebServiceV3"
+          ],
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "query": [],
+          "variable": []
+        },
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "text/xml"
+          },
+          {
+            "key": "Accept",
+            "value": "text/xml"
+          }
+        ],
+        "method": "POST",
+        "auth": null,
+        "body": {
+          "mode": "raw",
+          "raw": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<Envelope>\n  <getPublicServiceShipmentDetails>\n    <AccessKey>(string)</AccessKey>\n    <in>\n      <ApplicationArea>\n        <requestId>(string)</requestId>\n        <CreationDateTime>(string)</CreationDateTime>\n      </ApplicationArea>\n      <referenceType>(string)</referenceType>\n      <referenceNumber>(string)</referenceNumber>\n      <transportNature>(string)</transportNature>\n      <shipmentDateFrom>(string)</shipmentDateFrom>\n      <shipmentDateTo>(string)</shipmentDateTo>\n    </in>\n  </getPublicServiceShipmentDetails>\n</Envelope>",
+          "options": {
+            "raw": {
+              "language": "xml"
+            }
+          }
+        }
+      },
+      "response": [
+        {
+          "id": "03529506-b560-491f-b95f-51cdc4486e58",
+          "name": "Tracking response",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "trackingWebServiceV3"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: apikey",
+                  "type": "text/plain"
+                },
+                "key": "DSV-Subscription-Key",
+                "value": "<API Key>"
+              },
+              {
+                "key": "Accept",
+                "value": "text/xml"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<Envelope> <getPublicServiceShipmentDetails> <AccessKey>string</AccessKey> <in> <ApplicationArea> <requestId>string</requestId> <CreationDateTime>string</CreationDateTime> </ApplicationArea> <referenceType>string</referenceType> <referenceNumber>string</referenceNumber> <transportNature>string</transportNature> <shipmentDateFrom>string</shipmentDateFrom> <shipmentDateTo>string</shipmentDateTo> </in> </getPublicServiceShipmentDetails> </Envelope>",
+              "options": {
+                "raw": {
+                  "language": "xml"
+                }
+              }
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "text/xml"
+            }
+          ],
+          "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n",
+          "cookie": [],
+          "_postman_previewlanguage": "xml"
+        },
+        {
+          "id": "79bd6d2c-59d8-4ce2-bab6-512e13474746",
+          "name": "SOAP Fault",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "trackingWebServiceV3"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: apikey",
+                  "type": "text/plain"
+                },
+                "key": "DSV-Subscription-Key",
+                "value": "<API Key>"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<Envelope> <getPublicServiceShipmentDetails> <AccessKey>string</AccessKey> <in> <ApplicationArea> <requestId>string</requestId> <CreationDateTime>string</CreationDateTime> </ApplicationArea> <referenceType>string</referenceType> <referenceNumber>string</referenceNumber> <transportNature>string</transportNature> <shipmentDateFrom>string</shipmentDateFrom> <shipmentDateTo>string</shipmentDateTo> </in> </getPublicServiceShipmentDetails> </Envelope>",
+              "options": {
+                "raw": {
+                  "language": "xml"
+                }
+              }
+            }
+          },
+          "status": "Internal Server Error",
+          "code": 500,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "text/plain"
+            }
+          ],
+          "body": "",
+          "cookie": [],
+          "_postman_previewlanguage": "text"
+        }
+      ],
+      "event": [],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      }
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.dsv.com/connect-demo/tracking/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "DSV-Subscription-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "4804208e-852b-46c0-b2fe-8b4c5c9cc623",
+    "name": "Connect Tracking API (DEMO)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "DB Schenker Standard Tracking SOAP API",
+      "type": "text/plain"
+    }
+  }
+}

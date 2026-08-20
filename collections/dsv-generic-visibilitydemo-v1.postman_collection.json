@@ -1,0 +1,285 @@
+{
+  "item": [
+    {
+      "id": "978197e0-f01f-4f2a-af94-8b45e7887c4d",
+      "name": "Shipment details",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "7a5f09d3-ab50-4aed-9d85-4d7f19225707",
+          "name": "Get device readings by search filter",
+          "request": {
+            "name": "Get device readings by search filter",
+            "description": {
+              "content": "Retrieve detailed device readings by search filter",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "shipments",
+                "deviceReadings"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "api-version",
+                "key": "api-version",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"shipmentId\": \"<string>\",\n  \"measuredAtStartDateTime\": \"<string>\",\n  \"measuredAtEndDateTime\": \"<string>\",\n  \"measuredAtPredefinedRange\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "80b63c94-5f03-47d3-a9fe-d6a8c5a72ff0",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipments",
+                    "deviceReadings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "DSV-Subscription-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "api-version",
+                    "key": "api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Insert your Access Token",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"shipmentId\": \"SH0000000000\",\n  \"measuredAtStartDateTime\": \"2023-01-01T12:00:00.0000000+00:00\",\n  \"measuredAtEndDateTime\": \"2023-01-31T11:59:00.0000000+00:00\",\n  \"measuredAtPredefinedRange\": \"PAST_MONTH\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"shipmentId\": \"SH0000000000\",\n  \"shipmentStatus\": \"Delivered\",\n  \"transportType\": \"FTL\",\n  \"info\": null,\n  \"referenceType05\": \"050000000000000000000\",\n  \"stages\": [\n    \"Road\",\n    \"Rail\",\n    \"Air\"\n  ],\n  \"readings\": [\n    {\n      \"id\": \"xxxxxxx\",\n      \"trackerReadingId\": null,\n      \"type\": \"Device\",\n      \"measuredAt\": \"2023-08-16T11:00:59.0000000+00:00\",\n      \"geoMode\": \"GSM\",\n      \"latitude\": 55.291673,\n      \"longitude\": 12.444475,\n      \"address\": \"Demo city, Denmark\",\n      \"batteryLevel\": 53,\n      \"temperature\": 26.21,\n      \"probeTemperature\": 26.21,\n      \"humidity\": 47.91,\n      \"light\": 23.59,\n      \"shock\": 0.96\n    },\n    {\n      \"id\": \"yyyyyyy\",\n      \"trackerReadingId\": null,\n      \"type\": \"Device\",\n      \"measuredAt\": \"2023-08-16T01:58:58.0000000+00:00\",\n      \"geoMode\": \"GPS\",\n      \"latitude\": 0,\n      \"longitude\": 0,\n      \"address\": \"Demo city, Denmark\",\n      \"batteryLevel\": 57,\n      \"temperature\": 23.26,\n      \"probeTemperature\": 26.55,\n      \"humidity\": 54.79,\n      \"light\": 20.58,\n      \"shock\": 1.01\n    },\n    {\n      \"id\": \"zzzzzzz\",\n      \"trackerReadingId\": null,\n      \"type\": \"Device\",\n      \"measuredAt\": \"2023-08-16T01:28:59.0000000+00:00\",\n      \"geoMode\": \"GPS\",\n      \"latitude\": 55.291673,\n      \"longitude\": 12.444475,\n      \"address\": \"Demo, Denmark\",\n      \"batteryLevel\": 57,\n      \"temperature\": 23.25,\n      \"probeTemperature\": 22.23,\n      \"humidity\": 54.97,\n      \"light\": 21.71,\n      \"shock\": 1\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "19a0b3de-138c-4928-abc8-b54a8f436b8d",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipments",
+                    "deviceReadings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "DSV-Subscription-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "api-version",
+                    "key": "api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Insert your Access Token",
+                    "key": "Authorization",
+                    "value": "string"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"shipmentId\": \"SH0000000000\",\n  \"measuredAtStartDateTime\": \"2023-01-01T12:00:00.0000000+00:00\",\n  \"measuredAtEndDateTime\": \"2023-01-31T11:59:00.0000000+00:00\",\n  \"measuredAtPredefinedRange\": \"PAST_MONTH\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "6d90ced2-4de4-4285-be40-293caa7fe7f5",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipments",
+                    "deviceReadings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "DSV-Subscription-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "api-version",
+                    "key": "api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Insert your Access Token",
+                    "key": "Authorization",
+                    "value": "string"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"shipmentId\": \"SH0000000000\",\n  \"measuredAtStartDateTime\": \"2023-01-01T12:00:00.0000000+00:00\",\n  \"measuredAtEndDateTime\": \"2023-01-31T11:59:00.0000000+00:00\",\n  \"measuredAtPredefinedRange\": \"PAST_MONTH\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.dsv.com/my-demo/visibility/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "DSV-Subscription-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "ff4ca21b-985e-46b1-b00d-124419739cc4",
+    "name": "Visibility (DEMO) - Air, Sea, Rail, XPress",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Retrieve live tracking data from DSV Visibility",
+      "type": "text/plain"
+    }
+  }
+}

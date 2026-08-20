@@ -1,0 +1,155 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Invoice (DEMO) - Air, Sea, Rail",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "DSV-Subscription-Key",
+      "value": "{{DSV-Subscription-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Invoices",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Invoices based on the filters",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.dsv.com/my-demo/invoice/v1/invoices",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "continuationToken",
+                "value": "",
+                "type": "query",
+                "description": "Token to get next page of invoices"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Retrieve a list of DSV invoices including the invoice data via the Invoice list API - Supported transport modes: Air, Sea, Rail"
+        },
+        {
+          "info": {
+            "name": "Invoice by DSV Invoice Id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dsv.com/my-demo/invoice/v1/invoices/:id",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Invoice Id"
+              }
+            ]
+          },
+          "docs": "Invoice by DSV Invoice Id"
+        },
+        {
+          "info": {
+            "name": "Invoice by DSV Shipment Id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dsv.com/my-demo/invoice/v1/invoices/shipments/:shipmentId",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "shipmentId",
+                "value": "",
+                "type": "path",
+                "description": "Shipment Id"
+              }
+            ]
+          },
+          "docs": "Invoice by DSV Shipment Id"
+        },
+        {
+          "info": {
+            "name": "Invoice by Customer Reference",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dsv.com/my-demo/invoice/v1/invoices/referenceNumbers/:referenceNumber",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "referenceNumber",
+                "value": "",
+                "type": "path",
+                "description": "Reference number"
+              }
+            ]
+          },
+          "docs": "Invoice by Customer Reference"
+        },
+        {
+          "info": {
+            "name": "Invoice PDF by DSV Invoice Id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dsv.com/my-demo/invoice/v1/invoices/pdf/:id",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Invoice Id"
+              }
+            ]
+          },
+          "docs": "Invoice PDF by DSV Invoice Id"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

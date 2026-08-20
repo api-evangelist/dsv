@@ -1,0 +1,273 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Orders - SCM",
+    "version": "v2"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "DSV-Subscription-Key",
+      "value": "{{DSV-Subscription-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Orders",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "6. Get order by guid/uuid.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dsv.com/om/v2/Orders/id/:id",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "Content-Type",
+                "value": ""
+              },
+              {
+                "name": "Accept",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Format - uuid."
+              }
+            ]
+          },
+          "docs": "Get order by guid/uuid"
+        },
+        {
+          "info": {
+            "name": "5. Get order by order number and split number",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dsv.com/om/v2/Orders/:orderNumber/:splitNo",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "Content-Type",
+                "value": ""
+              },
+              {
+                "name": "Accept",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "orderNumber",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "splitNo",
+                "value": "",
+                "type": "path",
+                "description": "Format - int64."
+              }
+            ]
+          },
+          "docs": "Get order by order number and split number"
+        },
+        {
+          "info": {
+            "name": "7. Delete order by order number and split number",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.dsv.com/om/v2/Orders/:orderNumber/:splitNo",
+            "params": [
+              {
+                "name": "orderNumber",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "splitNo",
+                "value": "",
+                "type": "path",
+                "description": "Format - int64."
+              }
+            ]
+          },
+          "docs": "Delete order by order number and split number"
+        },
+        {
+          "info": {
+            "name": "4. Get orders by order number",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dsv.com/om/v2/Orders/:orderNumber",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "Content-Type",
+                "value": ""
+              },
+              {
+                "name": "Accept",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "orderNumber",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get orders by order number"
+        },
+        {
+          "info": {
+            "name": "1. Create Order(s)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.dsv.com/om/v2/Orders",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "Content-Type",
+                "value": ""
+              },
+              {
+                "name": "Accept",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create Order(s)"
+        },
+        {
+          "info": {
+            "name": "3. Search for Orders by criteria",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.dsv.com/om/v2/Orders/SearchCriteria",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "Content-Type",
+                "value": ""
+              },
+              {
+                "name": "Accept",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Search for Orders by criteria"
+        },
+        {
+          "info": {
+            "name": "8. ProcessOrderEDI",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.dsv.com/om/v2/api/public/v2/Orders/ProcessOrderEDI",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "Content-Type",
+                "value": ""
+              },
+              {
+                "name": "Accept",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "ProcessOrderEDI"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "OrdersAsync",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "2. Post a collection of orders asynchronously",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.dsv.com/om/v2/OrdersAsync",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "Content-Type",
+                "value": ""
+              },
+              {
+                "name": "Accept",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Post a collection of orders asynchronously"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

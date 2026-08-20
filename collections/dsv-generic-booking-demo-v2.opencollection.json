@@ -1,0 +1,303 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "BOOKING (DEMO) - Air, Sea, Road (EU), Rail",
+    "version": "v2"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "DSV-Subscription-Key",
+      "value": "{{DSV-Subscription-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Booking",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "1. Submit booking",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.dsv.com/my-demo/booking/v2/bookings",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "DSV-Subscription-Key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "labelType",
+                "value": "",
+                "type": "query",
+                "description": "These are the supported label types\n- pdf\n- zpl\n\nIf a \"labelType\" is not added to the request the label response will default to \"pdf\""
+              },
+              {
+                "name": "printFormat",
+                "value": "",
+                "type": "query",
+                "description": "These are the supported print formats\n- Landscape\n- Portrait\n\nIf a \"printFormat\" is not added to the request the label response will default to \"Landscape\""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Submit a real transport booking to DSV to move a package from A to B."
+        },
+        {
+          "info": {
+            "name": "2. Validate booking",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.dsv.com/my-demo/booking/v2/bookings/validate",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "DSV-Subscription-Key",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Validate the content of a booking prior to submitting the final booking to DSV. Bookings sent via this method are not processed by DSV."
+        },
+        {
+          "info": {
+            "name": "6. Get labels by bookingId and SSCC",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dsv.com/my-demo/booking/v2/bookings/getLabel/:bookingId/:sscc",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "DSV-Subscription-Key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "bookingId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "sscc",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "labelType",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "printFormat",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Generate labels for given bookingId and SSCC."
+        },
+        {
+          "info": {
+            "name": "7. Submit bulk bookings",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.dsv.com/my-demo/booking/v2/bookings/bulk",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "DSV-Subscription-Key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "labelType",
+                "value": "",
+                "type": "query",
+                "description": "These are the supported label types\n- pdf\n- zpl\n\nIf a \"labelType\" is not added to the request the label response will default to \"pdf\""
+              },
+              {
+                "name": "printFormat",
+                "value": "",
+                "type": "query",
+                "description": "These are the supported print formats\n- Landscape\n- Portrait\n\nIf a \"printFormat\" is not added to the request the label response will default to \"Landscape\""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Submit multiple bookings in a single API request. Supports partial submission mode where valid bookings are submitted even if some fail validation."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Draft",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "4. Add packages to draft booking",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.dsv.com/my-demo/booking/v2/bookings/addPackages/:bookingId",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "DSV-Subscription-Key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "bookingId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "labelType",
+                "value": "",
+                "type": "query",
+                "description": "These are the supported label types\n- pdf\n- zpl\n\nIf a \"labelType\" is not added to the request the label response will default to \"pdf\""
+              },
+              {
+                "name": "printFormat",
+                "value": "",
+                "type": "query",
+                "description": "These are the supported print formats\n- Landscape\n- Portrait\n\nIf a \"printFormat\" is not added to the request the label response will default to \"Landscape\""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add packages to existing drafts bookings."
+        },
+        {
+          "info": {
+            "name": "3. Create draft booking",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.dsv.com/my-demo/booking/v2/bookings/createDraftBooking",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "DSV-Subscription-Key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "labelType",
+                "value": "",
+                "type": "query",
+                "description": "These are the supported label types\n- pdf\n- zpl\n\nIf a \"labelType\" is not added to the request the label response will default to \"pdf\""
+              },
+              {
+                "name": "printFormat",
+                "value": "",
+                "type": "query",
+                "description": "These are the supported print formats\n- Landscape\n- Portrait\n\nIf a \"printFormat\" is not added to the request the label response will default to \"Landscape\""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a draft booking with DSV."
+        },
+        {
+          "info": {
+            "name": "5. Submit draft booking",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.dsv.com/my-demo/booking/v2/bookings/submitDraftBooking/:bookingId",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "DSV-Subscription-Key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "bookingId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "labelType",
+                "value": "",
+                "type": "query",
+                "description": "These are the supported label types\n- pdf\n- zpl\n\nIf a \"labelType\" is not added to the request the label response will default to \"pdf\""
+              },
+              {
+                "name": "printFormat",
+                "value": "",
+                "type": "query",
+                "description": "These are the supported print formats\n- Landscape\n- Portrait\n\nIf a \"printFormat\" is not added to the request the label response will default to \"Landscape\""
+              }
+            ]
+          },
+          "docs": "Submit the existing draft booking."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

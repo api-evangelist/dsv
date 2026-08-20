@@ -1,0 +1,351 @@
+{
+  "item": [
+    {
+      "id": "61e94a9a-a7ed-4588-af90-4902a3be7d6a",
+      "name": "Status",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "096d7c69-651c-4977-879d-2c626ff17049",
+          "name": "Retrieve Order Status on a Delivery or Inbound Notification",
+          "request": {
+            "name": "Retrieve Order Status on a Delivery or Inbound Notification",
+            "description": {
+              "content": "This message is sent to retrieve current order status of a specific Delivery or Inbound Order",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "notification"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "api-version",
+                "key": "api-version",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"warehouseId\": \"<string>\",\n  \"notificationType\": \"<string>\",\n  \"notificationId\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "439790fd-4a9d-4cbf-bcd5-834409c3846c",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "notification"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "DSV-Subscription-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "api-version",
+                    "key": "api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "OAuth header",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"warehouseId\": \"36643f9b7c1c48ef\",\n  \"notificationType\": \"Inbound\",\n  \"notificationId\": \"IN001\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"warehouseId\": \"36643f9b7c1c48ef\",\n  \"status\": \"Hold\",\n  \"notificationType\": \"Inbound\",\n  \"notificationId\": \"IN001\",\n  \"dateAndTimeOfChange\": \"2025-03-25T02:30:00.0000000+00:00\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0ea9b74b-ae71-43cf-a8ca-58ce4369ce59",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "notification"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "DSV-Subscription-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "api-version",
+                    "key": "api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "OAuth header",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"warehouseId\": \"36643f9b7c1c48ef\",\n  \"notificationType\": \"Inbound\",\n  \"notificationId\": \"IN001\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"ERR12345\",\n  \"message\": \"Not found id : 4025988810785188\",\n  \"fields\": [\n    {\n      \"name\": \"field_name\",\n      \"message\": \"validation error\",\n      \"code\": \"ERR12345\"\n    }\n  ],\n  \"development\": {\n    \"message\": \"string\",\n    \"exception\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "870af394-6e5f-4d9e-af06-32caf149193c",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "notification"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "DSV-Subscription-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "api-version",
+                    "key": "api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "OAuth header",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"warehouseId\": \"36643f9b7c1c48ef\",\n  \"notificationType\": \"Inbound\",\n  \"notificationId\": \"IN001\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"ERR12345\",\n  \"message\": \"Not found id : 4025988810785188\",\n  \"fields\": [\n    {\n      \"name\": \"field_name\",\n      \"message\": \"validation error\",\n      \"code\": \"ERR12345\"\n    }\n  ],\n  \"development\": {\n    \"message\": \"string\",\n    \"exception\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3fbe0e91-9359-4457-8a49-1ca775ca9e7f",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "notification"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "DSV-Subscription-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "api-version",
+                    "key": "api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "OAuth header",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"warehouseId\": \"36643f9b7c1c48ef\",\n  \"notificationType\": \"Inbound\",\n  \"notificationId\": \"IN001\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"ERR12345\",\n  \"message\": \"Not found id : 4025988810785188\",\n  \"fields\": [\n    {\n      \"name\": \"field_name\",\n      \"message\": \"validation error\",\n      \"code\": \"ERR12345\"\n    }\n  ],\n  \"development\": {\n    \"message\": \"string\",\n    \"exception\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.dsv.com/cl-demo/status/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "DSV-Subscription-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "c66886bc-d34d-489b-962d-8852ed8c8951",
+    "name": "WMS Order Status (DEMO)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Contract Logistics API - WMS Order Status",
+      "type": "text/plain"
+    }
+  }
+}

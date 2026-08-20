@@ -1,0 +1,83 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Customs (DEMO)",
+    "version": "v2"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "DSV-Subscription-Key",
+      "value": "{{DSV-Subscription-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Declarations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Transmit cleared customs declaration data",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.dsv.com/csai-demo/v2/declarations",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Enables customers to transmit cleared customs declaration data to the DSV Global Customs Reporting platform for reporting purposes.\n\nUse case:\nThis API is designed for customers cooperating with DSV and supports the structured submission of customs declarations that have already been filed with local customs systems and officially cleared by the authorities.\n\nThe transmitted data is integrated into DSV’s Global Customs Reporting platform, where it is used to support centralized reporting, compli"
+        },
+        {
+          "info": {
+            "name": "Get draft customs declaration by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dsv.com/csai-demo/v2/declarations/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Declaration identifier"
+              }
+            ]
+          },
+          "docs": "Allows customers to retrieve draft customs declarations prepared by DSV.\n\nUse case:\nThis API enables customers to access draft declarations created by DSV in Customs AI platform for pre-clearance audit and validation purposes.\n\nCustomers can retrieve only those draft declarations that are linked to their unique customer identifier (ID64…) and associated with a specific Shipment ID within the relevant transport management system.\n"
+        },
+        {
+          "info": {
+            "name": "Audit existing draft customs declaration",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.dsv.com/csai-demo/v2/declarations/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Declaration identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Allows customers to return audited draft customs declarations to DSV, including any updates or confirmations for further processing in Customs AI.\n\nUse case:\nThis API supports the pre-clearance process by enabling customers to submit reviewed draft declarations back to DSV. Customers may either confirm the accuracy of the data or apply required changes within the draft.\n\nIf no changes are needed and the declaration is marked as accepted (\"stateOfData\": \"PRE_CLEARANCE_ACCEPTED\"), it is automatica"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

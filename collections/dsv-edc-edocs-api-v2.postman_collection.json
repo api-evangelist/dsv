@@ -1,0 +1,550 @@
+{
+  "item": [
+    {
+      "id": "302200b3-7b78-437d-8684-65b27b5ff9f1",
+      "name": "EDocs",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "bcaae083-a940-4b54-a387-b582b01aa3bf",
+          "name": "1. Add eDOC",
+          "request": {
+            "name": "1. Add eDOC",
+            "description": {
+              "content": "Add eDOC",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "EDocs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"<uuid>\",\n  \"data\": \"<string>\",\n  \"parentTableCode\": \"<string>\",\n  \"parentNumber\": \"<string>\",\n  \"secondaryParentNumber\": \"<string>\",\n  \"extension\": \"<string>\",\n  \"docType\": \"<string>\",\n  \"description\": \"<string>\",\n  \"fileName\": \"<string>\",\n  \"isPublished\": \"<boolean>\",\n  \"intendedParties\": \"<string>\",\n  \"size\": \"<long>\",\n  \"actualUpload\": \"<dateTime>\",\n  \"dateModified\": \"<dateTime>\",\n  \"userModified\": \"<string>\",\n  \"dateCreated\": \"<dateTime>\",\n  \"userCreated\": \"<string>\",\n  \"uniqueFileName\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9424956b-1fde-4ab3-9214-c9620ef3b224",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "EDocs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "DSV-Subscription-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) DSV Authorization header",
+                    "key": "authorization",
+                    "value": "string"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"string\",\n  \"data\": \"string\",\n  \"parentTableCode\": \"string\",\n  \"parentNumber\": \"string\",\n  \"secondaryParentNumber\": \"string\",\n  \"extension\": \"string\",\n  \"docType\": \"string\",\n  \"description\": \"string\",\n  \"fileName\": \"string\",\n  \"isPublished\": true,\n  \"intendedParties\": \"string\",\n  \"size\": 0,\n  \"actualUpload\": \"string\",\n  \"dateModified\": \"string\",\n  \"userModified\": \"string\",\n  \"dateCreated\": \"string\",\n  \"userCreated\": \"string\",\n  \"uniqueFileName\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c9b2c6a4-29b6-4962-9ffc-0c0e783797c8",
+          "name": "2. Upload eDoc using storageId",
+          "request": {
+            "name": "2. Upload eDoc using storageId",
+            "description": {
+              "content": "Upload eDoc using storageId",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "EDocs",
+                "Upload",
+                ":storageId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "storageId",
+                  "description": "(Required) Format - uuid."
+                }
+              ]
+            },
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "78cbd8e7-73fd-4d20-a9c3-149c8fe3cc34",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "EDocs",
+                    "Upload",
+                    ":storageId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "storageId",
+                      "description": "(Required) Format - uuid."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "DSV-Subscription-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) DSV Authorization header",
+                    "key": "authorization",
+                    "value": "string"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "040ed2e1-62e3-4de5-a5f8-15ba9314a511",
+          "name": "3. Download eDoc by storageId",
+          "request": {
+            "name": "3. Download eDoc by storageId",
+            "description": {
+              "content": "Download eDoc by storageId",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "EDocs",
+                "Download",
+                ":storageId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "storageId",
+                  "description": "(Required) Format - uuid."
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e2c24cd4-97aa-4a8a-b6c1-4fc70638c5ae",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "EDocs",
+                    "Download",
+                    ":storageId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "storageId",
+                      "description": "(Required) Format - uuid."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "DSV-Subscription-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) DSV Authorization header",
+                    "key": "authorization",
+                    "value": "string"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0bc76ee8-8a64-465f-bba0-47b5400b6a7a",
+          "name": "4. Get eDocs metadata by Id",
+          "request": {
+            "name": "4. Get eDocs metadata by Id",
+            "description": {
+              "content": "Get eDocs metadata by Id",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "EDocs",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Format - uuid."
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "693cd96e-40b1-465f-91c5-fbf32ab548e2",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "EDocs",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Format - uuid."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "DSV-Subscription-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) DSV Authorization header",
+                    "key": "authorization",
+                    "value": "string"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8090b515-4db4-4dc9-9756-ad3c18603ec8",
+          "name": "5. Get eDocs by parentNumber and secondaryParentNum",
+          "request": {
+            "name": "5. Get eDocs by parentNumber and secondaryParentNum",
+            "description": {
+              "content": "Get eDocs by parentNumber and secondaryParentNum",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "EDocs",
+                ":type",
+                ":parentNumber",
+                ":secondaryParentNumber"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "type",
+                  "description": "(Required) Format - int32."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "parentNumber",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "secondaryParentNumber",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8d5bac58-6733-4427-9370-d3d0eeecfd70",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "EDocs",
+                    ":type",
+                    ":parentNumber",
+                    ":secondaryParentNumber"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "type",
+                      "description": "(Required) Format - int32."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "parentNumber",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "secondaryParentNumber",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "DSV-Subscription-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) DSV Authorization header",
+                    "key": "authorization",
+                    "value": "string"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.dsv.com/om/edocs/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "DSV-Subscription-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "4ca3b5e1-1aaf-4ddb-85a6-0d908d606a10",
+    "name": "eDOCS - SCM",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "SCM eDOCS API",
+      "type": "text/plain"
+    }
+  }
+}

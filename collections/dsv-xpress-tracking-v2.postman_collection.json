@@ -1,0 +1,1275 @@
+{
+  "item": [
+    {
+      "id": "5613f580-948b-43dc-a28d-9182da41e0d3",
+      "name": "Shipment",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "213da290-090f-4c89-a31a-85def23f3cd9",
+          "name": "Shipment details by DSV Shipment ID",
+          "request": {
+            "name": "Shipment details by DSV Shipment ID",
+            "description": {
+              "content": "Retrieve detailed information for a specific shipment by searching for the DSV Shipment Id. (e.g. shipment addresses, service, pieces, weight, volume, revenue, references, ETA)",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "shipmentDetails",
+                ":shipmentId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "shipmentId",
+                  "description": "(Required) ID of shipment to get details"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) DSV XPress service auth for the selected API (found on DSV XPress API profile page)",
+                "key": "dsv-service-auth",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "(Required) DSV XPress personal access token (found on DSV XPress API profile page)",
+                "key": "x-pat",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1252a415-2300-415d-85b3-3596fc977a38",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipmentDetails",
+                    ":shipmentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "shipmentId",
+                      "description": "(Required) ID of shipment to get details"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "DSV-Subscription-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) DSV XPress service auth for the selected API (found on DSV XPress API profile page)",
+                    "key": "dsv-service-auth",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) DSV XPress personal access token (found on DSV XPress API profile page)",
+                    "key": "x-pat",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"shipment\": {\n    \"shipmentId\": 10123456,\n    \"dsvAccount\": \"6400000000\",\n    \"trackingUrl\": \"https://tracking-url.dsv.com/#/track-shipment?id=10123456\",\n    \"etaDate\": \"2020-03-19\",\n    \"sender\": {\n      \"companyName\": \"DSV A/S\",\n      \"addressLine1\": \"Hovedgaden 630\",\n      \"zipCode\": \"2640\",\n      \"city\": \"Hedehusene\",\n      \"countryCode\": \"DK\",\n      \"contactName\": \"Sender contact\",\n      \"contactPhoneNumber\": \"+45 123456789\",\n      \"contactEmail\": \"john.smith@sender.com\"\n    },\n    \"receiver\": {\n      \"companyName\": \"DSV Air & Sea GmbH\",\n      \"addressLine1\": \"Nirostastraße 3\",\n      \"zipCode\": \"47807\",\n      \"city\": \"Krefeld\",\n      \"countryCode\": \"DE\",\n      \"contactName\": \"Receiver contact\",\n      \"contactPhoneNumber\": \"+44 123456789\",\n      \"contactEmail\": \"robert.smith@receiver.com\"\n    },\n    \"pickup\": {\n      \"collectDateFrom\": \"2020-03-17T02:00:00.0000000+00:00\",\n      \"collectDateTo\": \"2020-03-17T06:00:00.0000000+00:00\",\n      \"address\": {\n        \"companyName\": \"DSV A/S\",\n        \"addressLine1\": \"Hovedgaden 630\",\n        \"zipCode\": \"2640\",\n        \"city\": \"Hedehusene\",\n        \"countryCode\": \"DK\",\n        \"contactName\": \"Sender contact\",\n        \"contactPhoneNumber\": \"+45 123456789\",\n        \"contactEmail\": \"john.smith@sender.com\"\n      }\n    },\n    \"delivery\": {\n      \"companyName\": \"DSV Air & Sea GmbH\",\n      \"addressLine1\": \"Nirostastraße 3\",\n      \"zipCode\": \"47807\",\n      \"city\": \"Krefeld\",\n      \"countryCode\": \"DE\",\n      \"contactName\": \"Receiver contact\",\n      \"contactPhoneNumber\": \"+44 123456789\",\n      \"contactEmail\": \"robert.smith@receiver.com\"\n    },\n    \"serviceOptions\": {\n      \"packageType\": \"PARCELS\",\n      \"serviceCode\": \"DSVAirExpress\",\n      \"insurance\": {\n        \"currencyCode\": \"DKK\",\n        \"monetaryValue\": 2000\n      }\n    },\n    \"carrier\": {\n      \"carrierCode\": \"Fedex\",\n      \"serviceCode\": \"INTERNATIONAL_PRIORITY\"\n    },\n    \"dimensionUnit\": \"CM\",\n    \"weightUnit\": \"KG\",\n    \"volumeUnit\": \"M3\",\n    \"packages\": [\n      {\n        \"length\": 50,\n        \"width\": 40,\n        \"height\": 40,\n        \"grossWeight\": 6.5,\n        \"volume\": 0.08,\n        \"chargeableWeight\": 6.5\n      }\n    ],\n    \"commodities\": [\n      {\n        \"originCountryCode\": \"DK\",\n        \"goodsDescription\": \"samples\",\n        \"goodsValue\": {\n          \"currencyCode\": \"DKK\",\n          \"monetaryValue\": 1000\n        }\n      }\n    ],\n    \"paymentInformation\": {\n      \"shippingChargesPayment\": {\n        \"paymentType\": \"SENDER\"\n      },\n      \"dutiesAndTaxesPayment\": {\n        \"paymentType\": \"RECEIVER\"\n      }\n    },\n    \"billedCharges\": {\n      \"freight\": [\n        {\n          \"code\": \"24\",\n          \"description\": \"Courrier shipment\",\n          \"currencyCode\": \"EUR\",\n          \"monetaryValue\": 30.15,\n          \"debtorAccountID\": \"6400000000\",\n          \"debtorCompanyName\": \"DSV A/S\"\n        }\n      ],\n      \"fuel\": [\n        {\n          \"code\": \"1\",\n          \"description\": \"Fuel Surcharge \",\n          \"currencyCode\": \"EUR\",\n          \"monetaryValue\": 36,\n          \"debtorAccountID\": \"6400000000\",\n          \"debtorCompanyName\": \"DSV A/S\"\n        }\n      ],\n      \"otherCharges\": [\n        {\n          \"code\": \"30\",\n          \"description\": \"Insurance\",\n          \"currencyCode\": \"EUR\",\n          \"monetaryValue\": 3,\n          \"debtorAccountID\": \"6400000000\",\n          \"debtorCompanyName\": \"DSV A/S\"\n        },\n        {\n          \"code\": \"67\",\n          \"description\": \"Customs Inspection\",\n          \"currencyCode\": \"EUR\",\n          \"monetaryValue\": 52,\n          \"debtorAccountID\": \"6400000000\",\n          \"debtorCompanyName\": \"DSV A/S\"\n        },\n        {\n          \"code\": \"19\",\n          \"description\": \"Domestic 12:00AM Delivery\",\n          \"currencyCode\": \"EUR\",\n          \"monetaryValue\": 16.33,\n          \"debtorAccountID\": \"6400000000\",\n          \"debtorCompanyName\": \"DSV A/S\"\n        }\n      ],\n      \"total\": {\n        \"currencyCode\": \"EUR\",\n        \"monetaryValue\": 137.48\n      }\n    },\n    \"estimatedCharges\": {\n      \"otherCharges\": [\n        {\n          \"code\": \"25\",\n          \"description\": \"Administration Fee\",\n          \"currencyCode\": \"EUR\",\n          \"monetaryValue\": 27,\n          \"debtorAccountID\": \"6400000000\",\n          \"debtorCompanyName\": \"DSV A/S\"\n        }\n      ],\n      \"total\": {\n        \"currencyCode\": \"EUR\",\n        \"monetaryValue\": 27\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a93cf07e-9596-4d52-a20e-7b1b294f4685",
+              "name": "Invalid ID supplied",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipmentDetails",
+                    ":shipmentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "shipmentId",
+                      "description": "(Required) ID of shipment to get details"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "DSV-Subscription-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) DSV XPress service auth for the selected API (found on DSV XPress API profile page)",
+                    "key": "dsv-service-auth",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) DSV XPress personal access token (found on DSV XPress API profile page)",
+                    "key": "x-pat",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "69f18e54-7744-4e96-b1b8-4c4805fa0c63",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipmentDetails",
+                    ":shipmentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "shipmentId",
+                      "description": "(Required) ID of shipment to get details"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "DSV-Subscription-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) DSV XPress service auth for the selected API (found on DSV XPress API profile page)",
+                    "key": "dsv-service-auth",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) DSV XPress personal access token (found on DSV XPress API profile page)",
+                    "key": "x-pat",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "345e68f6-1417-481b-a488-ccca1b7292d4",
+              "name": "Shipment not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipmentDetails",
+                    ":shipmentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "shipmentId",
+                      "description": "(Required) ID of shipment to get details"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "DSV-Subscription-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) DSV XPress service auth for the selected API (found on DSV XPress API profile page)",
+                    "key": "dsv-service-auth",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) DSV XPress personal access token (found on DSV XPress API profile page)",
+                    "key": "x-pat",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "8d2d9924-d300-4aa7-8c3d-da41bccb7e6a",
+      "name": "Tracking",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "86e46c5b-7cb1-4599-a920-7ab6f0584ebf",
+          "name": "Events by DSV Shipment ID",
+          "request": {
+            "name": "Events by DSV Shipment ID",
+            "description": {
+              "content": "Retrieve actual events for a specific shipment by searching for the DSV Shipment Id. (e.g. actual departure, transit events, exception events, actual delivery etc.)",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "shipments",
+                "shipmentId",
+                ":shipmentId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "shipmentId",
+                  "description": "(Required) ID of shipment to track"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) DSV XPress service auth for the selected API (found on DSV XPress API profile page)",
+                "key": "dsv-service-auth",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "(Required) DSV XPress personal access token (found on DSV XPress API profile page)",
+                "key": "x-pat",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "955da741-56f0-4b34-a416-e42256253004",
+              "name": "successful operation. Return the list of shipment events.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipments",
+                    "shipmentId",
+                    ":shipmentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "shipmentId",
+                      "description": "(Required) ID of shipment to track"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "DSV-Subscription-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) DSV XPress service auth for the selected API (found on DSV XPress API profile page)",
+                    "key": "dsv-service-auth",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) DSV XPress personal access token (found on DSV XPress API profile page)",
+                    "key": "x-pat",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"shipmentId\": 10123456,\n  \"carrierTrackingNumber\": \"1Z3E123412345678\",\n  \"trackingUrl\": \"https://tracking-url.dsv.com/#/track-shipment?id=10123456\",\n  \"trackingStatus\": \"DELIVERED\",\n  \"pickupDate\": \"2020-02-25T09:57:28.0000000+00:00\",\n  \"delivery\": {\n    \"deliveryDate\": \"2020-02-26T09:38:06.0000000+00:00\",\n    \"deliverySignature\": \"SMITH\",\n    \"deliveryLocation\": \"Dock\"\n  },\n  \"events\": [\n    {\n      \"eventCode\": \"KB\",\n      \"deviationCode\": \"D\",\n      \"eventDate\": \"2020-02-26T09:38:06.0000000+00:00\",\n      \"eventDescription\": \"Delivered (Signed by : SMITH)\",\n      \"location\": \"NL-AMERSFOORT\",\n      \"deliverySignature\": \"SMITH\",\n      \"deliveryLocation\": \"Dock\",\n      \"eventType\": \"P\",\n      \"carrierTrackingNumber\": \"1Z3E123412345678\",\n      \"source\": \"UPS\"\n    },\n    {\n      \"eventCode\": \"OF\",\n      \"deviationCode\": \"I\",\n      \"eventDate\": \"2020-02-26T04:46:00.0000000+00:00\",\n      \"eventDescription\": \"Out For Delivery\",\n      \"location\": \"NL-Apeldoorn\",\n      \"eventType\": \"P\",\n      \"carrierTrackingNumber\": \"1Z3E123412345678\",\n      \"source\": \"UPS\"\n    },\n    {\n      \"eventCode\": \"AR\",\n      \"deviationCode\": \"I\",\n      \"eventDate\": \"2020-02-26T04:45:00.0000000+00:00\",\n      \"eventDescription\": \"Arrival Scan\",\n      \"location\": \"NL-Apeldoorn\",\n      \"eventType\": \"P\",\n      \"carrierTrackingNumber\": \"1Z3E123412345678\",\n      \"source\": \"UPS\"\n    },\n    {\n      \"eventCode\": \"DP\",\n      \"deviationCode\": \"I\",\n      \"eventDate\": \"2020-02-26T02:55:00.0000000+00:00\",\n      \"eventDescription\": \"Departure Scan\",\n      \"location\": \"DE-Herne-Boernig\",\n      \"eventType\": \"P\",\n      \"carrierTrackingNumber\": \"1Z3E123412345678\",\n      \"source\": \"UPS\"\n    },\n    {\n      \"eventCode\": \"AR\",\n      \"deviationCode\": \"I\",\n      \"eventDate\": \"2020-02-26T01:21:00.0000000+00:00\",\n      \"eventDescription\": \"Arrival Scan\",\n      \"location\": \"DE-Herne-Boernig\",\n      \"eventType\": \"P\",\n      \"carrierTrackingNumber\": \"1Z3E123412345678\",\n      \"source\": \"UPS\"\n    },\n    {\n      \"eventCode\": \"DP\",\n      \"deviationCode\": \"I\",\n      \"eventDate\": \"2020-02-25T09:15:00.0000000+00:00\",\n      \"eventDescription\": \"Departure Scan\",\n      \"location\": \"DE-Hamburg\",\n      \"eventType\": \"P\",\n      \"carrierTrackingNumber\": \"1Z3E123412345678\",\n      \"source\": \"UPS\"\n    },\n    {\n      \"eventCode\": \"DP\",\n      \"deviationCode\": \"I\",\n      \"eventDate\": \"2020-02-25T06:45:00.0000000+00:00\",\n      \"eventDescription\": \"Departure Scan\",\n      \"location\": \"DE-Reinfeld\",\n      \"eventType\": \"P\",\n      \"carrierTrackingNumber\": \"1Z3E123412345678\",\n      \"source\": \"UPS\"\n    },\n    {\n      \"eventCode\": \"OR\",\n      \"deviationCode\": \"I\",\n      \"eventDate\": \"2020-02-25T05:40:47.0000000+00:00\",\n      \"eventDescription\": \"Origin Scan\",\n      \"location\": \"DE-Reinfeld\",\n      \"eventType\": \"P\",\n      \"carrierTrackingNumber\": \"1Z3E123412345678\",\n      \"source\": \"UPS\"\n    },\n    {\n      \"eventCode\": \"MP\",\n      \"deviationCode\": \"M\",\n      \"eventDate\": \"2020-02-25T03:15:55.0000000+00:00\",\n      \"eventDescription\": \"Order Processed: Ready for UPS\",\n      \"location\": \"DE\",\n      \"eventType\": \"P\",\n      \"carrierTrackingNumber\": \"1Z3E123412345678\",\n      \"source\": \"UPS\"\n    },\n    {\n      \"eventCode\": \"PRS\",\n      \"eventDate\": \"2020-02-25T09:57:28.0000000+00:00\",\n      \"eventDescription\": \"Shipment submited\",\n      \"eventType\": \"S\",\n      \"carrierTrackingNumber\": \"1Z3E123412345678\",\n      \"source\": \"DSVXPRESS\"\n    },\n    {\n      \"eventCode\": \"PRC\",\n      \"eventDate\": \"2020-02-25T09:57:16.0000000+00:00\",\n      \"eventDescription\": \"Shipment created\",\n      \"eventType\": \"S\",\n      \"carrierTrackingNumber\": \"1Z3E123412345678\",\n      \"source\": \"DSVXPRESS\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "75aa52ca-6e48-4891-93b9-32cea835a4c7",
+              "name": "Invalid ID supplied",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipments",
+                    "shipmentId",
+                    ":shipmentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "shipmentId",
+                      "description": "(Required) ID of shipment to track"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "DSV-Subscription-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) DSV XPress service auth for the selected API (found on DSV XPress API profile page)",
+                    "key": "dsv-service-auth",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) DSV XPress personal access token (found on DSV XPress API profile page)",
+                    "key": "x-pat",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ce630ad2-fff7-4d49-9148-97b9c3f491c0",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipments",
+                    "shipmentId",
+                    ":shipmentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "shipmentId",
+                      "description": "(Required) ID of shipment to track"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "DSV-Subscription-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) DSV XPress service auth for the selected API (found on DSV XPress API profile page)",
+                    "key": "dsv-service-auth",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) DSV XPress personal access token (found on DSV XPress API profile page)",
+                    "key": "x-pat",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e7255e30-a5d3-4687-9bae-6e72b85d10a7",
+              "name": "Shipment not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipments",
+                    "shipmentId",
+                    ":shipmentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "shipmentId",
+                      "description": "(Required) ID of shipment to track"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "DSV-Subscription-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) DSV XPress service auth for the selected API (found on DSV XPress API profile page)",
+                    "key": "dsv-service-auth",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) DSV XPress personal access token (found on DSV XPress API profile page)",
+                    "key": "x-pat",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d8177c16-28a9-4b18-b9af-ac16d8ddaa8e",
+          "name": "Events by Carrier tracking number",
+          "request": {
+            "name": "Events by Carrier tracking number",
+            "description": {
+              "content": "Retrieve actual events for a specific shipment by searching for the Carrier tracking id. (e.g. actual departure, transit events, exception events, actual delivery etc.)",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "shipments",
+                "carrierTrackingNumber",
+                ":carrierTrackingNumber"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "carrierTrackingNumber",
+                  "description": "(Required) Carrier tracking number of shipment to track"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) DSV XPress service auth for the selected API (found on DSV XPress API profile page)",
+                "key": "dsv-service-auth",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "(Required) DSV XPress personal access token (found on DSV XPress API profile page)",
+                "key": "x-pat",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ce466ba4-da49-473e-95b9-3de3972533df",
+              "name": "successful operation. Return the list of shipment events.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipments",
+                    "carrierTrackingNumber",
+                    ":carrierTrackingNumber"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "carrierTrackingNumber",
+                      "description": "(Required) Carrier tracking number of shipment to track"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "DSV-Subscription-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) DSV XPress service auth for the selected API (found on DSV XPress API profile page)",
+                    "key": "dsv-service-auth",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) DSV XPress personal access token (found on DSV XPress API profile page)",
+                    "key": "x-pat",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"shipmentId\": 10123456,\n  \"carrierTrackingNumber\": \"1Z3E123412345678\",\n  \"trackingUrl\": \"https://tracking-url.dsv.com/#/track-shipment?id=10123456\",\n  \"trackingStatus\": \"DELIVERED\",\n  \"pickupDate\": \"2020-02-25T09:57:28.0000000+00:00\",\n  \"delivery\": {\n    \"deliveryDate\": \"2020-02-26T09:38:06.0000000+00:00\",\n    \"deliverySignature\": \"SMITH\",\n    \"deliveryLocation\": \"Dock\"\n  },\n  \"events\": [\n    {\n      \"eventCode\": \"KB\",\n      \"deviationCode\": \"D\",\n      \"eventDate\": \"2020-02-26T09:38:06.0000000+00:00\",\n      \"eventDescription\": \"Delivered (Signed by : SMITH)\",\n      \"location\": \"NL-AMERSFOORT\",\n      \"deliverySignature\": \"SMITH\",\n      \"deliveryLocation\": \"Dock\",\n      \"eventType\": \"P\",\n      \"carrierTrackingNumber\": \"1Z3E123412345678\",\n      \"source\": \"UPS\"\n    },\n    {\n      \"eventCode\": \"OF\",\n      \"deviationCode\": \"I\",\n      \"eventDate\": \"2020-02-26T04:46:00.0000000+00:00\",\n      \"eventDescription\": \"Out For Delivery\",\n      \"location\": \"NL-Apeldoorn\",\n      \"eventType\": \"P\",\n      \"carrierTrackingNumber\": \"1Z3E123412345678\",\n      \"source\": \"UPS\"\n    },\n    {\n      \"eventCode\": \"AR\",\n      \"deviationCode\": \"I\",\n      \"eventDate\": \"2020-02-26T04:45:00.0000000+00:00\",\n      \"eventDescription\": \"Arrival Scan\",\n      \"location\": \"NL-Apeldoorn\",\n      \"eventType\": \"P\",\n      \"carrierTrackingNumber\": \"1Z3E123412345678\",\n      \"source\": \"UPS\"\n    },\n    {\n      \"eventCode\": \"DP\",\n      \"deviationCode\": \"I\",\n      \"eventDate\": \"2020-02-26T02:55:00.0000000+00:00\",\n      \"eventDescription\": \"Departure Scan\",\n      \"location\": \"DE-Herne-Boernig\",\n      \"eventType\": \"P\",\n      \"carrierTrackingNumber\": \"1Z3E123412345678\",\n      \"source\": \"UPS\"\n    },\n    {\n      \"eventCode\": \"AR\",\n      \"deviationCode\": \"I\",\n      \"eventDate\": \"2020-02-26T01:21:00.0000000+00:00\",\n      \"eventDescription\": \"Arrival Scan\",\n      \"location\": \"DE-Herne-Boernig\",\n      \"eventType\": \"P\",\n      \"carrierTrackingNumber\": \"1Z3E123412345678\",\n      \"source\": \"UPS\"\n    },\n    {\n      \"eventCode\": \"DP\",\n      \"deviationCode\": \"I\",\n      \"eventDate\": \"2020-02-25T09:15:00.0000000+00:00\",\n      \"eventDescription\": \"Departure Scan\",\n      \"location\": \"DE-Hamburg\",\n      \"eventType\": \"P\",\n      \"carrierTrackingNumber\": \"1Z3E123412345678\",\n      \"source\": \"UPS\"\n    },\n    {\n      \"eventCode\": \"DP\",\n      \"deviationCode\": \"I\",\n      \"eventDate\": \"2020-02-25T06:45:00.0000000+00:00\",\n      \"eventDescription\": \"Departure Scan\",\n      \"location\": \"DE-Reinfeld\",\n      \"eventType\": \"P\",\n      \"carrierTrackingNumber\": \"1Z3E123412345678\",\n      \"source\": \"UPS\"\n    },\n    {\n      \"eventCode\": \"OR\",\n      \"deviationCode\": \"I\",\n      \"eventDate\": \"2020-02-25T05:40:47.0000000+00:00\",\n      \"eventDescription\": \"Origin Scan\",\n      \"location\": \"DE-Reinfeld\",\n      \"eventType\": \"P\",\n      \"carrierTrackingNumber\": \"1Z3E123412345678\",\n      \"source\": \"UPS\"\n    },\n    {\n      \"eventCode\": \"MP\",\n      \"deviationCode\": \"M\",\n      \"eventDate\": \"2020-02-25T03:15:55.0000000+00:00\",\n      \"eventDescription\": \"Order Processed: Ready for UPS\",\n      \"location\": \"DE\",\n      \"eventType\": \"P\",\n      \"carrierTrackingNumber\": \"1Z3E123412345678\",\n      \"source\": \"UPS\"\n    },\n    {\n      \"eventCode\": \"PRS\",\n      \"eventDate\": \"2020-02-25T09:57:28.0000000+00:00\",\n      \"eventDescription\": \"Shipment submited\",\n      \"eventType\": \"S\",\n      \"carrierTrackingNumber\": \"1Z3E123412345678\",\n      \"source\": \"DSVXPRESS\"\n    },\n    {\n      \"eventCode\": \"PRC\",\n      \"eventDate\": \"2020-02-25T09:57:16.0000000+00:00\",\n      \"eventDescription\": \"Shipment created\",\n      \"eventType\": \"S\",\n      \"carrierTrackingNumber\": \"1Z3E123412345678\",\n      \"source\": \"DSVXPRESS\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "12d838dc-343f-4d6e-befb-a736ff7559db",
+              "name": "Invalid carrier tracking number supplied",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipments",
+                    "carrierTrackingNumber",
+                    ":carrierTrackingNumber"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "carrierTrackingNumber",
+                      "description": "(Required) Carrier tracking number of shipment to track"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "DSV-Subscription-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) DSV XPress service auth for the selected API (found on DSV XPress API profile page)",
+                    "key": "dsv-service-auth",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) DSV XPress personal access token (found on DSV XPress API profile page)",
+                    "key": "x-pat",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "05273f4e-0f73-4877-85df-65ba7e24500a",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipments",
+                    "carrierTrackingNumber",
+                    ":carrierTrackingNumber"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "carrierTrackingNumber",
+                      "description": "(Required) Carrier tracking number of shipment to track"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "DSV-Subscription-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) DSV XPress service auth for the selected API (found on DSV XPress API profile page)",
+                    "key": "dsv-service-auth",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) DSV XPress personal access token (found on DSV XPress API profile page)",
+                    "key": "x-pat",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a6cb7bbf-e785-4daa-be84-18070bad5d7f",
+              "name": "Shipment not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipments",
+                    "carrierTrackingNumber",
+                    ":carrierTrackingNumber"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "carrierTrackingNumber",
+                      "description": "(Required) Carrier tracking number of shipment to track"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "DSV-Subscription-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) DSV XPress service auth for the selected API (found on DSV XPress API profile page)",
+                    "key": "dsv-service-auth",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) DSV XPress personal access token (found on DSV XPress API profile page)",
+                    "key": "x-pat",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6f96859d-8952-4983-b633-b002aec5f7b7",
+          "name": "Events by AWB number",
+          "request": {
+            "name": "Events by AWB number",
+            "description": {
+              "content": "Retrieve actual events for a specific shipment by searching for the AWB number. (e.g. actual departure, transit events, exception events, actual delivery etc.)",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "shipments",
+                "awb",
+                ":awb"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "awb",
+                  "description": "(Required) AWB of shipment to track"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) DSV XPress service auth for the selected API (found on DSV XPress API profile page)",
+                "key": "dsv-service-auth",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "(Required) DSV XPress personal access token (found on DSV XPress API profile page)",
+                "key": "x-pat",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1d1f6c75-7e62-4a0e-9bdb-dbcf0e946fb6",
+              "name": "successful operation. Return the list of shipment events.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipments",
+                    "awb",
+                    ":awb"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "awb",
+                      "description": "(Required) AWB of shipment to track"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "DSV-Subscription-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) DSV XPress service auth for the selected API (found on DSV XPress API profile page)",
+                    "key": "dsv-service-auth",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) DSV XPress personal access token (found on DSV XPress API profile page)",
+                    "key": "x-pat",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"shipmentId\": 10123456,\n  \"carrierTrackingNumber\": \"1Z3E123412345678\",\n  \"trackingUrl\": \"https://tracking-url.dsv.com/#/track-shipment?id=10123456\",\n  \"trackingStatus\": \"DELIVERED\",\n  \"pickupDate\": \"2020-02-25T09:57:28.0000000+00:00\",\n  \"delivery\": {\n    \"deliveryDate\": \"2020-02-26T09:38:06.0000000+00:00\",\n    \"deliverySignature\": \"SMITH\",\n    \"deliveryLocation\": \"Dock\"\n  },\n  \"events\": [\n    {\n      \"eventCode\": \"KB\",\n      \"deviationCode\": \"D\",\n      \"eventDate\": \"2020-02-26T09:38:06.0000000+00:00\",\n      \"eventDescription\": \"Delivered (Signed by : SMITH)\",\n      \"location\": \"NL-AMERSFOORT\",\n      \"deliverySignature\": \"SMITH\",\n      \"deliveryLocation\": \"Dock\",\n      \"eventType\": \"P\",\n      \"carrierTrackingNumber\": \"1Z3E123412345678\",\n      \"source\": \"UPS\"\n    },\n    {\n      \"eventCode\": \"OF\",\n      \"deviationCode\": \"I\",\n      \"eventDate\": \"2020-02-26T04:46:00.0000000+00:00\",\n      \"eventDescription\": \"Out For Delivery\",\n      \"location\": \"NL-Apeldoorn\",\n      \"eventType\": \"P\",\n      \"carrierTrackingNumber\": \"1Z3E123412345678\",\n      \"source\": \"UPS\"\n    },\n    {\n      \"eventCode\": \"AR\",\n      \"deviationCode\": \"I\",\n      \"eventDate\": \"2020-02-26T04:45:00.0000000+00:00\",\n      \"eventDescription\": \"Arrival Scan\",\n      \"location\": \"NL-Apeldoorn\",\n      \"eventType\": \"P\",\n      \"carrierTrackingNumber\": \"1Z3E123412345678\",\n      \"source\": \"UPS\"\n    },\n    {\n      \"eventCode\": \"DP\",\n      \"deviationCode\": \"I\",\n      \"eventDate\": \"2020-02-26T02:55:00.0000000+00:00\",\n      \"eventDescription\": \"Departure Scan\",\n      \"location\": \"DE-Herne-Boernig\",\n      \"eventType\": \"P\",\n      \"carrierTrackingNumber\": \"1Z3E123412345678\",\n      \"source\": \"UPS\"\n    },\n    {\n      \"eventCode\": \"AR\",\n      \"deviationCode\": \"I\",\n      \"eventDate\": \"2020-02-26T01:21:00.0000000+00:00\",\n      \"eventDescription\": \"Arrival Scan\",\n      \"location\": \"DE-Herne-Boernig\",\n      \"eventType\": \"P\",\n      \"carrierTrackingNumber\": \"1Z3E123412345678\",\n      \"source\": \"UPS\"\n    },\n    {\n      \"eventCode\": \"DP\",\n      \"deviationCode\": \"I\",\n      \"eventDate\": \"2020-02-25T09:15:00.0000000+00:00\",\n      \"eventDescription\": \"Departure Scan\",\n      \"location\": \"DE-Hamburg\",\n      \"eventType\": \"P\",\n      \"carrierTrackingNumber\": \"1Z3E123412345678\",\n      \"source\": \"UPS\"\n    },\n    {\n      \"eventCode\": \"DP\",\n      \"deviationCode\": \"I\",\n      \"eventDate\": \"2020-02-25T06:45:00.0000000+00:00\",\n      \"eventDescription\": \"Departure Scan\",\n      \"location\": \"DE-Reinfeld\",\n      \"eventType\": \"P\",\n      \"carrierTrackingNumber\": \"1Z3E123412345678\",\n      \"source\": \"UPS\"\n    },\n    {\n      \"eventCode\": \"OR\",\n      \"deviationCode\": \"I\",\n      \"eventDate\": \"2020-02-25T05:40:47.0000000+00:00\",\n      \"eventDescription\": \"Origin Scan\",\n      \"location\": \"DE-Reinfeld\",\n      \"eventType\": \"P\",\n      \"carrierTrackingNumber\": \"1Z3E123412345678\",\n      \"source\": \"UPS\"\n    },\n    {\n      \"eventCode\": \"MP\",\n      \"deviationCode\": \"M\",\n      \"eventDate\": \"2020-02-25T03:15:55.0000000+00:00\",\n      \"eventDescription\": \"Order Processed: Ready for UPS\",\n      \"location\": \"DE\",\n      \"eventType\": \"P\",\n      \"carrierTrackingNumber\": \"1Z3E123412345678\",\n      \"source\": \"UPS\"\n    },\n    {\n      \"eventCode\": \"PRS\",\n      \"eventDate\": \"2020-02-25T09:57:28.0000000+00:00\",\n      \"eventDescription\": \"Shipment submited\",\n      \"eventType\": \"S\",\n      \"carrierTrackingNumber\": \"1Z3E123412345678\",\n      \"source\": \"DSVXPRESS\"\n    },\n    {\n      \"eventCode\": \"PRC\",\n      \"eventDate\": \"2020-02-25T09:57:16.0000000+00:00\",\n      \"eventDescription\": \"Shipment created\",\n      \"eventType\": \"S\",\n      \"carrierTrackingNumber\": \"1Z3E123412345678\",\n      \"source\": \"DSVXPRESS\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4a45dac7-a4e1-4de0-8b87-7daf14971cf8",
+              "name": "Invalid AWB number supplied",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipments",
+                    "awb",
+                    ":awb"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "awb",
+                      "description": "(Required) AWB of shipment to track"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "DSV-Subscription-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) DSV XPress service auth for the selected API (found on DSV XPress API profile page)",
+                    "key": "dsv-service-auth",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) DSV XPress personal access token (found on DSV XPress API profile page)",
+                    "key": "x-pat",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "85fb8bc9-72c0-4d5c-8290-6d35f5a02cf8",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipments",
+                    "awb",
+                    ":awb"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "awb",
+                      "description": "(Required) AWB of shipment to track"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "DSV-Subscription-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) DSV XPress service auth for the selected API (found on DSV XPress API profile page)",
+                    "key": "dsv-service-auth",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) DSV XPress personal access token (found on DSV XPress API profile page)",
+                    "key": "x-pat",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "96e33d79-245e-4d0f-8a3e-ea1d973ef160",
+              "name": "Shipment not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipments",
+                    "awb",
+                    ":awb"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "awb",
+                      "description": "(Required) AWB of shipment to track"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "DSV-Subscription-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) DSV XPress service auth for the selected API (found on DSV XPress API profile page)",
+                    "key": "dsv-service-auth",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) DSV XPress personal access token (found on DSV XPress API profile page)",
+                    "key": "x-pat",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.dsv.com/xp/tracking/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "DSV-Subscription-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "c68c88ba-bcde-4c2f-b7af-baccfac1826d",
+    "name": "Tracking - XPress",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Track the status and latest events of your bookings and shipments moved by DSV.",
+      "type": "text/plain"
+    }
+  }
+}

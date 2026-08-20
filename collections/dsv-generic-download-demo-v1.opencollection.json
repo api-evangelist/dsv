@@ -1,0 +1,164 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "DOWNLOAD (DEMO) - Air, Sea, Road (EU), Rail",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "DSV-Subscription-Key",
+      "value": "{{DSV-Subscription-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Shipment documents",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Shipment documents by DSV Shipment ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dsv.com/my-demo/download/v1/shipments/tmsId/:tmsId/documents",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "tmsId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Type of documents to fetch. Possible value: POD"
+              }
+            ]
+          },
+          "docs": "Retrieve shipment's documents list by searching the DSV Shipment ID.<BR>\n<BR>\nDEMO ACCOUNT<BR><BR><I>(User email: api.demo@demo.dsv.com / Password: Demo12345)</I> <BR><BR>\nSample Shipment ID: SDFW0090209 "
+        },
+        {
+          "info": {
+            "name": "Shipment documents by DSV BookingId ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dsv.com/my-demo/download/v1/shipments/bookingId/:bookingId/documents",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "bookingId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Type of documents to fetch. Possible value: POD"
+              }
+            ]
+          },
+          "docs": "Retrieve shipment's documents list by searching the DSV Booking ID.<BR>\n<BR>\nDEMO ACCOUNT<BR><BR><I>(User email: api.demo@demo.dsv.com / Password: Demo12345)</I> <BR><BR>\nSample Booking ID: 40288888880000190646"
+        },
+        {
+          "info": {
+            "name": "Shipment documents by Customer reference",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dsv.com/my-demo/download/v1/shipments/reference/:reference/documents",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "reference",
+                "value": "",
+                "type": "path",
+                "description": "Reference"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Type of documents to fetch. Possible value: POD"
+              }
+            ]
+          },
+          "docs": "Retrieve shipment's documents list by searching the DSV Booking ID.<BR>\n<BR>\nDEMO ACCOUNT<BR><BR><I>(User email: api.demo@demo.dsv.com / Password: Demo12345)</I> <BR><BR>\nSample Customer Reference: XXX"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Shipment document",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Document of shipment",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dsv.com/my-demo/download/v1/shipments/:shipmentId/documents/:documentId",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "shipmentId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "documentId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "additionalId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "fileName",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieve document file by shipment ID and document ID."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

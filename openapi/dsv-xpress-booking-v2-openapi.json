@@ -1,0 +1,2227 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Booking - XPress",
+    "description": "Submit bookings to DSV and download package label(s) via the Booking API",
+    "version": "v2"
+  },
+  "servers": [
+    {
+      "url": "https://api.dsv.com/xp/booking/v2"
+    }
+  ],
+  "paths": {
+    "/bookings": {
+      "post": {
+        "tags": [
+          "Booking"
+        ],
+        "summary": "1. Create draft booking",
+        "description": "Submit draft booking to DSV. (shipment is not confirmed nor sent to final carrier)",
+        "operationId": "createShipment",
+        "parameters": [
+          {
+            "name": "dsv-service-auth",
+            "in": "header",
+            "description": "DSV XPress service auth for the selected API (found on DSV XPress API profile page)",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "x-pat",
+            "in": "header",
+            "description": "DSV XPress personal access token (found on DSV XPress API profile page)",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "x-cert-id",
+            "in": "header",
+            "description": "Optional Certification Test Case Identifier (only for certification tests purposes)",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Shipment Request object that needs to be created",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ShipmentCreationRequest"
+              },
+              "example": {
+                "dsvAccount": 6400000000,
+                "pickup": {
+                  "collectDateFrom": "2020-04-06T10:13:35.0000000+00:00",
+                  "collectDateTo": "2020-04-06T10:13:35.0000000+00:00",
+                  "pickupInstructions": "Handle with care",
+                  "address": {
+                    "companyName": "DSV A/S",
+                    "addressLine1": "Hovedgaden 630",
+                    "zipCode": 2640,
+                    "city": "Hedehusene",
+                    "countryCode": "DK",
+                    "contactName": "Sender contact",
+                    "contactPhoneNumber": "+45 123456789",
+                    "contactEmail": "contact.email@sender.com"
+                  }
+                },
+                "delivery": {
+                  "companyName": "DSV Air & Sea GmbH",
+                  "addressLine1": "Nirostastra\u00dfe 3",
+                  "zipCode": 47807,
+                  "city": "Krefeld",
+                  "countryCode": "DE",
+                  "contactName": "Receiver contact",
+                  "contactPhoneNumber": "+44 123456789",
+                  "contactEmail": "contact.email@receiver.com",
+                  "residential": true
+                },
+                "paymentInformation": {
+                  "shippingChargesPayment": {
+                    "paymentType": "SENDER"
+                  },
+                  "dutiesAndTaxesPayment": {
+                    "paymentType": "RECEIVER"
+                  }
+                },
+                "serviceOptions": {
+                  "packageType": "PARCELS",
+                  "serviceCode": "DSVAirExpress",
+                  "insurance": {
+                    "currencyCode": "DKK",
+                    "monetaryValue": 2000
+                  }
+                },
+                "dimensionUnit": "CM",
+                "weightUnit": "KG",
+                "packages": [
+                  {
+                    "length": 50,
+                    "width": 40,
+                    "height": 40,
+                    "grossWeight": 6.5
+                  }
+                ],
+                "commodities": [
+                  {
+                    "originCountryCode": "DK",
+                    "goodsDescription": "samples",
+                    "goodsValue": {
+                      "currencyCode": "DKK",
+                      "monetaryValue": 2000
+                    }
+                  }
+                ],
+                "notifications": [
+                  {
+                    "notificationCode": "DEP",
+                    "recipients": [
+                      "recipient1@receiver.com",
+                      "recipient2@receiver.com"
+                    ]
+                  },
+                  {
+                    "notificationCode": "EXC",
+                    "recipients": [
+                      "recipient1@sender.com"
+                    ],
+                    "language": "DE"
+                  }
+                ],
+                "references": [
+                  {
+                    "qualifier": "SHPR_REF",
+                    "reference": "shipper ref #1"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation. Return the shipment ID of the shipment created.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ShipmentCreationResponse"
+                },
+                "example": {
+                  "shipmentIdentificationNumber": 10123456
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/bookings/uploadDocument": {
+      "post": {
+        "tags": [
+          "Booking"
+        ],
+        "summary": "2. Upload documents to draft booking (Deprecated)",
+        "description": "<strong>Deprecated</strong> Please use /bookings/uploadDocument/{shipmentId}<br> Upload transport related documents (e.g. packing list, dangerous goods certificates, commercial invoice etc.).<br> <i>Note</i>: Documents have to be uploaded prior to confirming the final booking. Mandatory when shipping outside Europe.<br> <i>Note2</i>: When uploading a proforma invoice, it will overwrite proforma invoice that already exists on the shipment (if any).<br> <i>Note3</i>: Please download definition file for detailed informations.<br>",
+        "operationId": "uploadDocumentDeprecated",
+        "parameters": [
+          {
+            "name": "dsv-service-auth",
+            "in": "header",
+            "description": "DSV XPress service auth for the selected API (found on DSV XPress API profile page)",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "x-pat",
+            "in": "header",
+            "description": "DSV XPress personal access token (found on DSV XPress API profile page)",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "required": [
+                  "file",
+                  "uploadDocumentRequest"
+                ],
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "description": "Data of the document to upload",
+                    "format": "binary"
+                  },
+                  "uploadDocumentRequest": {
+                    "$ref": "#/components/schemas/UploadDocumentRequest"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation. Return the document ID of the document uploaded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UploadDocumentResponse"
+                },
+                "example": {
+                  "documentIdentificationNumber": 1012345678
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Shipment not found"
+          },
+          "415": {
+            "description": "Unsupported Media Type"
+          }
+        }
+      }
+    },
+    "/bookings/uploadDocument/{shipmentId}": {
+      "post": {
+        "tags": [
+          "Booking"
+        ],
+        "summary": "2. Upload documents to draft booking",
+        "description": "Upload transport related documents (e.g. packing list, dangerous goods certificates, commercial invoice etc.).<br> <i>Note</i>: Documents have to be uploaded prior to confirming the final booking. Mandatory when shipping outside Europe.<br> <i>Note2</i>: When uploading a proforma invoice, it will overwrite proforma invoice that already exists on the shipment (if any).<br> <i>Note3</i>: Maximum file size is 1MB.",
+        "operationId": "uploadDocument",
+        "parameters": [
+          {
+            "name": "shipmentId",
+            "in": "path",
+            "description": "ID of shipment to upload document",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "dsv-service-auth",
+            "in": "header",
+            "description": "DSV XPress service auth for the selected API (found on DSV XPress API profile page)",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "x-pat",
+            "in": "header",
+            "description": "DSV XPress personal access token (found on DSV XPress API profile page)",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Shipment's Document",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UploadDocument"
+              },
+              "example": {
+                "type": "PROFORMA_INVOICE",
+                "description": "Proforma Invoice for custom clearance",
+                "fileName": "proforma.pdf",
+                "mimeType": "application/pdf",
+                "file": "JVBERi0xLjcNCiW1tbW1DQoxIDAgb2JqDQo8PC9UeXBlL0NhdGFsb2cvUGFnZXMgMiAwIFIvTGFuZyhmci1GUikgL1N0cnVjdFRyZWVSb290IDE3IDAgUi9NYXJrSW5mbzw8L01hcmtlZCB0cnVlPj4vTWV0YWRhdGEgNDMgMCBSL1ZpZXdlclByZWZlcmVuY2VzIDQ0IDAgUj4+DQplbmRvYmoNCjIgMCBvYmoNCjw8L1R5cGUvUGFnZXMvQ291bnQgMS9LaWRzWyAzIDAgUl0gPj4NCmVuZG9iag0KMyAwIG9iag0KPDwvVHlwZS9QYWdlL1BhcmVudCAyIDAgUi9SZXNvdXJjZXM8PC9Gb250PDwvRjEgNSAwIFIvRjIgMTIgMCBSL0YzIDE0IDAgUj4+L0V4dEdTdGF0ZTw8L0dTMTAgMTAgMCBSL0dTMTEgMTEgMCBSPj4vWE9iamVjdDw8L01ldGExNiAxNiAwIFI+Pi9Qcm9jU2V0Wy9QREYvVGV4dC9JbWFnZUIvSW1hZ2VDL0ltYWdlSV0gPj4vTWVkaWFCb3hbIDAgMCA1OTUuMzIgODQxLjkyXSAvQ29udGVudHMgNCAwIFIvR3JvdXA8PC9UeXBlL0dyb3VwL1MvVHJhbnNwYXJlbmN5L0NTL0RldmljZVJHQj4+L1RhYnMvUy9TdHJ1Y3RQYXJlbnRzIDA+Pg0KZW5kb2JqDQo0IDAgb2JqDQo8PC9GaWx0ZXIvRmxhdGVEZWNvZGUvTGVuZ3RoIDQ1NT4+DQpzdHJlYW0NCnictZZNa+MwEIbvBv+HOSYLUTQjjT4g+NAkW3bZwLZ26aH0EEqaU9Putv+fHaWGJsRhXdf2QUKa0cyjV0IemJYv6x3MZtPV/McC9PTXereF0WY3uSnHRQEXizn8yTOtdPpC8AgaOLIyBMGiigR/N3l2+w12eXZR5dn0OwKJu4XqMc+StwYEdspZ8CYohOpJvC5L1LB9lcigFdoorUmxtu82bLBdX+bZ3Uxr4wuy0lMoyKWxq/t6XpuCfLL7995QQTGNxQ/TONTzuiA+jIO13Rf3UP3Ms6Vs5yrPYLmaAxzrhD3oRA06EZFicyDUqTwNooxg/F9i6oHYANozJ4uojP0EcTWeMI+W0upRuW+r4z30gCYLLHVga6Gm6UdNbFbTyTpHNfEesi2XHZYraBVDFy7uhys0QXFUwZ1AVcvyyzfqOB1qSqdyJl8LEdywh2NJ+S5Yflgskqes050JvXCRa+biGJXhIa7NaUYkI4/MuZQtpIjDSuFYadOFC/uoF87fHbZW+baC/f6gwhrko8oQJBO9cuAlsjCg1YoZWN4zPgASPiYBmNT8Ugt4+TV47YXmKMBDKmJWm7c1Olg8w9VhSbMH+gcaf+HPDQplbmRzdHJlYW0NCmVuZG9iag0KNSAwIG9iag0KPDwvVHlwZS9Gb250L1N1YnR5cGUvVHlwZTAvQmFzZUZvbnQvQXJpYWwtQm9sZE1UL0VuY29kaW5nL0lkZW50aXR5LUgvRGVzY2VuZGFudEZvbnRzIDYgMCBSL1RvVW5pY29kZSAzOCAwIFI+Pg0KZW5kb2JqDQo2IDAgb2JqDQpbIDcgMCBSXSANCmVuZG9iag0KNyAwIG9iag0KPDwvQmFzZUZvbnQvQXJpYWwtQm9sZE1UL1N1YnR5cGUvQ0lERm9udFR5cGUyL1R5cGUvRm9udC9DSURUb0dJRE1hcC9JZGVudGl0eS9EVyAxMDAwL0NJRFN5c3RlbUluZm8gOCAwIFIvRm9udERlc2NyaXB0b3IgOSAwIFIvVyA0MCAwIFI+Pg0KZW5kb2JqDQo4IDAgb2JqDQo8PC9PcmRlcmluZyhJZGVudGl0eSkgL1JlZ2lzdHJ5KEFkb2JlKSAvU3VwcGxlbWVudCAwPj4NCmVuZG9iag0KOSAwIG9iag0KPDwvVHlwZS9Gb250RGVzY3JpcHRvci9Gb250TmFtZS9BcmlhbC1Cb2xkTVQvRmxhZ3MgMzIvSXRhbGljQW5nbGUgMC9Bc2NlbnQgOTA1L0Rlc2NlbnQgLTIxMC9DYXBIZWlnaHQgNzI4L0F2Z1dpZHRoIDQ3OS9NYXhXaWR0aCAyNjI4L0ZvbnRXZWlnaHQgNzAwL1hIZWlnaHQgMjUwL0xlYWRpbmcgMzMvU3RlbVYgNDcvRm9udEJCb3hbIC02MjggLTIxMCAyMDAwIDcyOF0gL0ZvbnRGaWxlMiAzOSAwIFI+Pg0KZW5kb2JqDQoxMCAwIG9iag0KPDwvVHlwZS9FeHRHU3RhdGUvQk0vTm9ybWFsL2NhIDE+Pg0KZW5kb2JqDQoxMSAwIG9iag0KPDwvVHlwZS9FeHRHU3RhdGUvQk0vTm9ybWFsL0NBIDE+Pg0KZW5kb2JqDQoxMiAwIG9iag0KPDwvVHlwZS9Gb250L1N1YnR5cGUvVHJ1ZVR5cGUvTmFtZS9GMi9CYXNlRm9udC9BcmlhbC1Cb2xkTVQvRW5jb2RpbmcvV2luQW5zaUVuY29kaW5nL0ZvbnREZXNjcmlwdG9yIDEzIDAgUi9GaXJzdENoYXIgMzIvTGFzdENoYXIgMzIvV2lkdGhzIDQxIDAgUj4+DQplbmRvYmoNCjEzIDAgb2JqDQo8PC9UeXBlL0ZvbnREZXNjcmlwdG9yL0ZvbnROYW1lL0FyaWFsLUJvbGRNVC9GbGFncyAzMi9JdGFsaWNBbmdsZSAwL0FzY2VudCA5MDUvRGVzY2VudCAtMjEwL0NhcEhlaWdodCA3MjgvQXZnV2lkdGggNDc5L01heFdpZHRoIDI2MjgvRm9udFdlaWdodCA3MDAvWEhlaWdodCAyNTAvTGVhZGluZyAzMy9TdGVtViA0Ny9Gb250QkJveFsgLTYyOCAtMjEwIDIwMDAgNzI4XSA+Pg0KZW5kb2JqDQoxNCAwIG9iag0KPDwvVHlwZS9Gb250L1N1YnR5cGUvVHJ1ZVR5cGUvTmFtZS9GMy9CYXNlRm9udC9BcmlhbE1UL0VuY29kaW5nL1dpbkFuc2lFbmNvZGluZy9Gb250RGVzY3JpcHRvciAxNSAwIFIvRmlyc3RDaGFyIDMyL0xhc3RDaGFyIDg0L1dpZHRocyA0MiAwIFI+Pg0KZW5kb2JqDQoxNSAwIG9iag0KPDwvVHlwZS9Gb250RGVzY3JpcHRvci9Gb250TmFtZS9BcmlhbE1UL0ZsYWdzIDMyL0l0YWxpY0FuZ2xlIDAvQXNjZW50IDkwNS9EZXNjZW50IC0yMTAvQ2FwSGVpZ2h0IDcyOC9BdmdXaWR0aCA0NDEvTWF4V2lkdGggMjY2NS9Gb250V2VpZ2h0IDQwMC9YSGVpZ2h0IDI1MC9MZWFkaW5nIDMzL1N0ZW1WIDQ0L0ZvbnRCQm94WyAtNjY1IC0yMTAgMjAwMCA3MjhdID4+DQplbmRvYmoNCjE2IDAgb2JqDQo8PC9UeXBlL1hPYmplY3QvU3VidHlwZS9Gb3JtL0JCb3hbIDAgMCAxNTEyLjkzIDU0OC40N10gL01hdHJpeFsgMC4wNDc1OSAwIDAgMC4xMzEyNyAwIDBdIC9G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TUwvTGVuZ3RoIDI4ODM+Pg0Kc3RyZWFtDQo8P3hwYWNrZXQgYmVnaW49Iu+7vyIgaWQ9Ilc1TTBNcENlaGlIenJlU3pOVGN6a2M5ZCI/Pjx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IjMuMS03MDEiPgo8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPgo8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIiAgeG1sbnM6cGRmPSJodHRwOi8vbnMuYWRvYmUuY29tL3BkZi8xLjMvIj4KPC9yZGY6RGVzY3JpcHRpb24+CjxyZGY6RGVzY3JpcHRpb24gcmRmOmFib3V0PSIiICB4bWxuczpkYz0iaHR0cDovL3B1cmwub3JnL2RjL2VsZW1lbnRzLzEuMS8iPgo8L3JkZjpEZXNjcmlwdGlvbj4KPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgIHhtbG5zOnhtcD0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wLyI+Cjx4bXA6Q3JlYXRlRGF0ZT4yMDIxLTA0LTI5VDE0OjQ2OjQyKzAyOjAwPC94bXA6Q3JlYXRlRGF0ZT48eG1wOk1vZGlmeURhdGU+MjAyMS0wNC0yOVQxNDo0Njo0MiswMjowMDwveG1wOk1vZGlmeURhdGU+PC9yZGY6RGVzY3JpcHRpb24+CjxyZGY6RGVzY3JpcHRpb24gcmRmOmFib3V0PSIiICB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyI+Cjx4bXBNTTpEb2N1bWVudElEPnV1aWQ6Mjc2QTMxQTgtQUIxQi00QzMxLUJGOTktNDBGNjQ1QTE1MDlCPC94bXBNTTpEb2N1bWVudElEPjx4bXBNTTpJbnN0YW5jZUlEPnV1aWQ6Mjc2QTMxQTgtQUIxQi00QzMxLUJGOTktNDBGNjQ1QTE1MDlCPC94bXBNTTpJbnN0YW5jZUlEPjwvcmRmOkRlc2NyaXB0aW9uPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKPC9yZGY6UkRGPjwveDp4bXBtZXRhPjw/eHBhY2tldCBlbmQ9InciPz4NCmVuZHN0cmVhbQ0KZW5kb2JqDQo0NCAwIG9iag0KPDwvRGlzcGxheURvY1RpdGxlIHRydWU+Pg0KZW5kb2JqDQo0NSAwIG9iag0KPDwvVHlwZS9YUmVmL1NpemUgNDUvV1sgMSA0IDJdIC9Sb290IDEgMCBSL0luZm8gMzcgMCBSL0lEWzxBODMxNkEyNzFCQUIzMTRDQkY5OTQwRjY0NUExNTA5Qj48QTgzMTZBMjcxQkFCMzE0Q0JGOTk0MEY2NDVBMTUwOUI+XSAvRmlsdGVyL0ZsYXRlRGVjb2RlL0xlbmd0aCAxNDg+Pg0Kc3RyZWFtDQp4nDXPOxIBURCF4Z4xb88hUqWmZEKJUGgDIjuYBVAlFdqHgFBuC9ZACe1itPNzg/tVd9XpvtfMT9MEfpdmX87wFGElojlc4S7iGmgmF3iIdAQ3kZ1EvhLFzOf6hrH1oA8DKKELIfwCQ49P1v8qgBZEEEMCKWSQQwFt6PjM6qiXVW8xXYgtX9ktYQMvcdibfQCxohRcDQplbmRzdHJlYW0NCmVuZG9iag0KeHJlZg0KMCA0Ng0KMDAwMDAwMDAxNyA2NTUzNSBmDQowMDAwMDAwMDE3IDAwMDAwIG4NCjAwMDAwMDAxNjYgMDAwMDAgbg0KMDAwMDAwMDIyMiAwMDAwMCBuDQowMDAwMDAwNTQyIDAwMDAwIG4NCjAwMDAwMDEwNzEgMDAwMDAgbg0KMDAwMDAwMTE5OSAwMDAwMCBuDQowMDAwMDAxMjI3IDAwMDAwIG4NCjAwMDAwMDEzODIgMDAwMDAgbg0KMDAwMDAwMTQ1NSAwMDAwMCBuDQowMDAwMDAxNzAzIDAwMDAwIG4NCjAwMDAwMDE3NTcgMDAwMDAgbg0KMDAwMDAwMTgxMSAwMDAwMCBuDQowMDAwMDAxOTc4IDAwMDAwIG4NCjAwMDAwMDIyMTAgMDAwMDAgbg0KMDAwMDAwMjM3MiAwMDAwMCBuDQowMDAwMDAyNTk5IDAwMDAwIG4NCjAwMDAwMDAwMTggNjU1MzUgZg0KMDAwMDAwMDAxOSA2NTUzNSBmDQowMDAwMDAwMDIwIDY1NTM1IGYNCjAwMDAwMDAwMjEgNjU1MzUgZg0KMDAwMDAwMDAyMiA2NTUzNSBmDQowMDAwMDAwMDIzIDY1NTM1IGYNCjAwMDAwMDAwMjQgNjU1MzUgZg0KMDAwMDAwMDAyNSA2NTUzNSBmDQowMDAwMDAwMDI2IDY1NTM1IGYNCjAwMDAwMDAwMjcgNjU1MzUgZg0KMDAwMDAwMDAyOCA2NTUzNSBmDQowMDAwMDAwMDI5IDY1NTM1IGYNCjAwMDAwMDAwMzAgNjU1MzUgZg0KMDAwMDAwMDAzMSA2NTUzNSBmDQowMDAwMDAwMDMyIDY1NTM1IGYNCjAwMDAwMDAwMzMgNjU1MzUgZg0KMDAwMDAwMDAzNCA2NTUzNSBmDQowMDAwMDAwMDM1IDY1NTM1IGYNCjAwMDAwMDAwMzYgNjU1MzUgZg0KMDAwMDAwMDAwMCA2NTUzNSBmDQowMDAwMDA3ODE1IDAwMDAwIG4NCjAwMDAwMDc5MTIgMDAwMDAgbg0KMDAwMDAwODI0NCAwMDAwMCBuDQowMDAwMDI5NDA1IDAwMDAwIG4NCjAwMDAwMjk1MDAgMDAwMDAgbg0KMDAwMDAyOTUyNyAwMDAwMCBuDQowMDAwMDI5NjY0IDAwMDAwIG4NCjAwMDAwMzI2MzAgMDAwMDAgbg0KMDAwMDAzMjY3NSAwMDAwMCBuDQp0cmFpbGVyDQo8PC9TaXplIDQ2L1Jvb3QgMSAwIFIvSW5mbyAzNyAwIFIvSURbPEE4MzE2QTI3MUJBQjMxNENCRjk5NDBGNjQ1QTE1MDlCPjxBODMxNkEyNzFCQUIzMTRDQkY5OTQwRjY0NUExNTA5Qj5dID4+DQpzdGFydHhyZWYNCjMzMDI0DQolJUVPRg0KeHJlZg0KMCAwDQp0cmFpbGVyDQo8PC9TaXplIDQ2L1Jvb3QgMSAwIFIvSW5mbyAzNyAwIFIvSURbPEE4MzE2QTI3MUJBQjMxNENCRjk5NDBGNjQ1QTE1MDlCPjxBODMxNkEyNzFCQUIzMTRDQkY5OTQwRjY0NUExNTA5Qj5dIC9QcmV2IDMzMDI0L1hSZWZTdG0gMzI2NzU+Pg0Kc3RhcnR4cmVmDQozNDEwMQ0KJSVFT0Y="
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation. Return the document ID of the document uploaded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UploadDocumentResponse"
+                },
+                "example": {
+                  "documentIdentificationNumber": 1012345678
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Shipment not found"
+          },
+          "415": {
+            "description": "Unsupported Media Type"
+          }
+        }
+      }
+    },
+    "/bookings/labels/{shipmentId}": {
+      "get": {
+        "tags": [
+          "Booking"
+        ],
+        "summary": "3. Confirm booking & download labels",
+        "description": "Confirm draft booking and download package label(s). (shipment is now confirmed and sent to final carrier)",
+        "operationId": "getLabelsByShipmentId",
+        "parameters": [
+          {
+            "name": "shipmentId",
+            "in": "path",
+            "description": "ID of shipment to get labels",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "labelFormat",
+            "in": "query",
+            "description": "Format of labels : PDF / ZPL",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "PDF"
+          },
+          {
+            "name": "dsv-service-auth",
+            "in": "header",
+            "description": "DSV XPress service auth for the selected API (found on DSV XPress API profile page)",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "x-pat",
+            "in": "header",
+            "description": "DSV XPress personal access token (found on DSV XPress API profile page)",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ShipmentLabelResponse"
+                },
+                "example": {
+                  "errors": [
+                    {
+                      "message": "string",
+                      "details": "string"
+                    }
+                  ],
+                  "warnings": [
+                    {
+                      "message": "string",
+                      "details": "string"
+                    }
+                  ],
+                  "shipmentIdentificationNumber": 0,
+                  "trackingNumber": "string",
+                  "awb": "string",
+                  "trackingUrl": "string",
+                  "carrier": {
+                    "carrierCode": "Fedex",
+                    "serviceCode": "INTERNATIONAL_PRIORITY"
+                  },
+                  "estimatedCharges": {
+                    "freight": [
+                      {
+                        "code": "24",
+                        "description": "Courrier shipment",
+                        "currencyCode": "EUR",
+                        "monetaryValue": 30.15,
+                        "debtorAccountID": "6400000000",
+                        "debtorCompanyName": "DSV A/S"
+                      }
+                    ],
+                    "fuel": [
+                      {
+                        "code": "1",
+                        "description": "Fuel Surcharge ",
+                        "currencyCode": "EUR",
+                        "monetaryValue": 36,
+                        "debtorAccountID": "6400000000",
+                        "debtorCompanyName": "DSV A/S"
+                      }
+                    ],
+                    "otherCharges": [
+                      {
+                        "code": "30",
+                        "description": "Insurance",
+                        "currencyCode": "EUR",
+                        "monetaryValue": 3,
+                        "debtorAccountID": "6400000000",
+                        "debtorCompanyName": "DSV A/S"
+                      },
+                      {
+                        "code": "67",
+                        "description": "Customs Inspection",
+                        "currencyCode": "EUR",
+                        "monetaryValue": 52,
+                        "debtorAccountID": "6400000000",
+                        "debtorCompanyName": "DSV A/S"
+                      },
+                      {
+                        "code": "19",
+                        "description": "Domestic 12:00AM Delivery",
+                        "currencyCode": "EUR",
+                        "monetaryValue": 16.33,
+                        "debtorAccountID": "6400000000",
+                        "debtorCompanyName": "DSV A/S"
+                      }
+                    ],
+                    "total": {
+                      "currencyCode": "EUR",
+                      "monetaryValue": 137.48
+                    }
+                  },
+                  "labelResults": [
+                    {
+                      "trackingNumber": "string",
+                      "awb": "string",
+                      "barcode": "string",
+                      "customerScanReference": "390123450000000017",
+                      "shippingLabel": [
+                        {
+                          "format": "string",
+                          "labelData": "string"
+                        }
+                      ]
+                    }
+                  ],
+                  "documents": [
+                    {
+                      "documentType": "string",
+                      "description": "string",
+                      "format": "string",
+                      "data": "string"
+                    }
+                  ],
+                  "etaDate": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Shipment not found"
+          }
+        }
+      }
+    },
+    "/bookings/cancel/{shipmentId}": {
+      "delete": {
+        "tags": [
+          "Booking"
+        ],
+        "summary": "4. Cancel submitted booking",
+        "description": "Cancel booking within allowed cancellation window and following DSV's internal rules. (e.g. prior to package pickup, etc.)",
+        "operationId": "voidShipment",
+        "parameters": [
+          {
+            "name": "shipmentId",
+            "in": "path",
+            "description": "ID of shipment to get details",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "dsv-service-auth",
+            "in": "header",
+            "description": "DSV XPress service auth for the selected API (found on DSV XPress API profile page)",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "x-pat",
+            "in": "header",
+            "description": "DSV XPress personal access token (found on DSV XPress API profile page)",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CancelResponse"
+                },
+                "example": {
+                  "errors": [
+                    {
+                      "message": "string",
+                      "details": "string"
+                    }
+                  ],
+                  "warnings": [
+                    {
+                      "message": "string",
+                      "details": "string"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Shipment not found"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ShipmentCreationRequest": {
+        "required": [
+          "dsvAccount",
+          "pickup",
+          "delivery",
+          "serviceOptions",
+          "packages",
+          "commodities"
+        ],
+        "type": "object",
+        "properties": {
+          "dsvAccount": {
+            "type": "integer",
+            "description": "Shipper's DSV account number. The account must be a valid DSV account number that is active.",
+            "format": "int64"
+          },
+          "shippingInstructions": {
+            "maxLength": 5000,
+            "type": "string",
+            "description": "Instructions for shipping",
+            "example": "This is a shipping instruction."
+          },
+          "sender": {
+            "$ref": "#/components/schemas/Address"
+          },
+          "receiver": {
+            "$ref": "#/components/schemas/Address"
+          },
+          "pickup": {
+            "$ref": "#/components/schemas/Pickup"
+          },
+          "delivery": {
+            "$ref": "#/components/schemas/Address"
+          },
+          "paymentInformation": {
+            "$ref": "#/components/schemas/PaymentInformation"
+          },
+          "serviceOptions": {
+            "$ref": "#/components/schemas/ServiceOptions"
+          },
+          "extraOption": {
+            "$ref": "#/components/schemas/ExtraOption"
+          },
+          "carrier": {
+            "$ref": "#/components/schemas/Carrier"
+          },
+          "dimensionUnit": {
+            "maxLength": 2,
+            "type": "string",
+            "description": "Unit of measurement for dimensions. Could be CM - centimeter or IN - inch"
+          },
+          "weightUnit": {
+            "maxLength": 3,
+            "type": "string",
+            "description": "Weight unit of measurement. Could be KG - Kilogram or LBS - Pound"
+          },
+          "packages": {
+            "maxItems": 100,
+            "minItems": 1,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PackageDetail"
+            },
+            "description": "Packages information. For Envelope shipment only one package is allowed."
+          },
+          "commodities": {
+            "maxItems": 100,
+            "minItems": 1,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Commodity"
+            },
+            "description": "Commodities information"
+          },
+          "notifications": {
+            "maxItems": 4,
+            "minItems": 0,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ShipmentNotification"
+            },
+            "description": "Container for notifications"
+          },
+          "references": {
+            "maxItems": 20,
+            "minItems": 0,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Reference"
+            },
+            "description": "References information"
+          },
+          "proformaInvoice": {
+            "$ref": "#/components/schemas/ProformaInvoice"
+          },
+          "awb": {
+            "maxLength": 50,
+            "type": "string",
+            "description": "Shipment AirWay Bill number"
+          },
+          "carrierTrackingNumber": {
+            "maxLength": 80,
+            "type": "string",
+            "description": "Shipment carrier tracking number. Useful when creating shipment already booked to carrier.",
+            "example": "1Z3E123412345678"
+          }
+        },
+        "description": "Container for Shipment",
+        "example": {
+          "dsvAccount": 6400000000,
+          "pickup": {
+            "collectDateFrom": "2020-04-06T10:13:35.0000000+00:00",
+            "collectDateTo": "2020-04-06T10:13:35.0000000+00:00",
+            "pickupInstructions": "Handle with care",
+            "address": {
+              "companyName": "DSV A/S",
+              "addressLine1": "Hovedgaden 630",
+              "zipCode": 2640,
+              "city": "Hedehusene",
+              "countryCode": "DK",
+              "contactName": "Sender contact",
+              "contactPhoneNumber": "+45 123456789",
+              "contactEmail": "contact.email@sender.com"
+            }
+          },
+          "delivery": {
+            "companyName": "DSV Air & Sea GmbH",
+            "addressLine1": "Nirostastra\u00dfe 3",
+            "zipCode": 47807,
+            "city": "Krefeld",
+            "countryCode": "DE",
+            "contactName": "Receiver contact",
+            "contactPhoneNumber": "+44 123456789",
+            "contactEmail": "contact.email@receiver.com",
+            "residential": true
+          },
+          "paymentInformation": {
+            "shippingChargesPayment": {
+              "paymentType": "SENDER"
+            },
+            "dutiesAndTaxesPayment": {
+              "paymentType": "RECEIVER"
+            }
+          },
+          "serviceOptions": {
+            "packageType": "PARCELS",
+            "serviceCode": "DSVAirExpress",
+            "insurance": {
+              "currencyCode": "DKK",
+              "monetaryValue": 2000
+            }
+          },
+          "dimensionUnit": "CM",
+          "weightUnit": "KG",
+          "packages": [
+            {
+              "length": 50,
+              "width": 40,
+              "height": 40,
+              "grossWeight": 6.5
+            }
+          ],
+          "commodities": [
+            {
+              "originCountryCode": "DK",
+              "goodsDescription": "samples",
+              "goodsValue": {
+                "currencyCode": "DKK",
+                "monetaryValue": 2000
+              }
+            }
+          ],
+          "notifications": [
+            {
+              "notificationCode": "DEP",
+              "recipients": [
+                "recipient1@receiver.com",
+                "recipient2@receiver.com"
+              ]
+            },
+            {
+              "notificationCode": "EXC",
+              "recipients": [
+                "recipient1@sender.com"
+              ],
+              "language": "DE"
+            }
+          ],
+          "references": [
+            {
+              "qualifier": "SHPR_REF",
+              "reference": "shipper ref #1"
+            }
+          ]
+        }
+      },
+      "Address": {
+        "required": [
+          "companyName",
+          "addressLine1",
+          "city",
+          "countryCode",
+          "contactName",
+          "contactPhoneNumber"
+        ],
+        "type": "object",
+        "properties": {
+          "companyName": {
+            "maxLength": 80,
+            "type": "string",
+            "description": "Company Name"
+          },
+          "addressLine1": {
+            "maxLength": 80,
+            "type": "string",
+            "description": "Address Line 1"
+          },
+          "addressLine2": {
+            "maxLength": 80,
+            "type": "string",
+            "description": "Address Line 2"
+          },
+          "addressLine3": {
+            "maxLength": 80,
+            "type": "string",
+            "description": "Address Line 3"
+          },
+          "zipCode": {
+            "maxLength": 80,
+            "type": "string",
+            "description": "Address Zip Code"
+          },
+          "city": {
+            "maxLength": 80,
+            "type": "string",
+            "description": "Address City"
+          },
+          "state": {
+            "maxLength": 80,
+            "type": "string",
+            "description": "Identifying abbreviation for US state, Canada province, Ireland county, etc. Format and presence of this field will vary, depending on country."
+          },
+          "countryCode": {
+            "$ref": "#/components/schemas/CountryCodeList"
+          },
+          "contactName": {
+            "maxLength": 80,
+            "minLength": 1,
+            "type": "string",
+            "description": "Contact Name"
+          },
+          "contactPhoneNumber": {
+            "maxLength": 80,
+            "pattern": "^[+]?[0-9]{1,4} [0-9]{1}[0-9 ]{1,}",
+            "type": "string",
+            "description": "Contact Phone Number, format is : +(optionnal)DDDD (one space required) DDDDDDDDD"
+          },
+          "contactEmail": {
+            "maxLength": 200,
+            "type": "string",
+            "description": "Contact Email Address",
+            "format": "email"
+          },
+          "residential": {
+            "type": "boolean",
+            "description": "This element is only used in Delivery Address to identify if this address is residential"
+          },
+          "registrationNumbers": {
+            "maxItems": 1,
+            "minItems": 0,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RegistrationNumber"
+            },
+            "description": "List of registration numbers. Only one registration number is permitted for now."
+          }
+        },
+        "example": {
+          "companyName": "DSV A/S",
+          "addressLine1": "Hovedgaden 630",
+          "zipCode": "2640",
+          "city": "Hedehusene",
+          "countryCode": "DK",
+          "contactName": "Sender contact",
+          "contactPhoneNumber": "+45 123456789",
+          "contactEmail": "contact.email@sender.com",
+          "residential": false
+        }
+      },
+      "RegistrationNumber": {
+        "required": [
+          "qualifier",
+          "number"
+        ],
+        "type": "object",
+        "properties": {
+          "qualifier": {
+            "maxLength": 20,
+            "type": "string",
+            "description": "Registration Number Qualifiers : \n  * EORI - European Union Registration and Identification\n"
+          },
+          "number": {
+            "maxLength": 50,
+            "type": "string",
+            "description": "Registration Number value"
+          }
+        },
+        "description": "List of registration numbers",
+        "example": {
+          "qualifier": "EORI",
+          "number": "DK111222333000"
+        }
+      },
+      "CountryCodeList": {
+        "maxLength": 2,
+        "type": "string",
+        "description": "ISO_3166_1 Country Code",
+        "example": "DK"
+      },
+      "Pickup": {
+        "required": [
+          "address"
+        ],
+        "type": "object",
+        "properties": {
+          "requestPickup": {
+            "type": "boolean",
+            "description": "`true` by default. If `false`, no pickup will be requested.",
+            "default": true
+          },
+          "collectDateFrom": {
+            "type": "string",
+            "description": "Collect Date From (local time). Mandatory if pickup is requested. Should match the real pickup time slot.<br>Expected date format : yyyy-MM-dd'T'HH:mm:ss.<br>Be aware that you may encounter date format errors if you use the definition file to generate source code. Indeed date libraries can vary from one language to another.",
+            "format": "date-time"
+          },
+          "collectDateTo": {
+            "type": "string",
+            "description": "Collect Date To (local time). Mandatory if pickup is requested.<br>Expected date format : yyyy-MM-dd'T'HH:mm:ss.<br>Be aware that you may encounter date format errors if you use the definition file to generate source code. Indeed date libraries can vary from one language to another.",
+            "format": "date-time"
+          },
+          "pickupInstructions": {
+            "maxLength": 5000,
+            "type": "string",
+            "description": "Instructions for pickup up",
+            "example": "This is a pickup instruction."
+          },
+          "address": {
+            "$ref": "#/components/schemas/Address"
+          }
+        },
+        "description": "Container for the pickup information. If address is left empty, shipment will be picked-up up at `sender` address.",
+        "example": {
+          "collectDateFrom": "2020-04-06T10:13:35.0000000+00:00",
+          "collectDateTo": "2020-04-06T10:13:35.0000000+00:00",
+          "pickupInstructions": "Handle with care",
+          "address": {
+            "companyName": "DSV A/S",
+            "addressLine1": "Hovedgaden 630",
+            "zipCode": 2640,
+            "city": "Hedehusene",
+            "countryCode": "DK",
+            "contactName": "Sender contact",
+            "contactPhoneNumber": "+45 123456789",
+            "contactEmail": "contact.email@sender.com"
+          }
+        }
+      },
+      "PaymentInformation": {
+        "type": "object",
+        "properties": {
+          "shippingChargesPayment": {
+            "$ref": "#/components/schemas/PaymentInformationDetails"
+          },
+          "dutiesAndTaxesPayment": {
+            "$ref": "#/components/schemas/PaymentInformationDetails"
+          },
+          "splitDutyVATIndicator": {
+            "type": "boolean",
+            "description": "Split Duty VAT Indicator. `false` by default. If `true` the payer specified for freight charges will pay transportation charges and any duties that apply to the shipment. The payer specified for Duties and Taxes will pay the VAT (Value Added Tax) only.",
+            "default": false
+          }
+        },
+        "description": "Container for payment information",
+        "example": {
+          "shippingChargesPayment": {
+            "paymentType": "SENDER"
+          },
+          "dutiesAndTaxesPayment": {
+            "paymentType": "RECEIVER"
+          }
+        }
+      },
+      "PaymentInformationDetails": {
+        "required": [
+          "paymentType"
+        ],
+        "type": "object",
+        "properties": {
+          "paymentType": {
+            "enum": [
+              "SENDER",
+              "RECEIVER",
+              "DELIVERY",
+              "THIRD_PARTY"
+            ],
+            "type": "string",
+            "description": "Billed party. Could be SENDER / RECEIVER / DELIVERY / THIRD_PARTY"
+          },
+          "accountNumber": {
+            "maxLength": 50,
+            "type": "string",
+            "description": "Carrier account number of the payer."
+          },
+          "accountZipCode": {
+            "maxLength": 80,
+            "type": "string",
+            "description": "Carrier account postal code of the payer."
+          },
+          "accountCountryCode": {
+            "$ref": "#/components/schemas/CountryCodeList"
+          },
+          "iossNumber": {
+            "maxLength": 50,
+            "pattern": "^([0-9A-Za-z])*$",
+            "type": "string",
+            "description": "Mandatory if origin is outside of EU and destination EU and shipping to end consumer and value is equal or below 150 euros. (only applicable to dutiesAndTaxesPayment)"
+          },
+          "iossExempt": {
+            "type": "boolean",
+            "description": "IOSS Exempt indicator (true if not shipping to an end consumer, and/or the commodities value exceeds 150 euros). (only applicable to dutiesAndTaxesPayment)"
+          },
+          "exportCompliances": {
+            "maxItems": 1,
+            "minItems": 0,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ExportCompliance"
+            },
+            "description": "Export compliance information"
+          }
+        },
+        "example": {
+          "paymentType": "RECEIVER",
+          "accountNumber": "EA1234",
+          "accountZipCode": "2640",
+          "accountCountryCode": "DK",
+          "iossNumber": "502345639",
+          "iossExempt": false
+        }
+      },
+      "ServiceOptions": {
+        "type": "object",
+        "properties": {
+          "packageType": {
+            "$ref": "#/components/schemas/PackageType"
+          },
+          "serviceCode": {
+            "maxLength": 25,
+            "type": "string",
+            "description": "List of DSV service:\n * DSVAirExpress (default service if not provided)\n * DSVAirExpressImport\n * DSVParcels\n * DSVParcelsImport\n * DSVEconomy\n * DSVEconomyImport\n * DsvCrossTrade\n * DsvCrossTradeEconomy\n * DSVSpecialService\n * DSVSpecialServiceImport\n",
+            "default": "DSVAirExpress"
+          },
+          "insurance": {
+            "$ref": "#/components/schemas/CurrencyMonetaryType"
+          },
+          "cod": {
+            "$ref": "#/components/schemas/ServiceOptionsCod"
+          },
+          "timeOption": {
+            "maxLength": 80,
+            "type": "string",
+            "description": "Delivery Time Option, could be 9AM, 1030AM or 12PM"
+          },
+          "saturdayDelivery": {
+            "type": "boolean",
+            "description": "Saturday delivery. `false` by default. If `true`, saturday delivery is requested.",
+            "default": false
+          }
+        },
+        "description": "Container for shipment service options.<br>\n<i>Note</i>: You may be subject to automatic insurance based on your account configuration.\n",
+        "example": {
+          "packageType": "PARCELS",
+          "serviceCode": "DSVAirExpress",
+          "insurance": {
+            "currencyCode": "DKK",
+            "monetaryValue": 2000
+          }
+        }
+      },
+      "ExtraOption": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "param": {
+            "type": "string"
+          }
+        },
+        "description": "Extra option required by specific carrier and service combinations"
+      },
+      "PackageType": {
+        "enum": [
+          "PARCELS",
+          "DOCUMENT",
+          "ENVELOPE"
+        ],
+        "type": "string",
+        "description": "Package type. Could be PARCELS / DOCUMENT / ENVELOPE. PARCELS by default.",
+        "default": "PARCELS"
+      },
+      "ServiceOptionsCod": {
+        "required": [
+          "paymentMethod",
+          "codAmount"
+        ],
+        "type": "object",
+        "properties": {
+          "paymentMethod": {
+            "enum": [
+              "CASH",
+              "CHECK"
+            ],
+            "type": "string",
+            "description": "Payment method. Could be CASH / CHECK"
+          },
+          "codAmount": {
+            "$ref": "#/components/schemas/CurrencyMonetaryType"
+          }
+        },
+        "description": "Container for Cash On Delivery information. The presence indicates COD is requested.",
+        "example": {
+          "paymentMethod": "CHECK",
+          "codAmount": {
+            "currencyCode": "EUR",
+            "monetaryValue": 250
+          }
+        }
+      },
+      "Carrier": {
+        "required": [
+          "carrierCode",
+          "serviceCode"
+        ],
+        "type": "object",
+        "properties": {
+          "carrierCode": {
+            "$ref": "#/components/schemas/CarrierCodeList"
+          },
+          "serviceCode": {
+            "maxLength": 50,
+            "type": "string",
+            "description": "Carrier service code",
+            "example": "65"
+          },
+          "carrierAccountNumber": {
+            "maxLength": 50,
+            "type": "string",
+            "description": "Carrier account number that should be used for booking.",
+            "example": "3E1234"
+          },
+          "carrierAccountCountryCode": {
+            "$ref": "#/components/schemas/CountryCodeList"
+          },
+          "carrierAccountZipCode": {
+            "maxLength": 80,
+            "type": "string",
+            "description": "Carrier account postal code"
+          },
+          "carrierCredentials": {
+            "$ref": "#/components/schemas/CarrierCredentials"
+          }
+        },
+        "description": "Container for carrier information"
+      },
+      "CarrierCodeList": {
+        "maxLength": 50,
+        "type": "string",
+        "description": "Contact your DSV representative to know possible value"
+      },
+      "CarrierCredentials": {
+        "type": "object",
+        "properties": {
+          "meterNumber": {
+            "maxLength": 100,
+            "type": "string",
+            "description": "Fedex meter number"
+          },
+          "accessKey": {
+            "maxLength": 30,
+            "type": "string",
+            "description": "Fedex Access Key"
+          },
+          "accessKeyPassword": {
+            "maxLength": 30,
+            "type": "string",
+            "description": "Fedex Access Key Password",
+            "format": "password"
+          }
+        },
+        "description": "Carrier credentials (specific for Fedex)"
+      },
+      "PackageDetail": {
+        "required": [
+          "grossWeight"
+        ],
+        "type": "object",
+        "properties": {
+          "length": {
+            "minimum": 0.0,
+            "type": "number",
+            "description": "Package length. Length must be the longest dimension of the container. Dimensions may be mandatory depending on your country",
+            "format": "double",
+            "default": 0
+          },
+          "width": {
+            "minimum": 0.0,
+            "type": "number",
+            "description": "Package width. Dimensions may be mandatory depending on your country",
+            "format": "double",
+            "default": 0
+          },
+          "height": {
+            "minimum": 0.0,
+            "type": "number",
+            "description": "Package height. Dimensions may be mandatory depending on your country",
+            "format": "double",
+            "default": 0
+          },
+          "grossWeight": {
+            "minimum": 0.0,
+            "type": "number",
+            "description": "Package gross weight",
+            "format": "double",
+            "example": 6.5
+          },
+          "stackableTimes": {
+            "type": "integer",
+            "description": "Number of time a package can be stacked.",
+            "format": "int32",
+            "example": 2
+          },
+          "awb": {
+            "maxLength": 50,
+            "type": "string",
+            "description": "Package AirWay Bill number",
+            "example": "987654321"
+          },
+          "carrierTrackingNumber": {
+            "maxLength": 80,
+            "type": "string",
+            "description": "Package carrier tracking number. Useful when creating shipment already booked to carrier.",
+            "example": "1Z3E123412345678"
+          },
+          "customerScanReference": {
+            "maxLength": 100,
+            "type": "string",
+            "description": "Customer scan reference",
+            "example": "390123450000000017"
+          },
+          "specialCargo": {
+            "$ref": "#/components/schemas/SpecialCargo"
+          }
+        },
+        "description": "Container for package",
+        "example": {
+          "length": 50,
+          "width": 40,
+          "height": 40,
+          "grossWeight": 6.5
+        }
+      },
+      "SpecialCargo": {
+        "required": [
+          "content"
+        ],
+        "type": "object",
+        "properties": {
+          "content": {
+            "maxLength": 20,
+            "type": "string",
+            "description": "Type of regulated good. Supported codes:\n * `ADR` - Transport of dangerous goods by road\n * `ADR_LQ` - Transport of dangerous goods by road in limited quantities\n * `DGR` - Transport of dangerous goods by Air (IATA regulations)\n * `LITHIUM` - Transport of goods consisting of or containing Lithium Batteries\n * `EXQ` - Transport of dangerous goods in Excepted Quantities\n * `DRY_ICE` - Transport of cargo containing Dry Ice\n \n"
+          },
+          "dangerousGoods": {
+            "$ref": "#/components/schemas/SpecialCargoDangerousGoods"
+          },
+          "dryIce": {
+            "$ref": "#/components/schemas/SpecialCargoDryIce"
+          },
+          "adrLq": {
+            "$ref": "#/components/schemas/SpecialCargoAdrLq"
+          },
+          "lithium": {
+            "$ref": "#/components/schemas/SpecialCargoLithium"
+          }
+        },
+        "description": "Container for special cargo content's information.\n* Please note that one shipment should hold only one type of 'special cargo content'.\n* Only one type of 'special cargo content' is supported per shipment. It is not allowed to mix different types.\n* In one shipment, you can mix 'special cargo content' packages and non-regulated packages.\n",
+        "example": {
+          "content": "DRY_ICE",
+          "dryIce": {
+            "weight": 6.5
+          }
+        }
+      },
+      "SpecialCargoDangerousGoods": {
+        "required": [
+          "UNNumber",
+          "class",
+          "packingGroup",
+          "weight"
+        ],
+        "type": "object",
+        "properties": {
+          "UNNumber": {
+            "maxLength": 80,
+            "type": "string",
+            "description": "UN class of the regulated good",
+            "example": "1090"
+          },
+          "class": {
+            "maxLength": 80,
+            "type": "string",
+            "description": "Hazard class associated to the specific commodity. Supported classes:\n * `1.1`\n * `1.2`\n * `1.3`\n * `1.4`\n * `1.5`\n * `1.6`\n * `2.1`\n * `2.2`\n * `2.3`\n * `3`\n * `4.1`\n * `4.2`\n * `4.3`\n * `5.1`\n * `5.2`\n * `6.1`\n * `6.2`\n * `7`\n * `8`\n * `9`\n"
+          },
+          "packingGroup": {
+            "enum": [
+              "",
+              "I",
+              "II",
+              "III"
+            ],
+            "type": "string",
+            "description": "Packing group associated to the specific commodity. Could be '' / I / II / III"
+          },
+          "weight": {
+            "minimum": 0.0,
+            "type": "number",
+            "description": "The weight of the regulated good. Should be inferior to package gross weight.",
+            "format": "double",
+            "example": 6.5
+          },
+          "idgPackageType": {
+            "maxLength": 255,
+            "type": "string",
+            "description": "The type of package used to contain the regulated good",
+            "example": "Fiberboard Box"
+          },
+          "idgProperShippingName": {
+            "maxLength": 150,
+            "type": "string",
+            "description": "The proper shipping name assigned by ADR or IATA",
+            "example": "ACETONE SOLUTION"
+          }
+        },
+        "description": "Container for Dangerous Goods' information. Required if `content` is DGR or ADR",
+        "example": {
+          "UNNumber": "1090",
+          "class": "2.2",
+          "packingGroup": "II",
+          "weight": 6.5,
+          "idgPackageType": "Fiberboard Box",
+          "idgProperShippingName": "ACETONE SOLUTION"
+        }
+      },
+      "SpecialCargoDryIce": {
+        "type": "object",
+        "properties": {
+          "weight": {
+            "minimum": 0.0,
+            "type": "number",
+            "description": "The weight of the dry ice. Should be inferior to package gross weight.",
+            "format": "double",
+            "example": 6.5
+          }
+        },
+        "description": "Container for Dry Ice's information. Required if `content` is DRY_ICE",
+        "example": {
+          "weight": 6.5
+        }
+      },
+      "SpecialCargoAdrLq": {
+        "type": "object",
+        "properties": {
+          "weight": {
+            "minimum": 0.0,
+            "type": "number",
+            "description": "The weight of the regulated good. Should be inferior to package gross weight.",
+            "format": "double",
+            "example": 6.5
+          },
+          "UNNumber": {
+            "pattern": "^\\s*$|^\\d{4}$",
+            "type": "string",
+            "description": "UN class of the regulated good",
+            "example": "1090"
+          },
+          "unitOfMeasure": {
+            "maxLength": 20,
+            "type": "string",
+            "description": "Unit of measure of the regulated good",
+            "example": "KG"
+          }
+        },
+        "description": "Container for ADR LQ's information. Required if `content` is ADR_LQ",
+        "example": {
+          "weight": 6.5,
+          "UNNumber": "1075",
+          "unitOfMeasure": "KG"
+        }
+      },
+      "SpecialCargoLithium": {
+        "required": [
+          "category"
+        ],
+        "type": "object",
+        "properties": {
+          "category": {
+            "maxLength": 20,
+            "type": "string",
+            "description": "Category of Lithium Battery that will be shipped (different categories cannot be shipped in same shipment) valid values are :\n * SII-966\n * SII-967\n * SII-969\n * SII-970\n * SI-966\n * SI-969\n * SI-967\n * SI-970 \n * SIA-965\n * SIB-965\n * SIA-968\n * SIB-968\n"
+          }
+        },
+        "description": "Container for Lithium's information. Required if `content` is LITHIUM",
+        "example": {
+          "category": "SI-969"
+        }
+      },
+      "Commodity": {
+        "required": [
+          "goodsDescription",
+          "goodsValue"
+        ],
+        "type": "object",
+        "properties": {
+          "originCountryCode": {
+            "$ref": "#/components/schemas/CountryCodeList"
+          },
+          "goodsDescription": {
+            "maxLength": 200,
+            "type": "string"
+          },
+          "goodsValue": {
+            "$ref": "#/components/schemas/CurrencyMonetaryType"
+          },
+          "hsCode": {
+            "maxLength": 200,
+            "type": "string",
+            "description": "Harmonized code for goods"
+          },
+          "mrn": {
+            "maxLength": 50,
+            "type": "string",
+            "description": "Movement Reference Number (MRN) information. Valid format (A=AlphaNumeric, C=Char) AACCAAAAAAAAAAAAAA"
+          }
+        },
+        "description": "Container for commodity's information",
+        "example": {
+          "originCountryCode": "DK",
+          "goodsDescription": "samples",
+          "goodsValue": {
+            "currencyCode": "DKK",
+            "monetaryValue": 2000
+          }
+        }
+      },
+      "ShipmentNotification": {
+        "required": [
+          "notificationCode",
+          "recipients"
+        ],
+        "type": "object",
+        "properties": {
+          "notificationCode": {
+            "maxLength": 3,
+            "type": "string",
+            "description": "Type of notification to subscribe:\n * `DEP` - Departure notifications\n * `DEL` - Delivery notifications\n * `EXC` - Exception notifications\n * `DOC` - Document notifications\n"
+          },
+          "recipients": {
+            "maxItems": 10,
+            "minItems": 1,
+            "type": "array",
+            "items": {
+              "maxLength": 200,
+              "type": "string",
+              "format": "email"
+            },
+            "description": "List of recipient email addresses separated by `,`"
+          },
+          "language": {
+            "maxLength": 2,
+            "type": "string",
+            "description": "Notification language (English by default):\n * DE - German\n * EN - English\n * ES - Spanish\n * FR - French\n * IT - Italian\n * NL - Dutch\n",
+            "default": "EN"
+          }
+        },
+        "example": {
+          "notificationCode": "DEP",
+          "recipients": [
+            "recipient1@receiver.com",
+            "recipient2@receiver.com"
+          ]
+        }
+      },
+      "Reference": {
+        "required": [
+          "qualifier",
+          "reference"
+        ],
+        "type": "object",
+        "properties": {
+          "qualifier": {
+            "maxLength": 30,
+            "type": "string",
+            "description": "Reference Qualifiers :\n * PURCHASE_ORDER - Purchase Order Reference\n * CUSTOMS_DEC - Customs Declaration N\u00b0\n * SHPR_REF - Shipper reference\n * CNEE_REF - Delivery reference\n * COM_INV - Commercial Invoice N\u00b0\n * CARRIER_REF - Carrier reference N\u00b0\n * DELIVERY_NOTE - Delivery note\n * SHIPMENT_LOADING_REF - Shipment loading reference\n * SHIPMENT_BARCODE - Shipment barcode\n"
+          },
+          "reference": {
+            "maxLength": 200,
+            "type": "string",
+            "description": "Reference value"
+          }
+        },
+        "description": "Container for reference",
+        "example": {
+          "qualifier": "SHPR_REF",
+          "reference": "shipper ref #1"
+        }
+      },
+      "ProformaInvoice": {
+        "required": [
+          "proformaInvoiceHeader",
+          "proformaInvoiceLines"
+        ],
+        "type": "object",
+        "properties": {
+          "proformaInvoiceHeader": {
+            "$ref": "#/components/schemas/ProformaInvoiceHeader"
+          },
+          "proformaInvoiceLines": {
+            "minItems": 1,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProformaInvoiceLine"
+            }
+          }
+        },
+        "description": "Container for proforma/commercial invoice",
+        "example": {
+          "proformaInvoiceHeader": {
+            "invoiceType": "PROFORMA",
+            "invoiceNumber": "0123456789",
+            "signature": "Sender contact",
+            "invoiceDate": "2020-04-06",
+            "incoterm": "DAP",
+            "typeOfExport": "PERMANENT",
+            "exportReason": "SOLD",
+            "currency": "DKK"
+          },
+          "proformaInvoiceLines": [
+            {
+              "descriptionOfGoods": "product A",
+              "countryOfOrigin": "DK",
+              "hsCode": "",
+              "mrn": "",
+              "quantity": 100,
+              "uom": "Pieces",
+              "netWeight": 0.2,
+              "unitPrice": 20
+            },
+            {
+              "descriptionOfGoods": "product B",
+              "countryOfOrigin": "DK",
+              "hsCode": "",
+              "mrn": "",
+              "quantity": 10,
+              "uom": "Pieces",
+              "netWeight": 0.5,
+              "unitPrice": 50
+            }
+          ]
+        }
+      },
+      "ProformaInvoiceHeader": {
+        "required": [
+          "invoiceType",
+          "invoiceNumber",
+          "signature",
+          "invoiceDate",
+          "incoterm",
+          "typeOfExport",
+          "exportReason",
+          "currency"
+        ],
+        "type": "object",
+        "properties": {
+          "invoiceType": {
+            "$ref": "#/components/schemas/ProformaInvoiceTypeList"
+          },
+          "invoiceNumber": {
+            "maxLength": 200,
+            "type": "string",
+            "description": "Invoice Number"
+          },
+          "signature": {
+            "maxLength": 200,
+            "type": "string",
+            "description": "Signature"
+          },
+          "invoiceDate": {
+            "type": "string",
+            "description": "Date of invoice",
+            "format": "date"
+          },
+          "incoterm": {
+            "maxLength": 80,
+            "type": "string",
+            "description": "Code of incoterm :\n * DDP\n * DAP (default value if not provided)\n * DAT\n * CIP\n * CPT\n * FCA\n * EXW\n",
+            "default": "DAP"
+          },
+          "typeOfExport": {
+            "maxLength": 10,
+            "type": "string",
+            "description": "Type of export :\n * PERMANENT - Permanent (default value if not provided)\n * TEMPORARY - Temporary\n * RE_EXPORT - Re-Export (repair and/or return)\n",
+            "default": "PERMANENT"
+          },
+          "exportReason": {
+            "maxLength": 20,
+            "type": "string",
+            "description": "Export reason :\n * SOLD - Sold (default value if not provided)\n * NOT_SOLD - Not Sold\n * PERS_EFFECT - Personnal effects\n * REP_RET - Repair and Return\n * SAMPLE - Sample\n * GIFT - Gift\n",
+            "default": "SAMPLE"
+          },
+          "currency": {
+            "$ref": "#/components/schemas/CurrencyCodeList"
+          },
+          "remarks": {
+            "maxLength": 8000,
+            "type": "string",
+            "description": "Remarks, free text"
+          }
+        },
+        "example": {
+          "invoiceType": "PROFORMA",
+          "invoiceNumber": "0123456789",
+          "signature": "Sender contact",
+          "invoiceDate": "2020-04-06",
+          "incoterm": "DAP",
+          "typeOfExport": "PERMANENT",
+          "exportReason": "SOLD",
+          "currency": "DKK"
+        }
+      },
+      "ProformaInvoiceLine": {
+        "required": [
+          "descriptionOfGoods",
+          "countryOfOrigin",
+          "quantity",
+          "uom",
+          "netWeight",
+          "unitPrice"
+        ],
+        "type": "object",
+        "properties": {
+          "descriptionOfGoods": {
+            "maxLength": 200,
+            "type": "string"
+          },
+          "countryOfOrigin": {
+            "$ref": "#/components/schemas/CountryCodeList"
+          },
+          "hsCode": {
+            "maxLength": 200,
+            "type": "string"
+          },
+          "mrn": {
+            "maxLength": 50,
+            "type": "string",
+            "description": "Movement Reference Number (MRN) information. Valid format (A=AlphaNumeric, C=Char) AACCAAAAAAAAAAAAAA"
+          },
+          "quantity": {
+            "type": "number",
+            "format": "double"
+          },
+          "uom": {
+            "type": "string",
+            "description": "Pieces / Sets / Meters / Kilograms"
+          },
+          "netWeight": {
+            "type": "number",
+            "format": "double"
+          },
+          "unitPrice": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "example": {
+          "descriptionOfGoods": "product A",
+          "countryOfOrigin": "DK",
+          "hsCode": "",
+          "mrn": "",
+          "quantity": 100,
+          "uom": "Pieces",
+          "netWeight": 0.2,
+          "unitPrice": 20
+        }
+      },
+      "ProformaInvoiceTypeList": {
+        "enum": [
+          "COMMERCIAL",
+          "PROFORMA"
+        ],
+        "type": "string",
+        "description": "Type of the invoice, Proforma or Commercial. Could be COMMERCIAL / PROFORMA"
+      },
+      "ShipmentCreationResponse": {
+        "type": "object",
+        "properties": {
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ErrorItem"
+            }
+          },
+          "warnings": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ErrorItem"
+            }
+          },
+          "shipmentIdentificationNumber": {
+            "type": "integer",
+            "description": "Identification of the shipment created",
+            "format": "int32",
+            "example": 10123456
+          }
+        },
+        "description": "Container for shipment creation response",
+        "example": {
+          "shipmentIdentificationNumber": 10123456
+        }
+      },
+      "UploadDocumentRequest": {
+        "required": [
+          "shipmentId",
+          "type",
+          "description"
+        ],
+        "type": "object",
+        "properties": {
+          "shipmentId": {
+            "type": "integer",
+            "description": "ID of shipment to upload a document"
+          },
+          "type": {
+            "$ref": "#/components/schemas/ShipmentDocumentTypeList"
+          },
+          "description": {
+            "maxLength": 200,
+            "minLength": 1,
+            "type": "string",
+            "description": "Description of the file to upload"
+          }
+        },
+        "description": "Container for document upload request"
+      },
+      "UploadDocument": {
+        "required": [
+          "type",
+          "description",
+          "file",
+          "fileName",
+          "mimeType"
+        ],
+        "type": "object",
+        "properties": {
+          "type": {
+            "$ref": "#/components/schemas/ShipmentDocumentTypeList"
+          },
+          "description": {
+            "maxLength": 200,
+            "minLength": 1,
+            "type": "string",
+            "description": "Description of the file to upload"
+          },
+          "fileName": {
+            "maxLength": 200,
+            "minLength": 1,
+            "type": "string",
+            "description": "File name"
+          },
+          "mimeType": {
+            "maxLength": 200,
+            "minLength": 1,
+            "type": "string",
+            "description": "Mime Type. Could be:\n * application/pdf\n * application/msword\n * application/vnd.openxmlformats-officedocument.wordprocessingml.document\n * application/vnd.oasis.opendocument.text\n * application/vnd.ms-excel\n * application/vnd.openxmlformats-officedocument.spreadsheetml.sheet\n * application/vnd.oasis.opendocument.spreadsheet\n * text/csv\n * image/png\n * image/jpeg\n"
+          },
+          "file": {
+            "maxLength": 1048576,
+            "minLength": 1,
+            "type": "string",
+            "description": "base64-encoded file data. Limited to 1MB.",
+            "format": "byte"
+          }
+        },
+        "description": "Container for document upload request",
+        "example": {
+          "type": "PROFORMA_INVOICE",
+          "description": "Proforma Invoice for custom clearance",
+          "fileName": "proforma.pdf",
+          "mimeType": "application/pdf",
+          "file": "JVBERi0xLjcNCiW1tbW1DQoxIDAgb2JqDQo8PC9UeXBlL0NhdGFsb2cvUGFnZXMgMiAwIFIvTGFuZyhmci1GUikgL1N0cnVjdFRyZWVSb290IDE3IDAgUi9NYXJrSW5mbzw8L01hcmtlZCB0cnVlPj4vTWV0YWRhdGEgNDMgMCBSL1ZpZXdlclByZWZlcmVuY2VzIDQ0IDAgUj4+DQplbmRvYmoNCjIgMCBvYmoNCjw8L1R5cGUvUGFnZXMvQ291bnQgMS9LaWRzWyAzIDAgUl0gPj4NCmVuZG9iag0KMyAwIG9iag0KPDwvVHlwZS9QYWdlL1BhcmVudCAyIDAgUi9SZXNvdXJjZXM8PC9Gb250PDwvRjEgNSAwIFIvRjIgMTIgMCBSL0YzIDE0IDAgUj4+L0V4dEdTdGF0ZTw8L0dTMTAgMTAgMCBSL0dTMTEgMTEgMCBSPj4vWE9iamVjdDw8L01ldGExNiAxNiAwIFI+Pi9Qcm9jU2V0Wy9QREYvVGV4dC9JbWFnZUIvSW1hZ2VDL0ltYWdlSV0gPj4vTWVkaWFCb3hbIDAgMCA1OTUuMzIgODQxLjkyXSAvQ29udGVudHMgNCAwIFIvR3JvdXA8PC9UeXBlL0dyb3VwL1MvVHJhbnNwYXJlbmN5L0NTL0RldmljZVJHQj4+L1RhYnMvUy9TdHJ1Y3RQYXJlbnRzIDA+Pg0KZW5kb2JqDQo0IDAgb2JqDQo8PC9GaWx0ZXIvRmxhdGVEZWNvZGUvTGVuZ3RoIDQ1NT4+DQpzdHJlYW0NCnictZZNa+MwEIbvBv+HOSYLUTQjjT4g+NAkW3bZwLZ26aH0EEqaU9Putv+fHaWGJsRhXdf2QUKa0cyjV0IemJYv6x3MZtPV/McC9PTXereF0WY3uSnHRQEXizn8yTOtdPpC8AgaOLIyBMGiigR/N3l2+w12eXZR5dn0OwKJu4XqMc+StwYEdspZ8CYohOpJvC5L1LB9lcigFdoorUmxtu82bLBdX+bZ3Uxr4wuy0lMoyKWxq/t6XpuCfLL7995QQTGNxQ/TONTzuiA+jIO13Rf3UP3Ms6Vs5yrPYLmaAxzrhD3oRA06EZFicyDUqTwNooxg/F9i6oHYANozJ4uojP0EcTWeMI+W0upRuW+r4z30gCYLLHVga6Gm6UdNbFbTyTpHNfEesi2XHZYraBVDFy7uhys0QXFUwZ1AVcvyyzfqOB1qSqdyJl8LEdywh2NJ+S5Yflgskqes050JvXCRa+biGJXhIa7NaUYkI4/MuZQtpIjDSuFYadOFC/uoF87fHbZW+baC/f6gwhrko8oQJBO9cuAlsjCg1YoZWN4zPgASPiYBmNT8Ugt4+TV47YXmKMBDKmJWm7c1Olg8w9VhSbMH+gcaf+HPDQplbmRzdHJlYW0NCmVuZG9iag0KNSAwIG9iag0KPDwvVHlwZS9Gb250L1N1YnR5cGUvVHlwZTAvQmFzZUZvbnQvQXJpYWwtQm9sZE1UL0VuY29kaW5nL0lkZW50aXR5LUgvRGVzY2VuZGFudEZvbnRzIDYgMCBSL1RvVW5pY29kZSAzOCAwIFI+Pg0KZW5kb2JqDQo2IDAgb2JqDQpbIDcgMCBSXSANCmVuZG9iag0KNyAwIG9iag0KPDwvQmFzZUZvbnQvQXJpYWwtQm9sZE1UL1N1YnR5cGUvQ0lERm9udFR5cGUyL1R5cGUvRm9udC9DSURUb0dJRE1hcC9JZGVudGl0eS9EVyAxMDAwL0NJRFN5c3RlbUluZm8gOCAwIFIvRm9udERlc2NyaXB0b3IgOSAwIFIvVyA0MCAwIFI+Pg0KZW5kb2JqDQo4IDAgb2JqDQo8PC9PcmRlcmluZyhJZGVudGl0eSkgL1JlZ2lzdHJ5KEFkb2JlKSAvU3VwcGxlbWVudCAwPj4NCmVuZG9iag0KOSAwIG9iag0KPDwvVHlwZS9Gb250RGVzY3JpcHRvci9Gb250TmFtZS9BcmlhbC1Cb2xkTVQvRmxhZ3MgMzIvSXRhbGljQW5nbGUgMC9Bc2NlbnQgOTA1L0Rlc2NlbnQgLTIxMC9DYXBIZWlnaHQgNzI4L0F2Z1dpZHRoIDQ3OS9NYXhXaWR0aCAyNjI4L0ZvbnRXZWlnaHQgNzAwL1hIZWlnaHQgMjUwL0xlYWRpbmcgMzMvU3RlbVYgNDcvRm9udEJCb3hbIC02MjggLTIxMCAyMDAwIDcyOF0gL0ZvbnRGaWxlMiAzOSAwIFI+Pg0KZW5kb2JqDQoxMCAwIG9iag0KPDwvVHlwZS9FeHRHU3RhdGUvQk0vTm9ybWFsL2NhIDE+Pg0KZW5kb2JqDQoxMSAwIG9iag0KPDwvVHlwZS9FeHRHU3RhdGUvQk0vTm9ybWFsL0NBIDE+Pg0KZW5kb2JqDQoxMiAwIG9iag0KPDwvVHlwZS9Gb250L1N1YnR5cGUvVHJ1ZVR5cGUvTmFtZS9GMi9CYXNlRm9udC9BcmlhbC1Cb2xkTVQvRW5jb2RpbmcvV2luQW5zaUVuY29kaW5nL0ZvbnREZXNjcmlwdG9yIDEzIDAgUi9GaXJzdENoYXIgMzIvTGFzdENoYXIgMzIvV2lkdGhzIDQxIDAgUj4+DQplbmRvYmoNCjEzIDAgb2JqDQo8PC9UeXBlL0ZvbnREZXNjcmlwdG9yL0ZvbnROYW1lL0FyaWFsLUJvbGRNVC9GbGFncyAzMi9JdGFsaWNBbmdsZSAwL0FzY2VudCA5MDUvRGVzY2VudCAtMjEwL0NhcEhlaWdodCA3MjgvQXZnV2lkdGggNDc5L01heFdpZHRoIDI2MjgvRm9udFdlaWdodCA3MDAvWEhlaWdodCAyNTAvTGVhZGluZyAzMy9TdGVtViA0Ny9Gb250QkJveFsgLTYyOCAtMjEwIDIwMDAgNzI4XSA+Pg0KZW5kb2JqDQoxNCAwIG9iag0KPDwvVHlwZS9Gb250L1N1YnR5cGUvVHJ1ZVR5cGUvTmFtZS9GMy9CYXNlRm9udC9BcmlhbE1UL0VuY29kaW5nL1dpbkFuc2lFbmNvZGluZy9Gb250RGVzY3JpcHRvciAxNSAwIFIvRmlyc3RDaGFyIDMyL0xhc3RDaGFyIDg0L1dpZHRocyA0MiAwIFI+Pg0KZW5kb2JqDQoxNSAwIG9iag0KPDwvVHlwZS9Gb250RGVzY3JpcHRvci9Gb250TmFtZS9BcmlhbE1UL0ZsYWdzIDMyL0l0YWxpY0FuZ2xlIDAvQXNjZW50IDkwNS9EZXNjZW50IC0yMTAvQ2FwSGVpZ2h0IDcyOC9BdmdXaWR0aCA0NDEvTWF4V2lkdGggMjY2NS9Gb250V2VpZ2h0IDQwMC9YSGVpZ2h0IDI1MC9MZWFkaW5nIDMzL1N0ZW1WIDQ0L0ZvbnRCQm94WyAtNjY1IC0yMTAgMjAwMCA3MjhdID4+DQplbmRvYmoNCjE2IDAgb2JqDQo8PC9UeXBlL1hPYmplY3QvU3VidHlwZS9Gb3JtL0JCb3hbIDAgMCAxNTEyLjkzIDU0OC40N10gL01hdHJpeFsgMC4wNDc1OSAwIDAgMC4xMzEyNyAwIDBdIC9G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TUwvTGVuZ3RoIDI4ODM+Pg0Kc3RyZWFtDQo8P3hwYWNrZXQgYmVnaW49Iu+7vyIgaWQ9Ilc1TTBNcENlaGlIenJlU3pOVGN6a2M5ZCI/Pjx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IjMuMS03MDEiPgo8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPgo8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIiAgeG1sbnM6cGRmPSJodHRwOi8vbnMuYWRvYmUuY29tL3BkZi8xLjMvIj4KPC9yZGY6RGVzY3JpcHRpb24+CjxyZGY6RGVzY3JpcHRpb24gcmRmOmFib3V0PSIiICB4bWxuczpkYz0iaHR0cDovL3B1cmwub3JnL2RjL2VsZW1lbnRzLzEuMS8iPgo8L3JkZjpEZXNjcmlwdGlvbj4KPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgIHhtbG5zOnhtcD0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wLyI+Cjx4bXA6Q3JlYXRlRGF0ZT4yMDIxLTA0LTI5VDE0OjQ2OjQyKzAyOjAwPC94bXA6Q3JlYXRlRGF0ZT48eG1wOk1vZGlmeURhdGU+MjAyMS0wNC0yOVQxNDo0Njo0MiswMjowMDwveG1wOk1vZGlmeURhdGU+PC9yZGY6RGVzY3JpcHRpb24+CjxyZGY6RGVzY3JpcHRpb24gcmRmOmFib3V0PSIiICB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyI+Cjx4bXBNTTpEb2N1bWVudElEPnV1aWQ6Mjc2QTMxQTgtQUIxQi00QzMxLUJGOTktNDBGNjQ1QTE1MDlCPC94bXBNTTpEb2N1bWVudElEPjx4bXBNTTpJbnN0YW5jZUlEPnV1aWQ6Mjc2QTMxQTgtQUIxQi00QzMxLUJGOTktNDBGNjQ1QTE1MDlCPC94bXBNTTpJbnN0YW5jZUlEPjwvcmRmOkRlc2NyaXB0aW9uPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKPC9yZGY6UkRGPjwveDp4bXBtZXRhPjw/eHBhY2tldCBlbmQ9InciPz4NCmVuZHN0cmVhbQ0KZW5kb2JqDQo0NCAwIG9iag0KPDwvRGlzcGxheURvY1RpdGxlIHRydWU+Pg0KZW5kb2JqDQo0NSAwIG9iag0KPDwvVHlwZS9YUmVmL1NpemUgNDUvV1sgMSA0IDJdIC9Sb290IDEgMCBSL0luZm8gMzcgMCBSL0lEWzxBODMxNkEyNzFCQUIzMTRDQkY5OTQwRjY0NUExNTA5Qj48QTgzMTZBMjcxQkFCMzE0Q0JGOTk0MEY2NDVBMTUwOUI+XSAvRmlsdGVyL0ZsYXRlRGVjb2RlL0xlbmd0aCAxNDg+Pg0Kc3RyZWFtDQp4nDXPOxIBURCF4Z4xb88hUqWmZEKJUGgDIjuYBVAlFdqHgFBuC9ZACe1itPNzg/tVd9XpvtfMT9MEfpdmX87wFGElojlc4S7iGmgmF3iIdAQ3kZ1EvhLFzOf6hrH1oA8DKKELIfwCQ49P1v8qgBZEEEMCKWSQQwFt6PjM6qiXVW8xXYgtX9ktYQMvcdibfQCxohRcDQplbmRzdHJlYW0NCmVuZG9iag0KeHJlZg0KMCA0Ng0KMDAwMDAwMDAxNyA2NTUzNSBmDQowMDAwMDAwMDE3IDAwMDAwIG4NCjAwMDAwMDAxNjYgMDAwMDAgbg0KMDAwMDAwMDIyMiAwMDAwMCBuDQowMDAwMDAwNTQyIDAwMDAwIG4NCjAwMDAwMDEwNzEgMDAwMDAgbg0KMDAwMDAwMTE5OSAwMDAwMCBuDQowMDAwMDAxMjI3IDAwMDAwIG4NCjAwMDAwMDEzODIgMDAwMDAgbg0KMDAwMDAwMTQ1NSAwMDAwMCBuDQowMDAwMDAxNzAzIDAwMDAwIG4NCjAwMDAwMDE3NTcgMDAwMDAgbg0KMDAwMDAwMTgxMSAwMDAwMCBuDQowMDAwMDAxOTc4IDAwMDAwIG4NCjAwMDAwMDIyMTAgMDAwMDAgbg0KMDAwMDAwMjM3MiAwMDAwMCBuDQowMDAwMDAyNTk5IDAwMDAwIG4NCjAwMDAwMDAwMTggNjU1MzUgZg0KMDAwMDAwMDAxOSA2NTUzNSBmDQowMDAwMDAwMDIwIDY1NTM1IGYNCjAwMDAwMDAwMjEgNjU1MzUgZg0KMDAwMDAwMDAyMiA2NTUzNSBmDQowMDAwMDAwMDIzIDY1NTM1IGYNCjAwMDAwMDAwMjQgNjU1MzUgZg0KMDAwMDAwMDAyNSA2NTUzNSBmDQowMDAwMDAwMDI2IDY1NTM1IGYNCjAwMDAwMDAwMjcgNjU1MzUgZg0KMDAwMDAwMDAyOCA2NTUzNSBmDQowMDAwMDAwMDI5IDY1NTM1IGYNCjAwMDAwMDAwMzAgNjU1MzUgZg0KMDAwMDAwMDAzMSA2NTUzNSBmDQowMDAwMDAwMDMyIDY1NTM1IGYNCjAwMDAwMDAwMzMgNjU1MzUgZg0KMDAwMDAwMDAzNCA2NTUzNSBmDQowMDAwMDAwMDM1IDY1NTM1IGYNCjAwMDAwMDAwMzYgNjU1MzUgZg0KMDAwMDAwMDAwMCA2NTUzNSBmDQowMDAwMDA3ODE1IDAwMDAwIG4NCjAwMDAwMDc5MTIgMDAwMDAgbg0KMDAwMDAwODI0NCAwMDAwMCBuDQowMDAwMDI5NDA1IDAwMDAwIG4NCjAwMDAwMjk1MDAgMDAwMDAgbg0KMDAwMDAyOTUyNyAwMDAwMCBuDQowMDAwMDI5NjY0IDAwMDAwIG4NCjAwMDAwMzI2MzAgMDAwMDAgbg0KMDAwMDAzMjY3NSAwMDAwMCBuDQp0cmFpbGVyDQo8PC9TaXplIDQ2L1Jvb3QgMSAwIFIvSW5mbyAzNyAwIFIvSURbPEE4MzE2QTI3MUJBQjMxNENCRjk5NDBGNjQ1QTE1MDlCPjxBODMxNkEyNzFCQUIzMTRDQkY5OTQwRjY0NUExNTA5Qj5dID4+DQpzdGFydHhyZWYNCjMzMDI0DQolJUVPRg0KeHJlZg0KMCAwDQp0cmFpbGVyDQo8PC9TaXplIDQ2L1Jvb3QgMSAwIFIvSW5mbyAzNyAwIFIvSURbPEE4MzE2QTI3MUJBQjMxNENCRjk5NDBGNjQ1QTE1MDlCPjxBODMxNkEyNzFCQUIzMTRDQkY5OTQwRjY0NUExNTA5Qj5dIC9QcmV2IDMzMDI0L1hSZWZTdG0gMzI2NzU+Pg0Kc3RhcnR4cmVmDQozNDEwMQ0KJSVFT0Y="
+        }
+      },
+      "ShipmentDocumentTypeList": {
+        "enum": [
+          "PROFORMA_INVOICE",
+          "COMMERCIAL_INVOICE",
+          "CUSTOMS_DECLARATION",
+          "CERTIFICATE_OF_ORIGIN",
+          "PACKING_LIST",
+          "BANK_DOCUMENTS",
+          "DG_GOODS_DECLARATION",
+          "OTHERS",
+          "PICKUP_ORDER",
+          "EXPORT_DECLARATION",
+          "EXPORT_ATTACHMENT"
+        ],
+        "type": "string",
+        "description": "Shipment Document Type. Could be:\n * PROFORMA_INVOICE\n * COMMERCIAL_INVOICE\n * CUSTOMS_DECLARATION\n * CERTIFICATE_OF_ORIGIN\n * PACKING_LISTADR\n * BANK_DOCUMENTS\n * DG_GOODS_DECLARATION\n * OTHERS\n * PICKUP_ORDER\n * EXPORT_DECLARATION\n * EXPORT_ATTACHMENT\n"
+      },
+      "UploadDocumentResponse": {
+        "type": "object",
+        "properties": {
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ErrorItem"
+            }
+          },
+          "warnings": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ErrorItem"
+            }
+          },
+          "documentIdentificationNumber": {
+            "type": "integer",
+            "description": "Identification of the document uploaded",
+            "format": "int32",
+            "example": 9166600
+          }
+        },
+        "description": "Container for document upload response",
+        "example": {
+          "documentIdentificationNumber": 9166600
+        }
+      },
+      "ShipmentLabelResponse": {
+        "type": "object",
+        "properties": {
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ErrorItem"
+            }
+          },
+          "warnings": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ErrorItem"
+            }
+          },
+          "shipmentIdentificationNumber": {
+            "type": "integer",
+            "description": "DSV Shipment ID",
+            "format": "int32"
+          },
+          "trackingNumber": {
+            "type": "string",
+            "description": "Shipment carrier tracking number"
+          },
+          "awb": {
+            "type": "string",
+            "description": "Shipment AirWay Bill number"
+          },
+          "trackingUrl": {
+            "type": "string",
+            "description": "Tracking URL"
+          },
+          "carrier": {
+            "$ref": "#/components/schemas/CarrierDetail"
+          },
+          "estimatedCharges": {
+            "$ref": "#/components/schemas/Charges"
+          },
+          "labelResults": {
+            "maxItems": 100,
+            "minItems": 1,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LabelResult"
+            },
+            "description": "Labels information"
+          },
+          "documents": {
+            "maxItems": 100,
+            "minItems": 1,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DocumentResult"
+            },
+            "description": "Documents information"
+          },
+          "etaDate": {
+            "type": "string",
+            "description": "Estimated Arrival Date",
+            "format": "date"
+          }
+        }
+      },
+      "LabelResult": {
+        "type": "object",
+        "properties": {
+          "trackingNumber": {
+            "type": "string",
+            "description": "Package carrier tracking number, can be empty if carrier tracking number exists only at shipment level, and if document contains labels for several packages."
+          },
+          "awb": {
+            "type": "string",
+            "description": "Package AirWay Bill number"
+          },
+          "barcode": {
+            "type": "string",
+            "description": "The main barcode printed on the label.\n\n_NOTE: for Shipments booked with DPD, this might contain only partial data_"
+          },
+          "customerScanReference": {
+            "maxLength": 100,
+            "type": "string",
+            "description": "Package customer scan reference",
+            "example": "390123450000000017"
+          },
+          "shippingLabel": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ShippingLabel"
+            }
+          }
+        },
+        "description": "Container for label"
+      },
+      "ShippingLabel": {
+        "type": "object",
+        "properties": {
+          "format": {
+            "type": "string",
+            "description": "Label format (PDF / ZPL). The format used in label request is returned."
+          },
+          "labelData": {
+            "type": "string",
+            "description": "base64-encoded label data",
+            "format": "byte"
+          }
+        }
+      },
+      "DocumentResult": {
+        "type": "object",
+        "properties": {
+          "documentType": {
+            "type": "string",
+            "description": "Document Type. Could be:\n * DOCUMENT_TYPE_CARRIER_MANIFEST\n * DOCUMENT_TYPE_CARRIER_CONSIGNMENT_NOTE\n * DOCUMENT_TYPE_TURN_IN_COPY\n"
+          },
+          "description": {
+            "type": "string",
+            "description": "Document description"
+          },
+          "format": {
+            "type": "string",
+            "description": "Document format (PDF / ZPL)."
+          },
+          "data": {
+            "type": "string",
+            "description": "base64-encoded document data",
+            "format": "byte"
+          }
+        },
+        "description": "Shipment document"
+      },
+      "Charges": {
+        "type": "object",
+        "properties": {
+          "freight": {
+            "maxItems": 99,
+            "minItems": 0,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Charge"
+            }
+          },
+          "fuel": {
+            "maxItems": 99,
+            "minItems": 0,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Charge"
+            }
+          },
+          "otherCharges": {
+            "maxItems": 99,
+            "minItems": 0,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Charge"
+            }
+          },
+          "total": {
+            "$ref": "#/components/schemas/ChargesTotal"
+          }
+        },
+        "example": {
+          "freight": [
+            {
+              "code": "24",
+              "description": "Courrier shipment",
+              "currencyCode": "EUR",
+              "monetaryValue": 30.15,
+              "debtorAccountID": "6400000000",
+              "debtorCompanyName": "DSV A/S"
+            }
+          ],
+          "fuel": [
+            {
+              "code": "1",
+              "description": "Fuel Surcharge ",
+              "currencyCode": "EUR",
+              "monetaryValue": 36,
+              "debtorAccountID": "6400000000",
+              "debtorCompanyName": "DSV A/S"
+            }
+          ],
+          "otherCharges": [
+            {
+              "code": "30",
+              "description": "Insurance",
+              "currencyCode": "EUR",
+              "monetaryValue": 3,
+              "debtorAccountID": "6400000000",
+              "debtorCompanyName": "DSV A/S"
+            },
+            {
+              "code": "67",
+              "description": "Customs Inspection",
+              "currencyCode": "EUR",
+              "monetaryValue": 52,
+              "debtorAccountID": "6400000000",
+              "debtorCompanyName": "DSV A/S"
+            },
+            {
+              "code": "19",
+              "description": "Domestic 12:00AM Delivery",
+              "currencyCode": "EUR",
+              "monetaryValue": 16.33,
+              "debtorAccountID": "6400000000",
+              "debtorCompanyName": "DSV A/S"
+            }
+          ],
+          "total": {
+            "currencyCode": "EUR",
+            "monetaryValue": 137.48
+          }
+        }
+      },
+      "Charge": {
+        "required": [
+          "currencyCode",
+          "monetaryValue"
+        ],
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "currencyCode": {
+            "$ref": "#/components/schemas/CurrencyCodeList"
+          },
+          "monetaryValue": {
+            "maximum": 9999999.99,
+            "minimum": 0.0,
+            "type": "number",
+            "description": "Charge value amount. Amount is expressed exclusive tax.",
+            "format": "double",
+            "example": 250.6
+          },
+          "debtorAccountID": {
+            "type": "string"
+          },
+          "debtorCompanyName": {
+            "type": "string"
+          }
+        },
+        "description": "Container for shipment charge.",
+        "example": {
+          "code": "24",
+          "description": "Courrier shipment",
+          "currencyCode": "EUR",
+          "monetaryValue": 30.15,
+          "debtorAccountID": "6400000000",
+          "debtorCompanyName": "DSV A/S"
+        }
+      },
+      "ChargesTotal": {
+        "type": "object",
+        "properties": {
+          "currencyCode": {
+            "$ref": "#/components/schemas/CurrencyCodeList"
+          },
+          "monetaryValue": {
+            "maximum": 99999999999999.98,
+            "minimum": 0.0,
+            "type": "number",
+            "description": "Total charges value amount. Amount is expressed exclusive tax.",
+            "format": "double",
+            "example": 250
+          }
+        },
+        "example": {
+          "currencyCode": "EUR",
+          "monetaryValue": 137.48
+        }
+      },
+      "CancelResponse": {
+        "type": "object",
+        "properties": {
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ErrorItem"
+            }
+          },
+          "warnings": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ErrorItem"
+            }
+          }
+        }
+      },
+      "CurrencyCodeList": {
+        "maxLength": 3,
+        "type": "string",
+        "description": "Currency Code supported (EUR by default if not provided):\n * CAD -  Canadian Dollar\n * CNY  - Yuan Renminbi\n * DKK  - Danish Krone\n * EUR  - Euro\n * GBP  - British Pound\n * HKD  - Hong Kong Dollar\n * NOK  - Norwegian Krone\n * SEK  - Swedish krona\n * SGD  - Singapore Dollar\n * USD  - Dollar\n * ZAR  - Rand\n",
+        "default": "EUR",
+        "example": "EUR"
+      },
+      "CurrencyMonetaryType": {
+        "required": [
+          "currencyCode",
+          "monetaryValue"
+        ],
+        "type": "object",
+        "properties": {
+          "currencyCode": {
+            "$ref": "#/components/schemas/CurrencyCodeList"
+          },
+          "monetaryValue": {
+            "minimum": 0.0,
+            "type": "number",
+            "description": "Monetary value",
+            "format": "double",
+            "example": 250
+          }
+        }
+      },
+      "ErrorItem": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          },
+          "details": {
+            "type": "string"
+          }
+        }
+      },
+      "CarrierDetail": {
+        "type": "object",
+        "properties": {
+          "carrierCode": {
+            "type": "string",
+            "description": "Some supported carriers:\n* DHL\n* DK_GLS\n* Fedex\n* UPS\n"
+          },
+          "serviceCode": {
+            "type": "string",
+            "description": "Service carrier code"
+          }
+        },
+        "description": "Carrier detail",
+        "example": {
+          "carrierCode": "Fedex",
+          "serviceCode": "INTERNATIONAL_PRIORITY"
+        }
+      },
+      "ExportCompliance": {
+        "required": [
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "type": {
+            "enum": [
+              "EEI"
+            ],
+            "type": "string"
+          },
+          "number": {
+            "type": "string"
+          },
+          "exemptionReasonCode": {
+            "type": "string"
+          }
+        },
+        "description": "Compliance data required by some trade and customs authorities"
+      }
+    },
+    "securitySchemes": {
+      "apiKeyHeader": {
+        "type": "apiKey",
+        "name": "DSV-Subscription-Key",
+        "in": "header"
+      },
+      "apiKeyQuery": {
+        "type": "apiKey",
+        "name": "DSV-Subscription-Key",
+        "in": "query"
+      }
+    }
+  },
+  "security": [
+    {
+      "apiKeyHeader": []
+    },
+    {
+      "apiKeyQuery": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Booking"
+    }
+  ]
+}

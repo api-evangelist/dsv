@@ -1,0 +1,124 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "UPLOAD - Air, Sea, Road (EU), Rail (DEMO)",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "DSV-Subscription-Key",
+      "value": "{{DSV-Subscription-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Upload attachment using Booking ID",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Upload attachment using Booking Id",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.dsv.com/my-demo/upload/v1/shipments/bookingId/:type/:bookingId",
+            "headers": [
+              {
+                "name": "DSV-Service-Auth",
+                "value": ""
+              },
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "bookingId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the DSV booking"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "path",
+                "description": "Allowed types:\n- CUS - Customs Declaration\n- GDS - Other Goods Document\n- HAZ - Dangerous Goods Document\n- INV - Commercial Invoice\n- PKL - Packing list"
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "file",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Upload attachment to shipment. Allowed types: \"CUS\", \"GDS\",\"HAZ\", \"INV\", \"PKL\""
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Upload attachment using Shipment Id",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Upload attachment using Shipment Id",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.dsv.com/my-demo/upload/v1/shipments/tmsId/:type/:tmsId",
+            "headers": [
+              {
+                "name": "DSV-Service-Auth",
+                "value": ""
+              },
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "tmsId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the DSV shipment (TMSID = Shipment ID)."
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "path",
+                "description": "Allowed types:\n- CUS - Customs Declaration\n- GDS - Other Goods Document\n- HAZ - Dangerous Goods Document\n- INV - Commercial Invoice\n- PKL - Packing list"
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "file",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Upload an attachment to a shipment identified by TMSID. TMSID is the DSV Shipment ID (also referred to as 'shipmentId' in some UI screens). Allowed document types: CUS, GDS, HAZ, INV, PKL."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

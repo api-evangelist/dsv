@@ -1,0 +1,694 @@
+{
+  "item": [
+    {
+      "id": "013846b3-2c4b-4c9d-8e35-f965100b536d",
+      "name": "Status",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "25f39d59-cd28-46e4-a121-f1c3ed0c7be1",
+          "name": "Check if application is up and running",
+          "request": {
+            "name": "Check if application is up and running",
+            "description": {
+              "content": "Check if application is up and running",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "status",
+                "health"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "api-version",
+                "key": "api-version",
+                "value": "<string>"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "39a995e2-3006-4332-b4ed-612273ec435f",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "status",
+                    "health"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "DSV-Subscription-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "api-version",
+                    "key": "api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) OAuth header",
+                    "key": "Authorization",
+                    "value": "string"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "5217dcaa-9870-41d5-8a44-90a3e2f8bcbc",
+      "name": "Webhook",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c4b8b230-6a1e-4ec2-aca4-4b647371de1d",
+          "name": "Subscribe to get notification of the relevant event",
+          "request": {
+            "name": "Subscribe to get notification of the relevant event",
+            "description": {
+              "content": "Subscribe to get notification of the relevant event (Invoice, Visibility, Quote, Tracking, Warehousing, Customs and Downtime Notification. \nThe provided push URL will be validated first by sending an OPTIONS request.  \nIf the OPTIONS request is not allowed or fails, a POST request will be sent instead\nwith the following JSON payload:\n\n{\n  \"event\": \"string\",\n  \"message\": \"string\"\n}",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "subscriptions",
+                "subscribe"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "api-version",
+                "key": "api-version",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"subscriptionEvent\": \"<string>\",\n  \"pushUrl\": \"<string>\",\n  \"customerIds\": {\n    \"type\": \"<string>\",\n    \"values\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"authenticationData\": {\n    \"type\": \"<string>\",\n    \"basic\": {\n      \"username\": \"<string>\",\n      \"password\": \"<string>\"\n    },\n    \"oAuth\": {\n      \"tokenGenerationUrl\": \"<string>\",\n      \"accessTokenRequest\": {\n        \"headers\": [\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"body\": {\n          \"formUrlEncodedValues\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        }\n      },\n      \"refreshTokenRequest\": {\n        \"headers\": [\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"body\": {\n          \"formUrlEncodedValues\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        }\n      }\n    }\n  },\n  \"headers\": [\n    {\n      \"name\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9509a180-3f7b-433b-9290-4c2355d8b00c",
+              "name": "Success/Failure Status",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "subscriptions",
+                    "subscribe"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "DSV-Subscription-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "api-version",
+                    "key": "api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) OAuth header",
+                    "key": "Authorization",
+                    "value": "string"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"subscriptionEvent\": \"ShipmentDeviceReading\",\n  \"pushUrl\": \"http://mysite.com\",\n  \"customerIds\": {\n    \"type\": \"string\",\n    \"values\": []\n  },\n  \"authenticationData\": {\n    \"type\": \"Basic\",\n    \"basic\": {\n      \"username\": \"test-user\",\n      \"password\": \"test-password\"\n    },\n    \"oAuth\": {\n      \"tokenGenerationUrl\": \"https://mytokensite.com\",\n      \"accessTokenRequest\": {\n        \"headers\": [\n          {\n            \"name\": \"client-key\",\n            \"value\": \"client-key-value\"\n          }\n        ],\n        \"body\": {\n          \"formUrlEncodedValues\": [\n            {\n              \"name\": \"client-key\",\n              \"value\": \"client-key-value\"\n            }\n          ]\n        }\n      },\n      \"refreshTokenRequest\": {\n        \"headers\": [\n          {\n            \"name\": \"client-key\",\n            \"value\": \"client-key-value\"\n          }\n        ],\n        \"body\": {\n          \"formUrlEncodedValues\": [\n            {\n              \"name\": \"client-key\",\n              \"value\": \"client-key-value\"\n            }\n          ]\n        }\n      }\n    }\n  },\n  \"headers\": [\n    {\n      \"name\": \"client-key\",\n      \"value\": \"client-key-value\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8361dbcc-295a-47bf-8bc7-0ebb4028846e",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "subscriptions",
+                    "subscribe"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "DSV-Subscription-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "api-version",
+                    "key": "api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) OAuth header",
+                    "key": "Authorization",
+                    "value": "string"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"subscriptionEvent\": \"ShipmentDeviceReading\",\n  \"pushUrl\": \"http://mysite.com\",\n  \"customerIds\": {\n    \"type\": \"string\",\n    \"values\": []\n  },\n  \"authenticationData\": {\n    \"type\": \"Basic\",\n    \"basic\": {\n      \"username\": \"test-user\",\n      \"password\": \"test-password\"\n    },\n    \"oAuth\": {\n      \"tokenGenerationUrl\": \"https://mytokensite.com\",\n      \"accessTokenRequest\": {\n        \"headers\": [\n          {\n            \"name\": \"client-key\",\n            \"value\": \"client-key-value\"\n          }\n        ],\n        \"body\": {\n          \"formUrlEncodedValues\": [\n            {\n              \"name\": \"client-key\",\n              \"value\": \"client-key-value\"\n            }\n          ]\n        }\n      },\n      \"refreshTokenRequest\": {\n        \"headers\": [\n          {\n            \"name\": \"client-key\",\n            \"value\": \"client-key-value\"\n          }\n        ],\n        \"body\": {\n          \"formUrlEncodedValues\": [\n            {\n              \"name\": \"client-key\",\n              \"value\": \"client-key-value\"\n            }\n          ]\n        }\n      }\n    }\n  },\n  \"headers\": [\n    {\n      \"name\": \"client-key\",\n      \"value\": \"client-key-value\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f162ba2d-9c29-4011-99c4-8b03cf77442d",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "subscriptions",
+                    "subscribe"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "DSV-Subscription-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "api-version",
+                    "key": "api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) OAuth header",
+                    "key": "Authorization",
+                    "value": "string"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"subscriptionEvent\": \"ShipmentDeviceReading\",\n  \"pushUrl\": \"http://mysite.com\",\n  \"customerIds\": {\n    \"type\": \"string\",\n    \"values\": []\n  },\n  \"authenticationData\": {\n    \"type\": \"Basic\",\n    \"basic\": {\n      \"username\": \"test-user\",\n      \"password\": \"test-password\"\n    },\n    \"oAuth\": {\n      \"tokenGenerationUrl\": \"https://mytokensite.com\",\n      \"accessTokenRequest\": {\n        \"headers\": [\n          {\n            \"name\": \"client-key\",\n            \"value\": \"client-key-value\"\n          }\n        ],\n        \"body\": {\n          \"formUrlEncodedValues\": [\n            {\n              \"name\": \"client-key\",\n              \"value\": \"client-key-value\"\n            }\n          ]\n        }\n      },\n      \"refreshTokenRequest\": {\n        \"headers\": [\n          {\n            \"name\": \"client-key\",\n            \"value\": \"client-key-value\"\n          }\n        ],\n        \"body\": {\n          \"formUrlEncodedValues\": [\n            {\n              \"name\": \"client-key\",\n              \"value\": \"client-key-value\"\n            }\n          ]\n        }\n      }\n    }\n  },\n  \"headers\": [\n    {\n      \"name\": \"client-key\",\n      \"value\": \"client-key-value\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f061f2ab-8608-48a5-b0f1-525f26d82830",
+          "name": "Unsubscribe subscription by providing subscription event name",
+          "request": {
+            "name": "Unsubscribe subscription by providing subscription event name",
+            "description": {
+              "content": "Unsubscribe subscription by providing subscription event name",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "subscriptions",
+                "unsubscribe"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "api-version",
+                "key": "api-version",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"subscriptionEvent\": \"<string>\",\n  \"customerIds\": {\n    \"type\": \"<string>\",\n    \"values\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "02114ef1-8d23-41b9-b30f-d79368879956",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "subscriptions",
+                    "unsubscribe"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "DSV-Subscription-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "api-version",
+                    "key": "api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) OAuth header",
+                    "key": "Authorization",
+                    "value": "string"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"subscriptionEvent\": \"string\",\n  \"customerIds\": {\n    \"type\": \"string\",\n    \"values\": []\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "3d89fcd2-83ef-480d-950e-ef049835588e",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "subscriptions",
+                    "unsubscribe"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "DSV-Subscription-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "api-version",
+                    "key": "api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) OAuth header",
+                    "key": "Authorization",
+                    "value": "string"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"subscriptionEvent\": \"string\",\n  \"customerIds\": {\n    \"type\": \"string\",\n    \"values\": []\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "847b948d-5f02-4179-aae8-6d3519caf902",
+          "name": "Get all subscriptions for the current user",
+          "request": {
+            "name": "Get all subscriptions for the current user",
+            "description": {
+              "content": "Get all subscriptions for the current user",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "subscriptions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "api-version",
+                "key": "api-version",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "67f3bc28-9e19-4f83-9f80-80e56b7036c1",
+              "name": "Returns the list of subscriptions",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "subscriptions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "DSV-Subscription-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "api-version",
+                    "key": "api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) OAuth header",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"subscriptionEvent\": \"ShipmentDeviceReading\",\n    \"pushUrl\": \"http://mysite.com\",\n    \"customerIds\": {\n      \"type\": \"string\",\n      \"values\": []\n    },\n    \"authenticationData\": {\n      \"type\": \"Basic\",\n      \"basic\": {\n        \"username\": \"test-user\",\n        \"password\": \"test-password\"\n      },\n      \"oAuth\": {\n        \"tokenGenerationUrl\": \"https://mytokensite.com\",\n        \"accessTokenRequest\": {\n          \"headers\": [\n            {\n              \"name\": \"client-key\",\n              \"value\": \"client-key-value\"\n            }\n          ],\n          \"body\": {\n            \"formUrlEncodedValues\": [\n              {\n                \"name\": \"client-key\",\n                \"value\": \"client-key-value\"\n              }\n            ]\n          }\n        },\n        \"refreshTokenRequest\": {\n          \"headers\": [\n            {\n              \"name\": \"client-key\",\n              \"value\": \"client-key-value\"\n            }\n          ],\n          \"body\": {\n            \"formUrlEncodedValues\": [\n              {\n                \"name\": \"client-key\",\n                \"value\": \"client-key-value\"\n              }\n            ]\n          }\n        }\n      }\n    },\n    \"headers\": [\n      {\n        \"name\": \"client-key\",\n        \"value\": \"client-key-value\"\n      }\n    ],\n    \"createdAt\": \"0001-01-01T12:00:00.0000000+00:00\",\n    \"lastModifiedAt\": \"0001-01-01T12:00:00.0000000+00:00\",\n    \"subscribedBy\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dd1b20bf-38d2-426a-a00e-b5db9612feaa",
+              "name": "If there is an internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "subscriptions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "DSV-Subscription-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "api-version",
+                    "key": "api-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) OAuth header",
+                    "key": "Authorization",
+                    "value": "string"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.dsv.com/my-demo/webhook/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "DSV-Subscription-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "3446230c-f386-4eba-9935-fc8317173cae",
+    "name": "Webhook (DEMO) - Air, Sea, Road(EU), Rail",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Webhook for Invoice, Visibility, Quote, Tracking, Warehousing, Customs and Downtime Notification APIs (DEMO)",
+      "type": "text/plain"
+    }
+  }
+}

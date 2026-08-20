@@ -1,0 +1,157 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "eDOCS - SCM",
+    "version": "v2"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "DSV-Subscription-Key",
+      "value": "{{DSV-Subscription-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "EDocs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "1. Add eDOC",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.dsv.com/om/edocs/v2/EDocs",
+            "headers": [
+              {
+                "name": "authorization",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add eDOC"
+        },
+        {
+          "info": {
+            "name": "2. Upload eDoc using storageId",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.dsv.com/om/edocs/v2/EDocs/Upload/:storageId",
+            "headers": [
+              {
+                "name": "authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "storageId",
+                "value": "",
+                "type": "path",
+                "description": "Format - uuid."
+              }
+            ]
+          },
+          "docs": "Upload eDoc using storageId"
+        },
+        {
+          "info": {
+            "name": "3. Download eDoc by storageId",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dsv.com/om/edocs/v2/EDocs/Download/:storageId",
+            "headers": [
+              {
+                "name": "authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "storageId",
+                "value": "",
+                "type": "path",
+                "description": "Format - uuid."
+              }
+            ]
+          },
+          "docs": "Download eDoc by storageId"
+        },
+        {
+          "info": {
+            "name": "4. Get eDocs metadata by Id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dsv.com/om/edocs/v2/EDocs/:id",
+            "headers": [
+              {
+                "name": "authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Format - uuid."
+              }
+            ]
+          },
+          "docs": "Get eDocs metadata by Id"
+        },
+        {
+          "info": {
+            "name": "5. Get eDocs by parentNumber and secondaryParentNum",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dsv.com/om/edocs/v2/EDocs/:type/:parentNumber/:secondaryParentNumber",
+            "headers": [
+              {
+                "name": "authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "type",
+                "value": "",
+                "type": "path",
+                "description": "Format - int32."
+              },
+              {
+                "name": "parentNumber",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "secondaryParentNumber",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get eDocs by parentNumber and secondaryParentNum"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

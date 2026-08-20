@@ -1,0 +1,188 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Booking - XPress",
+    "version": "v2"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "DSV-Subscription-Key",
+      "value": "{{DSV-Subscription-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Booking",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "1. Create draft booking",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.dsv.com/xp/booking/v2/bookings",
+            "headers": [
+              {
+                "name": "dsv-service-auth",
+                "value": ""
+              },
+              {
+                "name": "x-pat",
+                "value": ""
+              },
+              {
+                "name": "x-cert-id",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Submit draft booking to DSV. (shipment is not confirmed nor sent to final carrier)"
+        },
+        {
+          "info": {
+            "name": "2. Upload documents to draft booking (Deprecated)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.dsv.com/xp/booking/v2/bookings/uploadDocument",
+            "headers": [
+              {
+                "name": "dsv-service-auth",
+                "value": ""
+              },
+              {
+                "name": "x-pat",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "file",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "uploadDocumentRequest",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "<strong>Deprecated</strong> Please use /bookings/uploadDocument/{shipmentId}<br> Upload transport related documents (e.g. packing list, dangerous goods certificates, commercial invoice etc.).<br> <i>Note</i>: Documents have to be uploaded prior to confirming the final booking. Mandatory when shipping outside Europe.<br> <i>Note2</i>: When uploading a proforma invoice, it will overwrite proforma invoice that already exists on the shipment (if any).<br> <i>Note3</i>: Please download definition fil"
+        },
+        {
+          "info": {
+            "name": "2. Upload documents to draft booking",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.dsv.com/xp/booking/v2/bookings/uploadDocument/:shipmentId",
+            "headers": [
+              {
+                "name": "dsv-service-auth",
+                "value": ""
+              },
+              {
+                "name": "x-pat",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "shipmentId",
+                "value": "",
+                "type": "path",
+                "description": "ID of shipment to upload document"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Upload transport related documents (e.g. packing list, dangerous goods certificates, commercial invoice etc.).<br> <i>Note</i>: Documents have to be uploaded prior to confirming the final booking. Mandatory when shipping outside Europe.<br> <i>Note2</i>: When uploading a proforma invoice, it will overwrite proforma invoice that already exists on the shipment (if any).<br> <i>Note3</i>: Maximum file size is 1MB."
+        },
+        {
+          "info": {
+            "name": "3. Confirm booking & download labels",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dsv.com/xp/booking/v2/bookings/labels/:shipmentId",
+            "headers": [
+              {
+                "name": "dsv-service-auth",
+                "value": ""
+              },
+              {
+                "name": "x-pat",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "shipmentId",
+                "value": "",
+                "type": "path",
+                "description": "ID of shipment to get labels"
+              },
+              {
+                "name": "labelFormat",
+                "value": "PDF",
+                "type": "query",
+                "description": "Format of labels : PDF / ZPL"
+              }
+            ]
+          },
+          "docs": "Confirm draft booking and download package label(s). (shipment is now confirmed and sent to final carrier)"
+        },
+        {
+          "info": {
+            "name": "4. Cancel submitted booking",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.dsv.com/xp/booking/v2/bookings/cancel/:shipmentId",
+            "headers": [
+              {
+                "name": "dsv-service-auth",
+                "value": ""
+              },
+              {
+                "name": "x-pat",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "shipmentId",
+                "value": "",
+                "type": "path",
+                "description": "ID of shipment to get details"
+              }
+            ]
+          },
+          "docs": "Cancel booking within allowed cancellation window and following DSV's internal rules. (e.g. prior to package pickup, etc.)"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

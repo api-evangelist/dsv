@@ -1,0 +1,1319 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "WMS Product Data (DEMO)",
+    "description": "Contract Logistics API - WMS Product Data (DEMO)",
+    "version": "v1"
+  },
+  "servers": [
+    {
+      "url": "https://api.dsv.com/cl-demo/productdata/v1"
+    }
+  ],
+  "paths": {
+    "/productData": {
+      "post": {
+        "tags": [
+          "ProductData"
+        ],
+        "summary": "Create new Product Data record(s)",
+        "description": "Create new Product Data records with full product information via API",
+        "operationId": "ProductData_Post",
+        "parameters": [
+          {
+            "name": "api-version",
+            "in": "header",
+            "description": "api-version",
+            "schema": {
+              "type": "string"
+            },
+            "example": 1
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "OAuth header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProductDataDto"
+              },
+              "example": {
+                "products": [
+                  {
+                    "warehouseId": "36643f9b7c1c48ef",
+                    "productId": "11112222",
+                    "commodityCode": "1023456789",
+                    "commodityDescription": "1543234567",
+                    "productAttributes": {
+                      "productGroup": "Product",
+                      "productSize": "Size1",
+                      "hazmatId": "1234",
+                      "style": "1234",
+                      "gender": "F",
+                      "colour": "Blue",
+                      "ean": "12345678901234",
+                      "upc": "12345678901234"
+                    },
+                    "productDimensions": {
+                      "weight": 9999999.999999,
+                      "weightUOM": "GRM",
+                      "volume": 9999999.999999,
+                      "volumeUOM": "MMQ",
+                      "height": 9999.999,
+                      "width": 9999.999,
+                      "depth": 9999.999,
+                      "dimensionUOM": "MMT"
+                    },
+                    "productValue": {
+                      "valueOfProduct": 999,
+                      "currency": "AED"
+                    },
+                    "additionalProductAttributes": {
+                      "productLotControlled": true,
+                      "productExpirationDateControlled": false,
+                      "productHoldsSerialNumber": true,
+                      "additionalProductId": "PRD12345678",
+                      "additionalProductDescription": "AdditionalProductDescription"
+                    },
+                    "additionalInformation": {
+                      "numericFields": [
+                        {
+                          "sequence": 1,
+                          "value": 999999999.999999
+                        }
+                      ],
+                      "textFields": [
+                        {
+                          "sequence": 1,
+                          "value": "Value1"
+                        }
+                      ]
+                    },
+                    "productDescription": [
+                      {
+                        "language": "AF_ZA",
+                        "description": "Product description"
+                      }
+                    ],
+                    "productStackConfiguration": [
+                      {
+                        "productUOM": "EACH",
+                        "quantityInUOM": 999999,
+                        "weight": 9999999.999999,
+                        "weightUOM": "GRM",
+                        "volume": 9999999.999999,
+                        "volumeUOM": "MMQ",
+                        "height": 9999.999,
+                        "width": 9999.999,
+                        "depth": 9999.999,
+                        "dimensionUOM": "MMT"
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success/Failure Status"
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDTO"
+                },
+                "example": {
+                  "code": "ERR12345",
+                  "message": "Not found id : 4025988810785188",
+                  "fields": [
+                    {
+                      "name": "field_name",
+                      "message": "validation error",
+                      "code": "ERR12345"
+                    }
+                  ],
+                  "development": {
+                    "message": "string",
+                    "exception": "string"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDTO"
+                },
+                "example": {
+                  "code": "ERR12345",
+                  "message": "Not found id : 4025988810785188",
+                  "fields": [
+                    {
+                      "name": "field_name",
+                      "message": "validation error",
+                      "code": "ERR12345"
+                    }
+                  ],
+                  "development": {
+                    "message": "string",
+                    "exception": "string"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDTO"
+                },
+                "example": {
+                  "code": "ERR12345",
+                  "message": "Not found id : 4025988810785188",
+                  "fields": [
+                    {
+                      "name": "field_name",
+                      "message": "validation error",
+                      "code": "ERR12345"
+                    }
+                  ],
+                  "development": {
+                    "message": "string",
+                    "exception": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "ProductData"
+        ],
+        "summary": "Update Product Data record(s)",
+        "description": "Request used to update previously created product data records.",
+        "operationId": "ProductData_Put",
+        "parameters": [
+          {
+            "name": "api-version",
+            "in": "header",
+            "description": "api-version",
+            "schema": {
+              "type": "string"
+            },
+            "example": 1
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "OAuth header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProductDataDto"
+              },
+              "example": {
+                "products": [
+                  {
+                    "warehouseId": "36643f9b7c1c48ef",
+                    "productId": "11112222",
+                    "commodityCode": "1023456789",
+                    "commodityDescription": "1543234567",
+                    "productAttributes": {
+                      "productGroup": "Product",
+                      "productSize": "Size1",
+                      "hazmatId": "1234",
+                      "style": "1234",
+                      "gender": "F",
+                      "colour": "Blue",
+                      "ean": "12345678901234",
+                      "upc": "12345678901234"
+                    },
+                    "productDimensions": {
+                      "weight": 9999999.999999,
+                      "weightUOM": "GRM",
+                      "volume": 9999999.999999,
+                      "volumeUOM": "MMQ",
+                      "height": 9999.999,
+                      "width": 9999.999,
+                      "depth": 9999.999,
+                      "dimensionUOM": "MMT"
+                    },
+                    "productValue": {
+                      "valueOfProduct": 999,
+                      "currency": "AED"
+                    },
+                    "additionalProductAttributes": {
+                      "productLotControlled": true,
+                      "productExpirationDateControlled": false,
+                      "productHoldsSerialNumber": true,
+                      "additionalProductId": "PRD12345678",
+                      "additionalProductDescription": "AdditionalProductDescription"
+                    },
+                    "additionalInformation": {
+                      "numericFields": [
+                        {
+                          "sequence": 1,
+                          "value": 999999999.999999
+                        }
+                      ],
+                      "textFields": [
+                        {
+                          "sequence": 1,
+                          "value": "Value1"
+                        }
+                      ]
+                    },
+                    "productDescription": [
+                      {
+                        "language": "AF_ZA",
+                        "description": "Product description"
+                      }
+                    ],
+                    "productStackConfiguration": [
+                      {
+                        "productUOM": "EACH",
+                        "quantityInUOM": 999999,
+                        "weight": 9999999.999999,
+                        "weightUOM": "GRM",
+                        "volume": 9999999.999999,
+                        "volumeUOM": "MMQ",
+                        "height": 9999.999,
+                        "width": 9999.999,
+                        "depth": 9999.999,
+                        "dimensionUOM": "MMT"
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success/Failure Status"
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDTO"
+                },
+                "example": {
+                  "code": "ERR12345",
+                  "message": "Not found id : 4025988810785188",
+                  "fields": [
+                    {
+                      "name": "field_name",
+                      "message": "validation error",
+                      "code": "ERR12345"
+                    }
+                  ],
+                  "development": {
+                    "message": "string",
+                    "exception": "string"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDTO"
+                },
+                "example": {
+                  "code": "ERR12345",
+                  "message": "Not found id : 4025988810785188",
+                  "fields": [
+                    {
+                      "name": "field_name",
+                      "message": "validation error",
+                      "code": "ERR12345"
+                    }
+                  ],
+                  "development": {
+                    "message": "string",
+                    "exception": "string"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDTO"
+                },
+                "example": {
+                  "code": "ERR12345",
+                  "message": "Not found id : 4025988810785188",
+                  "fields": [
+                    {
+                      "name": "field_name",
+                      "message": "validation error",
+                      "code": "ERR12345"
+                    }
+                  ],
+                  "development": {
+                    "message": "string",
+                    "exception": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ErrorDTO": {
+        "required": [
+          "code",
+          "message"
+        ],
+        "type": "object",
+        "properties": {
+          "code": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Unique error code",
+            "example": "ERR12345"
+          },
+          "message": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Error message passed to the user",
+            "example": "Not found id : 4025988810785188"
+          },
+          "fields": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FieldDTO"
+            }
+          },
+          "development": {
+            "$ref": "#/components/schemas/DevelopmentDTO"
+          }
+        }
+      },
+      "FieldDTO": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Error name",
+            "example": "field_name"
+          },
+          "message": {
+            "type": "string",
+            "description": "Description of error",
+            "example": "validation error"
+          },
+          "code": {
+            "type": "string",
+            "description": "Type of error",
+            "example": "ERR12345"
+          }
+        }
+      },
+      "DevelopmentDTO": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "Verbose, plain language description of the problem for the app developer with hints on how to fix it"
+          },
+          "exception": {
+            "type": "string",
+            "description": "Dump from exception"
+          }
+        }
+      },
+      "ProductDataDto": {
+        "type": "object",
+        "properties": {
+          "products": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProductDto"
+            },
+            "description": "Products Details"
+          }
+        },
+        "description": " Product Data"
+      },
+      "ProductDto": {
+        "required": [
+          "warehouseId",
+          "productId",
+          "productValue",
+          "productDescription"
+        ],
+        "type": "object",
+        "properties": {
+          "warehouseId": {
+            "maxLength": 20,
+            "minLength": 0,
+            "type": "string",
+            "description": "To be resolved in Token database",
+            "example": "36643f9b7c1c48ef"
+          },
+          "productId": {
+            "maxLength": 50,
+            "minLength": 0,
+            "type": "string",
+            "description": "Unique identifier of the Stock Keeping Unit (product)",
+            "example": "11112222"
+          },
+          "commodityCode": {
+            "maxLength": 22,
+            "minLength": 0,
+            "type": "string",
+            "description": "Commodity code",
+            "example": "1023456789"
+          },
+          "commodityDescription": {
+            "maxLength": 35,
+            "minLength": 0,
+            "type": "string",
+            "description": "Commodity description",
+            "example": "1543234567"
+          },
+          "productAttributes": {
+            "$ref": "#/components/schemas/ProductAttributesDto"
+          },
+          "productDimensions": {
+            "$ref": "#/components/schemas/ProductDimensionsDto"
+          },
+          "productValue": {
+            "$ref": "#/components/schemas/ProductValueDto"
+          },
+          "additionalProductAttributes": {
+            "$ref": "#/components/schemas/AdditionalProductAttributesDto"
+          },
+          "additionalInformation": {
+            "$ref": "#/components/schemas/AdditionalInformationDto"
+          },
+          "productDescription": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProductDescriptionDto"
+            },
+            "description": "Prodect Descriptions"
+          },
+          "productStackConfiguration": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProductStackConfigurationDto"
+            },
+            "description": "Product Stack Configuration"
+          }
+        },
+        "description": "Product"
+      },
+      "ProductAttributesDto": {
+        "type": "object",
+        "properties": {
+          "productGroup": {
+            "maxLength": 10,
+            "minLength": 0,
+            "type": "string",
+            "description": "Name to identify if the product belongs to a group of similiar products",
+            "example": "Product"
+          },
+          "productSize": {
+            "maxLength": 10,
+            "minLength": 0,
+            "type": "string",
+            "description": "Short description of the size of the product",
+            "example": "Size1"
+          },
+          "hazmatId": {
+            "maxLength": 4,
+            "minLength": 0,
+            "type": "string",
+            "description": "Four digit UN number of the hazardous material - only allowed if hazardous material product",
+            "example": "1234"
+          },
+          "style": {
+            "maxLength": 10,
+            "minLength": 0,
+            "type": "string",
+            "description": "Clothes style (free text)",
+            "example": "1234"
+          },
+          "gender": {
+            "$ref": "#/components/schemas/Gender"
+          },
+          "colour": {
+            "maxLength": 20,
+            "minLength": 0,
+            "type": "string",
+            "description": "Short description of the colour of the product",
+            "example": "Blue"
+          },
+          "ean": {
+            "maxLength": 14,
+            "minLength": 0,
+            "type": "string",
+            "description": "European Article Number of the lowest track level of the product",
+            "example": "12345678901234"
+          },
+          "upc": {
+            "maxLength": 14,
+            "minLength": 0,
+            "type": "string",
+            "description": "Universal Product Code of the lowest track level of the product",
+            "example": "12345678901234"
+          }
+        },
+        "description": "Product Attributes"
+      },
+      "Gender": {
+        "enum": [
+          "F",
+          "M"
+        ],
+        "type": "string",
+        "description": ""
+      },
+      "ProductDimensionsDto": {
+        "type": "object",
+        "properties": {
+          "weight": {
+            "maximum": 9999999.999999,
+            "minimum": 0.0,
+            "type": "number",
+            "description": "Weight of the lowest track level of the product - default Uom is kilograms. [min: 0, max: 9999999.999999 (7.6)]",
+            "example": 9999999.999999
+          },
+          "weightUOM": {
+            "$ref": "#/components/schemas/WeightUOM"
+          },
+          "volume": {
+            "maximum": 9999999.999999,
+            "minimum": 0.0,
+            "type": "number",
+            "description": "Volume of the lowest track level of the product - default Uom is cubic meter. min: 0, max: 9999999.999999 (7.6)",
+            "example": 9999999.999999
+          },
+          "volumeUOM": {
+            "$ref": "#/components/schemas/VolumeUOM"
+          },
+          "height": {
+            "maximum": 9999.999,
+            "minimum": 0.0,
+            "type": "number",
+            "description": "Height of the lowest track level of the product - default Uom is meters. [min: 0, max: 9999.999 (4.3)]",
+            "example": 9999.999
+          },
+          "width": {
+            "maximum": 9999.999,
+            "minimum": 0.0,
+            "type": "number",
+            "description": "Width of the lowest track level of the product - default Uom is meters. [min: 0, max: 9999.999 (4.3)]",
+            "example": 9999.999
+          },
+          "depth": {
+            "maximum": 9999.999,
+            "minimum": 0.0,
+            "type": "number",
+            "description": "Depth (length) of the lowest track level of the product - default Uom is meters",
+            "example": 9999.999
+          },
+          "dimensionUOM": {
+            "$ref": "#/components/schemas/DimensionUOM"
+          }
+        },
+        "description": "Product Dimensions"
+      },
+      "WeightUOM": {
+        "enum": [
+          "GRM",
+          "KGM",
+          "ONZ",
+          "LBR",
+          "MLT",
+          "LTR",
+          "PTI",
+          "GLI"
+        ],
+        "type": "string",
+        "description": ""
+      },
+      "VolumeUOM": {
+        "enum": [
+          "MMQ",
+          "CMQ",
+          "DMQ",
+          "MTQ",
+          "INQ",
+          "FTQ"
+        ],
+        "type": "string",
+        "description": ""
+      },
+      "DimensionUOM": {
+        "enum": [
+          "MMT",
+          "CMT",
+          "DMT",
+          "MTR",
+          "INH",
+          "FOT"
+        ],
+        "type": "string",
+        "description": ""
+      },
+      "ProductValueDto": {
+        "type": "object",
+        "properties": {
+          "valueOfProduct": {
+            "maximum": 999999999.999999,
+            "minimum": 0.0,
+            "type": "number",
+            "description": "Selling price of the lowest track level of the product",
+            "example": 999
+          },
+          "currency": {
+            "$ref": "#/components/schemas/CurrencyCode"
+          }
+        },
+        "description": "Product Value"
+      },
+      "CurrencyCode": {
+        "enum": [
+          "AED",
+          "AFN",
+          "ALL",
+          "AMD",
+          "ANG",
+          "AOA",
+          "ARS",
+          "AUD",
+          "AWG",
+          "AZN",
+          "BAM",
+          "BBD",
+          "BDT",
+          "BGN",
+          "BHD",
+          "BIF",
+          "BMD",
+          "BND",
+          "BOB",
+          "BOV",
+          "BRL",
+          "BSD",
+          "BTN",
+          "BWP",
+          "BYN",
+          "BZD",
+          "CAD",
+          "CDF",
+          "CHE",
+          "CHF",
+          "CHW",
+          "CLF",
+          "CLP",
+          "CNY",
+          "COP",
+          "COU",
+          "CRC",
+          "CUC",
+          "CUP",
+          "CVE",
+          "CZK",
+          "DJF",
+          "DKK",
+          "DOP",
+          "DZD",
+          "EGP",
+          "ERN",
+          "ETB",
+          "EUR",
+          "FJD",
+          "FKP",
+          "GBP",
+          "GEL",
+          "GHS",
+          "GIP",
+          "GMD",
+          "GNF",
+          "GTQ",
+          "GYD",
+          "HKD",
+          "HNL",
+          "HTG",
+          "HUF",
+          "IDR",
+          "ILS",
+          "INR",
+          "IQD",
+          "IRR",
+          "ISK",
+          "JMD",
+          "JOD",
+          "JPY",
+          "KES",
+          "KGS",
+          "KHR",
+          "KMF",
+          "KPW",
+          "KRW",
+          "KWD",
+          "KYD",
+          "KZT",
+          "LAK",
+          "LBP",
+          "LKR",
+          "LRD",
+          "LSL",
+          "LYD",
+          "MAD",
+          "MDL",
+          "MGA",
+          "MKD",
+          "MMK",
+          "MNT",
+          "MOP",
+          "MRU",
+          "MUR",
+          "MVR",
+          "MWK",
+          "MXN",
+          "MXV",
+          "MYR",
+          "MZN",
+          "NAD",
+          "NGN",
+          "NIO",
+          "NOK",
+          "NPR",
+          "NZD",
+          "OMR",
+          "PAB",
+          "PEN",
+          "PGK",
+          "PHP",
+          "PKR",
+          "PLN",
+          "PYG",
+          "QAR",
+          "RON",
+          "RSD",
+          "RUB",
+          "RWF",
+          "SAR",
+          "SBD",
+          "SCR",
+          "SDG",
+          "SEK",
+          "SGD",
+          "SHP",
+          "SLE",
+          "SOS",
+          "SRD",
+          "SSP",
+          "STN",
+          "SVC",
+          "SYP",
+          "SZL",
+          "THB",
+          "TJS",
+          "TMT",
+          "TND",
+          "TOP",
+          "TRY",
+          "TTD",
+          "TWD",
+          "TZS",
+          "UAH",
+          "UGX",
+          "USD",
+          "USN",
+          "UYI",
+          "UYU",
+          "UZS",
+          "VED",
+          "VEF",
+          "VND",
+          "VUV",
+          "WST",
+          "XAF",
+          "XCD",
+          "XDR",
+          "XOF",
+          "XPF",
+          "XSU",
+          "XUA",
+          "YER",
+          "ZAR",
+          "ZMW",
+          "ZWL"
+        ],
+        "type": "string",
+        "description": "3-digit currency code (ISO 4217-3) <br>If valueOfProduct is provided, currency becomes mandatory"
+      },
+      "AdditionalProductAttributesDto": {
+        "type": "object",
+        "properties": {
+          "productLotControlled": {
+            "type": "boolean",
+            "description": "Batch controlled Product \"true - Yes / false - No\"",
+            "example": true
+          },
+          "productExpirationDateControlled": {
+            "type": "boolean",
+            "description": "Expiry Date controlled Product \"true - Yes / false - No\"",
+            "example": false
+          },
+          "productHoldsSerialNumber": {
+            "type": "boolean",
+            "description": "Serial number captured required for Product \"true - Yes / false - No\"",
+            "example": true
+          },
+          "additionalProductId": {
+            "maxLength": 50,
+            "minLength": 0,
+            "type": "string",
+            "description": "Additional Product Id",
+            "example": "PRD12345678"
+          },
+          "additionalProductDescription": {
+            "maxLength": 250,
+            "minLength": 0,
+            "type": "string",
+            "description": "Additional Product Description",
+            "example": "AdditionalProductDescription"
+          }
+        },
+        "description": "Additional Product Attributes"
+      },
+      "AdditionalInformationDto": {
+        "type": "object",
+        "properties": {
+          "numericFields": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NumericFieldDto"
+            },
+            "description": "User defined numeric fields"
+          },
+          "textFields": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TextFieldDto"
+            },
+            "description": "User defined text fields"
+          }
+        },
+        "description": "Additional Information"
+      },
+      "NumericFieldDto": {
+        "required": [
+          "sequence"
+        ],
+        "type": "object",
+        "properties": {
+          "sequence": {
+            "maximum": 4.0,
+            "minimum": 1.0,
+            "type": "integer",
+            "description": "User Def Num 1-4",
+            "format": "int32",
+            "example": 1
+          },
+          "value": {
+            "maximum": 999999999.999999,
+            "minimum": 0.0,
+            "type": "number",
+            "description": "min: 0, max: 999999999.999999 (9.6)",
+            "example": 999999999.999999
+          }
+        },
+        "description": "User defined numeric fields"
+      },
+      "TextFieldDto": {
+        "required": [
+          "sequence"
+        ],
+        "type": "object",
+        "properties": {
+          "sequence": {
+            "maximum": 8.0,
+            "minimum": 1.0,
+            "type": "integer",
+            "description": "User Def Type 1-8",
+            "format": "int32",
+            "example": 1
+          },
+          "value": {
+            "maxLength": 30,
+            "minLength": 0,
+            "type": "string",
+            "description": "Max length 30 characters",
+            "example": "Value1"
+          }
+        },
+        "description": "User defined text fields"
+      },
+      "ProductDescriptionDto": {
+        "required": [
+          "description"
+        ],
+        "type": "object",
+        "properties": {
+          "language": {
+            "$ref": "#/components/schemas/CombinedLanguageCode"
+          },
+          "description": {
+            "maxLength": 80,
+            "minLength": 0,
+            "type": "string",
+            "description": "Product description",
+            "example": "Product description"
+          }
+        },
+        "description": " Product Description"
+      },
+      "CombinedLanguageCode": {
+        "enum": [
+          "AF_ZA",
+          "AM_ET",
+          "AR_AE",
+          "AR_BH",
+          "AR_DZ",
+          "AR_EG",
+          "AR_IQ",
+          "AR_JO",
+          "AR_KW",
+          "AR_LB",
+          "AR_LY",
+          "AR_MA",
+          "AR_OM",
+          "AR_QA",
+          "AR_SA",
+          "AR_SY",
+          "AR_TN",
+          "AR_YE",
+          "AS_IN",
+          "AZ_AZ",
+          "BA_RU",
+          "BE_BY",
+          "BG_BG",
+          "BN_BD",
+          "BN_IN",
+          "BO_CN",
+          "BR_FR",
+          "BS_BA",
+          "CA_ES",
+          "CO_FR",
+          "CS_CZ",
+          "CY_GB",
+          "DA_DK",
+          "DE_AT",
+          "DE_CH",
+          "DE_DE",
+          "DE_LI",
+          "DE_LU",
+          "DV_MV",
+          "EL_GR",
+          "EN_AU",
+          "EN_BZ",
+          "EN_CA",
+          "EN_GB",
+          "EN_IE",
+          "EN_IN",
+          "EN_JM",
+          "EN_MY",
+          "EN_NZ",
+          "EN_PH",
+          "EN_SG",
+          "EN_TT",
+          "EN_US",
+          "EN_ZA",
+          "EN_ZW",
+          "ES_AR",
+          "ES_BO",
+          "ES_CL",
+          "ES_CO",
+          "ES_CR",
+          "ES_DO",
+          "ES_EC",
+          "ES_ES",
+          "ES_GT",
+          "ES_HN",
+          "ES_MX",
+          "ES_NI",
+          "ES_PA",
+          "ES_PE",
+          "ES_PR",
+          "ES_PY",
+          "ES_SV",
+          "ES_US",
+          "ES_UY",
+          "ES_VE",
+          "ET_EE",
+          "EU_ES",
+          "FA_IR",
+          "FI_FI",
+          "FO_FO",
+          "FR_BE",
+          "FR_CA",
+          "FR_CH",
+          "FR_FR",
+          "FR_LU",
+          "FR_MC",
+          "FY_NL",
+          "GA_IE",
+          "GD_GB",
+          "GL_ES",
+          "GU_IN",
+          "HA_NG",
+          "HE_IL",
+          "HI_IN",
+          "HR_BA",
+          "HR_HR",
+          "HT_HT",
+          "HU_HU",
+          "HY_AM",
+          "ID_ID",
+          "IG_NG",
+          "II_CN",
+          "IS_IS",
+          "IT_CH",
+          "IT_IT",
+          "IU_CA",
+          "JA_JP",
+          "JV_ID",
+          "KA_GE",
+          "KK_KZ",
+          "KL_GL",
+          "KM_KH",
+          "KN_IN",
+          "KO_KR",
+          "KY_KG",
+          "KY_KZ",
+          "LB_LU",
+          "LO_LA",
+          "LT_LT",
+          "LV_LV",
+          "MG_MG",
+          "MI_NZ",
+          "MK_MK",
+          "ML_IN",
+          "MN_CN",
+          "MN_MN",
+          "MR_IN",
+          "MS_BN",
+          "MS_MY",
+          "MT_MT",
+          "MY_MM",
+          "NB_NO",
+          "NE_NP",
+          "NL_BE",
+          "NL_NL",
+          "NN_NO",
+          "NO_NO",
+          "NY_MW",
+          "OC_FR",
+          "OR_IN",
+          "PA_IN",
+          "PL_PL",
+          "PS_AF",
+          "PT_BR",
+          "PT_PT",
+          "QU_BO",
+          "QU_EC",
+          "QU_PE",
+          "RM_CH",
+          "RO_RO",
+          "RU_RU",
+          "RW_RW",
+          "SA_IN",
+          "SD_IN",
+          "SD_PK",
+          "SE_FI",
+          "SE_NO",
+          "SE_SE",
+          "SI_LK",
+          "SK_SK",
+          "SL_SI",
+          "SM_AS",
+          "SM_WS",
+          "SN_ZW",
+          "SO_SO",
+          "SQ_AL",
+          "SR_BA",
+          "SR_ME",
+          "SR_RS",
+          "SU_ID",
+          "SV_FI",
+          "SV_SE",
+          "SW_KE",
+          "TA_IN",
+          "TE_IN",
+          "TG_TJ",
+          "TH_TH",
+          "TI_ER",
+          "TI_ET",
+          "TK_TM",
+          "TL_PH",
+          "TN_ZA",
+          "TR_TR",
+          "TS_ZA",
+          "TT_RU",
+          "UG_CN",
+          "UK_UA",
+          "UR_PK",
+          "UZ_UZ",
+          "VI_VN",
+          "WO_SN",
+          "XH_ZA",
+          "YO_NG",
+          "ZH_CN",
+          "ZH_HK",
+          "ZH_MO",
+          "ZH_SG",
+          "ZH_TW",
+          "ZU_ZA"
+        ],
+        "type": "string",
+        "description": ""
+      },
+      "ProductStackConfigurationDto": {
+        "type": "object",
+        "properties": {
+          "productUOM": {
+            "$ref": "#/components/schemas/ProductUOM"
+          },
+          "quantityInUOM": {
+            "maximum": 999999.0,
+            "minimum": 0.0,
+            "type": "integer",
+            "description": "If productUOM is 'EACH', quantityInUOM must be set to 1 (min: 0, max: 999999 (6.0))",
+            "format": "int32",
+            "example": 999999
+          },
+          "weight": {
+            "maximum": 9999999.999999,
+            "minimum": 0.0,
+            "type": "number",
+            "description": "Weight of the second track level of the product - default Uom is kilograms. [min: 0, max: 9999999.999999 (7.6)]",
+            "example": 9999999.999999
+          },
+          "weightUOM": {
+            "$ref": "#/components/schemas/WeightUOM"
+          },
+          "volume": {
+            "maximum": 9999999.999999,
+            "minimum": 0.0,
+            "type": "number",
+            "description": "Volume of the second track level of the product - default Uom is cubic meter. [min: 0, max: 9999999.999999 (7.6)]",
+            "example": 9999999.999999
+          },
+          "volumeUOM": {
+            "$ref": "#/components/schemas/VolumeUOM"
+          },
+          "height": {
+            "maximum": 9999.999,
+            "minimum": 0.0,
+            "type": "number",
+            "description": "Height of the second track level of the product - default Uom is meters. [min: 0, max: 9999.999 (4.3)]",
+            "example": 9999.999
+          },
+          "width": {
+            "maximum": 9999.999,
+            "minimum": 0.0,
+            "type": "number",
+            "description": "Width of the second track level of the product - default Uom is meters. [min: 0, max: 9999.999 (4.3)]",
+            "example": 9999.999
+          },
+          "depth": {
+            "maximum": 9999.999,
+            "minimum": 0.0,
+            "type": "number",
+            "description": "Depth (length) of the second track level of the product - default Uom is meters. [min: 0, max: 9999.999 (4.3)]",
+            "example": 9999.999
+          },
+          "dimensionUOM": {
+            "$ref": "#/components/schemas/DimensionUOM"
+          }
+        },
+        "description": "Product Stack Configuration"
+      },
+      "ProductUOM": {
+        "enum": [
+          "EACH",
+          "INNERBOX",
+          "BOX",
+          "OUTERBOX",
+          "LAYER",
+          "PALLET",
+          "METERS",
+          "ROLLS",
+          "LITER",
+          "DRUMS",
+          "CRATE",
+          "BOTTLE",
+          "KGM"
+        ],
+        "type": "string",
+        "description": ""
+      }
+    },
+    "securitySchemes": {
+      "apiKeyHeader": {
+        "type": "apiKey",
+        "name": "DSV-Subscription-Key",
+        "in": "header"
+      },
+      "apiKeyQuery": {
+        "type": "apiKey",
+        "name": "DSV-Subscription-Key",
+        "in": "query"
+      }
+    }
+  },
+  "security": [
+    {
+      "apiKeyHeader": []
+    },
+    {
+      "apiKeyQuery": []
+    }
+  ]
+}

@@ -1,0 +1,196 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Loadplan - SCM",
+    "version": "v2"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "DSV-Subscription-Key",
+      "value": "{{DSV-Subscription-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "LoadPlans",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "7. Search Criteria",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.dsv.com/om/loadplans/v2/loadplan/SearchCriteria",
+            "headers": [
+              {
+                "name": "authorization",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Search Criteria"
+        },
+        {
+          "info": {
+            "name": "6. Loadplan by Number",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dsv.com/om/loadplans/v2/loadplan/:number",
+            "headers": [
+              {
+                "name": "authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "number",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Loadplan by Number"
+        },
+        {
+          "info": {
+            "name": "5. Delete Loadplan by Id",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.dsv.com/om/loadplans/v2/loadplan/:id",
+            "headers": [
+              {
+                "name": "authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Format - uuid."
+              }
+            ]
+          },
+          "docs": "Delete Loadplan by Id"
+        },
+        {
+          "info": {
+            "name": "4. Change State",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.dsv.com/om/loadplans/v2/loadplan/ChangeState",
+            "headers": [
+              {
+                "name": "authorization",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Change State"
+        },
+        {
+          "info": {
+            "name": "3. Assign loadPlanNumber to bookingNumber",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.dsv.com/om/loadplans/v2/loadplan/AssignBooking/:bookingNumber/:loadPlanNumber",
+            "headers": [
+              {
+                "name": "authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "bookingNumber",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "loadPlanNumber",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Assign loadPlanNumber to bookingNumber"
+        },
+        {
+          "info": {
+            "name": "2. Deassign loadPlanNumber from bookingNumber",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.dsv.com/om/loadplans/v2/loadplan/DeassignBooking/:bookingNumber/:loadPlanNumber",
+            "headers": [
+              {
+                "name": "authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "bookingNumber",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "loadPlanNumber",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Deassign loadPlanNumber from bookingNumber"
+        },
+        {
+          "info": {
+            "name": "1. Create loadPlan",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.dsv.com/om/loadplans/v2/loadplan",
+            "headers": [
+              {
+                "name": "authorization",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create loadPlan"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

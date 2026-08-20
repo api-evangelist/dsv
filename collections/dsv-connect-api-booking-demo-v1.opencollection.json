@@ -1,0 +1,29 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Connect Booking API (DEMO)",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "DSV-Subscription-Key",
+      "value": "{{DSV-Subscription-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Unified SOAP endpoint",
+        "type": "http"
+      },
+      "http": {
+        "method": "POST",
+        "url": "https://api.dsv.com/connect-demo/booking/v1/BookingWebService"
+      },
+      "docs": "All operations are invoked via SOAP body:\n- getBookingRequestLand\n- getBookingRequestAir\n- getBookingRequestOceanLCL\n- getBookingRequestOceanFCL\n- getBookingCancelRequest\n- getBookingBarcodeRequest\n- getWaybillRequest\n- getFreightListRequest"
+    }
+  ],
+  "bundled": true
+}
