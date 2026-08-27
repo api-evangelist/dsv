@@ -14,7 +14,13 @@ description: 'DSV A/S is a Danish transport and logistics group headquartered in
   DSV''s customer base the real integration path is still EDIFACT D10B, ANSI X12 and DSV XML message packages
   moved over AS2, SFTP or HTTPS. The REST surface is entirely DSV-proprietary: no DCSA, IATA ONE Record,
   Cargo-XML or GS1 EPCIS conformance is claimed anywhere.'
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/groq.png
+imageNote: >-
+  The `image` property was removed on 2026-08-26. It had been copied verbatim out of a
+  bootstrap template and pointed at an icon belonging to groq, not to this company.
+  That asset returns HTTP 200, so the record rendered another company's brand
+  rather than a broken image, which is why it went unreported (roadmap#153).
+  No correct icon has been sourced yet. Shipping the wrong company's mark is worse
+  than shipping none; re-run the icon backfill once a real asset exists.
 tags:
 - Logistics
 - Supply Chain
