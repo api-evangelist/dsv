@@ -3,7 +3,7 @@ provider: DSV
 generated_by: planning/capability-mapping/scripts/classify_capabilities.py
 model: claude-opus-5
 frame:
-- Software & Technology
+- Transportation & Logistics
 min_confidence: 0.7
 capability_model:
   source: https://github.com/vincentmakes/turbo-ea-capabilities
@@ -11,155 +11,187 @@ capability_model:
   attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
     CC BY 4.0
   notice: NOTICE
-edge_count: 14
+edge_count: 18
 edges:
-- tag: Shipment
-  spec_file: dsv-shipment-api-openapi.yml
-  capability_id: BC-520.50
-  capability_id_l1: BC-520
-  capability_name: Logistics Operations Management
-  confidence: 0.82
-  evidence: '"Track the status and latest events of your bookings and shipments moved by DSV"; GET /shipmentDetails/{shipmentId}
-    "Shipment details by DSV Shipment ID"'
-  reason: Freight shipment visibility/tracking for a forwarder — transport execution and shipment status,
-    i.e. logistics operations within the supply chain.
-- tag: Shipment details
-  spec_file: dsv-shipment-details-api-openapi.yml
-  capability_id: BC-520.50
-  capability_id_l1: BC-520
-  capability_name: Logistics Operations Management
-  confidence: 0.82
-  evidence: getShipmentByBookingId "Shipment details by DSV Booking ID"; schemas TransportApiDto, CustomsApiDto,
-    Carrier
-  reason: Retrieval of freight shipment/transport details and events for booked shipments — logistics
-    operations (transport) management.
+- tag: Declarations
+  spec_file: dsv-declarations-api-openapi.yml
+  capability_id: BC-2480.20
+  capability_id_l1: BC-2480
+  capability_name: Customs Declaration Management
+  confidence: 0.95
+  evidence: '"Transmit cleared customs declaration data", "Get draft customs declaration by ID"; schemas
+    CustomsDeclarationRequest, Declaration, Guarantee, Tax'
+  reason: Operations transmit, retrieve and amend customs declarations with declaration, guarantee and
+    tax line schemas — filing of customs declarations. No other reading fits.
 - tag: Tracking
   spec_file: dsv-tracking-api-openapi.yml
-  capability_id: BC-520.50
-  capability_id_l1: BC-520
-  capability_name: Logistics Operations Management
-  confidence: 0.82
-  evidence: trackShipment "Events by DSV Shipment ID"; trackShipmentByAwb "Events by AWB number"; schemas
-    TrackingEvent, TrackingDelivery
-  reason: Carrier/AWB-level shipment event tracking for freight forwarding — transport visibility within
-    logistics operations.
-- tag: Inventory
-  spec_file: dsv-inventory-api-openapi.yml
-  capability_id: BC-530
-  capability_id_l1: BC-530
-  capability_name: Inventory Management
-  confidence: 0.8
-  evidence: GET /inventory/{warehouseId} 'Request a full inventory' ... InventoryDto, InventoryByProductDto,
-    InventoryDetailsDto, QuantityDto
-  reason: Reads stock on hand per warehouse and per product from a WMS — plainly inventory visibility.
-    Kept at L1 because the operations only expose read-out of stock, not specifically stock-level policy,
-    replenishment or accuracy sub-processes.
+  capability_id: BC-2510.20
+  capability_id_l1: BC-2510
+  capability_name: Shipment Tracking Management
+  confidence: 0.92
+  evidence: '"Track the status and latest events of your bookings and shipments moved by DSV"; trackShipment
+    "Events by DSV Shipment ID", schema TrackingEvent'
+  reason: Explicit shipment tracking by shipment ID, carrier tracking number and AWB, returning tracking
+    events and delivery status.
 - tag: TrackingWebServiceV3
   spec_file: dsv-trackingwebservicev3-api-openapi.yml
-  capability_id: BC-520.50
-  capability_id_l1: BC-520
-  capability_name: Logistics Operations Management
-  confidence: 0.8
-  evidence: '"Get shipment tracking details"; schemas GetShipmentDetailsResponse, ShipmentBasicInfo, StatusEvent,
-    Location'
-  reason: SOAP shipment tracking service returning shipment status events and locations — freight transport
-    visibility, i.e. logistics operations management.
-- tag: Shipment list
-  spec_file: dsv-shipment-list-api-openapi.yml
-  capability_id: BC-520.50
-  capability_id_l1: BC-520
-  capability_name: Logistics Operations Management
-  confidence: 0.78
-  evidence: POST /shipments/list "Shipment list"; schemas ShipmentSummaryAPI, Sender, Receiver, GoodsSummaryDto;
-    "Submit trackings to DSV via the tracking API"
-  reason: Bulk retrieval/tracking of freight shipments across transport modes — transport visibility,
-    i.e. logistics operations.
-- tag: Shipments
-  spec_file: dsv-shipments-api-openapi.yml
-  capability_id: BC-520.50
-  capability_id_l1: BC-520
-  capability_name: Logistics Operations Management
-  confidence: 0.78
-  evidence: '"1. Search for Shipments by criteria"; schemas Entities.Shipment, Entities.TransportSummary,
-    Enums.ShipmentState, Entities.DangerousGoods'
-  reason: Search over freight shipment/booking records with transport and container state — supply chain
-    logistics execution data, not a generic search utility.
-- tag: Booking
-  spec_file: dsv-booking-api-openapi.yml
-  capability_id: BC-520.50
-  capability_id_l1: BC-520
-  capability_name: Logistics Operations Management
-  confidence: 0.72
-  evidence: POST /bookings "1. Submit booking"; GET /bookings/labels/{shipmentId} "3. Confirm booking
-    & download labels"; DELETE /bookings/cancel/{shipmentId} "4. Cancel submitted booking"; schemas Pickup,
-    Incoterms, FreightPayer, SeaPortSelectionService
-  reason: Placing, confirming, labelling and cancelling freight shipments with a forwarder is transport
-    execution — Logistics Operations Management. Boundary with order fulfilment keeps confidence below
-    0.8.
+  capability_id: BC-2510.20
+  capability_id_l1: BC-2510
+  capability_name: Shipment Tracking Management
+  confidence: 0.9
+  evidence: POST /trackingWebServiceV3 "Get shipment tracking details"; schemas GetShipmentDetailsResponse,
+    StatusEvent, ShipmentBasicInfo
+  reason: SOAP-style shipment tracking service returning shipment details and status events across legs
+    — shipment tracking and status resolution.
 - tag: Invoices
   spec_file: dsv-invoices-api-openapi.yml
-  capability_id: BC-200
-  capability_id_l1: BC-200
-  capability_name: Financial Management
-  confidence: 0.72
-  evidence: '''Submit request for invoice demo details to DSV via the invoice demo API. The API supports
-    single invoices, credit notes, and consolidated invoices'' ... GET /invoices/pdf/{id} ''Invoice PDF
-    by DSV Invoice Id'''
-  reason: 'Retrieval of freight invoices, credit notes and invoice PDFs with charge line items and bank
-    details — invoice/billing document management. L1 only: from DSV''s side this is customer invoicing
-    (AR) while the API consumer experiences it as vendor invoice retrieval (AP), so the sub-capability
-    is genuinely ambiguous.'
-- tag: BPO Inbound
-  spec_file: dsv-bpo-inbound-api-openapi.yml
-  capability_id: BC-520.40
-  capability_id_l1: BC-520
-  capability_name: Order Fulfilment Management
-  confidence: 0.7
-  evidence: POST /Orders "1. Create or Update Order"; POST /Orders/SearchCriteria "2. Search Order"; DELETE
-    /Orders/{orderNumber}/{splitNo} "4. Cancel Order"; schemas OrderDto, Shipment, TransportSummary
-  reason: Order intake, amendment and cancellation feeding shipments and transport summaries at a freight
-    forwarder is order capture and fulfilment orchestration. Some ambiguity between order fulfilment and
-    logistics execution, hence 0.7.
-- tag: BookingWebService
-  spec_file: dsv-bookingwebservice-api-openapi.yml
-  capability_id: BC-520.50
-  capability_id_l1: BC-520
-  capability_name: Logistics Operations Management
-  confidence: 0.7
-  evidence: '"SOAP-based Booking API supporting:\n- Land\n- Air\n- Ocean (LCL / FCL)\n- Booking cancel\n-
-    Barcode retrieval\n- Waybill retrieval\n- Freight list"'
-  reason: A unified SOAP endpoint for booking land/air/ocean transport and retrieving waybills and barcodes
-    is freight transport execution, i.e. Logistics Operations Management.
+  capability_id: BC-2530.10
+  capability_id_l1: BC-2530
+  capability_name: Freight Invoicing Management
+  confidence: 0.88
+  evidence: '"Submit request for invoice demo details to DSV via the invoice demo API. The API supports
+    single invoices, credit notes, and consolidated invoices"; GET /invoices/pdf/{id} "Invoice PDF by
+    DSV Invoice Id"'
+  reason: Forwarder freight invoices, credit notes and consolidated invoices linked to shipments — freight
+    invoicing/settlement toward customers, not general AR ledger.
+- tag: Booking
+  spec_file: dsv-booking-api-openapi.yml
+  capability_id: BC-2400.40
+  capability_id_l1: BC-2400
+  capability_name: Booking and Reservation Management
+  confidence: 0.85
+  evidence: '"1. Submit booking", "2. Validate booking", "7. Submit bulk bookings", "4. Cancel submitted
+    booking"'
+  reason: Submission, validation, bulk submission and cancellation of freight bookings against DSV's transport
+    services, with Order/Package/Party/Incoterms schemas — squarely booking and reservation management
+    for transport capacity.
 - tag: Bookings
   spec_file: dsv-bookings-api-openapi.yml
-  capability_id: BC-520.50
-  capability_id_l1: BC-520
-  capability_name: Logistics Operations Management
-  confidence: 0.7
-  evidence: POST /Bookings "4. Create or Update Booking(s)"; POST /Bookings/ChangeState "3. Change state
-    by booking number"; POST /event "2. Request Booking Cancellation"; schemas Shipment, TransportSummary,
-    EquipmentType
-  reason: Creating, searching and state-managing transport bookings with shipment, equipment and consolidation
-    detail is freight/transport execution within logistics operations.
-- tag: Draft
-  spec_file: dsv-draft-api-openapi.yml
-  capability_id: BC-520.50
-  capability_id_l1: BC-520
-  capability_name: Logistics Operations Management
-  confidence: 0.7
-  evidence: POST /bookings/createDraftBooking "3. Create draft booking"; PUT /bookings/addPackages/{bookingId}
-    "4. Add packages to draft booking"; POST /bookings/submitDraftBooking/{bookingId} "5. Submit draft
-    booking"
-  reason: Draft-stage construction and submission of Air/Sea/Road/Rail freight bookings, including packages
-    and labels, is transport booking execution under Logistics Operations Management.
+  capability_id: BC-2400.40
+  capability_id_l1: BC-2400
+  capability_name: Booking and Reservation Management
+  confidence: 0.85
+  evidence: '"4. Create or Update Booking(s)", "1. Search for Bookings by criteria", "2. Request Booking
+    Cancellation", schema eDC.Domain.Enums.BookingState'
+  reason: Create/update, search, state change and cancellation of freight bookings with BookingState/ShipmentState
+    enums — booking and reservation management for the forwarder's transport services.
 - tag: Public
   spec_file: dsv-public-api-openapi.yml
-  capability_id: BC-410.40
-  capability_id_l1: BC-410
-  capability_name: Quote & Configuration Management
+  capability_id: BC-2450.10
+  capability_id_l1: BC-2450
+  capability_name: Shipper Quotation Management
+  confidence: 0.85
+  evidence: '"Submit a quote request"; "Submit quote request", "Cancel quote request"; schemas QuoteRequest,
+    QuoteResponse, QuoteProvider, ModeOfTransport'
+  reason: Shipper-facing freight quotation request lifecycle at a freight forwarder — receipt of RFQs
+    and issuance of forwarder rates.
+- tag: Shipment
+  spec_file: dsv-shipment-api-openapi.yml
+  capability_id: BC-2510.20
+  capability_id_l1: BC-2510
+  capability_name: Shipment Tracking Management
+  confidence: 0.85
+  evidence: '"Track the status and latest events of your bookings and shipments moved by DSV"; "Shipment
+    details by DSV Shipment ID"'
+  reason: Customer-facing shipment status and event retrieval — shipment tracking within visibility management.
+- tag: Shipment details
+  spec_file: dsv-shipment-details-api-openapi.yml
+  capability_id: BC-2510.20
+  capability_id_l1: BC-2510
+  capability_name: Shipment Tracking Management
+  confidence: 0.85
+  evidence: '"Shipment details by Customer reference"; "Get device readings by search filter"; schema
+    EventApiDto'
+  reason: Resolves shipment status/events across identifiers plus IoT device readings — tracking and visibility
+    surface.
+- tag: BookingWebService
+  spec_file: dsv-bookingwebservice-api-openapi.yml
+  capability_id: BC-2400.40
+  capability_id_l1: BC-2400
+  capability_name: Booking and Reservation Management
+  confidence: 0.8
+  evidence: '"SOAP-based Booking API supporting:\n- Land\n- Air\n- Ocean (LCL / FCL)\n- Booking cancel\n-
+    Barcode retrieval\n- Waybill retrieval"; schemas AirOperation, OceanFCLOperation, CancelOperation'
+  reason: A unified SOAP endpoint for placing and cancelling multimodal bookings (plus label/waybill retrieval),
+    i.e. acceptance and cancellation of transport bookings.
+- tag: Draft
+  spec_file: dsv-draft-api-openapi.yml
+  capability_id: BC-2400.40
+  capability_id_l1: BC-2400
+  capability_name: Booking and Reservation Management
+  confidence: 0.8
+  evidence: '"3. Create draft booking", "4. Add packages to draft booking", "5. Submit draft booking"'
+  reason: Draft creation, amendment and submission of transport bookings for Air, Sea, Road and Rail —
+    the booking acceptance/modification surface, not a separate business function.
+- tag: Events
+  spec_file: dsv-events-api-openapi.yml
+  capability_id: BC-2510.10
+  capability_id_l1: BC-2510
+  capability_name: Event Capture and Status Management
+  confidence: 0.8
+  evidence: '"1. Create Events", "2. Create Events as a Service Provider"; schemas EventRequest, EventReference,
+    eDC.Domain.Enums.ContainerState, Entities.JobContainer'
+  reason: Ingestion of shipment/container milestone events from internal parties and service providers
+    into DSV's supply-chain platform — event capture and status management for shipment visibility, not
+    a webhook/technical eventing surface.
+- tag: Shipment list
+  spec_file: dsv-shipment-list-api-openapi.yml
+  capability_id: BC-2510.20
+  capability_id_l1: BC-2510
+  capability_name: Shipment Tracking Management
+  confidence: 0.8
+  evidence: '"Submit trackings to DSV via the tracking API. Supported transport modes: Air, Sea, Road
+    (EU) and Rail." — POST /shipments/list, schema ShipmentSummaryAPI'
+  reason: Operation returns a filtered list/summary of tracked shipments (sender, receiver, pickup, delivery,
+    dates) from a tracking API — resolution and delivery of shipment status to customers.
+- tag: Delivery
+  spec_file: dsv-delivery-api-openapi.yml
+  capability_id: BC-2460.30
+  capability_id_l1: BC-2460
+  capability_name: Outbound Operations Management
+  confidence: 0.75
+  evidence: '"Contract Logistics API - WMS Delivery Notification"; "Create Delivery Notification(s)";
+    schemas OutboundOrderType, DeliveryNotificationDto, TransportDetailsDeliveryNotificationDto'
+  reason: Warehouse-management delivery (outbound) notifications instructing goods dispatch from a contract-logistics
+    warehouse, evidenced by OutboundOrderType and outbound note schemas — outbound warehouse operations.
+- tag: Inbound
+  spec_file: dsv-inbound-api-openapi.yml
+  capability_id: BC-2460.10
+  capability_id_l1: BC-2460
+  capability_name: Inbound Operations Management
+  confidence: 0.75
+  evidence: '"Contract Logistics API - WMS Inbound Notification"; "Create Inbound Notification(s)"; schemas
+    InboundNotificationDto, SupplierDto, InboundOrderType'
+  reason: Advance notification of goods arriving into a contract-logistics warehouse (supplier, inbound
+    order type, line details), which drives receipt and putaway — inbound warehouse operations.
+- tag: Inventory
+  spec_file: dsv-inventory-api-openapi.yml
+  capability_id: BC-2460.20
+  capability_id_l1: BC-2460
+  capability_name: Storage and Inventory Operations Management
   confidence: 0.7
-  evidence: '''Submit a quote request'' ... POST /quotes ''Submit quote request'', POST /quotes/{quoteRequestId}/cancel
-    ''Cancel quote request'', schemas QuoteRequest, QuoteResponse, ServiceAndSurcharge'
-  reason: Full quote-request lifecycle (submit, retrieve, filter, cancel, attachments) for freight services
-    with incoterms, cargo type and surcharges — quotation management on the sell side. Tag name 'Public'
-    is meaningless; the operations are unambiguously quoting.
+  evidence: '"Request a full inventory" GET /inventory/{warehouseId}; "Get inventory by a single Product
+    Id"; schemas InventoryDto, InventoryDetailsDto, QuantityDto'
+  reason: Exposes stock on hand per warehouse and per product from DSV's contract-logistics WMS — warehouse
+    storage and inventory operations. Read-only stock visibility so some chance it belongs under generic
+    inventory management instead.
+- tag: Quote
+  spec_file: dsv-quote-api-openapi.yml
+  capability_id: BC-2450.10
+  capability_id_l1: BC-2450
+  capability_name: Shipper Quotation Management
+  confidence: 0.7
+  evidence: '"Request quotes based on agreed tariff rates and view the different service options"; "Rate
+    & Service request"; schemas ServiceRates, ServiceCharge'
+  reason: Returns priced service options against agreed tariffs to shippers — forwarder quotation; alternative
+    reading as rating-engine operation keeps confidence moderate.
+- tag: Shipments
+  spec_file: dsv-shipments-api-openapi.yml
+  capability_id: BC-2510.20
+  capability_id_l1: BC-2510
+  capability_name: Shipment Tracking Management
+  confidence: 0.7
+  evidence: POST /Shipments/SearchCriteria "1. Search for Shipments by criteria"; schemas Shipment, TransportSummary,
+    Event, ShipmentState
+  reason: Read-only search over shipment records returning transport summary, events and shipment state
+    — customer-facing shipment status resolution rather than booking creation.
