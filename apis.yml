@@ -5722,6 +5722,9 @@ apis:
     url: >-
       https://developer.dsv.com/content/WMS%20Notification%20Status%20v1.0%20API.postman_collection.zip
 common:
+- type: CapabilityMap
+  url: capabilities/dsv-capability-edges.yml
+  name: DSV Business Capability Map
 - type: Website
   url: https://www.dsv.com/
 - type: Portal
