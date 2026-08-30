@@ -1,0 +1,215 @@
+openapi: 3.2.0
+info:
+  title: DOWNLOAD (DEMO) - Air, Sea, Road (EU), Rail Shipment documents API
+  description: 'Download available documents for your bookings and shipments moved by DSV. Supported transport modes: Air, Sea, Road (EU), Rail and XPress.'
+  version: v1
+servers:
+- url: https://api.dsv.com/my-demo/download/v1
+security:
+- apiKeyHeader: []
+- apiKeyQuery: []
+tags:
+- name: Shipment documents
+paths:
+  /shipments/tmsId/{tmsId}/documents:
+    get:
+      tags:
+      - Shipment documents
+      summary: Shipment documents by DSV Shipment ID
+      description: 'Retrieve shipment''s documents list by searching the DSV Shipment ID.<BR>
+
+        <BR>
+
+        DEMO ACCOUNT<BR><BR><I>(User email: api.demo@demo.dsv.com / Password: Demo12345)</I> <BR><BR>
+
+        Sample Shipment ID: SDFW0090209 '
+      operationId: get-shipments-tmsid-documents
+      parameters:
+      - name: tmsId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: type
+        in: query
+        description: 'Type of documents to fetch. Possible value: POD'
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: DSV Oauth header
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DocumentDto'
+              example:
+              - shipmentId: string
+                documentId: string
+                documentType: string
+                typeDescription: string
+                createDate: string
+                fileName: string
+                fileType: string
+                downloadUrl: string
+                additionalId: string
+        '400':
+          description: Bad Request
+        '404':
+          description: Not Found
+  /shipments/bookingId/{bookingId}/documents:
+    get:
+      tags:
+      - Shipment documents
+      summary: Shipment documents by DSV BookingId ID
+      description: 'Retrieve shipment''s documents list by searching the DSV Booking ID.<BR>
+
+        <BR>
+
+        DEMO ACCOUNT<BR><BR><I>(User email: api.demo@demo.dsv.com / Password: Demo12345)</I> <BR><BR>
+
+        Sample Booking ID: 40288888880000190646'
+      operationId: get-shipments-bookingId-documents
+      parameters:
+      - name: bookingId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: type
+        in: query
+        description: 'Type of documents to fetch. Possible value: POD'
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: DSV Oauth header
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DocumentDto'
+              example:
+              - shipmentId: string
+                documentId: string
+                documentType: string
+                typeDescription: string
+                createDate: string
+                fileName: string
+                fileType: string
+                downloadUrl: string
+                additionalId: string
+        '400':
+          description: Bad Request
+        '404':
+          description: Not Found
+  /shipments/reference/{reference}/documents:
+    get:
+      tags:
+      - Shipment documents
+      summary: Shipment documents by Customer reference
+      description: 'Retrieve shipment''s documents list by searching the DSV Booking ID.<BR>
+
+        <BR>
+
+        DEMO ACCOUNT<BR><BR><I>(User email: api.demo@demo.dsv.com / Password: Demo12345)</I> <BR><BR>
+
+        Sample Customer Reference: XXX'
+      operationId: get-shipments-reference-documents
+      parameters:
+      - name: reference
+        in: path
+        description: Reference
+        required: true
+        schema:
+          type: string
+      - name: type
+        in: query
+        description: 'Type of documents to fetch. Possible value: POD'
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: DSV Oauth header
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DocumentDto'
+              example:
+              - shipmentId: string
+                documentId: string
+                documentType: string
+                typeDescription: string
+                createDate: string
+                fileName: string
+                fileType: string
+                downloadUrl: string
+                additionalId: string
+        '400':
+          description: Bad Request
+        '404':
+          description: Not Found
+components:
+  schemas:
+    DocumentDto:
+      type: object
+      properties:
+        shipmentId:
+          type: string
+          description: Identifier of the shipment
+        documentId:
+          type: string
+          description: Identifier of the document
+        documentType:
+          type: string
+          description: Type of the document
+        typeDescription:
+          type: string
+          description: Description of the document's type
+        createDate:
+          type: string
+          description: Document's upload date
+          format: date
+        fileName:
+          type: string
+          description: Name of the file
+        fileType:
+          type: string
+          description: Type of the file
+        downloadUrl:
+          type: string
+          description: Url for file download
+        additionalId:
+          type: string
+          description: Document additional ID
+  securitySchemes:
+    apiKeyHeader:
+      type: apiKey
+      name: DSV-Subscription-Key
+      in: header
+    apiKeyQuery:
+      type: apiKey
+      name: DSV-Subscription-Key
+      in: query

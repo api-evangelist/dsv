@@ -1,0 +1,1425 @@
+openapi: 3.2.0
+info:
+  title: WMS Notification (DEMO) Delivery API
+  description: 'Contract Logistics API - WMS Delivery Notification (DEMO) '
+  version: v1
+servers:
+- url: https://api.dsv.com/cl-demo/delivery/v1
+security:
+- apiKeyHeader: []
+- apiKeyQuery: []
+tags:
+- name: Delivery
+paths:
+  /deliveryNotification:
+    post:
+      tags:
+      - Delivery
+      summary: Create Delivery Notification(s)
+      description: Create Delivery Notification Order(s)
+      operationId: DeliveryNotification_Post
+      parameters:
+      - name: api-version
+        in: header
+        description: api-version
+        schema:
+          type: string
+        example: 1
+      - name: Authorization
+        in: header
+        description: OAuth header
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeliveryNotificationDto'
+            example:
+              deliveryNotification:
+              - warehouseId: a4b11-3a7f06
+                deliveryId: DI-993
+                purchaseOrder: PO-0346
+                customerOrderReference: 777XX
+                orderType: NORMAL
+                shipmentDates:
+                  orderDate: '2025-03-25T02:30:00.0000000+00:00'
+                  requestedShipDate: '2025-03-25T02:30:00.0000000+00:00'
+                  requestedDeliveryDate: '2025-03-25T02:30:00.0000000+00:00'
+                incoterms:
+                  code: EXW
+                  location: Denmark
+                transportDetails:
+                  carrierName: V1-55
+                  carrierMode: CM1-55
+                  deliveryPoint: D35A-Noida
+                delivery:
+                  partyId: PId123456
+                  companyName: DSV
+                  addressLine1: AddressLine1
+                  addressLine2: AddressLine2
+                  city: Copenhagen
+                  state: Capital Region of Denmark
+                  zipCode: '1000'
+                  countryCode: AF
+                  vatNumber: '#123456'
+                  contactName: Test
+                  contactPhone: '+1123456789'
+                  contactEmail: test@gmail.com
+                  contactMobile: '+1123456789'
+                invoice:
+                  partyId: PId123456
+                  companyName: DSV
+                  addressLine1: AddressLine1
+                  addressLine2: AddressLine2
+                  city: Copenhagen
+                  state: Capital Region of Denmark
+                  zipCode: '1000'
+                  countryCode: AF
+                  vatNumber: '#123456'
+                  contactName: Test
+                  contactPhone: '+1123456789'
+                  contactEmail: test@gmail.com
+                  contactMobile: '+1123456789'
+                hub:
+                  partyId: PId123456
+                  companyName: DSV
+                  addressLine1: AddressLine1
+                  addressLine2: AddressLine2
+                  city: Copenhagen
+                  state: Capital Region of Denmark
+                  zipCode: '1000'
+                  countryCode: AF
+                  vatNumber: '#123456'
+                  contactName: Test
+                  contactPhone: '+1123456789'
+                  contactEmail: test@gmail.com
+                  contactMobile: '+1123456789'
+                deliveryDetails:
+                  invoiceNumber: Inv-0155
+                  paymentTerms: EOM
+                  textOnDocumentsHeader: DocumentsHeader
+                  textOnDocumentsFooter1: DocumentsFooter1
+                  textOnDocumentsFooter2: DocumentsFooter2
+                additionalInformation:
+                  numericFields:
+                  - sequence: 1
+                    value: 999999999.999999
+                  textFields:
+                  - sequence: 1
+                    value: Value1
+                outboundNotes:
+                - code: C12-055
+                  text: txt-055-999438
+                deliveryItems:
+                - lineId: 55
+                  productId: P12-055
+                  quantity: 100
+                  customerProductId: CP-055
+                  conditionOfProduct: OK1
+                  lotId: LotId-055
+                  expirationDaysLeft: 7
+                  serialNumbers:
+                  - SN1234567890
+                  - SN1234567891
+                  customerProductDescription1: CustomerProductDescription1
+                  customerProductDescription2: CustomerProductDescription2
+                  customerOrderReference: CustomerOrderReference
+                  productValue:
+                    valueOfProduct: 999
+                    currency: AED
+                  additionalInformation:
+                    numericFields:
+                    - sequence: 1
+                      value: 999999999.999999
+                    textFields:
+                    - sequence: 1
+                      value: Value1
+                  outboundNotes:
+                  - code: C12-055
+                    text: txt-055-999438
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Request contains not valid data.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+              example:
+                code: ERR12345
+                message: 'Not found id : 4025988810785188'
+                fields:
+                - name: field_name
+                  message: validation error
+                  code: ERR12345
+                development:
+                  message: string
+                  exception: string
+        '401':
+          description: Not authorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+              example:
+                code: ERR12345
+                message: 'Not found id : 4025988810785188'
+                fields:
+                - name: field_name
+                  message: validation error
+                  code: ERR12345
+                development:
+                  message: string
+                  exception: string
+        '403':
+          description: Lack of privileges to use this method.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+              example:
+                code: ERR12345
+                message: 'Not found id : 4025988810785188'
+                fields:
+                - name: field_name
+                  message: validation error
+                  code: ERR12345
+                development:
+                  message: string
+                  exception: string
+        '500':
+          description: Internal Server Error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+              example:
+                code: ERR12345
+                message: 'Not found id : 4025988810785188'
+                fields:
+                - name: field_name
+                  message: validation error
+                  code: ERR12345
+                development:
+                  message: string
+                  exception: string
+    put:
+      tags:
+      - Delivery
+      summary: Update Delivery Notification(s)
+      description: Update existing Delivery Notification Order(s)
+      operationId: DeliveryNotification_Put
+      parameters:
+      - name: api-version
+        in: header
+        description: api-version
+        schema:
+          type: string
+        example: 1
+      - name: Authorization
+        in: header
+        description: OAuth header
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeliveryNotificationDto'
+            example:
+              deliveryNotification:
+              - warehouseId: a4b11-3a7f06
+                deliveryId: DI-993
+                purchaseOrder: PO-0346
+                customerOrderReference: 777XX
+                orderType: NORMAL
+                shipmentDates:
+                  orderDate: '2025-03-25T02:30:00.0000000+00:00'
+                  requestedShipDate: '2025-03-25T02:30:00.0000000+00:00'
+                  requestedDeliveryDate: '2025-03-25T02:30:00.0000000+00:00'
+                incoterms:
+                  code: EXW
+                  location: Denmark
+                transportDetails:
+                  carrierName: V1-55
+                  carrierMode: CM1-55
+                  deliveryPoint: D35A-Noida
+                delivery:
+                  partyId: PId123456
+                  companyName: DSV
+                  addressLine1: AddressLine1
+                  addressLine2: AddressLine2
+                  city: Copenhagen
+                  state: Capital Region of Denmark
+                  zipCode: '1000'
+                  countryCode: AF
+                  vatNumber: '#123456'
+                  contactName: Test
+                  contactPhone: '+1123456789'
+                  contactEmail: test@gmail.com
+                  contactMobile: '+1123456789'
+                invoice:
+                  partyId: PId123456
+                  companyName: DSV
+                  addressLine1: AddressLine1
+                  addressLine2: AddressLine2
+                  city: Copenhagen
+                  state: Capital Region of Denmark
+                  zipCode: '1000'
+                  countryCode: AF
+                  vatNumber: '#123456'
+                  contactName: Test
+                  contactPhone: '+1123456789'
+                  contactEmail: test@gmail.com
+                  contactMobile: '+1123456789'
+                hub:
+                  partyId: PId123456
+                  companyName: DSV
+                  addressLine1: AddressLine1
+                  addressLine2: AddressLine2
+                  city: Copenhagen
+                  state: Capital Region of Denmark
+                  zipCode: '1000'
+                  countryCode: AF
+                  vatNumber: '#123456'
+                  contactName: Test
+                  contactPhone: '+1123456789'
+                  contactEmail: test@gmail.com
+                  contactMobile: '+1123456789'
+                deliveryDetails:
+                  invoiceNumber: Inv-0155
+                  paymentTerms: EOM
+                  textOnDocumentsHeader: DocumentsHeader
+                  textOnDocumentsFooter1: DocumentsFooter1
+                  textOnDocumentsFooter2: DocumentsFooter2
+                additionalInformation:
+                  numericFields:
+                  - sequence: 1
+                    value: 999999999.999999
+                  textFields:
+                  - sequence: 1
+                    value: Value1
+                outboundNotes:
+                - code: C12-055
+                  text: txt-055-999438
+                deliveryItems:
+                - lineId: 55
+                  productId: P12-055
+                  quantity: 100
+                  customerProductId: CP-055
+                  conditionOfProduct: OK1
+                  lotId: LotId-055
+                  expirationDaysLeft: 7
+                  serialNumbers:
+                  - SN1234567890
+                  - SN1234567891
+                  customerProductDescription1: CustomerProductDescription1
+                  customerProductDescription2: CustomerProductDescription2
+                  customerOrderReference: CustomerOrderReference
+                  productValue:
+                    valueOfProduct: 999
+                    currency: AED
+                  additionalInformation:
+                    numericFields:
+                    - sequence: 1
+                      value: 999999999.999999
+                    textFields:
+                    - sequence: 1
+                      value: Value1
+                  outboundNotes:
+                  - code: C12-055
+                    text: txt-055-999438
+      responses:
+        '200':
+          description: Request submitted successfull.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeliveryNotificationDto'
+              example:
+                deliveryNotification:
+                - warehouseId: a4b11-3a7f06
+                  deliveryId: DI-993
+                  purchaseOrder: PO-0346
+                  customerOrderReference: 777XX
+                  orderType: NORMAL
+                  shipmentDates:
+                    orderDate: '2025-03-25T02:30:00.0000000+00:00'
+                    requestedShipDate: '2025-03-25T02:30:00.0000000+00:00'
+                    requestedDeliveryDate: '2025-03-25T02:30:00.0000000+00:00'
+                  incoterms:
+                    code: EXW
+                    location: Denmark
+                  transportDetails:
+                    carrierName: V1-55
+                    carrierMode: CM1-55
+                    deliveryPoint: D35A-Noida
+                  delivery:
+                    partyId: PId123456
+                    companyName: DSV
+                    addressLine1: AddressLine1
+                    addressLine2: AddressLine2
+                    city: Copenhagen
+                    state: Capital Region of Denmark
+                    zipCode: '1000'
+                    countryCode: AF
+                    vatNumber: '#123456'
+                    contactName: Test
+                    contactPhone: '+1123456789'
+                    contactEmail: test@gmail.com
+                    contactMobile: '+1123456789'
+                  invoice:
+                    partyId: PId123456
+                    companyName: DSV
+                    addressLine1: AddressLine1
+                    addressLine2: AddressLine2
+                    city: Copenhagen
+                    state: Capital Region of Denmark
+                    zipCode: '1000'
+                    countryCode: AF
+                    vatNumber: '#123456'
+                    contactName: Test
+                    contactPhone: '+1123456789'
+                    contactEmail: test@gmail.com
+                    contactMobile: '+1123456789'
+                  hub:
+                    partyId: PId123456
+                    companyName: DSV
+                    addressLine1: AddressLine1
+                    addressLine2: AddressLine2
+                    city: Copenhagen
+                    state: Capital Region of Denmark
+                    zipCode: '1000'
+                    countryCode: AF
+                    vatNumber: '#123456'
+                    contactName: Test
+                    contactPhone: '+1123456789'
+                    contactEmail: test@gmail.com
+                    contactMobile: '+1123456789'
+                  deliveryDetails:
+                    invoiceNumber: Inv-0155
+                    paymentTerms: EOM
+                    textOnDocumentsHeader: DocumentsHeader
+                    textOnDocumentsFooter1: DocumentsFooter1
+                    textOnDocumentsFooter2: DocumentsFooter2
+                  additionalInformation:
+                  - numericFields:
+                      sequence: 1
+                      value: 999999999.999999
+                    textFields:
+                      sequence: 1
+                      value: Value1
+                  outboundNotes:
+                  - code: C12-055
+                    text: txt-055-999438
+                  deliveryItems:
+                  - lineId: 55
+                    productId: P12-055
+                    quantity: 100
+                    customerProductId: CP-055
+                    conditionOfProduct: OK1
+                    lotId: LotId-055
+                    expirationDaysLeft: 7
+                    serialNumbers:
+                    - SN1234567890
+                    - SN1234567891
+                    customerProductDescription1: CustomerProductDescription1
+                    customerProductDescription2: CustomerProductDescription2
+                    customerOrderReference: CustomerOrderReference
+                    productValue:
+                      valueOfProduct: 999
+                      currency: AED
+                    additionalInformation:
+                    - numericFields:
+                        sequence: 1
+                        value: 999999999.999999
+                      textFields:
+                        sequence: 1
+                        value: Value1
+                    outboundNotes:
+                    - code: C12-055
+                      text: txt-055-999438
+        '400':
+          description: Request contains not valid data.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+              example:
+                code: ERR12345
+                message: 'Not found id : 4025988810785188'
+                fields:
+                - name: field_name
+                  message: validation error
+                  code: ERR12345
+                development:
+                  message: string
+                  exception: string
+        '401':
+          description: Not authorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+              example:
+                code: ERR12345
+                message: 'Not found id : 4025988810785188'
+                fields:
+                - name: field_name
+                  message: validation error
+                  code: ERR12345
+                development:
+                  message: string
+                  exception: string
+        '403':
+          description: Lack of privileges to use this method.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+              example:
+                code: ERR12345
+                message: 'Not found id : 4025988810785188'
+                fields:
+                - name: field_name
+                  message: validation error
+                  code: ERR12345
+                development:
+                  message: string
+                  exception: string
+        '500':
+          description: Internal Server Error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+              example:
+                code: ERR12345
+                message: 'Not found id : 4025988810785188'
+                fields:
+                - name: field_name
+                  message: validation error
+                  code: ERR12345
+                development:
+                  message: string
+                  exception: string
+components:
+  schemas:
+    CurrencyCode:
+      enum:
+      - AED
+      - AFN
+      - ALL
+      - AMD
+      - ANG
+      - AOA
+      - ARS
+      - AUD
+      - AWG
+      - AZN
+      - BAM
+      - BBD
+      - BDT
+      - BGN
+      - BHD
+      - BIF
+      - BMD
+      - BND
+      - BOB
+      - BOV
+      - BRL
+      - BSD
+      - BTN
+      - BWP
+      - BYN
+      - BZD
+      - CAD
+      - CDF
+      - CHE
+      - CHF
+      - CHW
+      - CLF
+      - CLP
+      - CNY
+      - COP
+      - COU
+      - CRC
+      - CUC
+      - CUP
+      - CVE
+      - CZK
+      - DJF
+      - DKK
+      - DOP
+      - DZD
+      - EGP
+      - ERN
+      - ETB
+      - EUR
+      - FJD
+      - FKP
+      - GBP
+      - GEL
+      - GHS
+      - GIP
+      - GMD
+      - GNF
+      - GTQ
+      - GYD
+      - HKD
+      - HNL
+      - HTG
+      - HUF
+      - IDR
+      - ILS
+      - INR
+      - IQD
+      - IRR
+      - ISK
+      - JMD
+      - JOD
+      - JPY
+      - KES
+      - KGS
+      - KHR
+      - KMF
+      - KPW
+      - KRW
+      - KWD
+      - KYD
+      - KZT
+      - LAK
+      - LBP
+      - LKR
+      - LRD
+      - LSL
+      - LYD
+      - MAD
+      - MDL
+      - MGA
+      - MKD
+      - MMK
+      - MNT
+      - MOP
+      - MRU
+      - MUR
+      - MVR
+      - MWK
+      - MXN
+      - MXV
+      - MYR
+      - MZN
+      - NAD
+      - NGN
+      - NIO
+      - NOK
+      - NPR
+      - NZD
+      - OMR
+      - PAB
+      - PEN
+      - PGK
+      - PHP
+      - PKR
+      - PLN
+      - PYG
+      - QAR
+      - RON
+      - RSD
+      - RUB
+      - RWF
+      - SAR
+      - SBD
+      - SCR
+      - SDG
+      - SEK
+      - SGD
+      - SHP
+      - SLE
+      - SOS
+      - SRD
+      - SSP
+      - STN
+      - SVC
+      - SYP
+      - SZL
+      - THB
+      - TJS
+      - TMT
+      - TND
+      - TOP
+      - TRY
+      - TTD
+      - TWD
+      - TZS
+      - UAH
+      - UGX
+      - USD
+      - USN
+      - UYI
+      - UYU
+      - UZS
+      - VED
+      - VEF
+      - VND
+      - VUV
+      - WST
+      - XAF
+      - XCD
+      - XDR
+      - XOF
+      - XPF
+      - XSU
+      - XUA
+      - YER
+      - ZAR
+      - ZMW
+      - ZWL
+      type: string
+      description: 3-digit currency code (ISO 4217-3) <br>If valueOfProduct is provided, currency becomes mandatory
+    DeliveryNotificationItemDto:
+      required:
+      - warehouseId
+      - deliveryId
+      - deliveryItems
+      type: object
+      properties:
+        warehouseId:
+          maxLength: 20
+          minLength: 0
+          type: string
+          description: To be resolved in token database
+          example: a4b11-3a7f06
+        deliveryId:
+          maxLength: 20
+          minLength: 0
+          type: string
+          description: Unique order name/number/identifier
+          example: DI-993
+        purchaseOrder:
+          maxLength: 25
+          minLength: 0
+          type: string
+          description: Purchase order reference.
+          example: PO-0346
+        customerOrderReference:
+          maxLength: 35
+          minLength: 0
+          type: string
+          description: Reference to the order number of customer.
+          example: 777XX
+        orderType:
+          $ref: '#/components/schemas/OutboundOrderType'
+        shipmentDates:
+          $ref: '#/components/schemas/ShipmentDatesDto'
+        incoterms:
+          $ref: '#/components/schemas/IncotermsDto'
+        transportDetails:
+          $ref: '#/components/schemas/TransportDetailsDeliveryNotificationDto'
+        delivery:
+          $ref: '#/components/schemas/AddressDto'
+        invoice:
+          $ref: '#/components/schemas/AddressDto'
+        hub:
+          $ref: '#/components/schemas/AddressDto'
+        deliveryDetails:
+          $ref: '#/components/schemas/DeliveryDetailsDto'
+        additionalInformation:
+          $ref: '#/components/schemas/AdditionalInformationDto'
+        outboundNotes:
+          type: array
+          items:
+            $ref: '#/components/schemas/OutboundNoteDto'
+          description: Outbound Notes
+        deliveryItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeliveryItemDto'
+          description: Delivery Items
+      description: Delivery Notification Item
+    NumericFieldDto:
+      required:
+      - sequence
+      type: object
+      properties:
+        sequence:
+          maximum: 4.0
+          minimum: 1.0
+          type: integer
+          description: User Def Num 1-4
+          format: int32
+          example: 1
+        value:
+          maximum: 999999999.999999
+          minimum: 0.0
+          type: number
+          description: 'min: 0, max: 999999999.999999 (9.6)'
+          example: 999999999.999999
+      description: User defined numeric fields
+    IncotermsEnum:
+      enum:
+      - EXW
+      - FCA
+      - CPT
+      - CIP
+      - DAP
+      - DPU
+      - DDP
+      - FAS
+      - FOB
+      - CFR
+      - CIF
+      - DDU
+      type: string
+      description: ''
+    FieldDTO:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Error name
+          example: field_name
+        message:
+          type: string
+          description: Description of error
+          example: validation error
+        code:
+          type: string
+          description: Type of error
+          example: ERR12345
+    ShipmentDatesDto:
+      type: object
+      properties:
+        orderDate:
+          type: string
+          description: 'The date/time the order was created as supplied by the customer Format: CCYY-MM-DDTHH:mm:ssZ'
+          example: '2025-03-25T14:30:00Z'
+        requestedShipDate:
+          type: string
+          description: 'The date-time the order is due to be shipped to the buyer Format: CCYY-MM-DDTHH:mm:ssZ'
+          example: '2025-03-25T14:30:00Z'
+        requestedDeliveryDate:
+          type: string
+          description: 'The date-time the order is due to be delivered to the buyer Format: CCYY-MM-DDTHH:mm:ssZ'
+          example: '2025-03-25T14:30:00Z'
+      description: Shipment Dates
+    ProductValueDto:
+      type: object
+      properties:
+        valueOfProduct:
+          maximum: 999999999.999999
+          minimum: 0.0
+          type: number
+          description: Selling price of the lowest track level of the product
+          example: 999
+        currency:
+          $ref: '#/components/schemas/CurrencyCode'
+      description: Product Value
+    AddressDto:
+      type: object
+      properties:
+        partyId:
+          maxLength: 15
+          minLength: 0
+          type: string
+          description: Unique code identifying the address
+          example: PId123456
+        companyName:
+          maxLength: 50
+          minLength: 0
+          type: string
+          description: Company name
+          example: DSV
+        addressLine1:
+          maxLength: 60
+          minLength: 0
+          type: string
+          description: Address line 1.
+          example: AddressLine1
+        addressLine2:
+          maxLength: 60
+          minLength: 0
+          type: string
+          description: Address line 2.
+          example: AddressLine2
+        city:
+          maxLength: 60
+          minLength: 0
+          type: string
+          description: Address town
+          example: Copenhagen
+        state:
+          maxLength: 60
+          minLength: 0
+          type: string
+          description: Address county or state
+          example: Capital Region of Denmark
+        zipCode:
+          maxLength: 20
+          minLength: 0
+          type: string
+          description: Postal Code
+          example: '1000'
+        countryCode:
+          $ref: '#/components/schemas/CountryCode'
+        vatNumber:
+          maxLength: 20
+          minLength: 0
+          type: string
+          description: Supplier VAT number
+          example: '#123456'
+        contactName:
+          maxLength: 25
+          minLength: 0
+          type: string
+          description: Contact name
+          example: Test
+        contactPhone:
+          maxLength: 25
+          minLength: 0
+          type: string
+          description: Phone number
+          example: '+1123456789'
+        contactEmail:
+          maxLength: 70
+          minLength: 0
+          type: string
+          description: Email
+          format: email
+          example: test@gmail.com
+        contactMobile:
+          maxLength: 15
+          minLength: 0
+          type: string
+          description: Mobile number
+          example: '+1123456789'
+      description: Address
+    TextFieldDto:
+      required:
+      - sequence
+      type: object
+      properties:
+        sequence:
+          maximum: 8.0
+          minimum: 1.0
+          type: integer
+          description: User Def Type 1-8
+          format: int32
+          example: 1
+        value:
+          maxLength: 30
+          minLength: 0
+          type: string
+          description: Max length 30 characters
+          example: Value1
+      description: User defined text fields
+    AdditionalInformationDto:
+      type: object
+      properties:
+        numericFields:
+          type: array
+          items:
+            $ref: '#/components/schemas/NumericFieldDto'
+          description: User defined numeric fields
+        textFields:
+          type: array
+          items:
+            $ref: '#/components/schemas/TextFieldDto'
+          description: User defined text fields
+      description: Additional Information
+    ConditionCode:
+      enum:
+      - OK1
+      - OK2
+      - DM1
+      - DM2
+      - HO1
+      - HO2
+      - QU1
+      - QU2
+      - RN1
+      - RN2
+      - SC1
+      - SC2
+      type: string
+      description: ''
+    DeliveryDetailsDto:
+      type: object
+      properties:
+        invoiceNumber:
+          maxLength: 35
+          minLength: 0
+          type: string
+          description: Invoice Number
+          example: Inv-0155
+        paymentTerms:
+          maxLength: 35
+          minLength: 0
+          type: string
+          description: Payment Terms
+          example: EOM
+        textOnDocumentsHeader:
+          maxLength: 80
+          minLength: 0
+          type: string
+          description: Documentation_Text_1
+          example: DocumentsHeader
+        textOnDocumentsFooter1:
+          maxLength: 80
+          minLength: 0
+          type: string
+          description: Documentation_Text_2
+          example: DocumentsFooter1
+        textOnDocumentsFooter2:
+          maxLength: 80
+          minLength: 0
+          type: string
+          description: Documentation_Text_3
+          example: DocumentsFooter2
+      description: Delivery Details
+    DevelopmentDTO:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Verbose, plain language description of the problem for the app developer with hints on how to fix it
+        exception:
+          type: string
+          description: Dump from exception
+    CountryCode:
+      enum:
+      - AF
+      - AL
+      - DZ
+      - AS
+      - AD
+      - AO
+      - AI
+      - AQ
+      - AG
+      - AR
+      - AM
+      - AW
+      - AU
+      - AT
+      - AZ
+      - BS
+      - BH
+      - BD
+      - BB
+      - BY
+      - BE
+      - BZ
+      - BJ
+      - BM
+      - BT
+      - BO
+      - BQ
+      - BA
+      - BW
+      - BV
+      - BR
+      - IO
+      - BN
+      - BG
+      - BF
+      - BI
+      - CV
+      - KH
+      - CM
+      - CA
+      - KY
+      - CF
+      - TD
+      - CL
+      - CN
+      - CX
+      - CC
+      - CO
+      - KM
+      - CD
+      - CG
+      - CK
+      - CR
+      - HR
+      - CU
+      - CW
+      - CY
+      - CZ
+      - CI
+      - DK
+      - DJ
+      - DM
+      - DO
+      - EC
+      - EG
+      - SV
+      - GQ
+      - ER
+      - EE
+      - SZ
+      - ET
+      - FK
+      - FO
+      - FJ
+      - FI
+      - FR
+      - GF
+      - PF
+      - TF
+      - GA
+      - GM
+      - GE
+      - DE
+      - GH
+      - GI
+      - GR
+      - GL
+      - GD
+      - GP
+      - GU
+      - GT
+      - GG
+      - GN
+      - GW
+      - GY
+      - HT
+      - HM
+      - VA
+      - HN
+      - HK
+      - HU
+      - IS
+      - IN
+      - ID
+      - IR
+      - IQ
+      - IE
+      - IM
+      - IL
+      - IT
+      - JM
+      - JP
+      - JE
+      - JO
+      - KZ
+      - KE
+      - KI
+      - KP
+      - KR
+      - KW
+      - KG
+      - LA
+      - LV
+      - LB
+      - LR
+      - LY
+      - LI
+      - LT
+      - LU
+      - MO
+      - MG
+      - MW
+      - MY
+      - MV
+      - ML
+      - MT
+      - MH
+      - MQ
+      - MR
+      - MU
+      - YT
+      - MX
+      - FM
+      - MD
+      - MC
+      - MN
+      - ME
+      - MS
+      - MA
+      - MZ
+      - MM
+      - NA
+      - NR
+      - NP
+      - NL
+      - NC
+      - NZ
+      - NI
+      - NE
+      - NG
+      - NU
+      - NF
+      - MP
+      - 'NO'
+      - OM
+      - PK
+      - PW
+      - PS
+      - PA
+      - PG
+      - PY
+      - PE
+      - PH
+      - PN
+      - PL
+      - PT
+      - PR
+      - QA
+      - MK
+      - RU
+      - RW
+      - RE
+      - BL
+      - SH
+      - KN
+      - LC
+      - MF
+      - PM
+      - VC
+      - WS
+      - SM
+      - ST
+      - SA
+      - SN
+      - RS
+      - SC
+      - SL
+      - SG
+      - SX
+      - SK
+      - SI
+      - SB
+      - SO
+      - ZA
+      - GS
+      - SS
+      - ES
+      - LK
+      - SD
+      - SR
+      - SJ
+      - SE
+      - CH
+      - SY
+      - TW
+      - TJ
+      - TZ
+      - TH
+      - TL
+      - TG
+      - TK
+      - TO
+      - TT
+      - TN
+      - TR
+      - TM
+      - TC
+      - TV
+      - UG
+      - UA
+      - AE
+      - GB
+      - UM
+      - US
+      - UY
+      - UZ
+      - VU
+      - VE
+      - VN
+      - VG
+      - VI
+      - WF
+      - EH
+      - YE
+      - ZM
+      - ZW
+      - AX
+      type: string
+      description: ''
+    OutboundOrderType:
+      enum:
+      - NORMAL
+      - RUSH
+      - SAMPLE
+      type: string
+      description: ''
+    TransportDetailsDeliveryNotificationDto:
+      type: object
+      properties:
+        carrierName:
+          maxLength: 25
+          minLength: 0
+          type: string
+          description: Identifier of the carrier company that is to transport the goods
+          example: V1-55
+        carrierMode:
+          maxLength: 40
+          minLength: 0
+          type: string
+          description: Transportation service level name/identifier
+          example: CM1-55
+        deliveryPoint:
+          maxLength: 15
+          minLength: 0
+          type: string
+          description: Drop point at place of delivery
+          example: D35A-Noida
+      description: Transport Details
+    OutboundNoteDto:
+      type: object
+      properties:
+        code:
+          maxLength: 20
+          minLength: 0
+          type: string
+          description: Code
+          example: C12-055
+        text:
+          maxLength: 180
+          minLength: 0
+          type: string
+          description: Text
+          example: txt-055-999438
+      description: Outbound Note
+    ErrorDTO:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          minLength: 1
+          type: string
+          description: Unique error code
+          example: ERR12345
+        message:
+          minLength: 1
+          type: string
+          description: Error message passed to the user
+          example: 'Not found id : 4025988810785188'
+        fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/FieldDTO'
+        development:
+          $ref: '#/components/schemas/DevelopmentDTO'
+    IncotermsDto:
+      required:
+      - code
+      - location
+      type: object
+      properties:
+        code:
+          $ref: '#/components/schemas/IncotermsEnum'
+        location:
+          maxLength: 60
+          minLength: 0
+          type: string
+          description: Place related to Terms of Delivery (Incoterms)
+          example: Denmark
+      description: Incoterms
+    DeliveryNotificationDto:
+      type: object
+      properties:
+        deliveryNotification:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeliveryNotificationItemDto'
+          description: Delivery Notification
+      description: Delivery Notification
+    DeliveryItemDto:
+      required:
+      - lineId
+      - productId
+      - quantity
+      type: object
+      properties:
+        lineId:
+          maximum: 999999.0
+          minimum: 0.0
+          type: integer
+          description: Line identifier
+          format: int32
+          example: 55
+        productId:
+          maxLength: 50
+          minLength: 0
+          type: string
+          description: Stock Keeping Unit identifier
+          example: P12-055
+        quantity:
+          maximum: 999999999.0
+          minimum: 0.0
+          type: integer
+          description: Number of units that has been ordered
+          format: int32
+          example: 100
+        customerProductId:
+          maxLength: 30
+          minLength: 0
+          type: string
+          description: Stock Keeping Unit identifier used by the customer/retailer
+          example: CP-055
+        conditionOfProduct:
+          $ref: '#/components/schemas/ConditionCode'
+        lotId:
+          maxLength: 15
+          minLength: 0
+          type: string
+          description: If specific Batch Id / Lot Id are to be sent. Max 15 chars
+          example: LotId-055
+        expirationDaysLeft:
+          maximum: 99999.0
+          minimum: 0.0
+          type: integer
+          description: Format '99999' Number of days before expiration.
+          format: int32
+          example: 7
+        serialNumbers:
+          type: array
+          items:
+            type: string
+          description: Segment can only be used if flag on productData productHoldsSerialNumber is set
+          example:
+          - SN1234567890
+          - SN1234567891
+        customerProductDescription1:
+          maxLength: 40
+          minLength: 0
+          type: string
+          description: SKU description as printed on documents
+          example: CustomerProductDescription1
+        customerProductDescription2:
+          maxLength: 40
+          minLength: 0
+          type: string
+          description: SKU description as printed on documents
+          example: CustomerProductDescription2
+        customerOrderReference:
+          maxLength: 25
+          minLength: 0
+          type: string
+          description: Purchase order reference
+          example: CustomerOrderReference
+        productValue:
+          $ref: '#/components/schemas/ProductValueDto'
+        additionalInformation:
+          $ref: '#/components/schemas/AdditionalInformationDto'
+        outboundNotes:
+          type: array
+          items:
+            $ref: '#/components/schemas/OutboundNoteDto'
+          description: Outbound Notes
+      description: Delivery Item
+  securitySchemes:
+    apiKeyHeader:
+      type: apiKey
+      name: DSV-Subscription-Key
+      in: header
+    apiKeyQuery:
+      type: apiKey
+      name: DSV-Subscription-Key
+      in: query

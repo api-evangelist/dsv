@@ -1,0 +1,3269 @@
+openapi: 3.2.0
+info:
+  title: Dsv Shipment details API
+  version: '1.0'
+  description: 'Operations tagged Shipment details across 2 of this provider''s published API definitions: dsv-generic-tracking-demo-v2-openapi.json, dsv-generic-visibilitydemo-v1-openapi.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api.dsv.com/my-demo/tracking/v2
+- url: https://api.dsv.com/my-demo/visibility/v1
+security:
+- apiKeyHeader: []
+- apiKeyQuery: []
+tags:
+- name: Shipment details
+paths:
+  /shipments/bookingId/{bookingId}:
+    get:
+      tags:
+      - Shipment details
+      summary: Shipment details by DSV Booking ID
+      description: 'Retrieve detailed shipment data for a specific shipment by searching the DSV booking ID received from API booking or bookings submitted via myDSV.<BR>
+
+        <BR>
+
+        Authorization: client_id: api.demo@demo.dsv.com, client_secret: Demo12345</I> <BR><BR>
+
+        Sample Booking IDs: 40257145990010760574, 40257145990010760581 '
+      operationId: getShipmentByBookingId
+      parameters:
+      - name: bookingId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: DSV Oauth header
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ShipmentDetailsAPI'
+              example:
+                bookingId: string
+                shipmentId: string
+                masterShipmentId: string
+                childShipmentIds:
+                - string
+                status: string
+                product:
+                  name: Sea
+                  billOfLading: Original
+                  containerMode: FCL
+                  containers:
+                  - ref: TestContainerNumber1
+                    type: 20RE
+                    genset: true
+                    temp: -20
+                  dropOff: false
+                  subModeOfTransport: FSA
+                parties:
+                  sender:
+                    address:
+                      companyName: Test Company Name Inc.
+                      addressId: AddressID123
+                      addressLine1: Test Address Line 1
+                      addressLine2: Test Address Line 2
+                      addressLine3: string
+                      city: Test Address City
+                      countryCode: DK
+                      state: range[-infinity, 40]
+                      zipCode: '1234'
+                      instructions: Specific Address Party Instrution
+                      mdm: '6412345678'
+                    contact:
+                      name: Test Name
+                      email: testemail@testcompany.com
+                      telephone: '+4512345678'
+                  receiver:
+                    address:
+                      companyName: Test Company Name Inc.
+                      addressId: AddressID123
+                      addressLine1: Test Address Line 1
+                      addressLine2: Test Address Line 2
+                      addressLine3: string
+                      city: Test Address City
+                      countryCode: DK
+                      state: range[-infinity, 40]
+                      zipCode: '1234'
+                      instructions: Specific Address Party Instrution
+                      mdm: '6412345678'
+                    contact:
+                      name: Test Name
+                      email: testemail@testcompany.com
+                      telephone: '+4512345678'
+                  delivery:
+                    address:
+                      companyName: Test Company Name Inc.
+                      addressId: AddressID123
+                      addressLine1: Test Address Line 1
+                      addressLine2: Test Address Line 2
+                      addressLine3: string
+                      city: Test Address City
+                      countryCode: DK
+                      state: range[-infinity, 40]
+                      zipCode: '1234'
+                      instructions: Specific Address Party Instrution
+                      mdm: '6412345678'
+                    contact:
+                      name: Test Name
+                      email: testemail@testcompany.com
+                      telephone: '+4512345678'
+                  pickup:
+                    address:
+                      companyName: Test Company Name Inc.
+                      addressId: AddressID123
+                      addressLine1: Test Address Line 1
+                      addressLine2: Test Address Line 2
+                      addressLine3: string
+                      city: Test Address City
+                      countryCode: DK
+                      state: range[-infinity, 40]
+                      zipCode: '1234'
+                      instructions: Specific Address Party Instrution
+                      mdm: '6412345678'
+                    contact:
+                      name: Test Name
+                      email: testemail@testcompany.com
+                      telephone: '+4512345678'
+                  notify:
+                    address:
+                      companyName: Test Company Name Inc.
+                      addressId: AddressID123
+                      addressLine1: Test Address Line 1
+                      addressLine2: Test Address Line 2
+                      addressLine3: string
+                      city: Test Address City
+                      countryCode: DK
+                      state: range[-infinity, 40]
+                      zipCode: '1234'
+                      instructions: Specific Address Party Instrution
+                      mdm: '6412345678'
+                    contact:
+                      name: Test Name
+                      email: testemail@testcompany.com
+                      telephone: '+4512345678'
+                  freightPayer:
+                    address:
+                      companyName: Test Company Name Inc.
+                      addressId: AddressID123
+                      addressLine1: Test Address Line 1
+                      addressLine2: Test Address Line 2
+                      addressLine3: string
+                      city: Test Address City
+                      countryCode: DK
+                      state: range[-infinity, 40]
+                      zipCode: '1234'
+                      instructions: Specific Address Party Instrution
+                      mdm: '6412345678'
+                    contact:
+                      name: Test Name
+                      email: testemail@testcompany.com
+                      telephone: '+4512345678'
+                  bookingParty:
+                    address:
+                      companyName: Test Company Name Inc.
+                      addressId: AddressID123
+                      addressLine1: Test Address Line 1
+                      addressLine2: Test Address Line 2
+                      addressLine3: string
+                      city: Test Address City
+                      countryCode: DK
+                      state: range[-infinity, 40]
+                      zipCode: '1234'
+                      instructions: Specific Address Party Instrution
+                      mdm: '6412345678'
+                    contact:
+                      name: Test Name
+                      email: testemail@testcompany.com
+                      telephone: '+4512345678'
+                  carrier:
+                    address:
+                      companyName: Test Company Name Inc.
+                      addressId: AddressID123
+                      addressLine1: Test Address Line 1
+                      addressLine2: Test Address Line 2
+                      addressLine3: string
+                      city: Test Address City
+                      countryCode: DK
+                      state: range[-infinity, 40]
+                      zipCode: '1234'
+                      instructions: Specific Address Party Instrution
+                      mdm: '6412345678'
+                    contact:
+                      name: Test Name
+                      email: testemail@testcompany.com
+                      telephone: '+4512345678'
+                  party:
+                  - address:
+                      companyName: Test Company Name Inc.
+                      addressId: AddressID123
+                      addressLine1: Test Address Line 1
+                      addressLine2: Test Address Line 2
+                      addressLine3: string
+                      city: Test Address City
+                      countryCode: DK
+                      state: range[-infinity, 40]
+                      zipCode: '1234'
+                      instructions: Specific Address Party Instrution
+                      mdm: '6412345678'
+                    contact:
+                      name: Test Name
+                      email: testemail@testcompany.com
+                      telephone: '+4512345678'
+                    role: string
+                dateTime:
+                  pickupTime:
+                    date: '2020-08-30'
+                    start: '2023-08-07'
+                    end: '2023-08-07'
+                  deliveryTime:
+                    date: '2020-08-30'
+                    start: '2023-08-07'
+                    end: '2023-08-07'
+                references:
+                - type: string
+                  value: string
+                bookedBy: string
+                events:
+                - eventDate: string
+                  eventGroup: string
+                  eventCode: string
+                  eventDescription: string
+                  eventType: string
+                  eventTypeValue: string
+                  location:
+                    countryCode: string
+                    unlocode: string
+                    place: string
+                  transportMode: string
+                  vesselName: string
+                  voyageId: string
+                packages:
+                - stackable: {}
+                  length: 0
+                  lengthUOM: string
+                  loadingMeters: 0
+                  palletSpace: 0
+                  grossWeight: 0
+                  netWeight: 0
+                  quantity: 0
+                  totalVolume: 0
+                  volumeUOM: string
+                  totalWeight: 0
+                  width: 0
+                  widthUOM: string
+                  height: 0
+                  heightUOM: string
+                  packageType: BAG
+                  temperatureMin: 0
+                  temperatureMax: 0
+                  description: string
+                  shippingMarks: string
+                  isDangerous: true
+                  dangerous:
+                  - className: string
+                    subRisk: string
+                    flashPoint: 0
+                    limitedQuantity: true
+                    marinePollutant: true
+                    packingGroup: string
+                    properShippingName: string
+                    technicalName: string
+                    technicalNameNational: string
+                    temperatureFrom: 0
+                    temperatureTo: 0
+                    type: string
+                    unCode: 0
+                    tunnelCode: string
+                    packagesCount: 0
+                    packingKind: BAG
+                    netQuantity: 0
+                    netQuantityUnit: KG
+                    grossQuantity: 0
+                    grossQuantityUnit: KG
+                    empty: true
+                  containerNo: MAEU7654213
+                  trackingNumbers:
+                  - string
+                  cargoAircraftOnly: true
+                  temperatureControlled: true
+                  goodsType: string
+                  references:
+                  - reference: string
+                    qualifier: string
+                transport:
+                  houseBillNumber: string
+                  masterBillNumber: string
+                  awb: string
+                  originName: string
+                  originCode: string
+                  destinationName: string
+                  destinationCode: string
+                containers:
+                - containerNumber: string
+                  containerType: string
+                  sealNumber: string
+                deliveryInstructions: string
+                pickupInstructions: string
+                shipmentNotes: string
+                incoterms:
+                  code: string
+                  location: string
+                serviceLevel:
+                  code: string
+                  description: string
+                goods:
+                  grossWeightUom: string
+                  grossWeightValue: 0
+                  loadingMetersUom: string
+                  loadingMetersValue: 0
+                  quantityUom: string
+                  quantityValue: 0
+                  volumeUom: string
+                  volumeValue: 0
+                  description: string
+                issues:
+                - issueDate: string
+                  issuePointCode: string
+                  issuePointDescription: string
+                  issuePartyCode: string
+                  issuePartyDescription: string
+                  issueTypeCode: string
+                  issueTypeDescription: string
+                  issueReasonCode: string
+                  issueReasonDescription: string
+                  issueNotes: string
+                  issueResolved: string
+                publicShipmentId: string
+                carrierTrackingId: string
+                proofsOfDelivery:
+                - documentId: string
+                  documentType: string
+                  typeDescription: string
+                  createDate: string
+                  fileName: string
+                  fileType: string
+                  downloadUrl: string
+                selectedServices:
+                - name: string
+                  code: string
+                  details: {}
+                customs:
+                  shippedOnboardDate: string
+                  customsStatus: string
+                  entryNumber:
+                  - string
+                  forwarder:
+                    address:
+                      companyName: Test Company Name Inc.
+                      addressId: AddressID123
+                      addressLine1: Test Address Line 1
+                      addressLine2: Test Address Line 2
+                      addressLine3: string
+                      city: Test Address City
+                      countryCode: DK
+                      state: range[-infinity, 40]
+                      zipCode: '1234'
+                      instructions: Specific Address Party Instrution
+                      mdm: '6412345678'
+                    contact:
+                      name: Test Name
+                      email: testemail@testcompany.com
+                      telephone: '+4512345678'
+                  removalMode: string
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+              example:
+                code: ERR12345
+                message: 'Not found booking: 40257145990010785188'
+                fields:
+                - name: field_name
+                  message: validation error
+                  code: ERR12345
+                development:
+                  message: string
+                  exception: string
+        '404':
+          description: Not found
+          content:
+            '*/*':
+              schema:
+                type: object
+              examples:
+                default:
+                  value: null
+    servers:
+    - url: https://api.dsv.com/my-demo/tracking/v2
+  /shipments/tmsId/{tmsId}:
+    get:
+      tags:
+      - Shipment details
+      summary: Shipment details by DSV Shipment ID
+      description: 'Retrieve detailed shipment data for a specific shipment by searching the DSV Shipment ID.<BR>
+
+        <BR>
+
+        DEMO ACCOUNT<BR>Authorization: client_id: api.demo@demo.dsv.com, client_secret: Demo12345</I> <BR><BR>
+
+        Sample TMS IDs: SDSV0069726, SDSV0069727, SDFW0090209 '
+      operationId: getShipmentByTmsId
+      parameters:
+      - name: tmsId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: DSV Oauth header
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ShipmentDetailsAPI'
+              example:
+                bookingId: string
+                shipmentId: string
+                masterShipmentId: string
+                childShipmentIds:
+                - string
+                status: string
+                product:
+                  name: Sea
+                  billOfLading: Original
+                  containerMode: FCL
+                  containers:
+                  - ref: TestContainerNumber1
+                    type: 20RE
+                    genset: true
+                    temp: -20
+                  dropOff: false
+                  subModeOfTransport: FSA
+                parties:
+                  sender:
+                    address:
+                      companyName: Test Company Name Inc.
+                      addressId: AddressID123
+                      addressLine1: Test Address Line 1
+                      addressLine2: Test Address Line 2
+                      addressLine3: string
+                      city: Test Address City
+                      countryCode: DK
+                      state: range[-infinity, 40]
+                      zipCode: '1234'
+                      instructions: Specific Address Party Instrution
+                      mdm: '6412345678'
+                    contact:
+                      name: Test Name
+                      email: testemail@testcompany.com
+                      telephone: '+4512345678'
+                  receiver:
+                    address:
+                      companyName: Test Company Name Inc.
+                      addressId: AddressID123
+                      addressLine1: Test Address Line 1
+                      addressLine2: Test Address Line 2
+                      addressLine3: string
+                      city: Test Address City
+                      countryCode: DK
+                      state: range[-infinity, 40]
+                      zipCode: '1234'
+                      instructions: Specific Address Party Instrution
+                      mdm: '6412345678'
+                    contact:
+                      name: Test Name
+                      email: testemail@testcompany.com
+                      telephone: '+4512345678'
+                  delivery:
+                    address:
+                      companyName: Test Company Name Inc.
+                      addressId: AddressID123
+                      addressLine1: Test Address Line 1
+                      addressLine2: Test Address Line 2
+                      addressLine3: string
+                      city: Test Address City
+                      countryCode: DK
+                      state: range[-infinity, 40]
+                      zipCode: '1234'
+                      instructions: Specific Address Party Instrution
+                      mdm: '6412345678'
+                    contact:
+                      name: Test Name
+                      email: testemail@testcompany.com
+                      telephone: '+4512345678'
+                  pickup:
+                    address:
+                      companyName: Test Company Name Inc.
+                      addressId: AddressID123
+                      addressLine1: Test Address Line 1
+                      addressLine2: Test Address Line 2
+                      addressLine3: string
+                      city: Test Address City
+                      countryCode: DK
+                      state: range[-infinity, 40]
+                      zipCode: '1234'
+                      instructions: Specific Address Party Instrution
+                      mdm: '6412345678'
+                    contact:
+                      name: Test Name
+                      email: testemail@testcompany.com
+                      telephone: '+4512345678'
+                  notify:
+                    address:
+                      companyName: Test Company Name Inc.
+                      addressId: AddressID123
+                      addressLine1: Test Address Line 1
+                      addressLine2: Test Address Line 2
+                      addressLine3: string
+                      city: Test Address City
+                      countryCode: DK
+                      state: range[-infinity, 40]
+                      zipCode: '1234'
+                      instructions: Specific Address Party Instrution
+                      mdm: '6412345678'
+                    contact:
+                      name: Test Name
+                      email: testemail@testcompany.com
+                      telephone: '+4512345678'
+                  freightPayer:
+                    address:
+                      companyName: Test Company Name Inc.
+                      addressId: AddressID123
+                      addressLine1: Test Address Line 1
+                      addressLine2: Test Address Line 2
+                      addressLine3: string
+                      city: Test Address City
+                      countryCode: DK
+                      state: range[-infinity, 40]
+                      zipCode: '1234'
+                      instructions: Specific Address Party Instrution
+                      mdm: '6412345678'
+                    contact:
+                      name: Test Name
+                      email: testemail@testcompany.com
+                      telephone: '+4512345678'
+                  bookingParty:
+                    address:
+                      companyName: Test Company Name Inc.
+                      addressId: AddressID123
+                      addressLine1: Test Address Line 1
+                      addressLine2: Test Address Line 2
+                      addressLine3: string
+                      city: Test Address City
+                      countryCode: DK
+                      state: range[-infinity, 40]
+                      zipCode: '1234'
+                      instructions: Specific Address Party Instrution
+                      mdm: '6412345678'
+                    contact:
+                      name: Test Name
+                      email: testemail@testcompany.com
+                      telephone: '+4512345678'
+                  carrier:
+                    address:
+                      companyName: Test Company Name Inc.
+                      addressId: AddressID123
+                      addressLine1: Test Address Line 1
+                      addressLine2: Test Address Line 2
+                      addressLine3: string
+                      city: Test Address City
+                      countryCode: DK
+                      state: range[-infinity, 40]
+                      zipCode: '1234'
+                      instructions: Specific Address Party Instrution
+                      mdm: '6412345678'
+                    contact:
+                      name: Test Name
+                      email: testemail@testcompany.com
+                      telephone: '+4512345678'
+                  party:
+                  - address:
+                      companyName: Test Company Name Inc.
+                      addressId: AddressID123
+                      addressLine1: Test Address Line 1
+                      addressLine2: Test Address Line 2
+                      addressLine3: string
+                      city: Test Address City
+                      countryCode: DK
+                      state: range[-infinity, 40]
+                      zipCode: '1234'
+                      instructions: Specific Address Party Instrution
+                      mdm: '6412345678'
+                    contact:
+                      name: Test Name
+                      email: testemail@testcompany.com
+                      telephone: '+4512345678'
+                    role: string
+                dateTime:
+                  pickupTime:
+                    date: '2020-08-30'
+                    start: '2023-08-07'
+                    end: '2023-08-07'
+                  deliveryTime:
+                    date: '2020-08-30'
+                    start: '2023-08-07'
+                    end: '2023-08-07'
+                references:
+                - type: string
+                  value: string
+                bookedBy: string
+                events:
+                - eventDate: string
+                  eventGroup: string
+                  eventCode: string
+                  eventDescription: string
+                  eventType: string
+                  eventTypeValue: string
+                  location:
+                    countryCode: string
+                    unlocode: string
+                    place: string
+                  transportMode: string
+                  vesselName: string
+                  voyageId: string
+                packages:
+                - stackable: {}
+                  length: 0
+                  lengthUOM: string
+                  loadingMeters: 0
+                  palletSpace: 0
+                  grossWeight: 0
+                  netWeight: 0
+                  quantity: 0
+                  totalVolume: 0
+                  volumeUOM: string
+                  totalWeight: 0
+                  width: 0
+                  widthUOM: string
+                  height: 0
+                  heightUOM: string
+                  packageType: BAG
+                  temperatureMin: 0
+                  temperatureMax: 0
+                  description: string
+                  shippingMarks: string
+                  isDangerous: true
+                  dangerous:
+                  - className: string
+                    subRisk: string
+                    flashPoint: 0
+                    limitedQuantity: true
+                    marinePollutant: true
+                    packingGroup: string
+                    properShippingName: string
+                    technicalName: string
+                    technicalNameNational: string
+                    temperatureFrom: 0
+                    temperatureTo: 0
+                    type: string
+                    unCode: 0
+                    tunnelCode: string
+                    packagesCount: 0
+                    packingKind: BAG
+                    netQuantity: 0
+                    netQuantityUnit: KG
+                    grossQuantity: 0
+                    grossQuantityUnit: KG
+                    empty: true
+                  containerNo: MAEU7654213
+                  trackingNumbers:
+                  - string
+                  cargoAircraftOnly: true
+                  temperatureControlled: true
+                  goodsType: string
+                  references:
+                  - reference: string
+                    qualifier: string
+                transport:
+                  houseBillNumber: string
+                  masterBillNumber: string
+                  awb: string
+                  originName: string
+                  originCode: string
+                  destinationName: string
+                  destinationCode: string
+                containers:
+                - containerNumber: string
+                  containerType: string
+                  sealNumber: string
+                deliveryInstructions: string
+                pickupInstructions: string
+                shipmentNotes: string
+                incoterms:
+                  code: string
+                  location: string
+                serviceLevel:
+                  code: string
+                  description: string
+                goods:
+                  grossWeightUom: string
+                  grossWeightValue: 0
+                  loadingMetersUom: string
+                  loadingMetersValue: 0
+                  quantityUom: string
+                  quantityValue: 0
+                  volumeUom: string
+                  volumeValue: 0
+                  description: string
+                issues:
+                - issueDate: string
+                  issuePointCode: string
+                  issuePointDescription: string
+                  issuePartyCode: string
+                  issuePartyDescription: string
+                  issueTypeCode: string
+                  issueTypeDescription: string
+                  issueReasonCode: string
+                  issueReasonDescription: string
+                  issueNotes: string
+                  issueResolved: string
+                publicShipmentId: string
+                carrierTrackingId: string
+                proofsOfDelivery:
+                - documentId: string
+                  documentType: string
+                  typeDescription: string
+                  createDate: string
+                  fileName: string
+                  fileType: string
+                  downloadUrl: string
+                selectedServices:
+                - name: string
+                  code: string
+                  details: {}
+                customs:
+                  shippedOnboardDate: string
+                  customsStatus: string
+                  entryNumber:
+                  - string
+                  forwarder:
+                    address:
+                      companyName: Test Company Name Inc.
+                      addressId: AddressID123
+                      addressLine1: Test Address Line 1
+                      addressLine2: Test Address Line 2
+                      addressLine3: string
+                      city: Test Address City
+                      countryCode: DK
+                      state: range[-infinity, 40]
+                      zipCode: '1234'
+                      instructions: Specific Address Party Instrution
+                      mdm: '6412345678'
+                    contact:
+                      name: Test Name
+                      email: testemail@testcompany.com
+                      telephone: '+4512345678'
+                  removalMode: string
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+              example:
+                code: ERR12345
+                message: 'Not found booking: 40257145990010785188'
+                fields:
+                - name: field_name
+                  message: validation error
+                  code: ERR12345
+                development:
+                  message: string
+                  exception: string
+        '404':
+          description: Not found
+          content:
+            '*/*':
+              schema:
+                type: object
+              examples:
+                default:
+                  value: null
+    servers:
+    - url: https://api.dsv.com/my-demo/tracking/v2
+  /shipments/reference/{*reference}:
+    get:
+      tags:
+      - Shipment details
+      summary: Shipment details by Customer reference
+      description: Retrieve detailed shipment data for a specific shipment by searching a Customer reference.
+      operationId: getShipmentByReference
+      parameters:
+      - name: '*reference'
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: DSV Oauth header
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ShipmentDetailsAPI'
+              example:
+                bookingId: string
+                shipmentId: string
+                masterShipmentId: string
+                childShipmentIds:
+                - string
+                status: string
+                product:
+                  name: Sea
+                  billOfLading: Original
+                  containerMode: FCL
+                  containers:
+                  - ref: TestContainerNumber1
+                    type: 20RE
+                    genset: true
+                    temp: -20
+                  dropOff: false
+                  subModeOfTransport: FSA
+                parties:
+                  sender:
+                    address:
+                      companyName: Test Company Name Inc.
+                      addressId: AddressID123
+                      addressLine1: Test Address Line 1
+                      addressLine2: Test Address Line 2
+                      addressLine3: string
+                      city: Test Address City
+                      countryCode: DK
+                      state: range[-infinity, 40]
+                      zipCode: '1234'
+                      instructions: Specific Address Party Instrution
+                      mdm: '6412345678'
+                    contact:
+                      name: Test Name
+                      email: testemail@testcompany.com
+                      telephone: '+4512345678'
+                  receiver:
+                    address:
+                      companyName: Test Company Name Inc.
+                      addressId: AddressID123
+                      addressLine1: Test Address Line 1
+                      addressLine2: Test Address Line 2
+                      addressLine3: string
+                      city: Test Address City
+                      countryCode: DK
+                      state: range[-infinity, 40]
+                      zipCode: '1234'
+                      instructions: Specific Address Party Instrution
+                      mdm: '6412345678'
+                    contact:
+                      name: Test Name
+                      email: testemail@testcompany.com
+                      telephone: '+4512345678'
+                  delivery:
+                    address:
+                      companyName: Test Company Name Inc.
+                      addressId: AddressID123
+                      addressLine1: Test Address Line 1
+                      addressLine2: Test Address Line 2
+                      addressLine3: string
+                      city: Test Address City
+                      countryCode: DK
+                      state: range[-infinity, 40]
+                      zipCode: '1234'
+                      instructions: Specific Address Party Instrution
+                      mdm: '6412345678'
+                    contact:
+                      name: Test Name
+                      email: testemail@testcompany.com
+                      telephone: '+4512345678'
+                  pickup:
+                    address:
+                      companyName: Test Company Name Inc.
+                      addressId: AddressID123
+                      addressLine1: Test Address Line 1
+                      addressLine2: Test Address Line 2
+                      addressLine3: string
+                      city: Test Address City
+                      countryCode: DK
+                      state: range[-infinity, 40]
+                      zipCode: '1234'
+                      instructions: Specific Address Party Instrution
+                      mdm: '6412345678'
+                    contact:
+                      name: Test Name
+                      email: testemail@testcompany.com
+                      telephone: '+4512345678'
+                  notify:
+                    address:
+                      companyName: Test Company Name Inc.
+                      addressId: AddressID123
+                      addressLine1: Test Address Line 1
+                      addressLine2: Test Address Line 2
+                      addressLine3: string
+                      city: Test Address City
+                      countryCode: DK
+                      state: range[-infinity, 40]
+                      zipCode: '1234'
+                      instructions: Specific Address Party Instrution
+                      mdm: '6412345678'
+                    contact:
+                      name: Test Name
+                      email: testemail@testcompany.com
+                      telephone: '+4512345678'
+                  freightPayer:
+                    address:
+                      companyName: Test Company Name Inc.
+                      addressId: AddressID123
+                      addressLine1: Test Address Line 1
+                      addressLine2: Test Address Line 2
+                      addressLine3: string
+                      city: Test Address City
+                      countryCode: DK
+                      state: range[-infinity, 40]
+                      zipCode: '1234'
+                      instructions: Specific Address Party Instrution
+                      mdm: '6412345678'
+                    contact:
+                      name: Test Name
+                      email: testemail@testcompany.com
+                      telephone: '+4512345678'
+                  bookingParty:
+                    address:
+                      companyName: Test Company Name Inc.
+                      addressId: AddressID123
+                      addressLine1: Test Address Line 1
+                      addressLine2: Test Address Line 2
+                      addressLine3: string
+                      city: Test Address City
+                      countryCode: DK
+                      state: range[-infinity, 40]
+                      zipCode: '1234'
+                      instructions: Specific Address Party Instrution
+                      mdm: '6412345678'
+                    contact:
+                      name: Test Name
+                      email: testemail@testcompany.com
+                      telephone: '+4512345678'
+                  carrier:
+                    address:
+                      companyName: Test Company Name Inc.
+                      addressId: AddressID123
+                      addressLine1: Test Address Line 1
+                      addressLine2: Test Address Line 2
+                      addressLine3: string
+                      city: Test Address City
+                      countryCode: DK
+                      state: range[-infinity, 40]
+                      zipCode: '1234'
+                      instructions: Specific Address Party Instrution
+                      mdm: '6412345678'
+                    contact:
+                      name: Test Name
+                      email: testemail@testcompany.com
+                      telephone: '+4512345678'
+                  party:
+                  - address:
+                      companyName: Test Company Name Inc.
+                      addressId: AddressID123
+                      addressLine1: Test Address Line 1
+                      addressLine2: Test Address Line 2
+                      addressLine3: string
+                      city: Test Address City
+                      countryCode: DK
+                      state: range[-infinity, 40]
+                      zipCode: '1234'
+                      instructions: Specific Address Party Instrution
+                      mdm: '6412345678'
+                    contact:
+                      name: Test Name
+                      email: testemail@testcompany.com
+                      telephone: '+4512345678'
+                    role: string
+                dateTime:
+                  pickupTime:
+                    date: '2020-08-30'
+                    start: '2023-08-07'
+                    end: '2023-08-07'
+                  deliveryTime:
+                    date: '2020-08-30'
+                    start: '2023-08-07'
+                    end: '2023-08-07'
+                references:
+                - type: string
+                  value: string
+                bookedBy: string
+                events:
+                - eventDate: string
+                  eventGroup: string
+                  eventCode: string
+                  eventDescription: string
+                  eventType: string
+                  eventTypeValue: string
+                  location:
+                    countryCode: string
+                    unlocode: string
+                    place: string
+                  transportMode: string
+                  vesselName: string
+                  voyageId: string
+                packages:
+                - stackable: {}
+                  length: 0
+                  lengthUOM: string
+                  loadingMeters: 0
+                  palletSpace: 0
+                  grossWeight: 0
+                  netWeight: 0
+                  quantity: 0
+                  totalVolume: 0
+                  volumeUOM: string
+                  totalWeight: 0
+                  width: 0
+                  widthUOM: string
+                  height: 0
+                  heightUOM: string
+                  packageType: BAG
+                  temperatureMin: 0
+                  temperatureMax: 0
+                  description: string
+                  shippingMarks: string
+                  isDangerous: true
+                  dangerous:
+                  - className: string
+                    subRisk: string
+                    flashPoint: 0
+                    limitedQuantity: true
+                    marinePollutant: true
+                    packingGroup: string
+                    properShippingName: string
+                    technicalName: string
+                    technicalNameNational: string
+                    temperatureFrom: 0
+                    temperatureTo: 0
+                    type: string
+                    unCode: 0
+                    tunnelCode: string
+                    packagesCount: 0
+                    packingKind: BAG
+                    netQuantity: 0
+                    netQuantityUnit: KG
+                    grossQuantity: 0
+                    grossQuantityUnit: KG
+                    empty: true
+                  containerNo: MAEU7654213
+                  trackingNumbers:
+                  - string
+                  cargoAircraftOnly: true
+                  temperatureControlled: true
+                  goodsType: string
+                  references:
+                  - reference: string
+                    qualifier: string
+                transport:
+                  houseBillNumber: string
+                  masterBillNumber: string
+                  awb: string
+                  originName: string
+                  originCode: string
+                  destinationName: string
+                  destinationCode: string
+                containers:
+                - containerNumber: string
+                  containerType: string
+                  sealNumber: string
+                deliveryInstructions: string
+                pickupInstructions: string
+                shipmentNotes: string
+                incoterms:
+                  code: string
+                  location: string
+                serviceLevel:
+                  code: string
+                  description: string
+                goods:
+                  grossWeightUom: string
+                  grossWeightValue: 0
+                  loadingMetersUom: string
+                  loadingMetersValue: 0
+                  quantityUom: string
+                  quantityValue: 0
+                  volumeUom: string
+                  volumeValue: 0
+                  description: string
+                issues:
+                - issueDate: string
+                  issuePointCode: string
+                  issuePointDescription: string
+                  issuePartyCode: string
+                  issuePartyDescription: string
+                  issueTypeCode: string
+                  issueTypeDescription: string
+                  issueReasonCode: string
+                  issueReasonDescription: string
+                  issueNotes: string
+                  issueResolved: string
+                publicShipmentId: string
+                carrierTrackingId: string
+                proofsOfDelivery:
+                - documentId: string
+                  documentType: string
+                  typeDescription: string
+                  createDate: string
+                  fileName: string
+                  fileType: string
+                  downloadUrl: string
+                selectedServices:
+                - name: string
+                  code: string
+                  details: {}
+                customs:
+                  shippedOnboardDate: string
+                  customsStatus: string
+                  entryNumber:
+                  - string
+                  forwarder:
+                    address:
+                      companyName: Test Company Name Inc.
+                      addressId: AddressID123
+                      addressLine1: Test Address Line 1
+                      addressLine2: Test Address Line 2
+                      addressLine3: string
+                      city: Test Address City
+                      countryCode: DK
+                      state: range[-infinity, 40]
+                      zipCode: '1234'
+                      instructions: Specific Address Party Instrution
+                      mdm: '6412345678'
+                    contact:
+                      name: Test Name
+                      email: testemail@testcompany.com
+                      telephone: '+4512345678'
+                  removalMode: string
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+              example:
+                code: ERR12345
+                message: 'Not found booking: 40257145990010785188'
+                fields:
+                - name: field_name
+                  message: validation error
+                  code: ERR12345
+                development:
+                  message: string
+                  exception: string
+    servers:
+    - url: https://api.dsv.com/my-demo/tracking/v2
+  /shipments/deviceReadings:
+    post:
+      tags:
+      - Shipment details
+      summary: Get device readings by search filter
+      description: Retrieve detailed device readings by search filter
+      operationId: Shipment_Post
+      parameters:
+      - name: api-version
+        in: header
+        description: api-version
+        schema:
+          type: string
+        example: 1
+      - name: Authorization
+        in: header
+        description: Insert your Access Token
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeviceReadingFilterDto'
+            example:
+              shipmentId: SH0000000000
+              measuredAtStartDateTime: '2023-01-01T12:00:00.0000000+00:00'
+              measuredAtEndDateTime: '2023-01-31T11:59:00.0000000+00:00'
+              measuredAtPredefinedRange: PAST_MONTH
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceReadingResultModelDto'
+              example:
+                shipmentId: SH0000000000
+                shipmentStatus: Delivered
+                transportType: FTL
+                info: null
+                referenceType05: '050000000000000000000'
+                stages:
+                - Road
+                - Rail
+                - Air
+                readings:
+                - id: xxxxxxx
+                  trackerReadingId: null
+                  type: Device
+                  measuredAt: '2023-08-16T11:00:59.0000000+00:00'
+                  geoMode: GSM
+                  latitude: 55.291673
+                  longitude: 12.444475
+                  address: Demo city, Denmark
+                  batteryLevel: 53
+                  temperature: 26.21
+                  probeTemperature: 26.21
+                  humidity: 47.91
+                  light: 23.59
+                  shock: 0.96
+                - id: yyyyyyy
+                  trackerReadingId: null
+                  type: Device
+                  measuredAt: '2023-08-16T01:58:58.0000000+00:00'
+                  geoMode: GPS
+                  latitude: 0
+                  longitude: 0
+                  address: Demo city, Denmark
+                  batteryLevel: 57
+                  temperature: 23.26
+                  probeTemperature: 26.55
+                  humidity: 54.79
+                  light: 20.58
+                  shock: 1.01
+                - id: zzzzzzz
+                  trackerReadingId: null
+                  type: Device
+                  measuredAt: '2023-08-16T01:28:59.0000000+00:00'
+                  geoMode: GPS
+                  latitude: 55.291673
+                  longitude: 12.444475
+                  address: Demo, Denmark
+                  batteryLevel: 57
+                  temperature: 23.25
+                  probeTemperature: 22.23
+                  humidity: 54.97
+                  light: 21.71
+                  shock: 1
+        '400':
+          description: ''
+        '500':
+          description: ''
+    servers:
+    - url: https://api.dsv.com/my-demo/visibility/v1
+components:
+  schemas:
+    TransportApiDto:
+      type: object
+      properties:
+        houseBillNumber:
+          type: string
+          description: Identification of the Bill of Lading issued by DSV to the customer
+        masterBillNumber:
+          type: string
+          description: Identification of the Bill of Lading issued by the carrier to DSV
+        awb:
+          type: string
+          description: Air Waybill Number used by the underlying express carrier
+        originName:
+          type: string
+          description: Name of the first departure port/airport
+        originCode:
+          type: string
+          description: UN location code of the first departure port/airport
+        destinationName:
+          type: string
+          description: Name of the last arrival port/airport
+        destinationCode:
+          type: string
+          description: UN location code of the last arrival port/airport
+        scac:
+          type: string
+          description: The Standard Carrier Alpha Code, or SCAC Code, is a two to four-letter code used to identify vessel operating common carriers (VOCC)
+        carrierBookingRef:
+          type: string
+          description: Booking references from the carrier
+      description: This section carries the information about the main transport and some directly associated parameters applicable for "Air", "Sea", "Rail" shipments.
+    IncotermsDTO:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Incoterms® Code according to Incoterms® 2020 standard
+        location:
+          type: string
+          description: The location element specified as the collection/delivery
+      description: Incoterms® describe the rights and obligations applicable between the buyer and seller of the goods being transported. They set out when transfer of liability and control take place, who pays for what and who is liable in the event of any damage or loss of goods in transit. For more information check the Incoterms® Information on https://www.dsv.com/en/insights/expert-opinions/what-are-incoterms
+    EventApiDto:
+      required:
+      - cancelled
+      type: object
+      properties:
+        eventDate:
+          type: string
+          description: 'The date/time of the event at the location the event took place. Format: 2020-07-13T22:00:00.000+0000'
+          format: date-time
+        eventLastModified:
+          type: string
+          description: 'The date/time of when event was last modified. Format: 2020-07-13T22:00:00.000+0000'
+          format: date-time
+        eventGroup:
+          type: string
+          description: 'Name of event group:
+
+            - Booking - Group for events related to the booking
+
+            - Pickup - Group for events related to the pick up for Road shipments
+
+            - Pickup / Received - Group for events related to the pick up or received for Air and Sea Shipments
+
+            - Main transport - Group for events related to multi-leg shipments
+
+            - Import Customs - Group for events related to import customs
+
+            - Export customs - Group for events related to import customs
+
+            - Delivery - Group for events related to the delivery'
+        eventCode:
+          type: string
+          description: 'Event code as provided by the Transport Management System:
+
+            - ACT - Set shipment to active
+
+            - ATC - Attach to Console
+
+            - ARV - Actual arrival (last port/airport)
+
+            - BOOKING - Booking
+
+            - CANCEL - Cancelled
+
+            - CLR - Customs cleared
+
+            - DCF - Actual delivery
+
+            - DEP - Actual departure (first port/airport)
+
+            - DLV - Container delivered
+
+            - ESTIMATED_DELIVERY - Estimated delivery
+
+            - ESTIMATED_PICKUP - Estimated pickup
+
+            - ETA - Estimated arrival (last port/airport)
+
+            - ETD - Estimated departure (first port/airport)
+
+            - FLO - Freight loaded
+
+            - FUL - Freight unloaded
+
+            - GIC - Arrived at warehouse
+
+            - GIN - Gate In
+
+            - GOC - Departure at warehouse
+
+            - GOU - Gate Out
+
+            - HPD - Held in depot
+
+            - IGC - Trailer arrived at collection address
+
+            - IGD - Trailer arrived at delivery address
+
+            - INA - Set shipment to inactive
+
+            - IRP - Cargo received
+
+            - NCE - No pickup at customer
+
+            - NDE - Not delivered at customer
+
+            - OFD - Out for delivery
+
+            - PCF - Actual pickup
+
+            - PUP - Container picked up
+
+            - REQUESTED_DELIVERY - Requested delivery
+
+            - REQUESTED_PICKUP - Requested pickup
+
+            - Z70 - Handover responsibility of cargo
+
+            - Z71 - Customs reported
+
+            - Z73 - Handover of cargo
+
+            - Z74 - Handover of documents
+
+            - RTC - Receipt Commenced
+
+            - CAV - Cargo Available
+
+            - Z72 - Customs Hold
+
+            - DOR - Delivery Order Received
+
+            - CCC - Customs Commenced
+
+            - DDI (POD) - Document Imported - POD
+
+            - DDI (CUI) - Clearance Instructions Received
+
+            - ECM - Export Customs Commenced
+
+            - ECC - Export Customs Cleared'
+        eventDescription:
+          type: string
+          description: Description of the event code
+        eventType:
+          type: string
+          description: "The associated element of this event:\n- SHIPMENT -  DSV Shipment level event, \n- CONTAINER - Container level event (only \"Sea\" and \"Rail\" shipments), \n- COLLI - Package level event (only \"Road\" shipments)"
+        eventTypeValue:
+          type: string
+          description: ID of the shipment, container or package
+        location:
+          $ref: '#/components/schemas/LocationApiDto'
+        transportMode:
+          type: string
+          description: Mode of transport in case of multi-leg transport
+        vesselName:
+          type: string
+          description: Vessel name in case of multi-leg transport
+        voyageFlightNo:
+          type: string
+          description: Flight or vessel ID in case of multi-leg transport
+        cargoCutOff:
+          type: string
+          description: Cut off date and time of when the shipment must be ready in the port
+          format: date-time
+        cargoAvailability:
+          type: string
+          description: Cargo availability date
+          format: date-time
+        cancelled:
+          type: boolean
+          description: Indicates if the event has been cancelled
+        docsDue:
+          type: string
+          description: Documents due deadline
+          format: date-time
+        vgmCutOff:
+          type: string
+          description: The date and time when the verified gross mass check must be completed
+          format: date-time
+      description: Track and trace events
+    CustomsApiDto:
+      required:
+      - entryNumber
+      type: object
+      properties:
+        shippedOnboardDate:
+          type: string
+          description: Date when the cargo was loaded on the Vessel at the Port of Loading mentioned on the Bill of Lading
+        customsStatus:
+          type: string
+          description: "Customs status:\n- CLR - Import customs cleared\n- Z72 - Customs hold\n- CCC - Import customs commenced\n- ECC - Export customs cleared\n - ECM - Export customs commenced"
+        entryNumber:
+          type: array
+          items:
+            type: string
+            description: Customs Entry reference given by Customs authority in the local customs process
+          description: Customs Entry reference given by Customs authority in the local customs process
+        forwarder:
+          $ref: '#/components/schemas/BaseParty'
+        removalMode:
+          type: string
+          description: Mode of transport for a transit into another country
+      description: Customs data
+    FieldDTO:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Error name
+          example: field_name
+        message:
+          type: string
+          description: Description of error
+          example: validation error
+        code:
+          type: string
+          description: Type of error
+          example: ERR12345
+      description: Field
+    Pickup:
+      type: object
+      properties:
+        address:
+          $ref: '#/components/schemas/Address'
+        contact:
+          $ref: '#/components/schemas/ContactPerson'
+      description: Name and address of the party shipment is picked up.
+    Party:
+      required:
+      - role
+      type: object
+      properties:
+        address:
+          $ref: '#/components/schemas/Address'
+        contact:
+          $ref: '#/components/schemas/ContactPerson'
+        role:
+          type: string
+          description: Business role of the party
+      description: Reserved for future use.
+    ProductApiDto:
+      required:
+      - name
+      type: object
+      properties:
+        name:
+          enum:
+          - Road
+          - Air
+          - Sea
+          - Rail
+          - Xpress
+          type: string
+          description: Main transport mode selection
+          example: Sea
+        billOfLading:
+          enum:
+          - Express
+          - Original
+          type: string
+          description: 'Select the Bill of Lading type.
+
+            Only available if product is "Sea".'
+          example: Original
+        containerMode:
+          enum:
+          - LCL
+          - FCL
+          type: string
+          description: 'Container mode:
+
+            - FCL: full container load
+
+            - LCL: less than container load
+
+
+            Only available for product "Sea" and "Rail".'
+          example: FCL
+        containers:
+          type: array
+          items:
+            $ref: '#/components/schemas/Container'
+          description: This section is only available for the products “Sea” and “Rail” when the Container mode is “FCL”. It is used to specify the required containers of a certain type. Additional attributes can be submitted for certain container types. More details on container types can be found at [link].
+          xml:
+            wrapped: true
+        dropOff:
+          type: boolean
+          description: "Pickup mode:\n- false = Pickup by DSV, \n- true = Cargo handover to DSV at Warehouse or Terminal\n\n(dropOff becomes mandatory when “dropOff” service is available in Shippers country and product is either “AIR”, “SEA” or “RAIL”)"
+          example: false
+        handover:
+          type: boolean
+          description: 'Delivery mode:
+
+            - false = Delivery by DSV
+
+            - true = Cargo handover by DSV
+
+
+            (handover becomes mandatory when "handover" service is available in Shippers country and product is either "AIR", "SEA" or "RAIL")'
+          example: false
+        subModeOfTransport:
+          enum:
+          - FAS
+          - FSA
+          type: string
+          description: 'Sub-mode of shipment transport:
+
+            - FSA = First sea then air
+
+            - FAS = First air then sea'
+          example: FAS
+      description: The product section carries the information about the main transport mode and some directly associated parameters, if any.
+    DateTimeSection:
+      type: object
+      properties:
+        pickupTime:
+          $ref: '#/components/schemas/DateTimeRange'
+        deliveryTime:
+          $ref: '#/components/schemas/DateTimeRange'
+      description: Date and time specification for the shipment
+    TypeValueDTO:
+      type: object
+      properties:
+        type:
+          type: string
+          description: 'Type of reference: <ul><li>INVOICING_REFERENCE</li><li>ORDER_NUMBER</li><li>CONSIGNEE_REFERENCE</li><li>SHIPPER_REFERENCE</li><li>CUSTOMS_REFERENCE</li><li>OTHER</li><li>ROUTING</li></ul>'
+        value:
+          type: string
+          description: Reference value
+      description: References that can be used to identify linked information. It is allowed to send several references of the same reference type.
+    FreightPayer:
+      type: object
+      properties:
+        address:
+          $ref: '#/components/schemas/Address'
+        contact:
+          $ref: '#/components/schemas/ContactPerson'
+      description: Name and address of the party that receives the freight invoice.
+    Notify:
+      type: object
+      properties:
+        address:
+          $ref: '#/components/schemas/Address'
+        contact:
+          $ref: '#/components/schemas/ContactPerson'
+      description: Name and address of the party who will be notified
+    Sender:
+      type: object
+      properties:
+        address:
+          $ref: '#/components/schemas/Address'
+        contact:
+          $ref: '#/components/schemas/ContactPerson'
+      description: 'Name and address of the party sending the goods (shipper).
+
+        If address is not already available, it will be created from supplied address data.'
+    BaseParty:
+      type: object
+      properties:
+        address:
+          $ref: '#/components/schemas/Address'
+        contact:
+          $ref: '#/components/schemas/ContactPerson'
+      description: The forwarder responsible for the transport
+    DangerousGoodsDTO:
+      type: object
+      properties:
+        className:
+          type: string
+          description: 'The UN className can be derived from the mandatory unCode.
+
+            If this value is supplied, it will match the UN className that is stored for the unCode.'
+        subRisk:
+          type: string
+          description: 'The UN subRisk can be derived from the mandatory unCode.
+
+            If this value is supplied, it will match the UN subRisk that is stored for the unCode.'
+        flashPoint:
+          type: number
+          description: 'The flashPoint will be provided in the "Unit of Measure" selected for temperature in the units object.
+
+            This can only be used for dangerous goods type = "IMDG".
+
+            This value can be mandatory depending on the UN code.'
+        limitedQuantity:
+          type: boolean
+          description: This value can be mandatory depending on the UN code.
+        marinePollutant:
+          type: boolean
+          description: This value can be mandatory depending on the UN code.
+        packingGroup:
+          type: string
+          description: This value can be mandatory depending on the UN code.
+        properShippingName:
+          type: string
+          description: 'The UN properShippingName can be derived from the mandatory unCode.
+
+            If this value is supplied, it will match the UN properShippingName that is stored for the provided unCode.'
+        technicalName:
+          type: string
+          description: This value can be mandatory depending on the UN code.
+        technicalNameNational:
+          type: string
+          description: This value can be mandatory depending on the UN code.
+        temperatureFrom:
+          type: number
+          description: This value can be mandatory depending on the UN code.
+        temperatureTo:
+          type: number
+          description: This value can be mandatory depending on the UN code.
+        type:
+          type: string
+          description: 'Classification type used for the declaration
+
+            - ADR = According to "Agreement concerning the International Carriage of Dangerous Goods by Road".
+
+            - IMDG = According to "International Maritime Dangerous Goods Code".
+
+            - IATA = According to "International Air Transport Association (IATA) Dangerous Goods Regulations (DGR)"'
+        unCode:
+          type: integer
+          description: The UN code identifying the Dangerous Goods.
+          format: int32
+        tunnelCode:
+          type: string
+          description: This value can be mandatory depending on the UN code.
+        packagesCount:
+          type: integer
+          description: Number of Packages containing these dangerous goods
+          format: int32
+        packingKind:
+          enum:
+          - BAG
+          - BOX
+          - CAN
+          - DRUM
+          - IBC
+          - JERRY
+          - CP
+          - LGM
+          - BOB
+          - PD
+          - SB
+          - DRM
+          - JCN
+          type: string
+          description: 'Package type containing these dangerous goods. Possible values are:
+
+            - BAG - Bag
+
+            - BOX - Carton / Box
+
+            - IBC - Intermediate Bulk Container
+
+            - CP - Composite Packaging
+
+            - LGM - Light Gauge Metal Packaging
+
+            - BOB - Bundle of Bottles
+
+            - PD - Pressure Drum
+
+            - SB - Steel Bottle
+
+            - DRM - Drum
+
+            - JCN - Jerry Can'
+        netQuantity:
+          type: number
+          description: Net quantity of the dangerous goods
+        netQuantityUnit:
+          enum:
+          - KG
+          - M3
+          - DM3
+          - CM
+          - M
+          - LM
+          - LTR
+          - C
+          - LB
+          - FT3
+          - IN
+          - FT
+          - F
+          type: string
+          description: Quantity unit of the dangerous goods
+        grossQuantity:
+          type: number
+          description: Gross quantity of the dangerous goods
+        grossQuantityUnit:
+          enum:
+          - KG
+          - M3
+          - DM3
+          - CM
+          - M
+          - LM
+          - LTR
+          - C
+          - LB
+          - FT3
+          - IN
+          - FT
+          - F
+          type: string
+          description: Quantity unit of the dangerous goods
+        empty:
+          type: boolean
+          description: True / False
+      description: This section contains the details of the dangerous goods in the booking/shipment.
+    LocationApiDto:
+      type: object
+      properties:
+        countryCode:
+          type: string
+          description: 2 letter ISO country code (e.g. US)
+        unlocode:
+          type: string
+          description: UN/LOCODE
+        place:
+          type: string
+          description: Associated location name
+      description: Event location details
+    LocalTime:
+      type: object
+      properties:
+        hour:
+          type: integer
+          format: int32
+        minute:
+          type: integer
+          format: int32
+        second:
+          type: integer
+          format: int32
+        nano:
+          type: integer
+          format: int32
+      description: The requested pickup/delivery time (end of time window) using the 24 hours format hh:mm:ss
+      example: '14:15:00'
+    DocumentDto:
+      required:
+      - documentId
+      - documentType
+      - downloadUrl
+      - fileName
+      - fileType
+      - typeDescription
+      type: object
+      properties:
+        documentId:
+          type: string
+          description: Document ID
+        documentType:
+          type: string
+          description: "Proof of delivery (POD), \nCommercial Invoice, \nOther goods documents, \nCustoms declaration, \nDangerous goods documents, \nPacking list, \nHouse bill of lading"
+        typeDescription:
+          type: string
+          description: Description of the document type
+        createDate:
+          type: string
+          description: Date of creation
+          format: date-time
+        fileName:
+          type: string
+          description: File name
+        fileType:
+          type: string
+          description: File type
+        downloadUrl:
+          type: string
+          description: URL for file download
+      description: This section contains all document details of Profs of delivery.
+    Carrier:
+      type: object
+      properties:
+        address:
+          $ref: '#/components/schemas/Address'
+        contact:
+          $ref: '#/components/schemas/ContactPerson'
+      description: Name and address of the carrier
+    IssueAPI:
+      type: object
+      properties:
+        issueDate:
+          type: string
+          description: Date when the issue has occurred (or spotted)
+          format: date-time
+        issuePointCode:
+          type: string
+          description: 'Place code where the issue occurred:
+
+            - PRODPLAN - Production Planning
+
+            - PROD - Production
+
+            - POST - Post-Delivery
+
+            - PIC - Origin/Pick up
+
+            - TRAN - Main transport
+
+            - DEL - Destination/Delivery
+
+            - BOOK - Booking'
+        issuePointDescription:
+          type: string
+          description: Place where the issue occurred
+        issuePartyCode:
+          type: string
+          description: 'Party code who caused the issue:- TERMIN - Terminal
+
+            - SHPR - Shipper
+
+            - SUP - Pickup From/Supplier
+
+            - HAUL - Haulier/Trucker
+
+            - FM - Force Majeure
+
+            - DSV - DSV
+
+            - DELV - Deliver To
+
+            - CUS - Consignee/Buyer
+
+            - CAR - Carrier
+
+            - BRO - Broker
+
+            - AUT - Authorities
+
+            - 3PARTY - 3rd Party'
+        issuePartyDescription:
+          type: string
+          description: Party who caused the issue
+        issueTypeCode:
+          type: string
+          description: 'Coded categorization of the issue:- UND - Underload
+
+            - SAFETY - Safety
+
+            - PRDQU - Product Quality
+
+            - PRDAV - Product Availability
+
+            - OVR - Overload
+
+            - MISSING - Missing
+
+            - LATE - Late
+
+            - INV - Invoicing
+
+            - EARLY - Early
+
+            - DOC - Documentation / Administration
+
+            - DMG - Damage (use notes for detailed information)
+
+            - OTH - Other
+
+            - TMP - Temperature
+
+            - QRTO - Quarantine Open
+
+            - QRTC - Quarantine Closed'
+        issueTypeDescription:
+          type: string
+          description: Categorization of the issue
+        issueReasonCode:
+          type: string
+          description: 'Coded reason why the issue occurred:- ACC - Accident, Theft and Vandalism
+
+            - BANK - Bank Holiday
+
+            - COM - Communication/Incorrect Instructions
+
+            - COST - Cost Approval
+
+            - DEST - DSV Destination Process/Query
+
+            - DOCS - Document(s)
+
+            - ECOND - Equipment Condition/Type
+
+            - EQU - Equipment Breakdown
+
+            - HUM - Human Error/Incorrect Handling
+
+            - IMPROP - Improper Packaging/Labeling
+
+            - INS - Inspection / Excessive Customs Process
+
+            - IT - IT
+
+            - LACKEQ - Lack of Equipment
+
+            - LATEINS - Late Instruction/Communication
+
+            - MISROUTE - Change in Schedule/Misrouting
+
+            - NON - Non Availability
+
+            - ORIG - DSV Origin Process/Query
+
+            - PROD - Faulty product
+
+            - PST - Postponed
+
+            - RAW - Lack of raw material
+
+            - REJECT - Rejection
+
+            - RSC - Resources
+
+            - SLP - Sales process
+
+            - SOP - Operating Procedure
+
+            - SPOT - None Contractual Shipment/Spot Shipment
+
+            - STR - Strike
+
+            - TRF - Traffic
+
+            - TTNOT - Agreed Transittime Not Achievable
+
+            - UNS - Unsafe Conditions
+
+            - UPR - Upon Request
+
+            - WAR - War
+
+            - WTH - Weather/Nature'
+        issueReasonDescription:
+          type: string
+          description: Reason why the issue occurred
+        issueNotes:
+          type: string
+          description: Additional information about the issue (max 100 characters)
+        issueResolved:
+          type: string
+          description: Date when the issue was resolved
+          format: date-time
+      description: This section contains Issues details from the booking/shipment.
+    DevelopmentDTO:
+      type: object
+      properties:
+        message:
+          type: string
+          description: verbose, plain language description of the problem for the app developer with hints on how to fix it
+        exception:
+          type: string
+          description: dump from exception
+      description: Development
+      deprecated: true
+    ContactPerson:
+      required:
+      - name
+      type: object
+      properties:
+        name:
+          maxLength: 34
+          type: string
+          description: Name of the contact person
+          example: Test Name
+        email:
+          maxLength: 34
+          type: string
+          description: Email address of the contact person
+          example: testemail@testcompany.com
+        telephone:
+          maxLength: 16
+          type: string
+          description: Phone number of the contact person.
+          example: '+4512345678'
+      description: All fields related to Contact Person e.g. Name, Phone, email
+    ShipmentDetailsAPI:
+      required:
+      - childShipmentIds
+      - dateTime
+      - events
+      - product
+      - proofsOfDelivery
+      type: object
+      properties:
+        bookingId:
+          type: string
+          description: DSV Booking id - Identifier of the Booking
+        shipmentId:
+          type: string
+          description: DSV Shipment id - Identifier of the shipment
+        masterShipmentId:
+          type: string
+          description: Identifier of the DSV Shipment master ID
+        childShipmentIds:
+          type: array
+          items:
+            type: string
+            description: Identifier of the DSV Shipment child ID
+          description: Identifier of the DSV Shipment child ID
+        status:
+          type: string
+          description: 'Overall Booking/Shipment status:
+
+            - DRAFT - Booking not yet submitted
+
+            - BOOKED - Booking submitted, waiting for response from TMS
+
+            - IN_PROGRESS - Shipment created but not yet moving
+
+            - IN_TRANSIT - Shipment picked-up/cargo received, depending on the movement type
+
+            - COMPLETED - Shipment delivered / handed over at destination, depending on the movement type
+
+            - CANCELED - Shipment has been canceled
+
+            - REJECTED - Booking was rejected.'
+        product:
+          $ref: '#/components/schemas/ProductApiDto'
+        parties:
+          $ref: '#/components/schemas/Parties'
+        dateTime:
+          $ref: '#/components/schemas/DateTimeSection'
+        references:
+          type: array
+          items:
+            $ref: '#/components/schemas/TypeValueDTO'
+          description: All references that where used in the booking and/ or shipment to identify linked information. It is possible to receive several references of the same reference type.
+        bookedBy:
+          type: string
+          description: Name of the user that submitted the booking
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/EventApiDto'
+          description: Track and trace events
+        packages:
+          type: array
+          items:
+            $ref: '#/components/schemas/PackageDTO'
+          description: All package details in the booking/shipment.
+        transport:
+          $ref: '#/components/schemas/TransportApiDto'
+        containers:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContainerSummaryDTO'
+          description: Container details in the booking/shipment.
+        deliveryInstructions:
+          type: string
+          description: Free text delivery instructions
+        pickupInstructions:
+          type: string
+          description: Free text pickup instructions
+        shipmentNotes:
+          type: string
+          description: Shipment notes
+        incoterms:
+          $ref: '#/components/schemas/IncotermsDTO'
+        serviceLevel:
+          $ref: '#/components/schemas/ServiceLevelDTO'
+        goods:
+          $ref: '#/components/schemas/GoodsApiDto'
+        issues:
+          type: array
+          items:
+            $ref: '#/components/schemas/IssueAPI'
+          description: This section contains Issues details (reasons, dates, descriptions) if ocurred booking/shipment.
+        publicShipmentId:
+          type: string
+          description: Global Unique Identifier of this shipment (GUID)
+        carrierTrackingId:
+          type: string
+          description: Tracking ID used by the underlying express carrier
+        proofsOfDelivery:
+          type: array
+          items:
+            $ref: '#/components/schemas/DocumentDto'
+          description: Proof of delivery info (POD document)
+        selectedServices:
+          type: array
+          items:
+            $ref: '#/components/schemas/Service'
+          description: Service name, code and detail of the booking/shipment.
+        customs:
+          $ref: '#/components/schemas/CustomsApiDto'
+      description: Shipment details
+    PackageIdentifierDTO:
+      type: object
+      properties:
+        reference:
+          type: string
+          description: Reference value
+        qualifier:
+          type: string
+          description: Reference qualifier
+      description: This section contains Package identifier details from  the booking/shipment.
+    Container:
+      type: object
+      properties:
+        ref:
+          type: string
+          description: A reference identifying the container
+          example: TestContainerNumber1
+        type:
+          enum:
+          - 20DC
+          - 20GP
+          - 40DC
+          - 40GP
+          - 40HC
+          - 45HC
+          - 20RE
+          - 40RE
+          - 40REHC
+          - 45REHC
+          - 20OT
+          - 40OT
+          - 20FR
+          - 40FR
+          - 20PL
+          - 40PL
+          - 20GOH
+          - 40GOH
+          - 20DC_HT
+          - 20GP_SO
+          - 20HC
+          - 20OT_SO
+          - 22T0
+          - 20TC_SO
+          - 40DC_HT
+          - 40HC_HT
+          - 40HC_SO
+          - 40OT_SO
+          - 40DC_PW
+          - 40HC_PW
+          - 45HC_SO
+          - 45GPHC
+          - 45CS
+          - 20GP_FG
+          - 40GP_FG
+          - 40HC_FG
+          - UNDEFINED
+          type: string
+          description: 'A container type is selected on the basis of the type and size of goods.
+
+            - 20DC = 20'' dry container
+
+            - 20GP = 20'' dry container
+
+            - 40DC = 40'' dry container
+
+            - 40GP = 40'' dry container
+
+            - 20GP_SO = 20'' dry - Shipper''s Own container
+
+            - 20HC = 20'' high cube dry container
+
+            - 40HC = 40'' high cube dry container
+
+            - 45HC = 45'' high cube dry container
+
+            - 20RE = 20'' reefer container
+
+            - 40RE = 40'' reefer container
+
+            - 40REHC = 40'' high cube reefer container
+
+            - 45REHC = 45'' reefer container
+
+            - 20OT = 20'' open top container
+
+            - 40OT = 40'' open top container
+
+            - 20OT_SO = 20'' open top - Shipper''s Own container
+
+            - 40OT_SO = 40'' open top - Shipper''s Own container
+
+            - 20DC_HT = 20'' dry - Hard Top container
+
+            - 40DC_HT = 40'' Hard Top container
+
+            - 40HC_HT = 40'' high cube - Hard Top container
+
+            - 40HC_SO = 40'' high cube dry - Shipper''s Own container
+
+            - 45HC_SO = 45'' high cube dry - Shipper''s Own container
+
+            - 40DC_PW = 40’ dry pallet wide container
+
+            - 40HC_PW = 40’ high cube pallet wide container
+
+            - 45GPHC = 45’ high cube pallet wide container
+
+            - 45CS = 45’ cassette
+
+            - 20FR = 20'' flat rack container
+
+            - 40FR = 40'' flat rack container
+
+            - 20PL = 20'' platform container
+
+            - 40PL = 40'' platform container
+
+            - 20GOH = 20'' GOH container
+
+            - 40GOH = 40'' GOH container
+
+            - 22T0 = 20'' Tank container
+
+            - 20TC_SO = 20'' Tank - Shipper''s Own container
+
+            - 20GP_FG = 20'' Food Grade Container
+
+            - 40GP_FG = 40'' Food Grade Container
+
+            - 40HC_FG = 40'' High cube dry (food grade) container
+
+            - UNDEFINED = Other container type'
+          example: 20DC
+        genset:
+          type: boolean
+          description: A genset (generator set) is used to power the reefer container when normal power source is not available. E.g. when trucking over long distances or when chilled or sensitive cargo is being moved. Only available for reefer container types.
+          example: true
+        temp:
+          type: number
+          description: Maximum temperature allowed for moving the content in this container.Only available for reefer container types. UOM as specified in section “unitOfMeasure”. Accepted format decimal(3.1)
+          example: -20
+      description: Specify the required containers of a certain type. Additional attributes can be submitted for certain container types. More details on container types can be found at https://www.dsv.com/en/our-solutions/modes-of-transport/sea-freight/shipping-container-dimensions
+    BookingParty:
+      type: object
+      properties:
+        address:
+          $ref: '#/components/schemas/Address'
+        contact:
+          $ref: '#/components/schemas/ContactPerson'
+      description: Name and address of the party that created the booking.
+    DateTimeRange:
+      required:
+      - date
+      type: object
+      properties:
+        date:
+          type: string
+          description: The requested pickup/delivery date using the format YYYY-MM-DD
+          format: date
+          example: '2020-08-30'
+        start:
+          $ref: '#/components/schemas/LocalTime'
+        end:
+          $ref: '#/components/schemas/LocalTime'
+      description: Date with time range. Used e.g., for Pickup Date and Time.
+    GoodsApiDto:
+      type: object
+      properties:
+        grossWeightUom:
+          type: string
+          description: "Unit of measure for total weight\n - KG = Kilo\n - LB = Pound"
+        grossWeightValue:
+          type: number
+          description: Total gross weight of this shipment (summary off all package lines).
+        loadingMetersUom:
+          type: string
+          description: "Unit of measure for total loading meters\n - LM = Load Meter"
+        loadingMetersValue:
+          type: number
+          description: Total loading meters of this shipment (summary off all package lines).
+        quantityUom:
+          type: string
+          description: Unit of measure for total quantity
+        quantityValue:
+          type: number
+          description: Total quantity of this shipment (summary off all package lines).
+        volumeUom:
+          type: string
+          description: 'Unit of measure for total volume
+
+            - M3 = Cubic meter
+
+            - DM3 = Cubic decimetre
+
+            - LTR = Liter
+
+            - FT3 = Cubic feet'
+        volumeValue:
+          type: number
+          description: Total volume of this shipment (summary off all package lines).
+        description:
+          type: string
+          description: Description of the goods / commodity
+        chargeableWeight:
+          type: number
+          description: The volumetric weight (based on dimension and a given factor) can be higher than the actual cargo weight.
+        chargeableWeightUOM:
+          type: string
+          description: 'Weight UOM:
+
+            - KG = Kilo
+
+            - LB = Pound'
+        chargeableVolume:
+          type: number
+          description: The volume used for charges (based on dimension and a given factor) can be higher than the actual cargo volume.
+        chargeableVolumeUOM:
+          type: string
+          description: 'Volume UOM:
+
+            - M3 = Cubic meter
+
+            - DM3 = Cubic decimetre
+
+            - LTR = Liter
+
+            - FT3 = Cubic feet'
+      description: This section contains the details of the  goods from the booking/shipment.
+    PackageDTO:
+      required:
+      - type
+      type: object
+      properties:
+        stackable:
+          type: object
+          description: "- STACKABLE = the goods could be stacked\n- STACKED = the goods were stacked prior to pickup. \n- NO = the goods were not stackable."
+        length:
+          type: number
+          description: 'Dimension of single package in UOM: length'
+        lengthUOM:
+          type: string
+          description: This element specifies the units of measure (UOM) applied to length measurement
+        loadingMeters:
+          type: number
+          description: Loading meter is one meter of length of goods on a trailer. This is only available for product "Road"
+        palletSpace:
+          type: integer
+          description: Number of pallets on the ground floor (e.g. if 6 pallets are stacked 2 by 2, palletSpace will be equal to 3). This is only available for product "Road"
+          format: int32
+        grossWeight:
+          type: number
+          description: Total gross weight for this package line.
+        netWeight:
+          type: number
+          description: Net weight for this package line.
+        quantity:
+          type: integer
+          description: Number of packages in this package line
+          format: int32
+        totalVolume:
+          type: number
+          description: Total volume of this package line.
+        volumeUOM:
+          type: string
+          description: This section is used to specify the units of measure (UOM) applied to Volume measurement
+        totalWeight:
+          type: number
+          description: Total weight for this package line.
+        width:
+          type: number
+          description: 'Dimension of single package in UOM: width'
+        widthUOM:
+          type: string
+          description: This section is used to specify the units of measure (UOM) applied to Width measurement
+        height:
+          type: number
+          description: 'Dimension of single package in UOM: height'
+        heightUOM:
+          type: string
+          description: This section is used to specify the units of measure (UOM) applied to height measurement
+        packageType:
+          enum:
+          - P100
+          - P1A
+          - P1B
+          - P1G
+          - P1H
+          - P3A
+          - P3H
+          - P4A
+          - P4C
+          - P4D
+          - P4G
+          - P4H
+          - P4N
+          - P5H
+          - P5M
+          - BAG
+          - BAL
+          - BBA
+          - BBG
+          - BBK
+          - BIN
+          - BLC
+          - BND
+          - BOB
+          - BOK
+          - BOT
+          - BOX
+          - BSK
+          - BUL
+          - CAG
+          - CAN
+          - CAR
+          - CAS
+          - CDB
+          - CLL
+          - COI
+          - CON
+          - CRD
+          - CRT
+          - CTN
+          - CYL
+          - DRM
+          - EA
+          - ENV
+          - EUP
+          - EUR
+          - EWP
+          - GIB
+          - HPL
+          - IBC
+          - IPL
+          - ISO
+          - JCN
+          - KPL
+          - LD7
+          - LOAD
+          - LOD
+          - LD
+          - LOT
+          - MIX
+          - PAI
+          - PCE
+          - PKG
+          - PLB
+          - PLL
+          - PLP
+          - PLT
+          - PLY
+          - PPL
+          - PSP
+          - PXL
+          - QPL
+          - RAC
+          - RCT
+          - REF
+          - REL
+          - RLL
+          - ROR
+          - SAK
+          - SET
+          - SHT
+          - SKD
+          - SPL
+          - TAN
+          - TMC
+          - TOT
+          - TRY
+          - TUB
+          - UCR
+          - UCT
+          - UNP
+          - UNT
+          - UPL
+          - UTO
+          - VEH
+          - WDB
+          - WDC
+          - WDP
+          - WDR
+          type: string
+          description: Package type used for this package line.
+        temperatureMin:
+          type: integer
+          description: Minimum level temperature requirement for temperature controlled cargo.
+          format: int64
+        temperatureMax:
+          type: integer
+          description: Maximum level temperature requirement for temperature controlled cargo.
+          format: int64
+        description:
+          type: string
+          description: Package level cargo description
+        shippingMarks:
+          type: string
+          description: Package level Marks and Numbers (only "Road" shipments)
+        shippingMarksList:
+          type: array
+          items:
+            type: string
+            description: Package level Marks and Numbers list (only "Air" and "Sea"  shipments)
+          description: Package level Marks and Numbers list (only "Air" and "Sea"  shipments)
+        harmonizedCodes:
+          type: array
+          items:
+            type: string
+            description: Package level Harmonized Codes (HS Codes)
+          description: Package level Harmonized Codes (HS Codes)
+        isDangerous:
+          type: boolean
+          description: If the content of this package line is classified as dangerous goods this field will be set to "true".
+        dangerous:
+          type: array
+          items:
+            $ref: '#/components/schemas/DangerousGoodsDTO'
+          description: This section contains the details of the dangerous goods.
+        containerNo:
+          type: integer
+          description: Reference to an FCL container line (see container section above), this is only to be used for products "Sea" and "Rail".
+          format: int32
+        trackingNumbers:
+          type: array
+          items:
+            type: string
+            description: SSCC tracking number for the package element.
+          description: SSCC tracking number for the package element.
+        cargoAircraftOnly:
+          type: boolean
+          description: Only used for dangerous goods packages, only used for product "Air"
+        temperatureControlled:
+          type: boolean
+          description: If the goods required a certain temperature (or temperature range) during transport it will be set to "true"
+        goodsType:
+          type: string
+          description: Goods type
+        battery:
+          $ref: '#/components/schemas/Battery'
+        referenceNumber:
+          type: string
+          description: Package reference number
+        references:
+          type: array
+          items:
+            $ref: '#/components/schemas/PackageIdentifierDTO'
+          description: References sent along with the booking that can be later on used to identify linked information.
+        type:
+          type: string
+      description: All package details in the booking/shipment.
+      discriminator:
+        propertyName: type
+    ErrorDTO:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: string
+          description: Unique error code
+          example: ERR12345
+        message:
+          type: string
+          description: Error message passed to the user
+          example: 'Not found booking: 40257145990010785188'
+        fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/FieldDTO'
+          description: List of fields that didn't pass validation
+        development:
+          $ref: '#/components/schemas/DevelopmentDTO'
+      description: Error
+    Receiver:
+      type: object
+      properties:
+        address:
+          $ref: '#/components/schemas/Address'
+        contact:
+          $ref: '#/components/schemas/ContactPerson'
+      description: Name and address of the party receiving the shipment (consignee).
+    ContainerSummaryDTO:
+      type: object
+      properties:
+        containerNumber:
+          type: string
+          description: Container Number
+        containerType:
+          type: string
+          description: Container type
+        sealNumber:
+          type: string
+          description: Seal Number
+        slotDate:
+          type: string
+          description: 'Slot Date. Format: 2020-07-13T22:00:00.000+0000'
+          format: date-time
+      description: Summary of container information
+    Battery:
+      type: object
+      properties:
+        batteryType:
+          enum:
+          - DRY
+          - LITHIUM
+          type: string
+          description: Battery type
+        batteryPackageType:
+          enum:
+          - IN_EQUIPMENT
+          - SEPARATE
+          - WITH_EQUIPMENT
+          type: string
+          description: Battery Package type
+      description: Battery information
+    Parties:
+      required:
+      - bookingParty
+      - receiver
+      - sender
+      type: object
+      properties:
+        sender:
+          $ref: '#/components/schemas/Sender'
+        receiver:
+          $ref: '#/components/schemas/Receiver'
+        delivery:
+          $ref: '#/components/schemas/Delivery'
+        pickup:
+          $ref: '#/components/schemas/Pickup'
+        notify:
+          $ref: '#/components/schemas/Notify'
+        freightPayer:
+          $ref: '#/components/schemas/FreightPayer'
+        bookingParty:
+          $ref: '#/components/schemas/BookingParty'
+        carrier:
+          $ref: '#/components/schemas/Carrier'
+        party:
+          type: array
+          items:
+            $ref: '#/components/schemas/Party'
+          description: reserved for future use
+      description: Contains all parties involved in the booking. See the party definition section for more details.
+    Address:
+      type: object
+      properties:
+        companyName:
+          maxLength: 36
+          type: string
+          description: Company Name is mandatory if the address is not provided via "mdm", "addressId" or based on a myDSV template. (length 36)
+          example: Test Company Name Inc.
+        addressId:
+          maxLength: 40
+          type: string
+          description: 'Customer addressId refers to an entry in the address book within DSV’s myDSV customer portal. If a unique match is found, that address will be used and all other address fields will be ignored. This validation has lower priority than the "mdm" field. If the addressId is not unique, full address details must be provided. When the provided address matches an existing one, it will be used; otherwise, a new entry will be created in the myDSV address book. (Length: 40)'
+          example: AddressID123
+        addressLine1:
+          maxLength: 36
+          type: string
+          description: Address line 1
+          example: Test Address Line 1
+        addressLine2:
+          maxLength: 36
+          type: string
+          description: additional address line
+          example: Test Address Line 2
+        addressLine3:
+          maxLength: 36
+          type: string
+          description: additional address line
+          readOnly: true
+        city:
+          maxLength: 40
+          type: string
+          description: City name  is mandatory if the address is not provided via "mdm", "addressId" or based on a myDSV template.
+          example: Test Address City
+        countryCode:
+          enum:
+          - AF
+          - AL
+          - DZ
+          - AS
+          - AD
+          - AO
+          - AI
+          - AQ
+          - AG
+          - AR
+          - AM
+          - AW
+          - AU
+          - AT
+          - AZ
+          - BS
+          - BH
+          - BD
+          - BB
+          - BY
+          - BE
+          - BZ
+          - BJ
+          - BM
+          - BT
+          - BO
+          - BQ
+          - BA
+          - BW
+          - BR
+          - IO
+          - BN
+          - BG
+          - BF
+          - BI
+          - KH
+          - CM
+          - CA
+          - CV
+          - KY
+          - CF
+          - TD
+          - CL
+          - CN
+          - CX
+          - CC
+          - CO
+          - KM
+          - CG
+          - CD
+          - CK
+          - CR
+          - CI
+          - HR
+          - CU
+          - CW
+          - CY
+          - CZ
+          - DK
+          - DJ
+          - DM
+          - DO
+          - EC
+          - EG
+          - SV
+          - GQ
+          - ER
+          - EE
+          - ET
+          - FK
+          - FO
+          - FJ
+          - FI
+          - FR
+          - GF
+          - PF
+          - TF
+          - GA
+          - GM
+          - GE
+          - DE
+          - GH
+          - GI
+          - GR
+          - GL
+          - GD
+          - GP
+          - GU
+          - GT
+          - GG
+          - GN
+          - GW
+          - GY
+          - HT
+          - HM
+          - VA
+          - HN
+          - HK
+          - HU
+          - IS
+          - IN
+          - ID
+          - IR
+          - IQ
+          - IE
+          - IM
+          - IL
+          - IT
+          - JM
+          - JP
+          - JE
+          - JO
+          - KZ
+          - KE
+          - KI
+          - KP
+          - KR
+          - KW
+          - KG
+          - LA
+          - LV
+          - LB
+          - LS
+          - LR
+          - LY
+          - LI
+          - LT
+          - LU
+          - MO
+          - MK
+          - MG
+          - MW
+          - MY
+          - MV
+          - ML
+          - MT
+          - MH
+          - MQ
+          - MR
+          - MU
+          - YT
+          - MX
+          - FM
+          - MD
+          - MC
+          - MN
+          - ME
+          - MS
+          - MA
+          - MZ
+          - MM
+          - NA
+          - NR
+          - NP
+          - NL
+          - NC
+          - NZ
+          - NI
+          - NE
+          - NG
+          - NU
+          - NF
+          - MP
+          - 'NO'
+          - OM
+          - PK
+          - PW
+          - PS
+          - PA
+          - PG
+          - PY
+          - PE
+          - PH
+          - PN
+          - PL
+          - PT
+          - PR
+          - QA
+          - RE
+          - RO
+          - RU
+          - RW
+          - BL
+          - SH
+          - KN
+          - LC
+          - MF
+          - PM
+          - VC
+          - WS
+          - SM
+          - ST
+          - SA
+          - SN
+          - RS
+          - SC
+          - SL
+          - SG
+          - SX
+          - SK
+          - SI
+          - SB
+          - SO
+          - ZA
+          - GS
+          - SS
+          - ES
+          - LK
+          - SD
+          - SR
+          - SJ
+          - SZ
+          - SE
+          - CH
+          - SY
+          - TW
+          - TJ
+          - TZ
+          - TH
+          - TL
+          - TG
+          - TK
+          - TO
+          - TT
+          - TN
+          - TR
+          - TM
+          - TC
+          - TV
+          - UG
+          - UA
+          - AE
+          - GB
+          - US
+          - UM
+          - UY
+          - UZ
+          - VU
+          - VE
+          - VN
+          - VG
+          - VI
+          - WF
+          - EH
+          - YE
+          - ZM
+          - ZW
+          - AX
+          - XK
+          type: string
+          description: 2 letter ISO country code (e.g. US)  is mandatory if the address is not provided via "mdm", "addressId" or based on a myDSV template.
+          example: DK
+        state:
+          maxLength: 40
+          type: string
+          description: State name or state code.
+        zipCode:
+          maxLength: 10
+          type: string
+          description: Postal code  is mandatory if the address is not provided via "mdm", "addressId" or based on a myDSV template.
+          example: '1234'
+        instructions:
+          maxLength: 36
+          type: string
+          description: Instructions related to this party on the booking (e.g. pickup instructions for the pickup address)
+          example: Specific Address Party Instrution
+          deprecated: true
+        mdm:
+          maxLength: 10
+          type: string
+          description: DSV debitor number ( MDM number)
+          example: '6412345678'
+        eori:
+          enum:
+          - EU Member State ISO 3166-1 alpha-2 Country Code + up to 15 alphanumeric uppercased characters
+          type: string
+          description: Economic Operators Registration and Identification number (EORI number).
+          example: DE123456789012AZ
+        approvedShipper:
+          type: string
+          description: Information about the sender/pickup being an approved shipper. Only available for transport modes "Air".
+      description: All fields related to the address of the business partner.
+    Delivery:
+      type: object
+      properties:
+        address:
+          $ref: '#/components/schemas/Address'
+        contact:
+          $ref: '#/components/schemas/ContactPerson'
+      description: Name and address of the party where shipment is delivered
+    Service:
+      required:
+      - displayName
+      - name
+      type: object
+      properties:
+        name:
+          type: string
+          description: Service name
+        displayName:
+          type: string
+          description: Display name
+        code:
+          type: string
+          description: Service code
+          deprecated: true
+        details:
+          type: object
+          additionalProperties:
+            type: object
+            description: Booked service details
+          description: Booked service details
+      description: This section contains additional Service details from the booking/shipment.
+    ServiceLevelDTO:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Service level code
+        description:
+          type: string
+          description: Service level description
+      description: This section contains details on the requested service level from the "Air", "Sea" or "Rail" booking/shipment
+    DeviceReadingResultModelDto:
+      type: object
+      properties:
+        shipmentId:
+          type:
+          - string
+          - 'null'
+          description: Identifier of the Shipment
+          example: SH0000000000
+        shipmentStatus:
+          type:
+          - string
+          - 'null'
+          description: "Status of the shipment: \n- Planned  \n- Loading  \n- Ongoing  \n- Delivering \n- Offloading \n- Delivered \n- Terminated"
+          example: Delivered
+        transportType:
+          type:
+          - string
+          - 'null'
+          description: Transport Type
+          example: GRP
+        info:
+          type:
+          - string
+          - 'null'
+          description: Info
+          example: No readings available for this transport type
+        stages:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          description: Routing information
+          example: '[Road, Rail, Air]'
+        readings:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/DeviceReadingDto'
+          description: Device readings
+          example: Readings
+      additionalProperties: false
+      description: Device reading result model
+    DeviceReadingFilterDto:
+      type: object
+      properties:
+        shipmentId:
+          type:
+          - string
+          - 'null'
+          description: Shipment Id
+          example: SH0000000000
+        measuredAtStartDateTime:
+          type:
+          - string
+          - 'null'
+          description: Device reading measured at (Start date and time in 24 hrs format). Format - yyyy-MM-dd HH:mm
+          example: 2023-01-01 00:00
+        measuredAtEndDateTime:
+          type:
+          - string
+          - 'null'
+          description: Device reading measured at (End date and time in 24 hrs format). Format - yyyy-MM-dd HH:mm
+          example: 2023-01-31 23:59
+        measuredAtPredefinedRange:
+          type:
+          - string
+          - 'null'
+          description: "Measured at predefined date range. Possible values are: \n- PAST_MONTH \n- PAST_WEEK \n- YESTERDAY \n- TODAY"
+          example: PAST_MONTH
+      additionalProperties: false
+      description: DeviceReadingFilterDto
+    DeviceReadingDto:
+      type: object
+      properties:
+        id:
+          type:
+          - string
+          - 'null'
+          description: Device Id (IMEI) - Identifier of the device, Trailer or Container
+          example: xxxxxxx
+        trackerReadingId:
+          type:
+          - string
+          - 'null'
+          description: Tracker Reading Id
+          example: xxxxxxxxxxx
+        type:
+          type:
+          - string
+          - 'null'
+          description: "\n- Device \n- Vessel \n- Trailer"
+          example: Device
+        measuredAt:
+          type: string
+          description: Reading measured at (Coordinated Universal Time (UTC))
+          format: date-time
+          example: '2023-08-16T11:00:59.0000000+00:00'
+        geoMode:
+          type:
+          - string
+          - 'null'
+          description: Geo mode
+          example: GSM
+        latitude:
+          type:
+          - number
+          - 'null'
+          description: Latitude
+          format: decimal
+          example: 55.291673
+        longitude:
+          type:
+          - number
+          - 'null'
+          description: Longitude
+          format: decimal
+          example: 12.444475
+        address:
+          type:
+          - string
+          - 'null'
+          description: Address
+          example: Demo city, Denmark
+        batteryLevel:
+          type:
+          - integer
+          - 'null'
+          description: Battery (%)
+          format: int32
+          example: 53
+        temperature:
+          type:
+          - number
+          - 'null'
+          description: Temperature (C)
+          format: double
+          example: 26
+        probeTemperature:
+          type:
+          - number
+          - 'null'
+          description: External Temperature (C) (e.g probe)
+          format: double
+          example: 26
+        humidity:
+          type:
+          - number
+          - 'null'
+          description: Humidity (%)
+          format: double
+          example: 47.9000015258789
+        light:
+          type:
+          - number
+          - 'null'
+          description: Light (Lx)
+          format: double
+          example: 23.59
+        shock:
+          type:
+          - number
+          - 'null'
+          description: Shock (G)
+          format: double
+          example: 0.969757540573931
+      additionalProperties: false
+      description: 'Device reading dto '
+  securitySchemes:
+    apiKeyHeader:
+      type: apiKey
+      name: DSV-Subscription-Key
+      in: header
+    apiKeyQuery:
+      type: apiKey
+      name: DSV-Subscription-Key
+      in: query
+x-refined-from:
+- dsv-generic-tracking-demo-v2-openapi.json
+- dsv-generic-visibilitydemo-v1-openapi.json

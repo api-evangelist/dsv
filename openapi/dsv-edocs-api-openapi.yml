@@ -1,0 +1,288 @@
+openapi: 3.2.0
+info:
+  title: SCM E Docs API
+  description: SCM eDOCS API
+  version: v2
+servers:
+- url: https://api.dsv.com/om/edocs/v2
+security:
+- apiKeyHeader: []
+- apiKeyQuery: []
+tags:
+- name: EDocs
+paths:
+  /EDocs:
+    post:
+      tags:
+      - EDocs
+      summary: 1. Add eDOC
+      description: Add eDOC
+      operationId: Add-eDOC
+      parameters:
+      - name: authorization
+        in: header
+        description: DSV Authorization header
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.StorageDoc'
+            example:
+              id: string
+              data: string
+              parentTableCode: string
+              parentNumber: string
+              secondaryParentNumber: string
+              extension: string
+              docType: string
+              description: string
+              fileName: string
+              isPublished: true
+              intendedParties: string
+              size: 0
+              actualUpload: string
+              dateModified: string
+              userModified: string
+              dateCreated: string
+              userCreated: string
+              uniqueFileName: true
+      responses:
+        '200':
+          description: Success
+  /EDocs/Upload/{storageId}:
+    post:
+      tags:
+      - EDocs
+      summary: 2. Upload eDoc using storageId
+      description: Upload eDoc using storageId
+      operationId: Upload-eDoc-using-storageId
+      parameters:
+      - name: storageId
+        in: path
+        description: Format - uuid.
+        required: true
+        schema:
+          type: string
+      - name: authorization
+        in: header
+        description: DSV Authorization header
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+  /EDocs/Download/{storageId}:
+    get:
+      tags:
+      - EDocs
+      summary: 3. Download eDoc by storageId
+      description: Download eDoc by storageId
+      operationId: Download-eDoc-by-storageId
+      parameters:
+      - name: storageId
+        in: path
+        description: Format - uuid.
+        required: true
+        schema:
+          type: string
+      - name: authorization
+        in: header
+        description: DSV Authorization header
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+  /EDocs/{id}:
+    get:
+      tags:
+      - EDocs
+      summary: 4. Get eDocs metadata by Id
+      description: Get eDocs metadata by Id
+      operationId: Get-eDocs-metadata-by-Id
+      parameters:
+      - name: id
+        in: path
+        description: Format - uuid.
+        required: true
+        schema:
+          type: string
+      - name: authorization
+        in: header
+        description: DSV Authorization header
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+  /EDocs/{type}/{parentNumber}/{secondaryParentNumber}:
+    get:
+      tags:
+      - EDocs
+      summary: 5. Get eDocs by parentNumber and secondaryParentNum
+      description: Get eDocs by parentNumber and secondaryParentNum
+      operationId: Get-eDocs-by-parentNumber-and-secondaryParentNumber
+      parameters:
+      - name: type
+        in: path
+        description: Format - int32.
+        required: true
+        schema:
+          enum:
+          - NON
+          - ORD
+          - ORI
+          - OIC
+          - BOK
+          - BCS
+          - SHP
+          - CON
+          - PTT
+          - KDT
+          - INV
+          - PCK
+          - ORG
+          - SCN
+          - JCN
+          - CIH
+          - CIL
+          - EDM
+          - ETL
+          - ANN
+          - DOC
+          - NOT
+          - BKC
+          - PMD
+          - ADN
+          - PDG
+          - CGR
+          - LPL
+          - OLM
+          - PCT
+          - BKT
+          - JOI
+          type: string
+      - name: parentNumber
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: secondaryParentNumber
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: authorization
+        in: header
+        description: DSV Authorization header
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+components:
+  schemas:
+    eDC.Web.Api.v2.Models.Entities.StorageDoc:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        data:
+          type:
+          - string
+          - 'null'
+          description: Data
+        parentTableCode:
+          type:
+          - string
+          - 'null'
+          description: Parent Table Code
+        parentNumber:
+          type:
+          - string
+          - 'null'
+          description: Parent Number
+        secondaryParentNumber:
+          type:
+          - string
+          - 'null'
+          description: Secondary Parent Number
+        extension:
+          type:
+          - string
+          - 'null'
+          description: File Extension
+        docType:
+          type:
+          - string
+          - 'null'
+          description: Doc Type
+        description:
+          type:
+          - string
+          - 'null'
+          description: Description
+        fileName:
+          type:
+          - string
+          - 'null'
+          description: File Name
+        isPublished:
+          type: boolean
+          description: Boolean if published
+        intendedParties:
+          type:
+          - string
+          - 'null'
+          description: Intended Parties
+        size:
+          type: integer
+          description: File Size
+          format: int64
+        actualUpload:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        dateModified:
+          type:
+          - string
+          - 'null'
+          description: Date Modified
+          format: date-time
+        userModified:
+          type:
+          - string
+          - 'null'
+          description: User Modified
+        dateCreated:
+          type:
+          - string
+          - 'null'
+          description: Date Created
+          format: date-time
+        userCreated:
+          type:
+          - string
+          - 'null'
+          description: User Created
+        uniqueFileName:
+          type: boolean
+      additionalProperties: false
+  securitySchemes:
+    apiKeyHeader:
+      type: apiKey
+      name: DSV-Subscription-Key
+      in: header
+    apiKeyQuery:
+      type: apiKey
+      name: DSV-Subscription-Key
+      in: query

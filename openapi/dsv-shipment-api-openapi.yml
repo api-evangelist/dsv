@@ -1,0 +1,1366 @@
+openapi: 3.2.0
+info:
+  title: Tracking - XPress Shipment API
+  description: Track the status and latest events of your bookings and shipments moved by DSV.
+  version: v2
+servers:
+- url: https://api.dsv.com/xp/tracking/v2
+security:
+- apiKeyHeader: []
+- apiKeyQuery: []
+tags:
+- name: Shipment
+paths:
+  /shipmentDetails/{shipmentId}:
+    get:
+      tags:
+      - Shipment
+      summary: Shipment details by DSV Shipment ID
+      description: Retrieve detailed information for a specific shipment by searching for the DSV Shipment Id. (e.g. shipment addresses, service, pieces, weight, volume, revenue, references, ETA)
+      operationId: getShipment
+      parameters:
+      - name: shipmentId
+        in: path
+        description: ID of shipment to get details
+        required: true
+        schema:
+          type: integer
+      - name: dsv-service-auth
+        in: header
+        description: DSV XPress service auth for the selected API (found on DSV XPress API profile page)
+        required: true
+        schema:
+          type: string
+      - name: x-pat
+        in: header
+        description: DSV XPress personal access token (found on DSV XPress API profile page)
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ShipmentResponse'
+              example:
+                shipment:
+                  shipmentId: 10123456
+                  dsvAccount: '6400000000'
+                  trackingUrl: https://tracking-url.dsv.com/#/track-shipment?id=10123456
+                  etaDate: '2020-03-19'
+                  sender:
+                    companyName: DSV A/S
+                    addressLine1: Hovedgaden 630
+                    zipCode: '2640'
+                    city: Hedehusene
+                    countryCode: DK
+                    contactName: Sender contact
+                    contactPhoneNumber: +45 123456789
+                    contactEmail: john.smith@sender.com
+                  receiver:
+                    companyName: DSV Air & Sea GmbH
+                    addressLine1: Nirostastraße 3
+                    zipCode: '47807'
+                    city: Krefeld
+                    countryCode: DE
+                    contactName: Receiver contact
+                    contactPhoneNumber: +44 123456789
+                    contactEmail: robert.smith@receiver.com
+                  pickup:
+                    collectDateFrom: '2020-03-17T02:00:00.0000000+00:00'
+                    collectDateTo: '2020-03-17T06:00:00.0000000+00:00'
+                    address:
+                      companyName: DSV A/S
+                      addressLine1: Hovedgaden 630
+                      zipCode: '2640'
+                      city: Hedehusene
+                      countryCode: DK
+                      contactName: Sender contact
+                      contactPhoneNumber: +45 123456789
+                      contactEmail: john.smith@sender.com
+                  delivery:
+                    companyName: DSV Air & Sea GmbH
+                    addressLine1: Nirostastraße 3
+                    zipCode: '47807'
+                    city: Krefeld
+                    countryCode: DE
+                    contactName: Receiver contact
+                    contactPhoneNumber: +44 123456789
+                    contactEmail: robert.smith@receiver.com
+                  serviceOptions:
+                    packageType: PARCELS
+                    serviceCode: DSVAirExpress
+                    insurance:
+                      currencyCode: DKK
+                      monetaryValue: 2000
+                  carrier:
+                    carrierCode: Fedex
+                    serviceCode: INTERNATIONAL_PRIORITY
+                  dimensionUnit: CM
+                  weightUnit: KG
+                  volumeUnit: M3
+                  packages:
+                  - length: 50
+                    width: 40
+                    height: 40
+                    grossWeight: 6.5
+                    volume: 0.08
+                    chargeableWeight: 6.5
+                  commodities:
+                  - originCountryCode: DK
+                    goodsDescription: samples
+                    goodsValue:
+                      currencyCode: DKK
+                      monetaryValue: 1000
+                  paymentInformation:
+                    shippingChargesPayment:
+                      paymentType: SENDER
+                    dutiesAndTaxesPayment:
+                      paymentType: RECEIVER
+                  billedCharges:
+                    freight:
+                    - code: '24'
+                      description: Courrier shipment
+                      currencyCode: EUR
+                      monetaryValue: 30.15
+                      debtorAccountID: '6400000000'
+                      debtorCompanyName: DSV A/S
+                    fuel:
+                    - code: '1'
+                      description: 'Fuel Surcharge '
+                      currencyCode: EUR
+                      monetaryValue: 36
+                      debtorAccountID: '6400000000'
+                      debtorCompanyName: DSV A/S
+                    otherCharges:
+                    - code: '30'
+                      description: Insurance
+                      currencyCode: EUR
+                      monetaryValue: 3
+                      debtorAccountID: '6400000000'
+                      debtorCompanyName: DSV A/S
+                    - code: '67'
+                      description: Customs Inspection
+                      currencyCode: EUR
+                      monetaryValue: 52
+                      debtorAccountID: '6400000000'
+                      debtorCompanyName: DSV A/S
+                    - code: '19'
+                      description: Domestic 12:00AM Delivery
+                      currencyCode: EUR
+                      monetaryValue: 16.33
+                      debtorAccountID: '6400000000'
+                      debtorCompanyName: DSV A/S
+                    total:
+                      currencyCode: EUR
+                      monetaryValue: 137.48
+                  estimatedCharges:
+                    otherCharges:
+                    - code: '25'
+                      description: Administration Fee
+                      currencyCode: EUR
+                      monetaryValue: 27
+                      debtorAccountID: '6400000000'
+                      debtorCompanyName: DSV A/S
+                    total:
+                      currencyCode: EUR
+                      monetaryValue: 27
+        '400':
+          description: Invalid ID supplied
+        '401':
+          description: Unauthorized
+        '404':
+          description: Shipment not found
+components:
+  schemas:
+    PackageSpecialCargoAdrLq:
+      type: object
+      properties:
+        weight:
+          minimum: 0.0
+          type: number
+          description: The weight of the regulated good.
+          format: double
+          example: 6.5
+      description: Container for ADR LQ's information. Required if `specialCargoContent` is ADR_LQ
+      example:
+        weight: 6.5
+    PackageSpecialCargoLithium:
+      required:
+      - category
+      type: object
+      properties:
+        category:
+          maxLength: 20
+          type: string
+          description: "Category of Lithium Battery that will be shipped (different categories cannot be shipped in same shipment) valid values are:\n * SII-966\n * SII-967\n * SII-969\n * SII-970\n * SI-966\n * SI-969\n * SI-967\n * SI-970 \n * SIA-965\n * SIB-965\n * SIA-968\n * SIB-968\n"
+        UNNumber:
+          maxLength: 80
+          type: string
+          description: UN class of the regulated good.
+          example: '1090'
+      description: Container for Lithium's information. Required if `specialCargoContent` is LITHIUM
+      example:
+        category: SII-966
+        UNNumber: '1090'
+    ChargesTotal:
+      type: object
+      properties:
+        currencyCode:
+          $ref: '#/components/schemas/CurrencyCodeList'
+        monetaryValue:
+          maximum: 99999999999999.98
+          minimum: 0.0
+          type: number
+          description: Total charges value amount. Amount is expressed exclusive tax.
+          format: double
+          example: 250
+      example:
+        currencyCode: EUR
+        monetaryValue: 137.48
+    DeliveryPoint:
+      type: object
+      properties:
+        deliveryPointID:
+          type: string
+          description: Carrier identifier of the delivery point
+        carrierCode:
+          $ref: '#/components/schemas/CarrierCodeList'
+        companyName:
+          type: string
+          description: The name of the company
+        addressLine1:
+          type: string
+          description: The delivery point address Line 1
+        addressLine2:
+          type: string
+          description: The delivery point address Line 2
+        zipCode:
+          type: string
+          description: The delivery point address postal code
+        city:
+          type: string
+          description: The city where the delivery point is located
+        countryCode:
+          $ref: '#/components/schemas/CountryCodeList'
+        telephone:
+          type: string
+          description: The delivery point telephone number
+        openingHours:
+          type: array
+          items:
+            $ref: '#/components/schemas/OpeningHours'
+          description: The opening hours of the delivery point
+      description: Container for Delivery Point Information.
+      example:
+        deliveryPointID: '99999'
+        carrierCode: GLS
+        companyName: Delivery Point Company
+        addressLine1: Hedevej 15
+        addressLine2: 'Pakkeshop: 99999'
+        zipCode: '2640'
+        city: Hedehusene
+        countryCode: DK
+        telephone: '-'
+        openingHours:
+        - dayOfWeek: MONDAY
+          from: '2025-08-07'
+          to: '2025-08-07'
+        - dayOfWeek: TUESDAY
+          from: '2025-08-07'
+          to: '2025-08-07'
+        - dayOfWeek: WEDNESDAY
+          from: '2025-08-07'
+          to: '2025-08-07'
+        - dayOfWeek: THURSDAY
+          from: '2025-08-07'
+          to: '2025-08-07'
+        - dayOfWeek: FRIDAY
+          from: '2025-08-07'
+          to: '2025-08-07'
+        - dayOfWeek: SATURDAY
+          from: '2025-08-07'
+          to: '2025-08-07'
+        - dayOfWeek: SUNDAY
+          from: '2025-08-07'
+          to: '2025-08-07'
+    Pickup:
+      required:
+      - address
+      type: object
+      properties:
+        collectDateFrom:
+          type: string
+          description: Collect Date From. Defaulted with transmission day if not provided.
+          format: date-time
+          example: '2019-12-11T10:00:00.0000000+00:00'
+        collectDateTo:
+          type: string
+          description: Collect Date To. Defaulted with `Collect Date From` + 2 hours if not provided.
+          format: date-time
+          example: '2019-12-11T11:00:00.0000000+00:00'
+        pickupInstructions:
+          type: string
+          description: Instructions for pickup up
+          example: This is a pickup instruction.
+        pickupIdentificationNumber:
+          type: string
+          description: Shipment carrier pickup number.
+        address:
+          $ref: '#/components/schemas/Address'
+      description: Container for the pickup information.
+      example:
+        collectDateFrom: '2020-03-17T02:00:00.0000000+00:00'
+        collectDateTo: '2020-03-17T06:00:00.0000000+00:00'
+        address:
+          companyName: DSV A/S
+          addressLine1: Hovedgaden 630
+          zipCode: '2640'
+          city: Hedehusene
+          countryCode: DK
+          contactName: Sender contact
+          contactPhoneNumber: +45 123456789
+          contactEmail: john.smith@sender.com
+    PackageSpecialCargo:
+      required:
+      - content
+      type: object
+      properties:
+        content:
+          type: string
+          description: "Type of regulated good. Supported codes:\n * `ADR` - Transport of dangerous goods by road\n * `ADR_LQ` - Transport of dangerous goods by road in limited quantities\n * `DGR` - Transport of dangerous goods by Air (IATA regulations)\n * `LITHIUM` - Transport of goods consisting of or containing Lithium Batteries\n * `EXQ` - Transport of dangerous goods in Excepted Quantities\n * `DRY_ICE` - Transport of cargo containing Dry Ice\n"
+        dangerousGoods:
+          $ref: '#/components/schemas/PackageSpecialCargoDangerousGoods'
+        dryIce:
+          $ref: '#/components/schemas/PackageSpecialCargoDryIce'
+        adrLq:
+          $ref: '#/components/schemas/PackageSpecialCargoAdrLq'
+        lithium:
+          $ref: '#/components/schemas/PackageSpecialCargoLithium'
+      description: 'Container for special cargo content''s information.
+
+        A mix of special cargo content is not supported for the same shipment.
+
+        '
+      example:
+        content: DRY_ICE
+        dryIce:
+          weight: 6.5
+    Reference:
+      required:
+      - qualifier
+      - reference
+      type: object
+      properties:
+        qualifier:
+          type: string
+          description: "Reference Qualifiers :\n * PURCHASE_ORDER - Purchase Order Reference\n * CUSTOMS_DEC - Customs Declaration N°\n * SHPR_REF - Shipper reference\n * CNEE_REF - Delivery reference\n * COM_INV - Commercial Invoice N°\n * CARRIER_REF - Carrier reference N°\n * DELIVERY_NOTE - Delivery note\n * SHIPMENT_LOADING_REF - Shipment loading reference\n * SHIPMENT_BARCODE - Shipment barcode\n"
+        reference:
+          type: string
+          description: Reference value
+      description: Container for reference
+      example:
+        qualifier: SHPR_REF
+        reference: shipper ref
+    ServiceOptionsCod:
+      required:
+      - paymentMethod
+      - codAmount
+      type: object
+      properties:
+        paymentMethod:
+          enum:
+          - CASH
+          - CHECK
+          type: string
+          description: Payment method. Could be CASH / CHECK
+        codAmount:
+          $ref: '#/components/schemas/CurrencyMonetaryType'
+      description: Container for Cash On Delivery information. The presence indicates COD is requested.
+      example:
+        paymentMethod: CHECK
+        codAmount:
+          currencyCode: EUR
+          monetaryValue: 250
+    ServiceOptions:
+      type: object
+      properties:
+        packageType:
+          $ref: '#/components/schemas/PackageType'
+        serviceCode:
+          type: string
+          description: "List of DSV service:\n * DSVAirExpress\n * DSVAirExpressImport\n * DSVParcels\n * DSVParcelsImport\n * DSVEconomy\n * DSVEconomyImport\n * DSVCrossTrade\n * DSVCrossTradeEconomy\n"
+        insurance:
+          $ref: '#/components/schemas/CurrencyMonetaryType'
+        cod:
+          $ref: '#/components/schemas/ServiceOptionsCod'
+        timeOption:
+          type: string
+          description: Delivery Time Option, could be 9AM, 1030AM or 12PM
+        saturdayDelivery:
+          type: boolean
+          description: Saturday delivery. The presence indicates that saturday delivery is requested.
+      description: Container for shipment service options
+      example:
+        serviceOptions:
+          packageType: PARCELS
+          serviceCode: DSVAirExpress
+          insurance:
+            currencyCode: DKK
+            monetaryValue: 2000
+    ProformaInvoice:
+      type: object
+      properties:
+        proformaInvoiceHeader:
+          $ref: '#/components/schemas/ProformaInvoiceHeader'
+        proformaInvoiceLines:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProformaInvoiceLine'
+      description: Container for proforma/commercial invoice
+      example:
+        proformaInvoiceHeader:
+          invoiceType: PROFORMA
+          invoiceNumber: 0123456789
+          signature: Sender contact
+          invoiceDate: '2020-04-06'
+          incoterm: DAP
+          typeOfExport: PERMANENT
+          exportReason: SOLD
+          currency: DKK
+        proformaInvoiceLines:
+        - descriptionOfGoods: product A
+          countryOfOrigin: DK
+          hsCode: ''
+          mrn: ''
+          quantity: 100
+          uom: Pieces
+          netWeight: 0.2
+          unitPrice: 20
+        - descriptionOfGoods: product B
+          countryOfOrigin: DK
+          hsCode: ''
+          mrn: ''
+          quantity: 10
+          uom: Pieces
+          netWeight: 0.5
+          unitPrice: 50
+    PaymentInformation:
+      type: object
+      properties:
+        shippingChargesPayment:
+          $ref: '#/components/schemas/PaymentInformationDetails'
+        dutiesAndTaxesPayment:
+          $ref: '#/components/schemas/PaymentInformationDetails'
+        splitDutyVATIndicator:
+          type: boolean
+          description: Split Duty VAT Indicator. The presence indicates the payer specified for freight charges will pay transportation charges and any duties that apply to the shipment. The payer specified for Duties and Taxes will pay the VAT (Value Added Tax) only.
+      description: Container for payment information
+      example:
+        shippingChargesPayment:
+          paymentType: SENDER
+        dutiesAndTaxesPayment:
+          paymentType: RECEIVER
+    PackageSpecialCargoDryIce:
+      type: object
+      properties:
+        weight:
+          minimum: 0.0
+          type: number
+          description: The weight of the dry ice.
+          format: double
+          example: 6.5
+      description: Container for Dry Ice's information. Required if `specialCargoContent` is DRY_ICE
+      example:
+        weight: 6.5
+    PaymentInformationDetails:
+      required:
+      - paymentType
+      type: object
+      properties:
+        paymentType:
+          enum:
+          - SENDER
+          - RECEIVER
+          - DELIVERY
+          - THIRD_PARTY
+          type: string
+          description: Billed party. Could be SENDER / RECEIVER / DELIVERY / THIRD_PARTY
+        accountNumber:
+          type: string
+          description: Carrier account number of the payer.
+        accountZipCode:
+          type: string
+          description: Carrier account postal code of the payer.
+        accountCountryCode:
+          $ref: '#/components/schemas/CountryCodeList'
+        iossNumber:
+          maxLength: 80
+          type: string
+          description: Mandatory if origin is outside of EU and destination EU and shipping to end consumer and value is equal or below 150 euros.
+        iossExempt:
+          type: boolean
+          description: IOSS Exempt indicator (true if not shipping to an end consumer, and/or the commodities value exceeds 150 euros).
+    Charge:
+      required:
+      - currencyCode
+      - monetaryValue
+      type: object
+      properties:
+        code:
+          type: string
+        description:
+          type: string
+        currencyCode:
+          $ref: '#/components/schemas/CurrencyCodeList'
+        monetaryValue:
+          maximum: 9999999.99
+          minimum: 0.0
+          type: number
+          description: Charge value amount. Amount is expressed exclusive tax.
+          format: double
+          example: 250.6
+        debtorAccountID:
+          type: string
+        debtorCompanyName:
+          type: string
+      description: Container for charge.
+      example:
+        code: '24'
+        description: Courrier shipment
+        currencyCode: EUR
+        monetaryValue: 30.15
+        debtorAccountID: '6400000000'
+        debtorCompanyName: DSV A/S
+    CurrencyCodeList:
+      maxLength: 3
+      type: string
+      description: "Currency Code supported:\n * CAD -  Canadian Dollar\n * CNY  - Yuan Renminbi\n * DKK  - Danish Krone\n * EUR  - Euro\n * GBP  - British Pound\n * HKD  - Hong Kong Dollar\n * NOK  - Norwegian Krone\n * SEK  - Swedish krona\n * SGD  - Singapore Dollar\n * USD  - Dollar\n * ZAR  - Rand\n"
+      example: EUR
+    OpeningHours:
+      type: object
+      properties:
+        dayOfWeek:
+          enum:
+          - MONDAY
+          - TUESDAY
+          - WEDNESDAY
+          - THURSDAY
+          - FRIDAY
+          - SATURDAY
+          - SUNDAY
+          type: string
+        from:
+          type: string
+          format: time
+        to:
+          type: string
+          format: time
+      description: the opening hours
+    CarrierCodeList:
+      type: string
+      description: 'Carrier code.
+
+        Some supported carriers:
+
+        * DHL
+
+        * DK_GLS
+
+        * Fedex
+
+        * TNT
+
+        * UPS
+
+        '
+    Commodity:
+      required:
+      - originCountryCode
+      - goodsDescription
+      - goodsValue
+      type: object
+      properties:
+        originCountryCode:
+          $ref: '#/components/schemas/CountryCodeList'
+        goodsDescription:
+          type: string
+        goodsValue:
+          $ref: '#/components/schemas/CurrencyMonetaryType'
+        hsCode:
+          type: string
+          description: Harmonized code for goods
+        mrn:
+          type: string
+          description: Movement Reference Number (MRN) information
+      description: Container for commodity's information
+      example:
+        originCountryCode: DK
+        goodsDescription: samples
+        goodsValue:
+          currencyCode: DKK
+          monetaryValue: 1000
+    ShipmentResponse:
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorItem'
+        warnings:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorItem'
+        shipment:
+          $ref: '#/components/schemas/Shipment'
+      description: Container for shipment details response
+      example:
+        shipment:
+          shipmentId: 10123456
+          dsvAccount: '6400000000'
+          trackingUrl: https://tracking-url.dsv.com/#/track-shipment?id=10123456
+          etaDate: '2020-03-19'
+          sender:
+            companyName: DSV A/S
+            addressLine1: Hovedgaden 630
+            zipCode: '2640'
+            city: Hedehusene
+            countryCode: DK
+            contactName: Sender contact
+            contactPhoneNumber: +45 123456789
+            contactEmail: john.smith@sender.com
+          receiver:
+            companyName: DSV Air & Sea GmbH
+            addressLine1: Nirostastraße 3
+            zipCode: '47807'
+            city: Krefeld
+            countryCode: DE
+            contactName: Receiver contact
+            contactPhoneNumber: +44 123456789
+            contactEmail: robert.smith@receiver.com
+          pickup:
+            collectDateFrom: '2020-03-17T02:00:00.0000000+00:00'
+            collectDateTo: '2020-03-17T06:00:00.0000000+00:00'
+            address:
+              companyName: DSV A/S
+              addressLine1: Hovedgaden 630
+              zipCode: '2640'
+              city: Hedehusene
+              countryCode: DK
+              contactName: Sender contact
+              contactPhoneNumber: +45 123456789
+              contactEmail: john.smith@sender.com
+          delivery:
+            companyName: DSV Air & Sea GmbH
+            addressLine1: Nirostastraße 3
+            zipCode: '47807'
+            city: Krefeld
+            countryCode: DE
+            contactName: Receiver contact
+            contactPhoneNumber: +44 123456789
+            contactEmail: robert.smith@receiver.com
+          serviceOptions:
+            packageType: PARCELS
+            serviceCode: DSVAirExpress
+            insurance:
+              currencyCode: DKK
+              monetaryValue: 2000
+          carrier:
+            carrierCode: Fedex
+            serviceCode: INTERNATIONAL_PRIORITY
+          dimensionUnit: CM
+          weightUnit: KG
+          volumeUnit: M3
+          packages:
+          - length: 50
+            width: 40
+            height: 40
+            grossWeight: 6.5
+            volume: 0.08
+            chargeableWeight: 6.5
+          commodities:
+          - originCountryCode: DK
+            goodsDescription: samples
+            goodsValue:
+              currencyCode: DKK
+              monetaryValue: 1000
+          paymentInformation:
+            shippingChargesPayment:
+              paymentType: SENDER
+            dutiesAndTaxesPayment:
+              paymentType: RECEIVER
+          billedCharges:
+            freight:
+            - code: '24'
+              description: Courrier shipment
+              currencyCode: EUR
+              monetaryValue: 30.15
+              debtorAccountID: '6400000000'
+              debtorCompanyName: DSV A/S
+            fuel:
+            - code: '1'
+              description: 'Fuel Surcharge '
+              currencyCode: EUR
+              monetaryValue: 36
+              debtorAccountID: '6400000000'
+              debtorCompanyName: DSV A/S
+            otherCharges:
+            - code: '30'
+              description: Insurance
+              currencyCode: EUR
+              monetaryValue: 3
+              debtorAccountID: '6400000000'
+              debtorCompanyName: DSV A/S
+            - code: '67'
+              description: Customs Inspection
+              currencyCode: EUR
+              monetaryValue: 52
+              debtorAccountID: '6400000000'
+              debtorCompanyName: DSV A/S
+            - code: '19'
+              description: Domestic 12:00AM Delivery
+              currencyCode: EUR
+              monetaryValue: 16.33
+              debtorAccountID: '6400000000'
+              debtorCompanyName: DSV A/S
+            total:
+              currencyCode: EUR
+              monetaryValue: 137.48
+          estimatedCharges:
+            otherCharges:
+            - code: '25'
+              description: Administration Fee
+              currencyCode: EUR
+              monetaryValue: 27
+              debtorAccountID: '6400000000'
+              debtorCompanyName: DSV A/S
+            total:
+              currencyCode: EUR
+              monetaryValue: 27
+    ShipmentNotification:
+      required:
+      - notificationCode
+      - recipients
+      type: object
+      properties:
+        notificationCode:
+          type: string
+          description: "Type of notification to subscribe:\n * `DEP` - Departure notifications\n * `DEL` - Delivery notifications\n * `EXC` - Exception notifications\n * `DOC` - Document notifications\n"
+        recipients:
+          maxItems: 10
+          minItems: 1
+          type: array
+          items:
+            type: string
+            format: email
+          description: List of recipient email addresses separated by `,`
+        language:
+          type: string
+          description: "Notification language :\n * DE - German\n * EN - English\n * ES - Spanish\n * FR - French\n * IT - Italian\n * NL - Dutch\n"
+    CountryCodeList:
+      maxLength: 2
+      type: string
+      description: ISO_3166_1 Country Code
+      example: DK
+    PackageType:
+      enum:
+      - PARCELS
+      - DOCUMENT
+      - ENVELOPE
+      type: string
+      description: Package type. Could be PARCELS / DOCUMENT / ENVELOPE
+    ProformaInvoiceLine:
+      type: object
+      properties:
+        descriptionOfGoods:
+          type: string
+        countryOfOrigin:
+          $ref: '#/components/schemas/CountryCodeList'
+        hsCode:
+          type: string
+        mrn:
+          type: string
+          description: Movement Reference Number (MRN) information
+        quantity:
+          type: integer
+          format: int32
+        uom:
+          type: string
+          description: Pieces / Sets / Meters / Kilograms
+        netWeight:
+          type: number
+          format: double
+        unitPrice:
+          type: number
+          format: double
+        value:
+          type: number
+          description: Total value of the line (unitPrice * quantity)
+          format: double
+      example:
+        descriptionOfGoods: product A
+        countryOfOrigin: DK
+        hsCode: ''
+        mrn: ''
+        quantity: 100
+        uom: Pieces
+        netWeight: 0.2
+        unitPrice: 20
+    RegistrationNumber:
+      required:
+      - qualifier
+      - number
+      type: object
+      properties:
+        qualifier:
+          maxLength: 20
+          type: string
+          description: "Registration Number Qualifiers : \n  * EORI - European Union Registration and Identification\n"
+        number:
+          maxLength: 50
+          type: string
+          description: Registration Number value
+      description: List of registration numbers
+      example:
+        qualifier: EORI
+        number: DK111222333000
+    CurrencyMonetaryType:
+      required:
+      - currencyCode
+      - monetaryValue
+      type: object
+      properties:
+        currencyCode:
+          $ref: '#/components/schemas/CurrencyCodeList'
+        monetaryValue:
+          minimum: 0.0
+          type: number
+          description: Monetary value
+          format: double
+          example: 250
+    PackageSpecialCargoDangerousGoods:
+      required:
+      - UNNumber
+      - class
+      - packingGroup
+      - weight
+      type: object
+      properties:
+        UNNumber:
+          type: string
+          description: UN number of the regulated good
+          example: '1090'
+        class:
+          type: string
+          description: "Hazard class associated to the specific commodity. Supported classes:\n * `1.1`\n * `1.2`\n * `1.3`\n * `1.4`\n * `1.5`\n * `1.6`\n * `2.1`\n * `2.2`\n * `2.3`\n * `3`\n * `4.1`\n * `4.2`\n * `4.3`\n * `5.1`\n * `5.2`\n * `6.1`\n * `6.2`\n * `7`\n * `8`\n * `9`\n"
+        packingGroup:
+          enum:
+          - ''
+          - I
+          - II
+          - III
+          type: string
+          description: Packing group associated to the specific commodity. Could be '' / I / II / III
+        weight:
+          minimum: 0.0
+          type: number
+          description: The weight of the regulated good.
+          format: double
+          example: 6.5
+        idgPackageType:
+          type: string
+          description: The type of package used to contain the regulated good
+          example: Fiberboard Box
+        idgProperShippingName:
+          type: string
+          description: The proper shipping name assigned by ADR or IATA
+          example: ACETONE SOLUTION
+      description: Container for Dangerous Goods' information. Required if `specialCargoContent` is DGR or DGR_PLD0200
+      example:
+        UNNumber: '1090'
+        class: '2.2'
+        packingGroup: II
+        weight: 6.5
+        idgPackageType: Fiberboard Box
+        idgProperShippingName: ACETONE SOLUTION
+    ProformaInvoiceTypeList:
+      enum:
+      - COMMERCIAL
+      - PROFORMA
+      type: string
+      description: Type of the invoice, Proforma or Commercial. Could be COMMERCIAL / PROFORMA
+    PackageDetail:
+      required:
+      - grossWeight
+      type: object
+      properties:
+        length:
+          minimum: 0.0
+          type: number
+          description: Package length. Length must be the longest dimension of the container.
+          format: double
+        width:
+          minimum: 0.0
+          type: number
+          description: Package width.
+          format: double
+        height:
+          minimum: 0.0
+          type: number
+          description: Package height.
+          format: double
+        grossWeight:
+          minimum: 0.0
+          type: number
+          description: Package gross weight
+          format: double
+          example: 6.5
+        volume:
+          minimum: 0.0
+          type: number
+          description: The package volume. Expressed in cubic meter.
+          format: double
+          example: 0.025
+        chargeableWeight:
+          minimum: 0.0
+          type: number
+          description: Package chargeable weight
+          format: double
+          example: 6.5
+        stackableTimes:
+          type: integer
+          description: Number of time a package can be stacked.
+          format: int32
+          example: 2
+        awb:
+          type: string
+          description: Package AirWay Bill number
+          example: '987654321'
+        carrierTrackingNumber:
+          type: string
+          description: Package carrier tracking number. Useful when creating shipment already booked to carrier.
+          example: 1Z3E123412345678
+        specialCargo:
+          $ref: '#/components/schemas/PackageSpecialCargo'
+        customerScanReference:
+          maxLength: 100
+          type: string
+          description: Package customer scan reference
+          example: '390123450000000017'
+      description: Container for package
+      example:
+        length: 50
+        width: 40
+        height: 40
+        grossWeight: 6.5
+        volume: 0.08
+        chargeableWeight: 6.5
+    Address:
+      required:
+      - companyName
+      - addressLine1
+      - zipCode
+      - city
+      - countryCode
+      - contactName
+      - contactPhoneNumber
+      type: object
+      properties:
+        companyName:
+          type: string
+          description: Company Name
+        addressLine1:
+          type: string
+          description: Address Line 1
+        addressLine2:
+          type: string
+          description: Address Line 2
+        addressLine3:
+          type: string
+          description: Address Line 3
+        zipCode:
+          type: string
+          description: Address Zip Code
+        city:
+          type: string
+          description: Address City
+        state:
+          type: string
+          description: Identifying abbreviation for US state, Canada province, Ireland county, etc. Format and presence of this field will vary, depending on country.
+        countryCode:
+          $ref: '#/components/schemas/CountryCodeList'
+        contactName:
+          type: string
+          description: Contact Name
+        contactPhoneNumber:
+          type: string
+          description: Contact Phone Number
+        contactEmail:
+          type: string
+          description: Contact Email Address
+          format: email
+        residential:
+          type: boolean
+          description: Is Residential Address
+        registrationNumbers:
+          maxItems: 1
+          minItems: 0
+          type: array
+          items:
+            $ref: '#/components/schemas/RegistrationNumber'
+          description: List of registration numbers. Only one registration number is permitted for now.
+      example:
+        companyName: DSV A/S
+        addressLine1: Hovedgaden 630
+        zipCode: '2640'
+        city: Hedehusene
+        countryCode: DK
+        contactName: Sender contact
+        contactPhoneNumber: +45 123456789
+        contactEmail: john.smith@sender.com
+    CarrierDetail:
+      type: object
+      properties:
+        carrierCode:
+          $ref: '#/components/schemas/CarrierCodeList'
+        serviceCode:
+          type: string
+          description: Service carrier code
+      description: Carrier detail
+      example:
+        carrierCode: Fedex
+        serviceCode: INTERNATIONAL_PRIORITY
+    ErrorItem:
+      type: object
+      properties:
+        message:
+          type: string
+        details:
+          type: string
+    Charges:
+      type: object
+      properties:
+        freight:
+          maxItems: 99
+          minItems: 0
+          type: array
+          items:
+            $ref: '#/components/schemas/Charge'
+        fuel:
+          maxItems: 99
+          minItems: 0
+          type: array
+          items:
+            $ref: '#/components/schemas/Charge'
+        otherCharges:
+          maxItems: 99
+          minItems: 0
+          type: array
+          items:
+            $ref: '#/components/schemas/Charge'
+        total:
+          $ref: '#/components/schemas/ChargesTotal'
+      example:
+        freight:
+        - code: '24'
+          description: Courrier shipment
+          currencyCode: EUR
+          monetaryValue: 30.15
+          debtorAccountID: '6400000000'
+          debtorCompanyName: DSV A/S
+        fuel:
+        - code: '1'
+          description: 'Fuel Surcharge '
+          currencyCode: EUR
+          monetaryValue: 36
+          debtorAccountID: '6400000000'
+          debtorCompanyName: DSV A/S
+        otherCharges:
+        - code: '30'
+          description: Insurance
+          currencyCode: EUR
+          monetaryValue: 3
+          debtorAccountID: '6400000000'
+          debtorCompanyName: DSV A/S
+        - code: '67'
+          description: Customs Inspection
+          currencyCode: EUR
+          monetaryValue: 52
+          debtorAccountID: '6400000000'
+          debtorCompanyName: DSV A/S
+        - code: '19'
+          description: Domestic 12:00AM Delivery
+          currencyCode: EUR
+          monetaryValue: 16.33
+          debtorAccountID: '6400000000'
+          debtorCompanyName: DSV A/S
+        total:
+          currencyCode: EUR
+          monetaryValue: 137.48
+    ProformaInvoiceHeader:
+      type: object
+      properties:
+        invoiceType:
+          $ref: '#/components/schemas/ProformaInvoiceTypeList'
+        invoiceNumber:
+          type: string
+          description: Invoice Number
+        signature:
+          type: string
+          description: Signature
+        invoiceDate:
+          type: string
+          description: Date of invoice
+          format: date
+        incoterm:
+          type: string
+          description: "Code of incoterm :\n * DDP\n * DAP\n * DAT\n * CIP\n * CPT\n * FCA\n * EXW\n"
+        typeOfExport:
+          type: string
+          description: "Type of export :\n * PERMANENT - Permanent\n * TEMPORARY - Temporary\n * RE_EXPORT - Re-Export (repair and/or return)\n"
+        exportReason:
+          type: string
+          description: "Export reason :\n * SOLD - Sold\n * NOT_SOLD - Not Sold\n * PERS_EFFECT - Personnal effects\n * REP_RET - Repair and Return\n * SAMPLE - Sample\n * GIFT - Gift\n"
+        currency:
+          $ref: '#/components/schemas/CurrencyCodeList'
+        remarks:
+          type: string
+      example:
+        invoiceType: PROFORMA
+        invoiceNumber: 0123456789
+        signature: Sender contact
+        invoiceDate: '2020-04-06'
+        incoterm: DAP
+        typeOfExport: PERMANENT
+        exportReason: SOLD
+        currency: DKK
+    Shipment:
+      required:
+      - dsvAccount
+      - pickup
+      - delivery
+      - serviceOptions
+      - packages
+      type: object
+      properties:
+        shipmentId:
+          type: integer
+          description: Shipment Identifier
+          format: int32
+          example: 961233
+        dsvAccount:
+          type: string
+          description: Shipper's DSV account number. The account must be a valid DSV account number that is active.
+        awb:
+          type: string
+          description: Shipment AirWay Bill number
+        carrierTrackingNumber:
+          type: string
+          description: Shipment carrier tracking number.
+          example: 1Z3E123412345678
+        trackingUrl:
+          type: string
+          description: Tracking URL
+        etaDate:
+          type: string
+          description: Estimated Arrival Date
+          format: date
+        shippingInstructions:
+          type: string
+          description: Instructions for shipping
+          example: This is a shipping instruction.
+        sender:
+          $ref: '#/components/schemas/Address'
+        receiver:
+          $ref: '#/components/schemas/Address'
+        pickup:
+          $ref: '#/components/schemas/Pickup'
+        delivery:
+          $ref: '#/components/schemas/Address'
+        deliveryPoint:
+          $ref: '#/components/schemas/DeliveryPoint'
+        serviceOptions:
+          $ref: '#/components/schemas/ServiceOptions'
+        carrier:
+          $ref: '#/components/schemas/CarrierDetail'
+        dimensionUnit:
+          maxLength: 2
+          type: string
+          description: Unit of measurement for dimensions. Could be CM - centimeter or IN - inch
+        weightUnit:
+          type: string
+          description: Weight unit of measurement. Could be KG - Kilogram or LBS - Pound
+        volumeUnit:
+          maxLength: 3
+          type: string
+          description: Volume unit of measurement. Could be M3 - Cubic meters or IN3 - Cubic inches. Default is M3.
+          default: M3
+        packages:
+          maxItems: 100
+          minItems: 1
+          type: array
+          items:
+            $ref: '#/components/schemas/PackageDetail'
+          description: Packages information. For Envelope shipment only one package is allowed.
+        commodities:
+          maxItems: 100
+          minItems: 0
+          type: array
+          items:
+            $ref: '#/components/schemas/Commodity'
+          description: Commodities information
+        notifications:
+          maxItems: 4
+          minItems: 0
+          type: array
+          items:
+            $ref: '#/components/schemas/ShipmentNotification'
+          description: Container for notifications
+        references:
+          maxItems: 10
+          minItems: 0
+          type: array
+          items:
+            $ref: '#/components/schemas/Reference'
+          description: References information
+        proformaInvoice:
+          $ref: '#/components/schemas/ProformaInvoice'
+        paymentInformation:
+          $ref: '#/components/schemas/PaymentInformation'
+        billedCharges:
+          $ref: '#/components/schemas/Charges'
+        estimatedCharges:
+          $ref: '#/components/schemas/Charges'
+      description: Container for Shipment
+      example:
+        shipmentId: 10123456
+        dsvAccount: '6400000000'
+        trackingUrl: https://tracking-url.dsv.com/#/track-shipment?id=10123456
+        etaDate: '2020-03-19'
+        sender:
+          companyName: DSV A/S
+          addressLine1: Hovedgaden 630
+          zipCode: '2640'
+          city: Hedehusene
+          countryCode: DK
+          contactName: Sender contact
+          contactPhoneNumber: +45 123456789
+          contactEmail: john.smith@sender.com
+        receiver:
+          companyName: DSV Air & Sea GmbH
+          addressLine1: Nirostastraße 3
+          zipCode: '47807'
+          city: Krefeld
+          countryCode: DE
+          contactName: Receiver contact
+          contactPhoneNumber: +44 123456789
+          contactEmail: robert.smith@receiver.com
+        pickup:
+          collectDateFrom: '2020-03-17T02:00:00.0000000+00:00'
+          collectDateTo: '2020-03-17T06:00:00.0000000+00:00'
+          address:
+            companyName: DSV A/S
+            addressLine1: Hovedgaden 630
+            zipCode: '2640'
+            city: Hedehusene
+            countryCode: DK
+            contactName: Sender contact
+            contactPhoneNumber: +45 123456789
+            contactEmail: john.smith@sender.com
+        delivery:
+          companyName: DSV Air & Sea GmbH
+          addressLine1: Nirostastraße 3
+          zipCode: '47807'
+          city: Krefeld
+          countryCode: DE
+          contactName: Receiver contact
+          contactPhoneNumber: +44 123456789
+          contactEmail: robert.smith@receiver.com
+        serviceOptions:
+          packageType: PARCELS
+          serviceCode: DSVAirExpress
+          insurance:
+            currencyCode: DKK
+            monetaryValue: 2000
+        carrier:
+          carrierCode: Fedex
+          serviceCode: INTERNATIONAL_PRIORITY
+        dimensionUnit: CM
+        weightUnit: KG
+        volumeUnit: M3
+        packages:
+        - length: 50
+          width: 40
+          height: 40
+          grossWeight: 6.5
+          volume: 0.08
+          chargeableWeight: 6.5
+        commodities:
+        - originCountryCode: DK
+          goodsDescription: samples
+          goodsValue:
+            currencyCode: DKK
+            monetaryValue: 1000
+        paymentInformation:
+          shippingChargesPayment:
+            paymentType: SENDER
+          dutiesAndTaxesPayment:
+            paymentType: RECEIVER
+        billedCharges:
+          freight:
+          - code: '24'
+            description: Courrier shipment
+            currencyCode: EUR
+            monetaryValue: 30.15
+            debtorAccountID: '6400000000'
+            debtorCompanyName: DSV A/S
+          fuel:
+          - code: '1'
+            description: 'Fuel Surcharge '
+            currencyCode: EUR
+            monetaryValue: 36
+            debtorAccountID: '6400000000'
+            debtorCompanyName: DSV A/S
+          otherCharges:
+          - code: '30'
+            description: Insurance
+            currencyCode: EUR
+            monetaryValue: 3
+            debtorAccountID: '6400000000'
+            debtorCompanyName: DSV A/S
+          - code: '67'
+            description: Customs Inspection
+            currencyCode: EUR
+            monetaryValue: 52
+            debtorAccountID: '6400000000'
+            debtorCompanyName: DSV A/S
+          - code: '19'
+            description: Domestic 12:00AM Delivery
+            currencyCode: EUR
+            monetaryValue: 16.33
+            debtorAccountID: '6400000000'
+            debtorCompanyName: DSV A/S
+          total:
+            currencyCode: EUR
+            monetaryValue: 137.48
+        estimatedCharges:
+          otherCharges:
+          - code: '25'
+            description: Administration Fee
+            currencyCode: EUR
+            monetaryValue: 27
+            debtorAccountID: '6400000000'
+            debtorCompanyName: DSV A/S
+          total:
+            currencyCode: EUR
+            monetaryValue: 27
+  securitySchemes:
+    apiKeyHeader:
+      type: apiKey
+      name: DSV-Subscription-Key
+      in: header
+    apiKeyQuery:
+      type: apiKey
+      name: DSV-Subscription-Key
+      in: query

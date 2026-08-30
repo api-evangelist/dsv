@@ -1,0 +1,2185 @@
+openapi: 3.2.0
+info:
+  title: SCM Events API
+  description: SCM Events API
+  version: v2
+servers:
+- url: https://api.dsv.com/om/events/v2
+security:
+- apiKeyHeader: []
+- apiKeyQuery: []
+tags:
+- name: Events
+paths:
+  /event:
+    post:
+      tags:
+      - Events
+      summary: 1. Create Events
+      description: Create Events
+      operationId: POSTevent
+      parameters:
+      - name: authorization
+        in: header
+        description: DSV Authorization header
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/eDC.Web.Api.v2.Models.EventRequest'
+            example:
+              module: string
+              entityNumber: string
+              secondaryNumber: string
+              eventCode: string
+              description: string
+              eventDate: '2024-02-14T11:49:51.0000000+00:00'
+              reasonCodes: string
+              eventPlace: string
+              eventSource: string
+              qaIssueCode: string
+              qaIssueNotes: string
+              qaIssueResolvedDate: '2024-02-14T11:49:51.0000000+00:00'
+              vehicleRegistration: string
+              driverName: string
+              secondDriver: string
+              note: string
+              locationCode: string
+              reference: string
+              intendedParties: string
+              externalTrackingLink: string
+              customFields:
+              - name: string
+                type: string
+                value: string
+              references:
+              - type: string
+                value: string
+                customField: true
+                customFieldType: string
+              transportLegs:
+              - transportMode: string
+                consolMode: string
+                consolNumber: string
+                masterBill: string
+                bookingReference: string
+                agentsReference: string
+                customsReference: string
+                prepaidCollect: string
+                loadPort: string
+                dischargePort: string
+                portOfFirstArrival: string
+                eta: '2024-02-14T11:49:51.0000000+00:00'
+                etd: '2024-02-14T11:49:51.0000000+00:00'
+                ata: '2024-02-14T11:49:51.0000000+00:00'
+                atd: '2024-02-14T11:49:51.0000000+00:00'
+                vessel: string
+                voyageFlight: string
+                fullLoadPortFreeTime: 0
+                oceanCarrier: string
+                airCarrier: string
+                weight:
+                  value: 0
+                  unit: string
+                volume:
+                  value: 0
+                  unit: string
+                chargeable:
+                  value: 0
+                  unit: string
+                releaseType: string
+                teuCount: 0
+                countOfTEU: 0
+                countOf20FT: 0
+                countOf40FT: 0
+                countOf45FT: 0
+                stageNumber: string
+                sta: '2024-02-14T11:49:51.0000000+00:00'
+                std: '2024-02-14T11:49:51.0000000+00:00'
+                qualifier: string
+                legOrder: 0
+                legType: string
+                carrierCode: string
+                carrierSCAC: string
+                carrierDakoskyCode: string
+                carrierNationality: string
+                localCarrierCode: string
+                serviceLevel: string
+                legNotes: string
+                imoNumber: string
+                status: string
+                definedBy: string
+                charterRoute: string
+                isCharter: true
+                isLinked: true
+                isMainCarriage: true
+                isPlannedLeg: true
+                numberOfShipments: 0
+                numberOfPackages: 0
+                numberOfOriginalBills: 0
+                numberOfCopyBills: 0
+                linkReference: string
+                ownerCodeInternal: string
+                ownerCodeExternal: string
+                source: string
+                sendingAgent:
+                  type: string
+                  code: string
+                  externalCode: string
+                  isActive: true
+                  fullName: string
+                  closestPort: string
+                  currency: string
+                  phoneNumber: string
+                  email: string
+                  vatNumber: string
+                  registeredNumber: string
+                  ediCode: string
+                  address:
+                    name: string
+                    address1: string
+                    address2: string
+                    address3: string
+                    unloco: string
+                    city: string
+                    state: string
+                    postCode: string
+                    countryCode: string
+                    country: string
+                    addressCode: string
+                    lockUNLOCO: true
+                    longitude: 0
+                    latitude: 0
+                    dateModified: '2024-02-14T11:49:51.0000000+00:00'
+                    userModified: string
+                    dateCreated: '2024-02-14T11:49:51.0000000+00:00'
+                    userCreated: string
+                  contact:
+                    type: string
+                    name: string
+                    title: string
+                    phone: string
+                    mobile: string
+                    fax: string
+                    email: string
+                  additionalReferences:
+                  - type: string
+                    description: string
+                    value: string
+                  dateModified: '2024-02-14T11:49:51.0000000+00:00'
+                  userModified: string
+                  dateCreated: '2024-02-14T11:49:51.0000000+00:00'
+                  userCreated: string
+                receivingAgent:
+                  type: string
+                  code: string
+                  externalCode: string
+                  isActive: true
+                  fullName: string
+                  closestPort: string
+                  currency: string
+                  phoneNumber: string
+                  email: string
+                  vatNumber: string
+                  registeredNumber: string
+                  ediCode: string
+                  address:
+                    name: string
+                    address1: string
+                    address2: string
+                    address3: string
+                    unloco: string
+                    city: string
+                    state: string
+                    postCode: string
+                    countryCode: string
+                    country: string
+                    addressCode: string
+                    lockUNLOCO: true
+                    longitude: 0
+                    latitude: 0
+                    dateModified: '2024-02-14T11:49:51.0000000+00:00'
+                    userModified: string
+                    dateCreated: '2024-02-14T11:49:51.0000000+00:00'
+                    userCreated: string
+                  contact:
+                    type: string
+                    name: string
+                    title: string
+                    phone: string
+                    mobile: string
+                    fax: string
+                    email: string
+                  additionalReferences:
+                  - type: string
+                    description: string
+                    value: string
+                  dateModified: '2024-02-14T11:49:51.0000000+00:00'
+                  userModified: string
+                  dateCreated: '2024-02-14T11:49:51.0000000+00:00'
+                  userCreated: string
+                carrier:
+                  type: string
+                  code: string
+                  externalCode: string
+                  isActive: true
+                  fullName: string
+                  closestPort: string
+                  currency: string
+                  phoneNumber: string
+                  email: string
+                  vatNumber: string
+                  registeredNumber: string
+                  ediCode: string
+                  address:
+                    name: string
+                    address1: string
+                    address2: string
+                    address3: string
+                    unloco: string
+                    city: string
+                    state: string
+                    postCode: string
+                    countryCode: string
+                    country: string
+                    addressCode: string
+                    lockUNLOCO: true
+                    longitude: 0
+                    latitude: 0
+                    dateModified: '2024-02-14T11:49:51.0000000+00:00'
+                    userModified: string
+                    dateCreated: '2024-02-14T11:49:51.0000000+00:00'
+                    userCreated: string
+                  contact:
+                    type: string
+                    name: string
+                    title: string
+                    phone: string
+                    mobile: string
+                    fax: string
+                    email: string
+                  additionalReferences:
+                  - type: string
+                    description: string
+                    value: string
+                  dateModified: '2024-02-14T11:49:51.0000000+00:00'
+                  userModified: string
+                  dateCreated: '2024-02-14T11:49:51.0000000+00:00'
+                  userCreated: string
+                parties:
+                - type: string
+                  code: string
+                  externalCode: string
+                  isActive: true
+                  fullName: string
+                  closestPort: string
+                  currency: string
+                  phoneNumber: string
+                  email: string
+                  vatNumber: string
+                  registeredNumber: string
+                  ediCode: string
+                  address:
+                    name: string
+                    address1: string
+                    address2: string
+                    address3: string
+                    unloco: string
+                    city: string
+                    state: string
+                    postCode: string
+                    countryCode: string
+                    country: string
+                    addressCode: string
+                    lockUNLOCO: true
+                    longitude: 0
+                    latitude: 0
+                    dateModified: '2024-02-14T11:49:51.0000000+00:00'
+                    userModified: string
+                    dateCreated: '2024-02-14T11:49:51.0000000+00:00'
+                    userCreated: string
+                  contact:
+                    type: string
+                    name: string
+                    title: string
+                    phone: string
+                    mobile: string
+                    fax: string
+                    email: string
+                  additionalReferences:
+                  - type: string
+                    description: string
+                    value: string
+                  dateModified: '2024-02-14T11:49:51.0000000+00:00'
+                  userModified: string
+                  dateCreated: '2024-02-14T11:49:51.0000000+00:00'
+                  userCreated: string
+                dateModified: '2024-02-14T11:49:51.0000000+00:00'
+                userModified: string
+                dateCreated: '2024-02-14T11:49:51.0000000+00:00'
+                userCreated: string
+              containers:
+              - containerNumber: string
+                interimContainerNumber: string
+                state: Provisional
+                isShipperOwned: true
+                containerMode: string
+                containerStatus: string
+                sealNumber: string
+                additionalSealNumber: string
+                additional2SealNumber: string
+                containerCount: 0
+                dunnageWeight: 0
+                grossWeight: 0
+                unitOfweight: string
+                tareWeight: 0
+                containerCommodityCode: string
+                movementType: string
+                equipmentType: string
+                fclAvailableDate: '2024-02-14T11:49:51.0000000+00:00'
+                fclStorageDate: '2024-02-14T11:49:51.0000000+00:00'
+                emptyRequiredBy: '2024-02-14T11:49:51.0000000+00:00'
+                estimatedFCLPickupDate: '2024-02-14T11:49:51.0000000+00:00'
+                lclAvailableDate: '2024-02-14T11:49:51.0000000+00:00'
+                lclStorageDate: '2024-02-14T11:49:51.0000000+00:00'
+                bookedDeliveryDate: '2024-02-14T11:49:51.0000000+00:00'
+                requestedDeliveryDate: '2024-02-14T11:49:51.0000000+00:00'
+                estimatedDeliveryDate: '2024-02-14T11:49:51.0000000+00:00'
+                actualFullDeliveryDate: '2024-02-14T11:49:51.0000000+00:00'
+                deliveryTransportAdvisedDate: '2024-02-14T11:49:51.0000000+00:00'
+                requestedCollectionDate: '2024-02-14T11:49:51.0000000+00:00'
+                estimatedCollectionDate: '2024-02-14T11:49:51.0000000+00:00'
+                actualFullPickupDate: '2024-02-14T11:49:51.0000000+00:00'
+                portTransportBookedDate: '2024-02-14T11:49:51.0000000+00:00'
+                fullLoadPortFreeTime: 0
+                bookingCreatedDate: '2024-02-14T11:49:51.0000000+00:00'
+                bookingModifiedDate: '2024-02-14T11:49:51.0000000+00:00'
+                bookingCreatedUser: string
+                bookingModifiedUser: string
+                volume: 0
+                temperatureControlled: true
+                refrigerationType: string
+                tempSetPoint: 0
+                tempSetPointUnit: string
+                goodsDescription: string
+                isoType: string
+                emptyPickupNumber: string
+                exportPortTransportReference: string
+                exportSlotBookingReference: string
+                importReleaseNumber: string
+                importPortTransportReference: string
+                importSlotBookingReference: string
+                emptyReturnReference: string
+                emptyReleasedFromCY: '2024-02-14T11:49:51.0000000+00:00'
+                emptyReturnedOn: '2024-02-14T11:49:51.0000000+00:00'
+                fclWharfGateIn: '2024-02-14T11:49:51.0000000+00:00'
+                fclWharfGateOut: '2024-02-14T11:49:51.0000000+00:00'
+                fclLoadedDate: '2024-02-14T11:49:51.0000000+00:00'
+                fclUnloadedDate: '2024-02-14T11:49:51.0000000+00:00'
+                tempSetPointDisplay: string
+                orderNumbers: string
+                demurrageBegins: '2024-02-14T11:49:51.0000000+00:00'
+                teu: 0
+                estimatedPickupDate: '2024-02-14T11:49:51.0000000+00:00'
+                dateModified: '2024-02-14T11:49:51.0000000+00:00'
+                userModified: string
+                dateCreated: '2024-02-14T11:49:51.0000000+00:00'
+                userCreated: string
+                parties:
+                - type: string
+                  code: string
+                  externalCode: string
+                  isActive: true
+                  fullName: string
+                  closestPort: string
+                  currency: string
+                  phoneNumber: string
+                  email: string
+                  vatNumber: string
+                  registeredNumber: string
+                  ediCode: string
+                  address:
+                    name: string
+                    address1: string
+                    address2: string
+                    address3: string
+                    unloco: string
+                    city: string
+                    state: string
+                    postCode: string
+                    countryCode: string
+                    country: string
+                    addressCode: string
+                    lockUNLOCO: true
+                    longitude: 0
+                    latitude: 0
+                    dateModified: '2024-02-14T11:49:51.0000000+00:00'
+                    userModified: string
+                    dateCreated: '2024-02-14T11:49:51.0000000+00:00'
+                    userCreated: string
+                  contact:
+                    type: string
+                    name: string
+                    title: string
+                    phone: string
+                    mobile: string
+                    fax: string
+                    email: string
+                  additionalReferences:
+                  - type: string
+                    description: string
+                    value: string
+                  dateModified: '2024-02-14T11:49:51.0000000+00:00'
+                  userModified: string
+                  dateCreated: '2024-02-14T11:49:51.0000000+00:00'
+                  userCreated: string
+                customFields:
+                - name: string
+                  type: string
+                  value: string
+                  dateModified: '2024-02-14T11:49:51.0000000+00:00'
+                  userModified: string
+                  dateCreated: '2024-02-14T11:49:51.0000000+00:00'
+                  userCreated: string
+                events:
+                - eventCode: string
+                  description: string
+                  eventDate: '2024-02-14T11:49:51.0000000+00:00'
+                  reasonCodes: string
+                  eventPlace: string
+                  eventSource: string
+                  qaIssueCode: string
+                  qaIssueNotes: string
+                  qaIssueResolvedDate: '2024-02-14T11:49:51.0000000+00:00'
+                  vehicleRegistration: string
+                  driverName: string
+                  secondDriver: string
+                  qaIssueCodeDescription: string
+                  externalTrackingLink: string
+                  dateModified: '2024-02-14T11:49:51.0000000+00:00'
+                  userModified: string
+                  dateCreated: '2024-02-14T11:49:51.0000000+00:00'
+                  userCreated: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              example:
+                EventCreated: true
+                ID: 7c6c3c04-6106-4ec1-255f-08dc2c5c0d8f
+  /event/ServiceProvider:
+    post:
+      tags:
+      - Events
+      summary: 2. Create Events as a Service Provider
+      description: Create Events as a Service Provider
+      operationId: POSTevent-ServiceProvider
+      parameters:
+      - name: authorization
+        in: header
+        description: DSV Authorization header
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/eDC.Web.Api.v2.Models.EventRequest'
+            example:
+              module: string
+              entityNumber: string
+              secondaryNumber: string
+              eventCode: string
+              description: string
+              eventDate: '2024-02-14T11:49:51.0000000+00:00'
+              reasonCodes: string
+              eventPlace: string
+              eventSource: string
+              qaIssueCode: string
+              qaIssueNotes: string
+              qaIssueResolvedDate: '2024-02-14T11:49:51.0000000+00:00'
+              vehicleRegistration: string
+              driverName: string
+              secondDriver: string
+              note: string
+              locationCode: string
+              reference: string
+              intendedParties: string
+              externalTrackingLink: string
+              customFields:
+              - name: string
+                type: string
+                value: string
+              references:
+              - type: string
+                value: string
+                customField: true
+                customFieldType: string
+              transportLegs:
+              - transportMode: string
+                consolMode: string
+                consolNumber: string
+                masterBill: string
+                bookingReference: string
+                agentsReference: string
+                customsReference: string
+                prepaidCollect: string
+                loadPort: string
+                dischargePort: string
+                portOfFirstArrival: string
+                eta: '2024-02-14T11:49:51.0000000+00:00'
+                etd: '2024-02-14T11:49:51.0000000+00:00'
+                ata: '2024-02-14T11:49:51.0000000+00:00'
+                atd: '2024-02-14T11:49:51.0000000+00:00'
+                vessel: string
+                voyageFlight: string
+                fullLoadPortFreeTime: 0
+                oceanCarrier: string
+                airCarrier: string
+                weight:
+                  value: 0
+                  unit: string
+                volume:
+                  value: 0
+                  unit: string
+                chargeable:
+                  value: 0
+                  unit: string
+                releaseType: string
+                teuCount: 0
+                countOfTEU: 0
+                countOf20FT: 0
+                countOf40FT: 0
+                countOf45FT: 0
+                stageNumber: string
+                sta: '2024-02-14T11:49:51.0000000+00:00'
+                std: '2024-02-14T11:49:51.0000000+00:00'
+                qualifier: string
+                legOrder: 0
+                legType: string
+                carrierCode: string
+                carrierSCAC: string
+                carrierDakoskyCode: string
+                carrierNationality: string
+                localCarrierCode: string
+                serviceLevel: string
+                legNotes: string
+                imoNumber: string
+                status: string
+                definedBy: string
+                charterRoute: string
+                isCharter: true
+                isLinked: true
+                isMainCarriage: true
+                isPlannedLeg: true
+                numberOfShipments: 0
+                numberOfPackages: 0
+                numberOfOriginalBills: 0
+                numberOfCopyBills: 0
+                linkReference: string
+                ownerCodeInternal: string
+                ownerCodeExternal: string
+                source: string
+                sendingAgent:
+                  type: string
+                  code: string
+                  externalCode: string
+                  isActive: true
+                  fullName: string
+                  closestPort: string
+                  currency: string
+                  phoneNumber: string
+                  email: string
+                  vatNumber: string
+                  registeredNumber: string
+                  ediCode: string
+                  address:
+                    name: string
+                    address1: string
+                    address2: string
+                    address3: string
+                    unloco: string
+                    city: string
+                    state: string
+                    postCode: string
+                    countryCode: string
+                    country: string
+                    addressCode: string
+                    lockUNLOCO: true
+                    longitude: 0
+                    latitude: 0
+                    dateModified: '2024-02-14T11:49:51.0000000+00:00'
+                    userModified: string
+                    dateCreated: '2024-02-14T11:49:51.0000000+00:00'
+                    userCreated: string
+                  contact:
+                    type: string
+                    name: string
+                    title: string
+                    phone: string
+                    mobile: string
+                    fax: string
+                    email: string
+                  additionalReferences:
+                  - type: string
+                    description: string
+                    value: string
+                  dateModified: '2024-02-14T11:49:51.0000000+00:00'
+                  userModified: string
+                  dateCreated: '2024-02-14T11:49:51.0000000+00:00'
+                  userCreated: string
+                receivingAgent:
+                  type: string
+                  code: string
+                  externalCode: string
+                  isActive: true
+                  fullName: string
+                  closestPort: string
+                  currency: string
+                  phoneNumber: string
+                  email: string
+                  vatNumber: string
+                  registeredNumber: string
+                  ediCode: string
+                  address:
+                    name: string
+                    address1: string
+                    address2: string
+                    address3: string
+                    unloco: string
+                    city: string
+                    state: string
+                    postCode: string
+                    countryCode: string
+                    country: string
+                    addressCode: string
+                    lockUNLOCO: true
+                    longitude: 0
+                    latitude: 0
+                    dateModified: '2024-02-14T11:49:51.0000000+00:00'
+                    userModified: string
+                    dateCreated: '2024-02-14T11:49:51.0000000+00:00'
+                    userCreated: string
+                  contact:
+                    type: string
+                    name: string
+                    title: string
+                    phone: string
+                    mobile: string
+                    fax: string
+                    email: string
+                  additionalReferences:
+                  - type: string
+                    description: string
+                    value: string
+                  dateModified: '2024-02-14T11:49:51.0000000+00:00'
+                  userModified: string
+                  dateCreated: '2024-02-14T11:49:51.0000000+00:00'
+                  userCreated: string
+                carrier:
+                  type: string
+                  code: string
+                  externalCode: string
+                  isActive: true
+                  fullName: string
+                  closestPort: string
+                  currency: string
+                  phoneNumber: string
+                  email: string
+                  vatNumber: string
+                  registeredNumber: string
+                  ediCode: string
+                  address:
+                    name: string
+                    address1: string
+                    address2: string
+                    address3: string
+                    unloco: string
+                    city: string
+                    state: string
+                    postCode: string
+                    countryCode: string
+                    country: string
+                    addressCode: string
+                    lockUNLOCO: true
+                    longitude: 0
+                    latitude: 0
+                    dateModified: '2024-02-14T11:49:51.0000000+00:00'
+                    userModified: string
+                    dateCreated: '2024-02-14T11:49:51.0000000+00:00'
+                    userCreated: string
+                  contact:
+                    type: string
+                    name: string
+                    title: string
+                    phone: string
+                    mobile: string
+                    fax: string
+                    email: string
+                  additionalReferences:
+                  - type: string
+                    description: string
+                    value: string
+                  dateModified: '2024-02-14T11:49:51.0000000+00:00'
+                  userModified: string
+                  dateCreated: '2024-02-14T11:49:51.0000000+00:00'
+                  userCreated: string
+                parties:
+                - type: string
+                  code: string
+                  externalCode: string
+                  isActive: true
+                  fullName: string
+                  closestPort: string
+                  currency: string
+                  phoneNumber: string
+                  email: string
+                  vatNumber: string
+                  registeredNumber: string
+                  ediCode: string
+                  address:
+                    name: string
+                    address1: string
+                    address2: string
+                    address3: string
+                    unloco: string
+                    city: string
+                    state: string
+                    postCode: string
+                    countryCode: string
+                    country: string
+                    addressCode: string
+                    lockUNLOCO: true
+                    longitude: 0
+                    latitude: 0
+                    dateModified: '2024-02-14T11:49:51.0000000+00:00'
+                    userModified: string
+                    dateCreated: '2024-02-14T11:49:51.0000000+00:00'
+                    userCreated: string
+                  contact:
+                    type: string
+                    name: string
+                    title: string
+                    phone: string
+                    mobile: string
+                    fax: string
+                    email: string
+                  additionalReferences:
+                  - type: string
+                    description: string
+                    value: string
+                  dateModified: '2024-02-14T11:49:51.0000000+00:00'
+                  userModified: string
+                  dateCreated: '2024-02-14T11:49:51.0000000+00:00'
+                  userCreated: string
+                dateModified: '2024-02-14T11:49:51.0000000+00:00'
+                userModified: string
+                dateCreated: '2024-02-14T11:49:51.0000000+00:00'
+                userCreated: string
+              containers:
+              - containerNumber: string
+                interimContainerNumber: string
+                state: Provisional
+                isShipperOwned: true
+                containerMode: string
+                containerStatus: string
+                sealNumber: string
+                additionalSealNumber: string
+                additional2SealNumber: string
+                containerCount: 0
+                dunnageWeight: 0
+                grossWeight: 0
+                unitOfweight: string
+                tareWeight: 0
+                containerCommodityCode: string
+                movementType: string
+                equipmentType: string
+                fclAvailableDate: '2024-02-14T11:49:51.0000000+00:00'
+                fclStorageDate: '2024-02-14T11:49:51.0000000+00:00'
+                emptyRequiredBy: '2024-02-14T11:49:51.0000000+00:00'
+                estimatedFCLPickupDate: '2024-02-14T11:49:51.0000000+00:00'
+                lclAvailableDate: '2024-02-14T11:49:51.0000000+00:00'
+                lclStorageDate: '2024-02-14T11:49:51.0000000+00:00'
+                bookedDeliveryDate: '2024-02-14T11:49:51.0000000+00:00'
+                requestedDeliveryDate: '2024-02-14T11:49:51.0000000+00:00'
+                estimatedDeliveryDate: '2024-02-14T11:49:51.0000000+00:00'
+                actualFullDeliveryDate: '2024-02-14T11:49:51.0000000+00:00'
+                deliveryTransportAdvisedDate: '2024-02-14T11:49:51.0000000+00:00'
+                requestedCollectionDate: '2024-02-14T11:49:51.0000000+00:00'
+                estimatedCollectionDate: '2024-02-14T11:49:51.0000000+00:00'
+                actualFullPickupDate: '2024-02-14T11:49:51.0000000+00:00'
+                portTransportBookedDate: '2024-02-14T11:49:51.0000000+00:00'
+                fullLoadPortFreeTime: 0
+                bookingCreatedDate: '2024-02-14T11:49:51.0000000+00:00'
+                bookingModifiedDate: '2024-02-14T11:49:51.0000000+00:00'
+                bookingCreatedUser: string
+                bookingModifiedUser: string
+                volume: 0
+                temperatureControlled: true
+                refrigerationType: string
+                tempSetPoint: 0
+                tempSetPointUnit: string
+                goodsDescription: string
+                isoType: string
+                emptyPickupNumber: string
+                exportPortTransportReference: string
+                exportSlotBookingReference: string
+                importReleaseNumber: string
+                importPortTransportReference: string
+                importSlotBookingReference: string
+                emptyReturnReference: string
+                emptyReleasedFromCY: '2024-02-14T11:49:51.0000000+00:00'
+                emptyReturnedOn: '2024-02-14T11:49:51.0000000+00:00'
+                fclWharfGateIn: '2024-02-14T11:49:51.0000000+00:00'
+                fclWharfGateOut: '2024-02-14T11:49:51.0000000+00:00'
+                fclLoadedDate: '2024-02-14T11:49:51.0000000+00:00'
+                fclUnloadedDate: '2024-02-14T11:49:51.0000000+00:00'
+                tempSetPointDisplay: string
+                orderNumbers: string
+                demurrageBegins: '2024-02-14T11:49:51.0000000+00:00'
+                teu: 0
+                estimatedPickupDate: '2024-02-14T11:49:51.0000000+00:00'
+                dateModified: '2024-02-14T11:49:51.0000000+00:00'
+                userModified: string
+                dateCreated: '2024-02-14T11:49:51.0000000+00:00'
+                userCreated: string
+                parties:
+                - type: string
+                  code: string
+                  externalCode: string
+                  isActive: true
+                  fullName: string
+                  closestPort: string
+                  currency: string
+                  phoneNumber: string
+                  email: string
+                  vatNumber: string
+                  registeredNumber: string
+                  ediCode: string
+                  address:
+                    name: string
+                    address1: string
+                    address2: string
+                    address3: string
+                    unloco: string
+                    city: string
+                    state: string
+                    postCode: string
+                    countryCode: string
+                    country: string
+                    addressCode: string
+                    lockUNLOCO: true
+                    longitude: 0
+                    latitude: 0
+                    dateModified: '2024-02-14T11:49:51.0000000+00:00'
+                    userModified: string
+                    dateCreated: '2024-02-14T11:49:51.0000000+00:00'
+                    userCreated: string
+                  contact:
+                    type: string
+                    name: string
+                    title: string
+                    phone: string
+                    mobile: string
+                    fax: string
+                    email: string
+                  additionalReferences:
+                  - type: string
+                    description: string
+                    value: string
+                  dateModified: '2024-02-14T11:49:51.0000000+00:00'
+                  userModified: string
+                  dateCreated: '2024-02-14T11:49:51.0000000+00:00'
+                  userCreated: string
+                customFields:
+                - name: string
+                  type: string
+                  value: string
+                  dateModified: '2024-02-14T11:49:51.0000000+00:00'
+                  userModified: string
+                  dateCreated: '2024-02-14T11:49:51.0000000+00:00'
+                  userCreated: string
+                events:
+                - eventCode: string
+                  description: string
+                  eventDate: '2024-02-14T11:49:51.0000000+00:00'
+                  reasonCodes: string
+                  eventPlace: string
+                  eventSource: string
+                  qaIssueCode: string
+                  qaIssueNotes: string
+                  qaIssueResolvedDate: '2024-02-14T11:49:51.0000000+00:00'
+                  vehicleRegistration: string
+                  driverName: string
+                  secondDriver: string
+                  qaIssueCodeDescription: string
+                  externalTrackingLink: string
+                  dateModified: '2024-02-14T11:49:51.0000000+00:00'
+                  userModified: string
+                  dateCreated: '2024-02-14T11:49:51.0000000+00:00'
+                  userCreated: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              example:
+                EventCreated: true
+                ID: 7c6c3c04-6106-4ec1-255f-08dc2c5c0d8f
+components:
+  schemas:
+    eDC.Web.Api.v2.Models.Entities.Event:
+      type: object
+      properties:
+        eventCode:
+          type:
+          - string
+          - 'null'
+          description: The unique event code - usually 3 chars, but can be 2 or more.
+        description:
+          type:
+          - string
+          - 'null'
+          description: A description of the event code.
+        eventDate:
+          type:
+          - string
+          - 'null'
+          description: The date in which the event happened
+          format: date-time
+        reasonCodes:
+          type:
+          - string
+          - 'null'
+          description: Legacy, do not use.
+        eventPlace:
+          type:
+          - string
+          - 'null'
+          description: The place in which the event happened.
+        eventSource:
+          type:
+          - string
+          - 'null'
+          description: The source system that input the event.
+        qaIssueCode:
+          type:
+          - string
+          - 'null'
+        qaResponsibleParty:
+          type:
+          - string
+          - 'null'
+        stage:
+          type:
+          - string
+          - 'null'
+        qaIssueNotes:
+          type:
+          - string
+          - 'null'
+        qaIssueResolvedDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        vehicleRegistration:
+          type:
+          - string
+          - 'null'
+        driverName:
+          type:
+          - string
+          - 'null'
+        secondDriver:
+          type:
+          - string
+          - 'null'
+        locationType:
+          type:
+          - string
+          - 'null'
+          description: Options - Intermediate / Transit Customs / Destination Customs
+        qaIssueCodeDescription:
+          type:
+          - string
+          - 'null'
+        externalTrackingLink:
+          type:
+          - string
+          - 'null'
+        dateModified:
+          type:
+          - string
+          - 'null'
+          description: Date the event was modified - in general events cannot be modified but QA issues can be resolved.
+          format: date-time
+        userModified:
+          type:
+          - string
+          - 'null'
+          description: User who modified the event - in general events cannot be modified but QA issues can be resolved.
+        dateCreated:
+          type:
+          - string
+          - 'null'
+          description: Date the event was input
+          format: date-time
+        userCreated:
+          type:
+          - string
+          - 'null'
+          description: User who input the event
+      additionalProperties: false
+    eDC.Web.Api.v2.Models.CustomField:
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+        type:
+          type:
+          - string
+          - 'null'
+        value:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    eDC.Web.Api.v2.Models.Entities.Measurement:
+      type: object
+      properties:
+        value:
+          type:
+          - number
+          - 'null'
+          description: Value
+          format: double
+        unit:
+          type:
+          - string
+          - 'null'
+          description: Unit
+      additionalProperties: false
+    eDC.Web.Api.v2.Models.EventRequest:
+      type: object
+      properties:
+        module:
+          type:
+          - string
+          - 'null'
+        entityNumber:
+          type:
+          - string
+          - 'null'
+        secondaryNumber:
+          type:
+          - string
+          - 'null'
+        eventCode:
+          type:
+          - string
+          - 'null'
+        description:
+          type:
+          - string
+          - 'null'
+        eventDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        reasonCodes:
+          type:
+          - string
+          - 'null'
+        eventPlace:
+          type:
+          - string
+          - 'null'
+        eventSource:
+          type:
+          - string
+          - 'null'
+        qaIssueCode:
+          type:
+          - string
+          - 'null'
+        qaResponsibleParty:
+          type:
+          - string
+          - 'null'
+        stage:
+          type:
+          - string
+          - 'null'
+        qaIssueNotes:
+          type:
+          - string
+          - 'null'
+        qaIssueResolvedDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        vehicleRegistration:
+          type:
+          - string
+          - 'null'
+        driverName:
+          type:
+          - string
+          - 'null'
+        secondDriver:
+          type:
+          - string
+          - 'null'
+        note:
+          type:
+          - string
+          - 'null'
+        locationCode:
+          type:
+          - string
+          - 'null'
+        locationType:
+          type:
+          - string
+          - 'null'
+        reference:
+          type:
+          - string
+          - 'null'
+        intendedParties:
+          type:
+          - string
+          - 'null'
+        externalTrackingLink:
+          type:
+          - string
+          - 'null'
+        externalBookingNumber:
+          type:
+          - string
+          - 'null'
+        externalBookingSender:
+          type:
+          - string
+          - 'null'
+        customFields:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/eDC.Web.Api.v2.Models.CustomField'
+        references:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/eDC.Web.Api.v2.Models.EventReference'
+        transportLegs:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.JobConsol'
+        containers:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.JobContainer'
+      additionalProperties: false
+    eDC.Web.Api.v2.Models.Entities.AdditionalReference:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+        description:
+          type:
+          - string
+          - 'null'
+        value:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    eDC.Web.Api.v2.Models.Entities.Company:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+          description: Type
+        code:
+          type:
+          - string
+          - 'null'
+          description: Code
+        externalCode:
+          type:
+          - string
+          - 'null'
+          description: External Code
+        isActive:
+          type: boolean
+          description: Active
+        fullName:
+          type:
+          - string
+          - 'null'
+          description: Full Name
+        closestPort:
+          type:
+          - string
+          - 'null'
+          description: Closest Port
+        currency:
+          type:
+          - string
+          - 'null'
+          description: Currency
+        phoneNumber:
+          type:
+          - string
+          - 'null'
+          description: Phone Number
+        email:
+          type:
+          - string
+          - 'null'
+          description: Email
+        vatNumber:
+          type:
+          - string
+          - 'null'
+        registeredNumber:
+          type:
+          - string
+          - 'null'
+          description: Registered Number
+        ediCode:
+          type:
+          - string
+          - 'null'
+        address:
+          $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.Address'
+        contact:
+          $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.Contact'
+        additionalReferences:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.AdditionalReference'
+        dateModified:
+          type:
+          - string
+          - 'null'
+          description: Date Modified
+          format: date-time
+        userModified:
+          type:
+          - string
+          - 'null'
+          description: User Modified
+        dateCreated:
+          type:
+          - string
+          - 'null'
+          description: Date Created
+          format: date-time
+        userCreated:
+          type:
+          - string
+          - 'null'
+          description: User Created
+      additionalProperties: false
+    eDC.Domain.Enums.ContainerState:
+      enum:
+      - Provisional
+      - ReleasedCY
+      - PickupBooked
+      - PickedUp
+      - GateIn
+      - Loaded
+      - Shipped
+      - Arrived
+      - Unloaded
+      - DeliveryBooked
+      - GateOut
+      - Delivered
+      - EmptyReadyForReturn
+      - EmptyReturned
+      type: string
+      format: int32
+    eDC.Web.Api.v2.Models.Entities.JobConsol:
+      type: object
+      properties:
+        transportMode:
+          type:
+          - string
+          - 'null'
+          description: Mode of Transport eg. Air, Sea, Road
+        consolMode:
+          type:
+          - string
+          - 'null'
+          description: Mode of Consol
+        consolNumber:
+          type:
+          - string
+          - 'null'
+        masterBill:
+          type:
+          - string
+          - 'null'
+          description: Master Bill of Lading (MBL)
+        bookingReference:
+          type:
+          - string
+          - 'null'
+          description: Booking Reference
+        agentsReference:
+          type:
+          - string
+          - 'null'
+          description: Agent Reference
+        customsReference:
+          type:
+          - string
+          - 'null'
+          description: Customs Reference
+        prepaidCollect:
+          type:
+          - string
+          - 'null'
+          description: Prepaid or Collection
+        loadPort:
+          type:
+          - string
+          - 'null'
+          description: Port of Loading,  UNLOCO (e.g. DEHAM)
+        dischargePort:
+          type:
+          - string
+          - 'null'
+          description: Port of Discharge, UNLOCO (e.g. DEHAM)
+        portOfFirstArrival:
+          type:
+          - string
+          - 'null'
+          description: Port of first arrival
+        eta:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        etd:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        ata:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        atd:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        vessel:
+          type:
+          - string
+          - 'null'
+          description: Vessel name
+        voyageFlight:
+          type:
+          - string
+          - 'null'
+          description: Voyage (MoT Sea) or Flight No (MoT Air)
+        fullLoadPortFreeTime:
+          type: integer
+          description: Full Load Port Free Time
+          format: int32
+        fullLoadDestinationDetentionFreeTime:
+          type: integer
+          format: int32
+        fullLoadOriginDetentionFreeTime:
+          type: integer
+          format: int32
+        oceanCarrier:
+          type:
+          - string
+          - 'null'
+          description: Ocean Carrier
+        airCarrier:
+          type:
+          - string
+          - 'null'
+          description: Air Carrier
+        weight:
+          $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.Measurement'
+        volume:
+          $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.Measurement'
+        chargeable:
+          $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.Measurement'
+        releaseType:
+          type:
+          - string
+          - 'null'
+          description: Type of Release
+        teuCount:
+          type: number
+          format: double
+        countOfTEU:
+          type: number
+          description: Count of TEU
+          format: double
+        countOf20FT:
+          type: integer
+          description: Count of 20ft Container
+          format: int32
+        countOf40FT:
+          type: integer
+          description: Count of 40ft Container
+          format: int32
+        countOf45FT:
+          type: integer
+          description: Count of 45ft Container
+          format: int32
+        stageNumber:
+          type:
+          - string
+          - 'null'
+          description: Stage Number
+        sta:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        std:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        consolContainerMode:
+          type:
+          - string
+          - 'null'
+        consolServiceLevel:
+          type:
+          - string
+          - 'null'
+        qualifier:
+          type:
+          - string
+          - 'null'
+          description: Qualifier
+        legOrder:
+          type: integer
+          description: Leg Order
+          format: int32
+        legType:
+          type:
+          - string
+          - 'null'
+          description: Leg Type (e.g. Main)
+        carrierCode:
+          type:
+          - string
+          - 'null'
+          description: Carrier Code
+        carrierSCAC:
+          type:
+          - string
+          - 'null'
+          description: Carrier SCAC Code
+        carrierDakoskyCode:
+          type:
+          - string
+          - 'null'
+          description: Carrier Dakosy Code
+        carrierNationality:
+          type:
+          - string
+          - 'null'
+          description: Carrier Nationality
+        localCarrierCode:
+          type:
+          - string
+          - 'null'
+          description: Local Carrier Code
+        serviceLevel:
+          type:
+          - string
+          - 'null'
+          description: Service Level
+        legNotes:
+          type:
+          - string
+          - 'null'
+          description: Leg Notes
+        imoNumber:
+          type:
+          - string
+          - 'null'
+        status:
+          type:
+          - string
+          - 'null'
+          description: Status
+        definedBy:
+          type:
+          - string
+          - 'null'
+          description: Defined by
+        charterRoute:
+          type:
+          - string
+          - 'null'
+          description: Charter Route
+        isCharter:
+          type: boolean
+          description: Boolean if charter
+        isLinked:
+          type: boolean
+          description: Boolean is linked
+        isMainCarriage:
+          type: boolean
+          description: Boolean if leg is main leg
+        isPlannedLeg:
+          type: boolean
+          description: Boolean if leg is planned
+        numberOfShipments:
+          type: integer
+          description: Number of Shipments
+          format: int32
+        numberOfPackages:
+          type: integer
+          description: Number of Packages
+          format: int32
+        numberOfOriginalBills:
+          type: integer
+          description: Number of Original Bill of Ladings
+          format: int32
+        numberOfCopyBills:
+          type: integer
+          description: Number of Copy Bill of Lading
+          format: int32
+        linkReference:
+          type:
+          - string
+          - 'null'
+          description: Link Reference
+        ownerCodeInternal:
+          type:
+          - string
+          - 'null'
+          description: Internal Owner Code
+        ownerCodeExternal:
+          type:
+          - string
+          - 'null'
+          description: External Owner Code
+        source:
+          type:
+          - string
+          - 'null'
+          description: Source
+        sendingAgent:
+          $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.Company'
+        receivingAgent:
+          $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.Company'
+        carrier:
+          $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.Company'
+        parties:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.Company'
+          description: Parties
+        dateModified:
+          type:
+          - string
+          - 'null'
+          description: Date Modified
+          format: date-time
+        userModified:
+          type:
+          - string
+          - 'null'
+          description: User Modified
+        dateCreated:
+          type:
+          - string
+          - 'null'
+          description: Date Created
+          format: date-time
+        userCreated:
+          type:
+          - string
+          - 'null'
+          description: User Created
+      additionalProperties: false
+    eDC.Web.Api.v2.Models.EventReference:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+        value:
+          type:
+          - string
+          - 'null'
+        customField:
+          type: boolean
+        customFieldType:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    eDC.Web.Api.v2.Models.Entities.GenCustomAddOnValue:
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+          description: Name
+        type:
+          type:
+          - string
+          - 'null'
+          description: Type
+        value:
+          type:
+          - string
+          - 'null'
+          description: Value
+        dateModified:
+          type:
+          - string
+          - 'null'
+          description: Date Modiefied
+          format: date-time
+        userModified:
+          type:
+          - string
+          - 'null'
+          description: User Modified
+        dateCreated:
+          type:
+          - string
+          - 'null'
+          description: Date Created
+          format: date-time
+        userCreated:
+          type:
+          - string
+          - 'null'
+          description: User Created
+      additionalProperties: false
+    eDC.Web.Api.v2.Models.Entities.Contact:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+        name:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        phone:
+          type:
+          - string
+          - 'null'
+        mobile:
+          type:
+          - string
+          - 'null'
+        fax:
+          type:
+          - string
+          - 'null'
+        email:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    eDC.Web.Api.v2.Models.Entities.JobContainer:
+      type: object
+      properties:
+        containerNumber:
+          type:
+          - string
+          - 'null'
+        interimContainerNumber:
+          type:
+          - string
+          - 'null'
+        state:
+          $ref: '#/components/schemas/eDC.Domain.Enums.ContainerState'
+        isShipperOwned:
+          type: boolean
+        containerMode:
+          type:
+          - string
+          - 'null'
+        containerStatus:
+          type:
+          - string
+          - 'null'
+        sealNumber:
+          type:
+          - string
+          - 'null'
+        additionalSealNumber:
+          type:
+          - string
+          - 'null'
+        additional2SealNumber:
+          type:
+          - string
+          - 'null'
+        containerCount:
+          type: integer
+          format: int32
+        dunnageWeight:
+          type: number
+          format: double
+        grossWeight:
+          type: number
+          format: double
+        unitOfweight:
+          type:
+          - string
+          - 'null'
+        tareWeight:
+          type: number
+          format: double
+        containerCommodityCode:
+          type:
+          - string
+          - 'null'
+        movementType:
+          type:
+          - string
+          - 'null'
+        equipmentType:
+          type:
+          - string
+          - 'null'
+        fclAvailableDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        fclStorageDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        emptyRequiredBy:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        estimatedFCLPickupDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        lclAvailableDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        lclStorageDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        bookedDeliveryDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        requestedDeliveryDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        estimatedDeliveryDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        actualFullDeliveryDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        deliveryTransportAdvisedDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        requestedCollectionDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        estimatedCollectionDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        actualFullPickupDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        portTransportBookedDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        fullLoadPortFreeTime:
+          type: integer
+          format: int32
+        fullLoadDestinationDetentionFreeTime:
+          type: integer
+          format: int32
+        fullLoadOriginDetentionFreeTime:
+          type: integer
+          format: int32
+        demurrageStartDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        shipperDetentionStartDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        importerDetentionStartDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        bookingCreatedDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        bookingModifiedDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        bookingCreatedUser:
+          type:
+          - string
+          - 'null'
+        bookingModifiedUser:
+          type:
+          - string
+          - 'null'
+        volume:
+          type: number
+          format: double
+        temperatureControlled:
+          type: boolean
+        refrigerationType:
+          type:
+          - string
+          - 'null'
+        tempSetPoint:
+          type: number
+          format: double
+        tempSetPointUnit:
+          type:
+          - string
+          - 'null'
+        goodsDescription:
+          type:
+          - string
+          - 'null'
+        isoType:
+          type:
+          - string
+          - 'null'
+        emptyPickupNumber:
+          type:
+          - string
+          - 'null'
+        exportPortTransportReference:
+          type:
+          - string
+          - 'null'
+        exportSlotBookingReference:
+          type:
+          - string
+          - 'null'
+        importReleaseNumber:
+          type:
+          - string
+          - 'null'
+        importPortTransportReference:
+          type:
+          - string
+          - 'null'
+        importSlotBookingReference:
+          type:
+          - string
+          - 'null'
+        emptyReturnReference:
+          type:
+          - string
+          - 'null'
+        emptyReleasedFromCY:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        emptyReadyForReturn:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        emptyReturnedOn:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        emptyReturnRequiredBy:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        fclWharfGateIn:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        fclWharfGateOut:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        fclLoadedDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        fclUnloadedDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        tempSetPointDisplay:
+          type:
+          - string
+          - 'null'
+        orderNumbers:
+          type:
+          - string
+          - 'null'
+        demurrageBegins:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        teu:
+          type: number
+          format: double
+        estimatedPickupDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        arrivalPickupDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        arrivalDeliveryDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        departureDeliveryDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        dateModified:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        userModified:
+          type:
+          - string
+          - 'null'
+        dateCreated:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        userCreated:
+          type:
+          - string
+          - 'null'
+        requestedEmptyReturnDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        parties:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.Company'
+        customFields:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.GenCustomAddOnValue'
+        events:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.Event'
+      additionalProperties: false
+    eDC.Web.Api.v2.Models.Entities.Address:
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+          description: Name
+        address1:
+          type:
+          - string
+          - 'null'
+          description: Address line 1
+        address2:
+          type:
+          - string
+          - 'null'
+          description: Address line 2
+        address3:
+          type:
+          - string
+          - 'null'
+          description: Address line 3
+        unloco:
+          type:
+          - string
+          - 'null'
+        nearestPort:
+          type:
+          - string
+          - 'null'
+        city:
+          type:
+          - string
+          - 'null'
+          description: City
+        state:
+          type:
+          - string
+          - 'null'
+          description: State
+        postCode:
+          type:
+          - string
+          - 'null'
+          description: Postal code
+        countryCode:
+          type:
+          - string
+          - 'null'
+          description: 2-Letter Country Code
+        country:
+          type:
+          - string
+          - 'null'
+          description: Country
+        addressCode:
+          type:
+          - string
+          - 'null'
+          description: Address Code
+        lockUNLOCO:
+          type: boolean
+        longitude:
+          type:
+          - number
+          - 'null'
+          description: Longitude
+          format: double
+        latitude:
+          type:
+          - number
+          - 'null'
+          description: Latitude
+          format: double
+        dateModified:
+          type:
+          - string
+          - 'null'
+          description: Date Modified
+          format: date-time
+        userModified:
+          type:
+          - string
+          - 'null'
+          description: User Modified
+        dateCreated:
+          type:
+          - string
+          - 'null'
+          description: Creation Date
+          format: date-time
+        userCreated:
+          type:
+          - string
+          - 'null'
+          description: User creating the address
+      additionalProperties: false
+  securitySchemes:
+    apiKeyHeader:
+      type: apiKey
+      name: DSV-Subscription-Key
+      in: header
+    apiKeyQuery:
+      type: apiKey
+      name: DSV-Subscription-Key
+      in: query

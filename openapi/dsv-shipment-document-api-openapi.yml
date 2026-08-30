@@ -1,0 +1,76 @@
+openapi: 3.2.0
+info:
+  title: DOWNLOAD (DEMO) - Air, Sea, Road (EU), Rail Shipment document API
+  description: 'Download available documents for your bookings and shipments moved by DSV. Supported transport modes: Air, Sea, Road (EU), Rail and XPress.'
+  version: v1
+servers:
+- url: https://api.dsv.com/my-demo/download/v1
+security:
+- apiKeyHeader: []
+- apiKeyQuery: []
+tags:
+- name: Shipment document
+paths:
+  /shipments/{shipmentId}/documents/{documentId}:
+    get:
+      tags:
+      - Shipment document
+      summary: Document of shipment
+      description: Retrieve document file by shipment ID and document ID.
+      operationId: get-shipment-shipmentId-documents-documentId
+      parameters:
+      - name: shipmentId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: documentId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: additionalId
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: fileName
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: DSV Oauth header
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+              examples:
+                default:
+                  value: null
+        '400':
+          description: Bad Request
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+        '512':
+          description: Internal Server Error
+components:
+  securitySchemes:
+    apiKeyHeader:
+      type: apiKey
+      name: DSV-Subscription-Key
+      in: header
+    apiKeyQuery:
+      type: apiKey
+      name: DSV-Subscription-Key
+      in: query

@@ -1,0 +1,143 @@
+openapi: 3.2.0
+info:
+  title: UPLOAD - Air, Sea, Road (EU), Rail (DEMO) Upload attachment using Shipment Id API
+  description: 'Upload available documents for your bookings and shipments moved by DSV. Supported transport modes: Air, Sea, Road (EU) and Rail.'
+  version: v1
+servers:
+- url: https://api.dsv.com/my-demo/upload/v1
+security:
+- apiKeyHeader: []
+- apiKeyQuery: []
+tags:
+- name: Upload attachment using Shipment Id
+paths:
+  /shipments/tmsId/{type}/{tmsId}:
+    post:
+      tags:
+      - Upload attachment using Shipment Id
+      summary: Upload attachment using Shipment Id
+      description: 'Upload an attachment to a shipment identified by TMSID. TMSID is the DSV Shipment ID (also referred to as ''shipmentId'' in some UI screens). Allowed document types: CUS, GDS, HAZ, INV, PKL.'
+      operationId: uploadDocumentByShipmentId
+      parameters:
+      - name: tmsId
+        in: path
+        description: Unique identifier for the DSV shipment (TMSID = Shipment ID).
+        required: true
+        schema:
+          type: string
+      - name: type
+        in: path
+        description: 'Allowed types:
+
+          - CUS - Customs Declaration
+
+          - GDS - Other Goods Document
+
+          - HAZ - Dangerous Goods Document
+
+          - INV - Commercial Invoice
+
+          - PKL - Packing list'
+        required: true
+        schema:
+          type: string
+      - name: DSV-Service-Auth
+        in: header
+        description: Basic Auth header - Will be deprecated
+        required: true
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: Oauth header
+        schema:
+          type: string
+      requestBody:
+        description: 'It is not possible to delete documents which have been uploaded via the API to DSV
+
+
+          All files are scanned for antimalware and the Maximum file size is 3MB.
+
+
+          Here is a list of the most used content-types:
+
+          - .xls = Content-Type: application/vnd.ms-excel
+
+          - .xlsx = Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+
+          - .pdf = Content-Type: application/pdf
+
+          - .txt = Content-Type: text/plain
+
+          - .doc = Content-Type: application/msword
+
+          - .docx = Content-Type: application/vnd.openxmlformats-officedocument.wordprocessingml.document
+
+          - .ppt = Content-Type: application/vnd.ms-powerpoint
+
+          - .pptx = Content-Type: application/vnd.openxmlformats-officedocument.presentationml.presentation
+
+          - .jpg = Content-Type: image/x-citrix-jpeg
+
+          - .jpeg = Content-Type: image/x-citrix-jpeg
+
+          - .png = Content-Type: image/x-png
+
+          - .bmp = Content-Type: image/bmp
+
+          - .json = Content-Type: application/json
+
+          - .zip = Content-Type: application/zip'
+        content:
+          multipart/form-data:
+            schema:
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        '201':
+          description: File uploaded successfully
+          content:
+            application/json:
+              schema:
+                type: string
+              example: string
+        '400':
+          description: Request contains not valid data
+          content:
+            application/json:
+              schema:
+                type: string
+              example: string
+        '401':
+          description: Not authorized
+          content:
+            application/json:
+              schema:
+                type: string
+              example: string
+        '403':
+          description: Lack of privileges to use this method
+          content:
+            application/json:
+              schema:
+                type: string
+              example: string
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: string
+              example: string
+components:
+  securitySchemes:
+    apiKeyHeader:
+      type: apiKey
+      name: DSV-Subscription-Key
+      in: header
+    apiKeyQuery:
+      type: apiKey
+      name: DSV-Subscription-Key
+      in: query

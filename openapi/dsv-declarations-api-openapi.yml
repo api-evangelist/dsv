@@ -1,0 +1,4135 @@
+openapi: 3.2.0
+info:
+  title: Customs (DEMO) Declarations API
+  description: Transmit cleared declarations, retrieve drafts, and submit updates via Customs API
+  version: v2
+servers:
+- url: https://api.dsv.com/csai-demo/v2
+security:
+- apiKeyHeader: []
+- apiKeyQuery: []
+tags:
+- name: Declarations
+paths:
+  /declarations:
+    post:
+      tags:
+      - Declarations
+      summary: Transmit cleared customs declaration data
+      description: 'Enables customers to transmit cleared customs declaration data to the DSV Global Customs Reporting platform for reporting purposes.
+
+
+        Use case:
+
+        This API is designed for customers cooperating with DSV and supports the structured submission of customs declarations that have already been filed with local customs systems and officially cleared by the authorities.
+
+
+        The transmitted data is integrated into DSV’s Global Customs Reporting platform, where it is used to support centralized reporting, compliance monitoring and data-driven insights.
+
+        '
+      operationId: 03-post-declarations
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomsDeclarationRequest'
+            example:
+              id: string
+              declaration:
+                header:
+                  entryNumber: string
+                  lrn: string
+                  ucr: string
+                  jobDate: string
+                  jobTime: string
+                  jobType: StandardImport
+                  jobTypeDescription: string
+                  shipmentType: string
+                  declarationType: string
+                  declarationCategory: string
+                  declarationCountry: string
+                  declarationDivision: Air
+                  portOfEntry: string
+                  cityOfEntry: string
+                  countryOfImport: string
+                  countryOfExport: string
+                  portOfLoading: string
+                  portOfDischarge: string
+                  borderTransportId: string
+                  inlandTransportId: string
+                  borderModeOfTransport: string
+                  inlandModeOfTransport: string
+                  borderModeOfTransportDescription: string
+                  inlandModeOfTransportDescription: string
+                  borderTransportNationality: string
+                  inlandTransportNationality: string
+                  importDate: string
+                  exportDate: string
+                  houseBillOfLading: string
+                  houseAirwayBill: string
+                  masterBillOfLading: string
+                  masterAirwayBill: string
+                  shipmentId: string
+                  parties:
+                    broker:
+                      registrationCode: string
+                      vatGst: string
+                      name: string
+                      address:
+                        name1: string
+                        name2: string
+                        name3: string
+                        name4: string
+                        city: string
+                        postalCode: string
+                        state: string
+                        country: string
+                      representativeStatus: string
+                    ior:
+                      registrationCode: string
+                      vatGst: string
+                      name: string
+                      address:
+                        name1: string
+                        name2: string
+                        name3: string
+                        name4: string
+                        city: string
+                        postalCode: string
+                        state: string
+                        country: string
+                      representativeStatus: string
+                    eor:
+                      registrationCode: string
+                      vatGst: string
+                      name: string
+                      address:
+                        name1: string
+                        name2: string
+                        name3: string
+                        name4: string
+                        city: string
+                        postalCode: string
+                        state: string
+                        country: string
+                      representativeStatus: string
+                    consignee:
+                      registrationCode: string
+                      vatGst: string
+                      name: string
+                      address:
+                        name1: string
+                        name2: string
+                        name3: string
+                        name4: string
+                        city: string
+                        postalCode: string
+                        state: string
+                        country: string
+                      representativeStatus: string
+                    declarant:
+                      registrationCode: string
+                      vatGst: string
+                      name: string
+                      address:
+                        name1: string
+                        name2: string
+                        name3: string
+                        name4: string
+                        city: string
+                        postalCode: string
+                        state: string
+                        country: string
+                      representativeStatus: string
+                    representative:
+                      registrationCode: string
+                      vatGst: string
+                      name: string
+                      address:
+                        name1: string
+                        name2: string
+                        name3: string
+                        name4: string
+                        city: string
+                        postalCode: string
+                        state: string
+                        country: string
+                      representativeStatus: string
+                    buyer:
+                      registrationCode: string
+                      vatGst: string
+                      name: string
+                      address:
+                        name1: string
+                        name2: string
+                        name3: string
+                        name4: string
+                        city: string
+                        postalCode: string
+                        state: string
+                        country: string
+                      representativeStatus: string
+                    seller:
+                      registrationCode: string
+                      vatGst: string
+                      name: string
+                      address:
+                        name1: string
+                        name2: string
+                        name3: string
+                        name4: string
+                        city: string
+                        postalCode: string
+                        state: string
+                        country: string
+                      representativeStatus: string
+                    authorizedConsignee:
+                      registrationCode: string
+                      vatGst: string
+                      name: string
+                      address:
+                        name1: string
+                        name2: string
+                        name3: string
+                        name4: string
+                        city: string
+                        postalCode: string
+                        state: string
+                        country: string
+                      representativeStatus: string
+                    forwarder:
+                      registrationCode: string
+                      vatGst: string
+                      name: string
+                      address:
+                        name1: string
+                        name2: string
+                        name3: string
+                        name4: string
+                        city: string
+                        postalCode: string
+                        state: string
+                        country: string
+                      representativeStatus: string
+                    carrier:
+                      registrationCode: string
+                      vatGst: string
+                      name: string
+                      address:
+                        name1: string
+                        name2: string
+                        name3: string
+                        name4: string
+                        city: string
+                        postalCode: string
+                        state: string
+                        country: string
+                      representativeStatus: string
+                    shipper:
+                      registrationCode: string
+                      vatGst: string
+                      name: string
+                      address:
+                        name1: string
+                        name2: string
+                        name3: string
+                        name4: string
+                        city: string
+                        postalCode: string
+                        state: string
+                        country: string
+                      representativeStatus: string
+                    delivery:
+                      registrationCode: string
+                      vatGst: string
+                      name: string
+                      address:
+                        name1: string
+                        name2: string
+                        name3: string
+                        name4: string
+                        city: string
+                        postalCode: string
+                        state: string
+                        country: string
+                      representativeStatus: string
+                    intermediateConsignee:
+                      registrationCode: string
+                      vatGst: string
+                      name: string
+                      address:
+                        name1: string
+                        name2: string
+                        name3: string
+                        name4: string
+                        city: string
+                        postalCode: string
+                        state: string
+                        country: string
+                      representativeStatus: string
+                  brokerReferenceNumber: string
+                  brokerOfficeNumber: string
+                  brokerLicense: string
+                  customerId: string
+                  incotermsCode: string
+                  incotermsLocation: string
+                  incotermsUnlocode: string
+                  incotermsCountry: string
+                  holderOfAuthorization:
+                  - type: string
+                    reference: string
+                  fiscalReferenceId: string
+                  fiscalReferenceRole: string
+                  defermentAccountTaxes: string
+                  defermentAccountDuties: string
+                  warehouseId: string
+                  totalGrossWeight: 0
+                  totalGrossWeightUom: string
+                  totalNetWeight: 0
+                  totalNetWeightUom: string
+                  totalNumberOfPackages: 0
+                  containers:
+                  - containerNumber: string
+                    sealNumber: string
+                  totalValueDeclared: 0
+                  customsDeclarationCurrency: string
+                  taxes:
+                  - type: string
+                    base: 0
+                    rate: 0
+                    payableAmount: 0
+                    total: 0
+                    paymentMethod: string
+                  totalAdditionsAndDeductions:
+                  - code: string
+                    value: 0
+                    currency: string
+                    exchangeRate: 0
+                    convertedValue: 0
+                  totalValueFreightCharges: 0
+                  totalFreightChargesCurrency: string
+                  totalFreightExchangeRate: 0
+                  totalConvertedValueFreightCharges: 0
+                  totalValueInsuranceCharges: 0
+                  totalInsuranceChargesCurrency: string
+                  totalInsuranceExchangeRate: 0
+                  totalConvertedValueInsuranceCharges: 0
+                  transmittedDate: string
+                  transmittedTime: string
+                  acceptanceDate: string
+                  acceptanceTime: string
+                  customsReleaseDate: string
+                  customsReleaseTime: string
+                  taxesDutiesPaidDate: string
+                  taxesDutiesPaidTime: string
+                  relationshipStatus: true
+                  buyerRestrictions: true
+                  conditionsOnSaleOrPrice: true
+                  proceedsOfSaleOrUse: true
+                  transactionNature: string
+                  previousDocuments:
+                  - category: string
+                    type: string
+                    reference: string
+                  additionalInformation:
+                  - type: string
+                    reference: string
+                  additionalDocuments:
+                  - type: string
+                    reference: string
+                    amount: 0
+                    issueDate: string
+                    validityDate: string
+                  remarks: string
+                  totalGuarantee:
+                  - value: 0
+                    currency: string
+                    type: string
+                    number: string
+                  customsAuthorizationNumber: string
+                  loadingLocation: string
+                  expirationDate: string
+                  dischargeDate: string
+                  goodsLocation: string
+                  exitCustomsOfficeCode: string
+                  exitCustomsOfficeName: string
+                  exportCustomsOfficeCode: string
+                  exportCustomsOfficeName: string
+                  importCustomsOfficeCode: string
+                  importCustomsOfficeName: string
+                  declarationStatus: DRAFT
+                  stateOfData: RECEIVED
+                  stateOfShipment: NOT_ARRIVED
+                  supervisingOfficeCode: string
+                  supervisingOfficeName: string
+                  borderTransportIdType: string
+                  inlandTransportIdType: string
+                lines:
+                - lineNumber: 0
+                  commercialInvoiceNumber: string
+                  htsCode: string
+                  htsDescription: string
+                  additionalCodes:
+                  - code: string
+                  htsQuantity: 0
+                  countryOfOrigin: string
+                  grossWeight: 0
+                  grossWeightUom: string
+                  netWeight: 0
+                  netWeightUom: string
+                  htsLineValue: 0
+                  htsLineCurrency: string
+                  packageType: string
+                  numberOfPackages: 0
+                  packageMarks: string
+                  supplementaryUnits: 0
+                  supplementaryUnitsOfMeasure: string
+                  additionalDocuments:
+                  - type: string
+                    amount: 0
+                    reference: string
+                    issueDate: string
+                    validityDate: string
+                  additionalInformation:
+                  - code: string
+                    information: string
+                  quota: string
+                  taxes:
+                  - type: string
+                    base: 0
+                    rate: 0
+                    payableAmount: 0
+                    paymentMethod: string
+                  dutyLineBaseValue: 0
+                  dutyLinePayableAmount: 0
+                  dutyLineRate: 0
+                  taxLineBaseValue: 0
+                  taxLinePayableAmount: 0
+                  taxLineRate: 0
+                  postponedVatLineValue: 0
+                  postponedVatLineCurrency: string
+                  consumptionTaxLinePayableAmount: 0
+                  consumptionTaxLineRate: 0
+                  antidumpingLinePayableAmount: 0
+                  antidumpingLineRate: 0
+                  antidumpingLineCaseNumber: string
+                  countervailingLinePayableAmount: 0
+                  countervailingLineRate: 0
+                  countervailingLineCaseNumber: string
+                  exciseLinePayableAmount: 0
+                  exciseLineRate: 0
+                  exchangeRate: 0
+                  exchangeRateFromCurrency: string
+                  exchangeRateToCurrency: string
+                  additionsAndDeductions:
+                  - code: string
+                    value: 0
+                    currency: string
+                    exchangeRate: 0
+                    convertedValue: 0
+                  internationalFreightChargesValue: 0
+                  internationalFreightChargesCurrency: string
+                  internationalFreightChargesConvertedValue: 0
+                  internationalFreightChargesExchangeRate: 0
+                  localFreightChargesValue: 0
+                  localFreightChargesCurrency: string
+                  localFreightChargesConvertedValue: 0
+                  localFreightChargesExchangeRate: 0
+                  insuranceChargesValue: 0
+                  insuranceChargesCurrency: string
+                  insuranceChargesConvertedValue: 0
+                  insuranceChargesExchangeRate: 0
+                  customsProcedureCode: string
+                  additionalCustomsProcedureCode: string
+                  preference: string
+                  preferentialOriginCountry: string
+                  statisticalValue: 0
+                  guarantee:
+                  - value: 0
+                    currency: string
+                    reference: string
+                    type: string
+                    exchangeRate: 0
+                    convertedValue: 0
+                    convertedValueCurrency: string
+                  previousDocuments:
+                  - reference: string
+                    category: string
+                    type: string
+                  purchaseOrderNumber: string
+                  inspectionFlag: string
+                  inspectionType: string
+                  transactionNature: string
+                  valuationMethod: string
+                  incotermsLineCode: string
+                  incotermsLineLocation: string
+                  incotermsLineUnlocode: string
+                  incotermsLineCountry: string
+                  lineRemarks: string
+                  relationshipStatusLine: true
+                  buyerRestrictionsLine: true
+                  conditionsOnSaleOrPriceLine: true
+                  proceedsOfSaleOrUseLine: true
+                commercialInvoice:
+                - invoiceNumber: string
+                  invoiceDate: string
+                  invoiceValue: 0
+                  invoiceCurrency: string
+                commercialInvoiceLine:
+                - partNumber: string
+                  partNumberDescription: string
+                  commercialInvoiceNumber: string
+                  commercialInvoiceLineNumber: 0
+                  commercialInvoiceLineItemQuantity: 0
+                  commercialInvoiceNumberOfPackages: 0
+                  commercialInvoicePackageType: string
+                  commercialInvoiceGrossWeight: 0
+                  commercialInvoiceGrossWeightUom: string
+                  commercialInvoiceNetWeight: 0
+                  commercialInvoiceNetWeightUom: string
+                  commercialInvoiceLinePrice: 0
+                  unitPriceOfCommercialInvoiceLineItem: 0
+                additionalNotes: string
+      responses:
+        '201':
+          description: Declaration created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomsDeclarationEnvelope'
+              example:
+                id: string
+                declaration:
+                  header:
+                    entryNumber: string
+                    lrn: string
+                    ucr: string
+                    jobDate: string
+                    jobTime: string
+                    jobType: StandardImport
+                    jobTypeDescription: string
+                    shipmentType: string
+                    declarationType: string
+                    declarationCategory: string
+                    declarationCountry: string
+                    declarationDivision: Air
+                    portOfEntry: string
+                    cityOfEntry: string
+                    countryOfImport: string
+                    countryOfExport: string
+                    portOfLoading: string
+                    portOfDischarge: string
+                    borderTransportId: string
+                    inlandTransportId: string
+                    borderModeOfTransport: string
+                    inlandModeOfTransport: string
+                    borderModeOfTransportDescription: string
+                    inlandModeOfTransportDescription: string
+                    borderTransportNationality: string
+                    inlandTransportNationality: string
+                    importDate: string
+                    exportDate: string
+                    houseBillOfLading: string
+                    houseAirwayBill: string
+                    masterBillOfLading: string
+                    masterAirwayBill: string
+                    shipmentId: string
+                    parties:
+                      broker:
+                        registrationCode: string
+                        vatGst: string
+                        name: string
+                        address:
+                          name1: string
+                          name2: string
+                          name3: string
+                          name4: string
+                          city: string
+                          postalCode: string
+                          state: string
+                          country: string
+                        representativeStatus: string
+                      ior:
+                        registrationCode: string
+                        vatGst: string
+                        name: string
+                        address:
+                          name1: string
+                          name2: string
+                          name3: string
+                          name4: string
+                          city: string
+                          postalCode: string
+                          state: string
+                          country: string
+                        representativeStatus: string
+                      eor:
+                        registrationCode: string
+                        vatGst: string
+                        name: string
+                        address:
+                          name1: string
+                          name2: string
+                          name3: string
+                          name4: string
+                          city: string
+                          postalCode: string
+                          state: string
+                          country: string
+                        representativeStatus: string
+                      consignee:
+                        registrationCode: string
+                        vatGst: string
+                        name: string
+                        address:
+                          name1: string
+                          name2: string
+                          name3: string
+                          name4: string
+                          city: string
+                          postalCode: string
+                          state: string
+                          country: string
+                        representativeStatus: string
+                      declarant:
+                        registrationCode: string
+                        vatGst: string
+                        name: string
+                        address:
+                          name1: string
+                          name2: string
+                          name3: string
+                          name4: string
+                          city: string
+                          postalCode: string
+                          state: string
+                          country: string
+                        representativeStatus: string
+                      representative:
+                        registrationCode: string
+                        vatGst: string
+                        name: string
+                        address:
+                          name1: string
+                          name2: string
+                          name3: string
+                          name4: string
+                          city: string
+                          postalCode: string
+                          state: string
+                          country: string
+                        representativeStatus: string
+                      buyer:
+                        registrationCode: string
+                        vatGst: string
+                        name: string
+                        address:
+                          name1: string
+                          name2: string
+                          name3: string
+                          name4: string
+                          city: string
+                          postalCode: string
+                          state: string
+                          country: string
+                        representativeStatus: string
+                      seller:
+                        registrationCode: string
+                        vatGst: string
+                        name: string
+                        address:
+                          name1: string
+                          name2: string
+                          name3: string
+                          name4: string
+                          city: string
+                          postalCode: string
+                          state: string
+                          country: string
+                        representativeStatus: string
+                      authorizedConsignee:
+                        registrationCode: string
+                        vatGst: string
+                        name: string
+                        address:
+                          name1: string
+                          name2: string
+                          name3: string
+                          name4: string
+                          city: string
+                          postalCode: string
+                          state: string
+                          country: string
+                        representativeStatus: string
+                      forwarder:
+                        registrationCode: string
+                        vatGst: string
+                        name: string
+                        address:
+                          name1: string
+                          name2: string
+                          name3: string
+                          name4: string
+                          city: string
+                          postalCode: string
+                          state: string
+                          country: string
+                        representativeStatus: string
+                      carrier:
+                        registrationCode: string
+                        vatGst: string
+                        name: string
+                        address:
+                          name1: string
+                          name2: string
+                          name3: string
+                          name4: string
+                          city: string
+                          postalCode: string
+                          state: string
+                          country: string
+                        representativeStatus: string
+                      shipper:
+                        registrationCode: string
+                        vatGst: string
+                        name: string
+                        address:
+                          name1: string
+                          name2: string
+                          name3: string
+                          name4: string
+                          city: string
+                          postalCode: string
+                          state: string
+                          country: string
+                        representativeStatus: string
+                      delivery:
+                        registrationCode: string
+                        vatGst: string
+                        name: string
+                        address:
+                          name1: string
+                          name2: string
+                          name3: string
+                          name4: string
+                          city: string
+                          postalCode: string
+                          state: string
+                          country: string
+                        representativeStatus: string
+                      intermediateConsignee:
+                        registrationCode: string
+                        vatGst: string
+                        name: string
+                        address:
+                          name1: string
+                          name2: string
+                          name3: string
+                          name4: string
+                          city: string
+                          postalCode: string
+                          state: string
+                          country: string
+                        representativeStatus: string
+                    brokerReferenceNumber: string
+                    brokerOfficeNumber: string
+                    brokerLicense: string
+                    customerId: string
+                    incotermsCode: string
+                    incotermsLocation: string
+                    incotermsUnlocode: string
+                    incotermsCountry: string
+                    holderOfAuthorization:
+                    - type: string
+                      reference: string
+                    fiscalReferenceId: string
+                    fiscalReferenceRole: string
+                    defermentAccountTaxes: string
+                    defermentAccountDuties: string
+                    warehouseId: string
+                    totalGrossWeight: 0
+                    totalGrossWeightUom: string
+                    totalNetWeight: 0
+                    totalNetWeightUom: string
+                    totalNumberOfPackages: 0
+                    containers:
+                    - containerNumber: string
+                      sealNumber: string
+                    totalValueDeclared: 0
+                    customsDeclarationCurrency: string
+                    taxes:
+                    - type: string
+                      base: 0
+                      rate: 0
+                      payableAmount: 0
+                      total: 0
+                      paymentMethod: string
+                    totalAdditionsAndDeductions:
+                    - code: string
+                      value: 0
+                      currency: string
+                      exchangeRate: 0
+                      convertedValue: 0
+                    totalValueFreightCharges: 0
+                    totalFreightChargesCurrency: string
+                    totalFreightExchangeRate: 0
+                    totalConvertedValueFreightCharges: 0
+                    totalValueInsuranceCharges: 0
+                    totalInsuranceChargesCurrency: string
+                    totalInsuranceExchangeRate: 0
+                    totalConvertedValueInsuranceCharges: 0
+                    transmittedDate: string
+                    transmittedTime: string
+                    acceptanceDate: string
+                    acceptanceTime: string
+                    customsReleaseDate: string
+                    customsReleaseTime: string
+                    taxesDutiesPaidDate: string
+                    taxesDutiesPaidTime: string
+                    relationshipStatus: true
+                    buyerRestrictions: true
+                    conditionsOnSaleOrPrice: true
+                    proceedsOfSaleOrUse: true
+                    transactionNature: string
+                    previousDocuments:
+                    - category: string
+                      type: string
+                      reference: string
+                    additionalInformation:
+                    - type: string
+                      reference: string
+                    additionalDocuments:
+                    - type: string
+                      reference: string
+                      amount: 0
+                      issueDate: string
+                      validityDate: string
+                    remarks: string
+                    totalGuarantee:
+                    - value: 0
+                      currency: string
+                      type: string
+                      number: string
+                    customsAuthorizationNumber: string
+                    loadingLocation: string
+                    expirationDate: string
+                    dischargeDate: string
+                    goodsLocation: string
+                    exitCustomsOfficeCode: string
+                    exitCustomsOfficeName: string
+                    exportCustomsOfficeCode: string
+                    exportCustomsOfficeName: string
+                    importCustomsOfficeCode: string
+                    importCustomsOfficeName: string
+                    declarationStatus: DRAFT
+                    stateOfData: RECEIVED
+                    stateOfShipment: NOT_ARRIVED
+                    supervisingOfficeCode: string
+                    supervisingOfficeName: string
+                    borderTransportIdType: string
+                    inlandTransportIdType: string
+                  lines:
+                  - lineNumber: 0
+                    commercialInvoiceNumber: string
+                    htsCode: string
+                    htsDescription: string
+                    additionalCodes:
+                    - code: string
+                    htsQuantity: 0
+                    countryOfOrigin: string
+                    grossWeight: 0
+                    grossWeightUom: string
+                    netWeight: 0
+                    netWeightUom: string
+                    htsLineValue: 0
+                    htsLineCurrency: string
+                    packageType: string
+                    numberOfPackages: 0
+                    packageMarks: string
+                    supplementaryUnits: 0
+                    supplementaryUnitsOfMeasure: string
+                    additionalDocuments:
+                    - type: string
+                      amount: 0
+                      reference: string
+                      issueDate: string
+                      validityDate: string
+                    additionalInformation:
+                    - code: string
+                      information: string
+                    quota: string
+                    taxes:
+                    - type: string
+                      base: 0
+                      rate: 0
+                      payableAmount: 0
+                      paymentMethod: string
+                    dutyLineBaseValue: 0
+                    dutyLinePayableAmount: 0
+                    dutyLineRate: 0
+                    taxLineBaseValue: 0
+                    taxLinePayableAmount: 0
+                    taxLineRate: 0
+                    postponedVatLineValue: 0
+                    postponedVatLineCurrency: string
+                    consumptionTaxLinePayableAmount: 0
+                    consumptionTaxLineRate: 0
+                    antidumpingLinePayableAmount: 0
+                    antidumpingLineRate: 0
+                    antidumpingLineCaseNumber: string
+                    countervailingLinePayableAmount: 0
+                    countervailingLineRate: 0
+                    countervailingLineCaseNumber: string
+                    exciseLinePayableAmount: 0
+                    exciseLineRate: 0
+                    exchangeRate: 0
+                    exchangeRateFromCurrency: string
+                    exchangeRateToCurrency: string
+                    additionsAndDeductions:
+                    - code: string
+                      value: 0
+                      currency: string
+                      exchangeRate: 0
+                      convertedValue: 0
+                    internationalFreightChargesValue: 0
+                    internationalFreightChargesCurrency: string
+                    internationalFreightChargesConvertedValue: 0
+                    internationalFreightChargesExchangeRate: 0
+                    localFreightChargesValue: 0
+                    localFreightChargesCurrency: string
+                    localFreightChargesConvertedValue: 0
+                    localFreightChargesExchangeRate: 0
+                    insuranceChargesValue: 0
+                    insuranceChargesCurrency: string
+                    insuranceChargesConvertedValue: 0
+                    insuranceChargesExchangeRate: 0
+                    customsProcedureCode: string
+                    additionalCustomsProcedureCode: string
+                    preference: string
+                    preferentialOriginCountry: string
+                    statisticalValue: 0
+                    guarantee:
+                    - value: 0
+                      currency: string
+                      reference: string
+                      type: string
+                      exchangeRate: 0
+                      convertedValue: 0
+                      convertedValueCurrency: string
+                    previousDocuments:
+                    - reference: string
+                      category: string
+                      type: string
+                    purchaseOrderNumber: string
+                    inspectionFlag: string
+                    inspectionType: string
+                    transactionNature: string
+                    valuationMethod: string
+                    incotermsLineCode: string
+                    incotermsLineLocation: string
+                    incotermsLineUnlocode: string
+                    incotermsLineCountry: string
+                    lineRemarks: string
+                    relationshipStatusLine: true
+                    buyerRestrictionsLine: true
+                    conditionsOnSaleOrPriceLine: true
+                    proceedsOfSaleOrUseLine: true
+                  commercialInvoice:
+                  - invoiceNumber: string
+                    invoiceDate: string
+                    invoiceValue: 0
+                    invoiceCurrency: string
+                  commercialInvoiceLine:
+                  - partNumber: string
+                    partNumberDescription: string
+                    commercialInvoiceNumber: string
+                    commercialInvoiceLineNumber: 0
+                    commercialInvoiceLineItemQuantity: 0
+                    commercialInvoiceNumberOfPackages: 0
+                    commercialInvoicePackageType: string
+                    commercialInvoiceGrossWeight: 0
+                    commercialInvoiceGrossWeightUom: string
+                    commercialInvoiceNetWeight: 0
+                    commercialInvoiceNetWeightUom: string
+                    commercialInvoiceLinePrice: 0
+                    unitPriceOfCommercialInvoiceLineItem: 0
+                  additionalNotes: string
+        '400':
+          description: Invalid request body or missing required fields
+        '500':
+          description: Internal server error
+  /declarations/{id}:
+    get:
+      tags:
+      - Declarations
+      summary: Get draft customs declaration by ID
+      description: 'Allows customers to retrieve draft customs declarations prepared by DSV.
+
+
+        Use case:
+
+        This API enables customers to access draft declarations created by DSV in Customs AI platform for pre-clearance audit and validation purposes.
+
+
+        Customers can retrieve only those draft declarations that are linked to their unique customer identifier (ID64…) and associated with a specific Shipment ID within the relevant transport management system.
+
+        '
+      operationId: 01-get-declarations-id
+      parameters:
+      - name: id
+        in: path
+        description: Declaration identifier
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Declaration found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomsDeclarationEnvelope'
+              example:
+                id: string
+                declaration:
+                  header:
+                    entryNumber: string
+                    lrn: string
+                    ucr: string
+                    jobDate: string
+                    jobTime: string
+                    jobType: StandardImport
+                    jobTypeDescription: string
+                    shipmentType: string
+                    declarationType: string
+                    declarationCategory: string
+                    declarationCountry: string
+                    declarationDivision: Air
+                    portOfEntry: string
+                    cityOfEntry: string
+                    countryOfImport: string
+                    countryOfExport: string
+                    portOfLoading: string
+                    portOfDischarge: string
+                    borderTransportId: string
+                    inlandTransportId: string
+                    borderModeOfTransport: string
+                    inlandModeOfTransport: string
+                    borderModeOfTransportDescription: string
+                    inlandModeOfTransportDescription: string
+                    borderTransportNationality: string
+                    inlandTransportNationality: string
+                    importDate: string
+                    exportDate: string
+                    houseBillOfLading: string
+                    houseAirwayBill: string
+                    masterBillOfLading: string
+                    masterAirwayBill: string
+                    shipmentId: string
+                    parties:
+                      broker:
+                        registrationCode: string
+                        vatGst: string
+                        name: string
+                        address:
+                          name1: string
+                          name2: string
+                          name3: string
+                          name4: string
+                          city: string
+                          postalCode: string
+                          state: string
+                          country: string
+                        representativeStatus: string
+                      ior:
+                        registrationCode: string
+                        vatGst: string
+                        name: string
+                        address:
+                          name1: string
+                          name2: string
+                          name3: string
+                          name4: string
+                          city: string
+                          postalCode: string
+                          state: string
+                          country: string
+                        representativeStatus: string
+                      eor:
+                        registrationCode: string
+                        vatGst: string
+                        name: string
+                        address:
+                          name1: string
+                          name2: string
+                          name3: string
+                          name4: string
+                          city: string
+                          postalCode: string
+                          state: string
+                          country: string
+                        representativeStatus: string
+                      consignee:
+                        registrationCode: string
+                        vatGst: string
+                        name: string
+                        address:
+                          name1: string
+                          name2: string
+                          name3: string
+                          name4: string
+                          city: string
+                          postalCode: string
+                          state: string
+                          country: string
+                        representativeStatus: string
+                      declarant:
+                        registrationCode: string
+                        vatGst: string
+                        name: string
+                        address:
+                          name1: string
+                          name2: string
+                          name3: string
+                          name4: string
+                          city: string
+                          postalCode: string
+                          state: string
+                          country: string
+                        representativeStatus: string
+                      representative:
+                        registrationCode: string
+                        vatGst: string
+                        name: string
+                        address:
+                          name1: string
+                          name2: string
+                          name3: string
+                          name4: string
+                          city: string
+                          postalCode: string
+                          state: string
+                          country: string
+                        representativeStatus: string
+                      buyer:
+                        registrationCode: string
+                        vatGst: string
+                        name: string
+                        address:
+                          name1: string
+                          name2: string
+                          name3: string
+                          name4: string
+                          city: string
+                          postalCode: string
+                          state: string
+                          country: string
+                        representativeStatus: string
+                      seller:
+                        registrationCode: string
+                        vatGst: string
+                        name: string
+                        address:
+                          name1: string
+                          name2: string
+                          name3: string
+                          name4: string
+                          city: string
+                          postalCode: string
+                          state: string
+                          country: string
+                        representativeStatus: string
+                      authorizedConsignee:
+                        registrationCode: string
+                        vatGst: string
+                        name: string
+                        address:
+                          name1: string
+                          name2: string
+                          name3: string
+                          name4: string
+                          city: string
+                          postalCode: string
+                          state: string
+                          country: string
+                        representativeStatus: string
+                      forwarder:
+                        registrationCode: string
+                        vatGst: string
+                        name: string
+                        address:
+                          name1: string
+                          name2: string
+                          name3: string
+                          name4: string
+                          city: string
+                          postalCode: string
+                          state: string
+                          country: string
+                        representativeStatus: string
+                      carrier:
+                        registrationCode: string
+                        vatGst: string
+                        name: string
+                        address:
+                          name1: string
+                          name2: string
+                          name3: string
+                          name4: string
+                          city: string
+                          postalCode: string
+                          state: string
+                          country: string
+                        representativeStatus: string
+                      shipper:
+                        registrationCode: string
+                        vatGst: string
+                        name: string
+                        address:
+                          name1: string
+                          name2: string
+                          name3: string
+                          name4: string
+                          city: string
+                          postalCode: string
+                          state: string
+                          country: string
+                        representativeStatus: string
+                      delivery:
+                        registrationCode: string
+                        vatGst: string
+                        name: string
+                        address:
+                          name1: string
+                          name2: string
+                          name3: string
+                          name4: string
+                          city: string
+                          postalCode: string
+                          state: string
+                          country: string
+                        representativeStatus: string
+                      intermediateConsignee:
+                        registrationCode: string
+                        vatGst: string
+                        name: string
+                        address:
+                          name1: string
+                          name2: string
+                          name3: string
+                          name4: string
+                          city: string
+                          postalCode: string
+                          state: string
+                          country: string
+                        representativeStatus: string
+                    brokerReferenceNumber: string
+                    brokerOfficeNumber: string
+                    brokerLicense: string
+                    customerId: string
+                    incotermsCode: string
+                    incotermsLocation: string
+                    incotermsUnlocode: string
+                    incotermsCountry: string
+                    holderOfAuthorization:
+                    - type: string
+                      reference: string
+                    fiscalReferenceId: string
+                    fiscalReferenceRole: string
+                    defermentAccountTaxes: string
+                    defermentAccountDuties: string
+                    warehouseId: string
+                    totalGrossWeight: 0
+                    totalGrossWeightUom: string
+                    totalNetWeight: 0
+                    totalNetWeightUom: string
+                    totalNumberOfPackages: 0
+                    containers:
+                    - containerNumber: string
+                      sealNumber: string
+                    totalValueDeclared: 0
+                    customsDeclarationCurrency: string
+                    taxes:
+                    - type: string
+                      base: 0
+                      rate: 0
+                      payableAmount: 0
+                      total: 0
+                      paymentMethod: string
+                    totalAdditionsAndDeductions:
+                    - code: string
+                      value: 0
+                      currency: string
+                      exchangeRate: 0
+                      convertedValue: 0
+                    totalValueFreightCharges: 0
+                    totalFreightChargesCurrency: string
+                    totalFreightExchangeRate: 0
+                    totalConvertedValueFreightCharges: 0
+                    totalValueInsuranceCharges: 0
+                    totalInsuranceChargesCurrency: string
+                    totalInsuranceExchangeRate: 0
+                    totalConvertedValueInsuranceCharges: 0
+                    transmittedDate: string
+                    transmittedTime: string
+                    acceptanceDate: string
+                    acceptanceTime: string
+                    customsReleaseDate: string
+                    customsReleaseTime: string
+                    taxesDutiesPaidDate: string
+                    taxesDutiesPaidTime: string
+                    relationshipStatus: true
+                    buyerRestrictions: true
+                    conditionsOnSaleOrPrice: true
+                    proceedsOfSaleOrUse: true
+                    transactionNature: string
+                    previousDocuments:
+                    - category: string
+                      type: string
+                      reference: string
+                    additionalInformation:
+                    - type: string
+                      reference: string
+                    additionalDocuments:
+                    - type: string
+                      reference: string
+                      amount: 0
+                      issueDate: string
+                      validityDate: string
+                    remarks: string
+                    totalGuarantee:
+                    - value: 0
+                      currency: string
+                      type: string
+                      number: string
+                    customsAuthorizationNumber: string
+                    loadingLocation: string
+                    expirationDate: string
+                    dischargeDate: string
+                    goodsLocation: string
+                    exitCustomsOfficeCode: string
+                    exitCustomsOfficeName: string
+                    exportCustomsOfficeCode: string
+                    exportCustomsOfficeName: string
+                    importCustomsOfficeCode: string
+                    importCustomsOfficeName: string
+                    declarationStatus: DRAFT
+                    stateOfData: RECEIVED
+                    stateOfShipment: NOT_ARRIVED
+                    supervisingOfficeCode: string
+                    supervisingOfficeName: string
+                    borderTransportIdType: string
+                    inlandTransportIdType: string
+                  lines:
+                  - lineNumber: 0
+                    commercialInvoiceNumber: string
+                    htsCode: string
+                    htsDescription: string
+                    additionalCodes:
+                    - code: string
+                    htsQuantity: 0
+                    countryOfOrigin: string
+                    grossWeight: 0
+                    grossWeightUom: string
+                    netWeight: 0
+                    netWeightUom: string
+                    htsLineValue: 0
+                    htsLineCurrency: string
+                    packageType: string
+                    numberOfPackages: 0
+                    packageMarks: string
+                    supplementaryUnits: 0
+                    supplementaryUnitsOfMeasure: string
+                    additionalDocuments:
+                    - type: string
+                      amount: 0
+                      reference: string
+                      issueDate: string
+                      validityDate: string
+                    additionalInformation:
+                    - code: string
+                      information: string
+                    quota: string
+                    taxes:
+                    - type: string
+                      base: 0
+                      rate: 0
+                      payableAmount: 0
+                      paymentMethod: string
+                    dutyLineBaseValue: 0
+                    dutyLinePayableAmount: 0
+                    dutyLineRate: 0
+                    taxLineBaseValue: 0
+                    taxLinePayableAmount: 0
+                    taxLineRate: 0
+                    postponedVatLineValue: 0
+                    postponedVatLineCurrency: string
+                    consumptionTaxLinePayableAmount: 0
+                    consumptionTaxLineRate: 0
+                    antidumpingLinePayableAmount: 0
+                    antidumpingLineRate: 0
+                    antidumpingLineCaseNumber: string
+                    countervailingLinePayableAmount: 0
+                    countervailingLineRate: 0
+                    countervailingLineCaseNumber: string
+                    exciseLinePayableAmount: 0
+                    exciseLineRate: 0
+                    exchangeRate: 0
+                    exchangeRateFromCurrency: string
+                    exchangeRateToCurrency: string
+                    additionsAndDeductions:
+                    - code: string
+                      value: 0
+                      currency: string
+                      exchangeRate: 0
+                      convertedValue: 0
+                    internationalFreightChargesValue: 0
+                    internationalFreightChargesCurrency: string
+                    internationalFreightChargesConvertedValue: 0
+                    internationalFreightChargesExchangeRate: 0
+                    localFreightChargesValue: 0
+                    localFreightChargesCurrency: string
+                    localFreightChargesConvertedValue: 0
+                    localFreightChargesExchangeRate: 0
+                    insuranceChargesValue: 0
+                    insuranceChargesCurrency: string
+                    insuranceChargesConvertedValue: 0
+                    insuranceChargesExchangeRate: 0
+                    customsProcedureCode: string
+                    additionalCustomsProcedureCode: string
+                    preference: string
+                    preferentialOriginCountry: string
+                    statisticalValue: 0
+                    guarantee:
+                    - value: 0
+                      currency: string
+                      reference: string
+                      type: string
+                      exchangeRate: 0
+                      convertedValue: 0
+                      convertedValueCurrency: string
+                    previousDocuments:
+                    - reference: string
+                      category: string
+                      type: string
+                    purchaseOrderNumber: string
+                    inspectionFlag: string
+                    inspectionType: string
+                    transactionNature: string
+                    valuationMethod: string
+                    incotermsLineCode: string
+                    incotermsLineLocation: string
+                    incotermsLineUnlocode: string
+                    incotermsLineCountry: string
+                    lineRemarks: string
+                    relationshipStatusLine: true
+                    buyerRestrictionsLine: true
+                    conditionsOnSaleOrPriceLine: true
+                    proceedsOfSaleOrUseLine: true
+                  commercialInvoice:
+                  - invoiceNumber: string
+                    invoiceDate: string
+                    invoiceValue: 0
+                    invoiceCurrency: string
+                  commercialInvoiceLine:
+                  - partNumber: string
+                    partNumberDescription: string
+                    commercialInvoiceNumber: string
+                    commercialInvoiceLineNumber: 0
+                    commercialInvoiceLineItemQuantity: 0
+                    commercialInvoiceNumberOfPackages: 0
+                    commercialInvoicePackageType: string
+                    commercialInvoiceGrossWeight: 0
+                    commercialInvoiceGrossWeightUom: string
+                    commercialInvoiceNetWeight: 0
+                    commercialInvoiceNetWeightUom: string
+                    commercialInvoiceLinePrice: 0
+                    unitPriceOfCommercialInvoiceLineItem: 0
+                  additionalNotes: string
+        '400':
+          description: Missing or invalid query parameters
+        '404':
+          description: Declaration not found
+        '500':
+          description: Internal server error
+    put:
+      tags:
+      - Declarations
+      summary: Audit existing draft customs declaration
+      description: 'Allows customers to return audited draft customs declarations to DSV, including any updates or confirmations for further processing in Customs AI.
+
+
+        Use case:
+
+        This API supports the pre-clearance process by enabling customers to submit reviewed draft declarations back to DSV. Customers may either confirm the accuracy of the data or apply required changes within the draft.
+
+
+        If no changes are needed and the declaration is marked as accepted ("stateOfData": "PRE_CLEARANCE_ACCEPTED"), it is automatically submitted to the customs system.
+
+
+        If updates are required ("stateOfData": "PRE_CLEARANCE_REJECTED"), DSV revises the draft accordingly and makes it available for the customer to perform a subsequent audit cycle until an accepted status is achieved.
+
+        '
+      operationId: 02-put-declarations-id
+      parameters:
+      - name: id
+        in: path
+        description: Declaration identifier
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomsDeclarationEnvelope'
+            example:
+              id: string
+              declaration:
+                header:
+                  entryNumber: string
+                  lrn: string
+                  ucr: string
+                  jobDate: string
+                  jobTime: string
+                  jobType: StandardImport
+                  jobTypeDescription: string
+                  shipmentType: string
+                  declarationType: string
+                  declarationCategory: string
+                  declarationCountry: string
+                  declarationDivision: Air
+                  portOfEntry: string
+                  cityOfEntry: string
+                  countryOfImport: string
+                  countryOfExport: string
+                  portOfLoading: string
+                  portOfDischarge: string
+                  borderTransportId: string
+                  inlandTransportId: string
+                  borderModeOfTransport: string
+                  inlandModeOfTransport: string
+                  borderModeOfTransportDescription: string
+                  inlandModeOfTransportDescription: string
+                  borderTransportNationality: string
+                  inlandTransportNationality: string
+                  importDate: string
+                  exportDate: string
+                  houseBillOfLading: string
+                  houseAirwayBill: string
+                  masterBillOfLading: string
+                  masterAirwayBill: string
+                  shipmentId: string
+                  parties:
+                    broker:
+                      registrationCode: string
+                      vatGst: string
+                      name: string
+                      address:
+                        name1: string
+                        name2: string
+                        name3: string
+                        name4: string
+                        city: string
+                        postalCode: string
+                        state: string
+                        country: string
+                      representativeStatus: string
+                    ior:
+                      registrationCode: string
+                      vatGst: string
+                      name: string
+                      address:
+                        name1: string
+                        name2: string
+                        name3: string
+                        name4: string
+                        city: string
+                        postalCode: string
+                        state: string
+                        country: string
+                      representativeStatus: string
+                    eor:
+                      registrationCode: string
+                      vatGst: string
+                      name: string
+                      address:
+                        name1: string
+                        name2: string
+                        name3: string
+                        name4: string
+                        city: string
+                        postalCode: string
+                        state: string
+                        country: string
+                      representativeStatus: string
+                    consignee:
+                      registrationCode: string
+                      vatGst: string
+                      name: string
+                      address:
+                        name1: string
+                        name2: string
+                        name3: string
+                        name4: string
+                        city: string
+                        postalCode: string
+                        state: string
+                        country: string
+                      representativeStatus: string
+                    declarant:
+                      registrationCode: string
+                      vatGst: string
+                      name: string
+                      address:
+                        name1: string
+                        name2: string
+                        name3: string
+                        name4: string
+                        city: string
+                        postalCode: string
+                        state: string
+                        country: string
+                      representativeStatus: string
+                    representative:
+                      registrationCode: string
+                      vatGst: string
+                      name: string
+                      address:
+                        name1: string
+                        name2: string
+                        name3: string
+                        name4: string
+                        city: string
+                        postalCode: string
+                        state: string
+                        country: string
+                      representativeStatus: string
+                    buyer:
+                      registrationCode: string
+                      vatGst: string
+                      name: string
+                      address:
+                        name1: string
+                        name2: string
+                        name3: string
+                        name4: string
+                        city: string
+                        postalCode: string
+                        state: string
+                        country: string
+                      representativeStatus: string
+                    seller:
+                      registrationCode: string
+                      vatGst: string
+                      name: string
+                      address:
+                        name1: string
+                        name2: string
+                        name3: string
+                        name4: string
+                        city: string
+                        postalCode: string
+                        state: string
+                        country: string
+                      representativeStatus: string
+                    authorizedConsignee:
+                      registrationCode: string
+                      vatGst: string
+                      name: string
+                      address:
+                        name1: string
+                        name2: string
+                        name3: string
+                        name4: string
+                        city: string
+                        postalCode: string
+                        state: string
+                        country: string
+                      representativeStatus: string
+                    forwarder:
+                      registrationCode: string
+                      vatGst: string
+                      name: string
+                      address:
+                        name1: string
+                        name2: string
+                        name3: string
+                        name4: string
+                        city: string
+                        postalCode: string
+                        state: string
+                        country: string
+                      representativeStatus: string
+                    carrier:
+                      registrationCode: string
+                      vatGst: string
+                      name: string
+                      address:
+                        name1: string
+                        name2: string
+                        name3: string
+                        name4: string
+                        city: string
+                        postalCode: string
+                        state: string
+                        country: string
+                      representativeStatus: string
+                    shipper:
+                      registrationCode: string
+                      vatGst: string
+                      name: string
+                      address:
+                        name1: string
+                        name2: string
+                        name3: string
+                        name4: string
+                        city: string
+                        postalCode: string
+                        state: string
+                        country: string
+                      representativeStatus: string
+                    delivery:
+                      registrationCode: string
+                      vatGst: string
+                      name: string
+                      address:
+                        name1: string
+                        name2: string
+                        name3: string
+                        name4: string
+                        city: string
+                        postalCode: string
+                        state: string
+                        country: string
+                      representativeStatus: string
+                    intermediateConsignee:
+                      registrationCode: string
+                      vatGst: string
+                      name: string
+                      address:
+                        name1: string
+                        name2: string
+                        name3: string
+                        name4: string
+                        city: string
+                        postalCode: string
+                        state: string
+                        country: string
+                      representativeStatus: string
+                  brokerReferenceNumber: string
+                  brokerOfficeNumber: string
+                  brokerLicense: string
+                  customerId: string
+                  incotermsCode: string
+                  incotermsLocation: string
+                  incotermsUnlocode: string
+                  incotermsCountry: string
+                  holderOfAuthorization:
+                  - type: string
+                    reference: string
+                  fiscalReferenceId: string
+                  fiscalReferenceRole: string
+                  defermentAccountTaxes: string
+                  defermentAccountDuties: string
+                  warehouseId: string
+                  totalGrossWeight: 0
+                  totalGrossWeightUom: string
+                  totalNetWeight: 0
+                  totalNetWeightUom: string
+                  totalNumberOfPackages: 0
+                  containers:
+                  - containerNumber: string
+                    sealNumber: string
+                  totalValueDeclared: 0
+                  customsDeclarationCurrency: string
+                  taxes:
+                  - type: string
+                    base: 0
+                    rate: 0
+                    payableAmount: 0
+                    total: 0
+                    paymentMethod: string
+                  totalAdditionsAndDeductions:
+                  - code: string
+                    value: 0
+                    currency: string
+                    exchangeRate: 0
+                    convertedValue: 0
+                  totalValueFreightCharges: 0
+                  totalFreightChargesCurrency: string
+                  totalFreightExchangeRate: 0
+                  totalConvertedValueFreightCharges: 0
+                  totalValueInsuranceCharges: 0
+                  totalInsuranceChargesCurrency: string
+                  totalInsuranceExchangeRate: 0
+                  totalConvertedValueInsuranceCharges: 0
+                  transmittedDate: string
+                  transmittedTime: string
+                  acceptanceDate: string
+                  acceptanceTime: string
+                  customsReleaseDate: string
+                  customsReleaseTime: string
+                  taxesDutiesPaidDate: string
+                  taxesDutiesPaidTime: string
+                  relationshipStatus: true
+                  buyerRestrictions: true
+                  conditionsOnSaleOrPrice: true
+                  proceedsOfSaleOrUse: true
+                  transactionNature: string
+                  previousDocuments:
+                  - category: string
+                    type: string
+                    reference: string
+                  additionalInformation:
+                  - type: string
+                    reference: string
+                  additionalDocuments:
+                  - type: string
+                    reference: string
+                    amount: 0
+                    issueDate: string
+                    validityDate: string
+                  remarks: string
+                  totalGuarantee:
+                  - value: 0
+                    currency: string
+                    type: string
+                    number: string
+                  customsAuthorizationNumber: string
+                  loadingLocation: string
+                  expirationDate: string
+                  dischargeDate: string
+                  goodsLocation: string
+                  exitCustomsOfficeCode: string
+                  exitCustomsOfficeName: string
+                  exportCustomsOfficeCode: string
+                  exportCustomsOfficeName: string
+                  importCustomsOfficeCode: string
+                  importCustomsOfficeName: string
+                  declarationStatus: DRAFT
+                  stateOfData: RECEIVED
+                  stateOfShipment: NOT_ARRIVED
+                  supervisingOfficeCode: string
+                  supervisingOfficeName: string
+                  borderTransportIdType: string
+                  inlandTransportIdType: string
+                lines:
+                - lineNumber: 0
+                  commercialInvoiceNumber: string
+                  htsCode: string
+                  htsDescription: string
+                  additionalCodes:
+                  - code: string
+                  htsQuantity: 0
+                  countryOfOrigin: string
+                  grossWeight: 0
+                  grossWeightUom: string
+                  netWeight: 0
+                  netWeightUom: string
+                  htsLineValue: 0
+                  htsLineCurrency: string
+                  packageType: string
+                  numberOfPackages: 0
+                  packageMarks: string
+                  supplementaryUnits: 0
+                  supplementaryUnitsOfMeasure: string
+                  additionalDocuments:
+                  - type: string
+                    amount: 0
+                    reference: string
+                    issueDate: string
+                    validityDate: string
+                  additionalInformation:
+                  - code: string
+                    information: string
+                  quota: string
+                  taxes:
+                  - type: string
+                    base: 0
+                    rate: 0
+                    payableAmount: 0
+                    paymentMethod: string
+                  dutyLineBaseValue: 0
+                  dutyLinePayableAmount: 0
+                  dutyLineRate: 0
+                  taxLineBaseValue: 0
+                  taxLinePayableAmount: 0
+                  taxLineRate: 0
+                  postponedVatLineValue: 0
+                  postponedVatLineCurrency: string
+                  consumptionTaxLinePayableAmount: 0
+                  consumptionTaxLineRate: 0
+                  antidumpingLinePayableAmount: 0
+                  antidumpingLineRate: 0
+                  antidumpingLineCaseNumber: string
+                  countervailingLinePayableAmount: 0
+                  countervailingLineRate: 0
+                  countervailingLineCaseNumber: string
+                  exciseLinePayableAmount: 0
+                  exciseLineRate: 0
+                  exchangeRate: 0
+                  exchangeRateFromCurrency: string
+                  exchangeRateToCurrency: string
+                  additionsAndDeductions:
+                  - code: string
+                    value: 0
+                    currency: string
+                    exchangeRate: 0
+                    convertedValue: 0
+                  internationalFreightChargesValue: 0
+                  internationalFreightChargesCurrency: string
+                  internationalFreightChargesConvertedValue: 0
+                  internationalFreightChargesExchangeRate: 0
+                  localFreightChargesValue: 0
+                  localFreightChargesCurrency: string
+                  localFreightChargesConvertedValue: 0
+                  localFreightChargesExchangeRate: 0
+                  insuranceChargesValue: 0
+                  insuranceChargesCurrency: string
+                  insuranceChargesConvertedValue: 0
+                  insuranceChargesExchangeRate: 0
+                  customsProcedureCode: string
+                  additionalCustomsProcedureCode: string
+                  preference: string
+                  preferentialOriginCountry: string
+                  statisticalValue: 0
+                  guarantee:
+                  - value: 0
+                    currency: string
+                    reference: string
+                    type: string
+                    exchangeRate: 0
+                    convertedValue: 0
+                    convertedValueCurrency: string
+                  previousDocuments:
+                  - reference: string
+                    category: string
+                    type: string
+                  purchaseOrderNumber: string
+                  inspectionFlag: string
+                  inspectionType: string
+                  transactionNature: string
+                  valuationMethod: string
+                  incotermsLineCode: string
+                  incotermsLineLocation: string
+                  incotermsLineUnlocode: string
+                  incotermsLineCountry: string
+                  lineRemarks: string
+                  relationshipStatusLine: true
+                  buyerRestrictionsLine: true
+                  conditionsOnSaleOrPriceLine: true
+                  proceedsOfSaleOrUseLine: true
+                commercialInvoice:
+                - invoiceNumber: string
+                  invoiceDate: string
+                  invoiceValue: 0
+                  invoiceCurrency: string
+                commercialInvoiceLine:
+                - partNumber: string
+                  partNumberDescription: string
+                  commercialInvoiceNumber: string
+                  commercialInvoiceLineNumber: 0
+                  commercialInvoiceLineItemQuantity: 0
+                  commercialInvoiceNumberOfPackages: 0
+                  commercialInvoicePackageType: string
+                  commercialInvoiceGrossWeight: 0
+                  commercialInvoiceGrossWeightUom: string
+                  commercialInvoiceNetWeight: 0
+                  commercialInvoiceNetWeightUom: string
+                  commercialInvoiceLinePrice: 0
+                  unitPriceOfCommercialInvoiceLineItem: 0
+                additionalNotes: string
+      responses:
+        '200':
+          description: Declaration updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomsDeclarationEnvelope'
+              example:
+                id: string
+                declaration:
+                  header:
+                    entryNumber: string
+                    lrn: string
+                    ucr: string
+                    jobDate: string
+                    jobTime: string
+                    jobType: StandardImport
+                    jobTypeDescription: string
+                    shipmentType: string
+                    declarationType: string
+                    declarationCategory: string
+                    declarationCountry: string
+                    declarationDivision: Air
+                    portOfEntry: string
+                    cityOfEntry: string
+                    countryOfImport: string
+                    countryOfExport: string
+                    portOfLoading: string
+                    portOfDischarge: string
+                    borderTransportId: string
+                    inlandTransportId: string
+                    borderModeOfTransport: string
+                    inlandModeOfTransport: string
+                    borderModeOfTransportDescription: string
+                    inlandModeOfTransportDescription: string
+                    borderTransportNationality: string
+                    inlandTransportNationality: string
+                    importDate: string
+                    exportDate: string
+                    houseBillOfLading: string
+                    houseAirwayBill: string
+                    masterBillOfLading: string
+                    masterAirwayBill: string
+                    shipmentId: string
+                    parties:
+                      broker:
+                        registrationCode: string
+                        vatGst: string
+                        name: string
+                        address:
+                          name1: string
+                          name2: string
+                          name3: string
+                          name4: string
+                          city: string
+                          postalCode: string
+                          state: string
+                          country: string
+                        representativeStatus: string
+                      ior:
+                        registrationCode: string
+                        vatGst: string
+                        name: string
+                        address:
+                          name1: string
+                          name2: string
+                          name3: string
+                          name4: string
+                          city: string
+                          postalCode: string
+                          state: string
+                          country: string
+                        representativeStatus: string
+                      eor:
+                        registrationCode: string
+                        vatGst: string
+                        name: string
+                        address:
+                          name1: string
+                          name2: string
+                          name3: string
+                          name4: string
+                          city: string
+                          postalCode: string
+                          state: string
+                          country: string
+                        representativeStatus: string
+                      consignee:
+                        registrationCode: string
+                        vatGst: string
+                        name: string
+                        address:
+                          name1: string
+                          name2: string
+                          name3: string
+                          name4: string
+                          city: string
+                          postalCode: string
+                          state: string
+                          country: string
+                        representativeStatus: string
+                      declarant:
+                        registrationCode: string
+                        vatGst: string
+                        name: string
+                        address:
+                          name1: string
+                          name2: string
+                          name3: string
+                          name4: string
+                          city: string
+                          postalCode: string
+                          state: string
+                          country: string
+                        representativeStatus: string
+                      representative:
+                        registrationCode: string
+                        vatGst: string
+                        name: string
+                        address:
+                          name1: string
+                          name2: string
+                          name3: string
+                          name4: string
+                          city: string
+                          postalCode: string
+                          state: string
+                          country: string
+                        representativeStatus: string
+                      buyer:
+                        registrationCode: string
+                        vatGst: string
+                        name: string
+                        address:
+                          name1: string
+                          name2: string
+                          name3: string
+                          name4: string
+                          city: string
+                          postalCode: string
+                          state: string
+                          country: string
+                        representativeStatus: string
+                      seller:
+                        registrationCode: string
+                        vatGst: string
+                        name: string
+                        address:
+                          name1: string
+                          name2: string
+                          name3: string
+                          name4: string
+                          city: string
+                          postalCode: string
+                          state: string
+                          country: string
+                        representativeStatus: string
+                      authorizedConsignee:
+                        registrationCode: string
+                        vatGst: string
+                        name: string
+                        address:
+                          name1: string
+                          name2: string
+                          name3: string
+                          name4: string
+                          city: string
+                          postalCode: string
+                          state: string
+                          country: string
+                        representativeStatus: string
+                      forwarder:
+                        registrationCode: string
+                        vatGst: string
+                        name: string
+                        address:
+                          name1: string
+                          name2: string
+                          name3: string
+                          name4: string
+                          city: string
+                          postalCode: string
+                          state: string
+                          country: string
+                        representativeStatus: string
+                      carrier:
+                        registrationCode: string
+                        vatGst: string
+                        name: string
+                        address:
+                          name1: string
+                          name2: string
+                          name3: string
+                          name4: string
+                          city: string
+                          postalCode: string
+                          state: string
+                          country: string
+                        representativeStatus: string
+                      shipper:
+                        registrationCode: string
+                        vatGst: string
+                        name: string
+                        address:
+                          name1: string
+                          name2: string
+                          name3: string
+                          name4: string
+                          city: string
+                          postalCode: string
+                          state: string
+                          country: string
+                        representativeStatus: string
+                      delivery:
+                        registrationCode: string
+                        vatGst: string
+                        name: string
+                        address:
+                          name1: string
+                          name2: string
+                          name3: string
+                          name4: string
+                          city: string
+                          postalCode: string
+                          state: string
+                          country: string
+                        representativeStatus: string
+                      intermediateConsignee:
+                        registrationCode: string
+                        vatGst: string
+                        name: string
+                        address:
+                          name1: string
+                          name2: string
+                          name3: string
+                          name4: string
+                          city: string
+                          postalCode: string
+                          state: string
+                          country: string
+                        representativeStatus: string
+                    brokerReferenceNumber: string
+                    brokerOfficeNumber: string
+                    brokerLicense: string
+                    customerId: string
+                    incotermsCode: string
+                    incotermsLocation: string
+                    incotermsUnlocode: string
+                    incotermsCountry: string
+                    holderOfAuthorization:
+                    - type: string
+                      reference: string
+                    fiscalReferenceId: string
+                    fiscalReferenceRole: string
+                    defermentAccountTaxes: string
+                    defermentAccountDuties: string
+                    warehouseId: string
+                    totalGrossWeight: 0
+                    totalGrossWeightUom: string
+                    totalNetWeight: 0
+                    totalNetWeightUom: string
+                    totalNumberOfPackages: 0
+                    containers:
+                    - containerNumber: string
+                      sealNumber: string
+                    totalValueDeclared: 0
+                    customsDeclarationCurrency: string
+                    taxes:
+                    - type: string
+                      base: 0
+                      rate: 0
+                      payableAmount: 0
+                      total: 0
+                      paymentMethod: string
+                    totalAdditionsAndDeductions:
+                    - code: string
+                      value: 0
+                      currency: string
+                      exchangeRate: 0
+                      convertedValue: 0
+                    totalValueFreightCharges: 0
+                    totalFreightChargesCurrency: string
+                    totalFreightExchangeRate: 0
+                    totalConvertedValueFreightCharges: 0
+                    totalValueInsuranceCharges: 0
+                    totalInsuranceChargesCurrency: string
+                    totalInsuranceExchangeRate: 0
+                    totalConvertedValueInsuranceCharges: 0
+                    transmittedDate: string
+                    transmittedTime: string
+                    acceptanceDate: string
+                    acceptanceTime: string
+                    customsReleaseDate: string
+                    customsReleaseTime: string
+                    taxesDutiesPaidDate: string
+                    taxesDutiesPaidTime: string
+                    relationshipStatus: true
+                    buyerRestrictions: true
+                    conditionsOnSaleOrPrice: true
+                    proceedsOfSaleOrUse: true
+                    transactionNature: string
+                    previousDocuments:
+                    - category: string
+                      type: string
+                      reference: string
+                    additionalInformation:
+                    - type: string
+                      reference: string
+                    additionalDocuments:
+                    - type: string
+                      reference: string
+                      amount: 0
+                      issueDate: string
+                      validityDate: string
+                    remarks: string
+                    totalGuarantee:
+                    - value: 0
+                      currency: string
+                      type: string
+                      number: string
+                    customsAuthorizationNumber: string
+                    loadingLocation: string
+                    expirationDate: string
+                    dischargeDate: string
+                    goodsLocation: string
+                    exitCustomsOfficeCode: string
+                    exitCustomsOfficeName: string
+                    exportCustomsOfficeCode: string
+                    exportCustomsOfficeName: string
+                    importCustomsOfficeCode: string
+                    importCustomsOfficeName: string
+                    declarationStatus: DRAFT
+                    stateOfData: RECEIVED
+                    stateOfShipment: NOT_ARRIVED
+                    supervisingOfficeCode: string
+                    supervisingOfficeName: string
+                    borderTransportIdType: string
+                    inlandTransportIdType: string
+                  lines:
+                  - lineNumber: 0
+                    commercialInvoiceNumber: string
+                    htsCode: string
+                    htsDescription: string
+                    additionalCodes:
+                    - code: string
+                    htsQuantity: 0
+                    countryOfOrigin: string
+                    grossWeight: 0
+                    grossWeightUom: string
+                    netWeight: 0
+                    netWeightUom: string
+                    htsLineValue: 0
+                    htsLineCurrency: string
+                    packageType: string
+                    numberOfPackages: 0
+                    packageMarks: string
+                    supplementaryUnits: 0
+                    supplementaryUnitsOfMeasure: string
+                    additionalDocuments:
+                    - type: string
+                      amount: 0
+                      reference: string
+                      issueDate: string
+                      validityDate: string
+                    additionalInformation:
+                    - code: string
+                      information: string
+                    quota: string
+                    taxes:
+                    - type: string
+                      base: 0
+                      rate: 0
+                      payableAmount: 0
+                      paymentMethod: string
+                    dutyLineBaseValue: 0
+                    dutyLinePayableAmount: 0
+                    dutyLineRate: 0
+                    taxLineBaseValue: 0
+                    taxLinePayableAmount: 0
+                    taxLineRate: 0
+                    postponedVatLineValue: 0
+                    postponedVatLineCurrency: string
+                    consumptionTaxLinePayableAmount: 0
+                    consumptionTaxLineRate: 0
+                    antidumpingLinePayableAmount: 0
+                    antidumpingLineRate: 0
+                    antidumpingLineCaseNumber: string
+                    countervailingLinePayableAmount: 0
+                    countervailingLineRate: 0
+                    countervailingLineCaseNumber: string
+                    exciseLinePayableAmount: 0
+                    exciseLineRate: 0
+                    exchangeRate: 0
+                    exchangeRateFromCurrency: string
+                    exchangeRateToCurrency: string
+                    additionsAndDeductions:
+                    - code: string
+                      value: 0
+                      currency: string
+                      exchangeRate: 0
+                      convertedValue: 0
+                    internationalFreightChargesValue: 0
+                    internationalFreightChargesCurrency: string
+                    internationalFreightChargesConvertedValue: 0
+                    internationalFreightChargesExchangeRate: 0
+                    localFreightChargesValue: 0
+                    localFreightChargesCurrency: string
+                    localFreightChargesConvertedValue: 0
+                    localFreightChargesExchangeRate: 0
+                    insuranceChargesValue: 0
+                    insuranceChargesCurrency: string
+                    insuranceChargesConvertedValue: 0
+                    insuranceChargesExchangeRate: 0
+                    customsProcedureCode: string
+                    additionalCustomsProcedureCode: string
+                    preference: string
+                    preferentialOriginCountry: string
+                    statisticalValue: 0
+                    guarantee:
+                    - value: 0
+                      currency: string
+                      reference: string
+                      type: string
+                      exchangeRate: 0
+                      convertedValue: 0
+                      convertedValueCurrency: string
+                    previousDocuments:
+                    - reference: string
+                      category: string
+                      type: string
+                    purchaseOrderNumber: string
+                    inspectionFlag: string
+                    inspectionType: string
+                    transactionNature: string
+                    valuationMethod: string
+                    incotermsLineCode: string
+                    incotermsLineLocation: string
+                    incotermsLineUnlocode: string
+                    incotermsLineCountry: string
+                    lineRemarks: string
+                    relationshipStatusLine: true
+                    buyerRestrictionsLine: true
+                    conditionsOnSaleOrPriceLine: true
+                    proceedsOfSaleOrUseLine: true
+                  commercialInvoice:
+                  - invoiceNumber: string
+                    invoiceDate: string
+                    invoiceValue: 0
+                    invoiceCurrency: string
+                  commercialInvoiceLine:
+                  - partNumber: string
+                    partNumberDescription: string
+                    commercialInvoiceNumber: string
+                    commercialInvoiceLineNumber: 0
+                    commercialInvoiceLineItemQuantity: 0
+                    commercialInvoiceNumberOfPackages: 0
+                    commercialInvoicePackageType: string
+                    commercialInvoiceGrossWeight: 0
+                    commercialInvoiceGrossWeightUom: string
+                    commercialInvoiceNetWeight: 0
+                    commercialInvoiceNetWeightUom: string
+                    commercialInvoiceLinePrice: 0
+                    unitPriceOfCommercialInvoiceLineItem: 0
+                  additionalNotes: string
+        '400':
+          description: Invalid request
+        '404':
+          description: Declaration not found
+        '500':
+          description: Internal server error
+components:
+  schemas:
+    TotalGuarantee:
+      type:
+      - object
+      - 'null'
+      properties:
+        value:
+          type:
+          - number
+          - 'null'
+          description: Total guarantee amount from the declaration.
+          format: double
+        currency:
+          type:
+          - string
+          - 'null'
+          description: Currency of the guarantee amount from the declaration.
+        type:
+          type:
+          - string
+          - 'null'
+          description: Specifies the nature of the guarantee provided (e.g., cash deposit, bond).
+        number:
+          type:
+          - string
+          - 'null'
+          description: Unique reference or identification number assigned to the guarantee.
+      description: Financial security provided to Customs to ensure payment of duties, taxes, or compliance with customs procedures.
+    Guarantee:
+      type:
+      - object
+      - 'null'
+      properties:
+        value:
+          type:
+          - number
+          - 'null'
+          description: Guarantee amount per line from the declaration.
+          format: double
+        currency:
+          type:
+          - string
+          - 'null'
+          description: Original currency of the guarantee value.
+        reference:
+          type:
+          - string
+          - 'null'
+          description: Unique reference or identification number assigned to the guarantee.
+        type:
+          type:
+          - string
+          - 'null'
+          description: Specifies the nature of the guarantee provided (e.g., cash deposit, bond).
+        exchangeRate:
+          type:
+          - number
+          - 'null'
+          description: Exchange rate used to convert from foreign currency into local currency.
+          format: double
+        convertedValue:
+          type:
+          - number
+          - 'null'
+          description: Converted guarantee amount in local currency.
+          format: double
+        convertedValueCurrency:
+          type:
+          - string
+          - 'null'
+          description: Currency of the converted guarantee amount on line level.
+      description: Financial security provided to Customs at line level.
+    AdditionalInformationLine:
+      type:
+      - object
+      - 'null'
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+          description: Categories or classifications of extra details that can be added to each item in a customs declaration to provide more context or specify certain conditions.
+        information:
+          type:
+          - string
+          - 'null'
+          description: Specific code or identifier that refers to the kind of additional information provided for an item in a customs declaration.
+      description: Supplementary data related to a specific item in the customs declaration.
+    Party:
+      type:
+      - object
+      - 'null'
+      properties:
+        registrationCode:
+          type:
+          - string
+          - 'null'
+          description: Party's legal reference number (e.g., EORI number, Importer ID, Exporter ID).
+        vatGst:
+          type:
+          - string
+          - 'null'
+          description: VAT / Tax Identifier of the party.
+        name:
+          type:
+          - string
+          - 'null'
+          description: Full legal name of the party.
+        address:
+          $ref: '#/components/schemas/Address'
+        representativeStatus:
+          type:
+          - string
+          - 'null'
+          description: Representational relationship type (e.g., direct or indirect representation).
+    PreviousDocumentLine:
+      type:
+      - object
+      - 'null'
+      properties:
+        reference:
+          type:
+          - string
+          - 'null'
+          description: Previously used customs document number.
+        category:
+          type:
+          - string
+          - 'null'
+          description: Type or classification of the earlier document linked to a specific item in the customs declaration.
+        type:
+          type:
+          - string
+          - 'null'
+          description: More specific classification or code that identifies the exact kind of prior document linked to an individual item in a customs declaration.
+      description: Reference to a document related to or supporting a specific item in the shipment.
+    AdditionsAndDeductionsLine:
+      type:
+      - object
+      - 'null'
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+          description: Standardized numerical or alphanumeric codes used to specify the type of adjustment made to the item value — whether it is an addition or deduction — to ensure clarity and uniformity in declarations.
+        value:
+          type:
+          - number
+          - 'null'
+          description: Monetary value that is either added to or subtracted from the declared value of an item to calculate the correct customs value.
+          format: double
+        currency:
+          type:
+          - string
+          - 'null'
+          description: Currency unit in which the amounts for additions or deductions are expressed.
+        exchangeRate:
+          type:
+          - number
+          - 'null'
+          description: Exchange rate for currency used for additions or deductions.
+          format: double
+        convertedValue:
+          type:
+          - number
+          - 'null'
+          description: Converted value that is either added to or subtracted from the declared value of an item.
+          format: double
+      description: Costs or amounts added to or subtracted from the value of the goods to calculate the total customs value at line level.
+    AdditionalDocument:
+      type:
+      - object
+      - 'null'
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+          description: Type of document (e.g., certificate of origin).
+        reference:
+          type:
+          - string
+          - 'null'
+          description: Document number or identifier.
+        amount:
+          type:
+          - number
+          - 'null'
+          description: Value related to the document type.
+          format: double
+        issueDate:
+          type:
+          - string
+          - 'null'
+          description: Date on which the supplementary customs document was officially issued by the relevant authority or issuer.
+        validityDate:
+          type:
+          - string
+          - 'null'
+          description: The last date on which the additional document remains effective and valid for customs use.
+      description: Document supporting the customs declaration at header level.
+    Declaration:
+      type:
+      - object
+      - 'null'
+      properties:
+        header:
+          $ref: '#/components/schemas/Header'
+        lines:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Line'
+          description: List of line items in the declaration.
+        commercialInvoice:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/CommercialInvoice'
+          description: List of Commercial invoices associated with the customs declaration.
+        commercialInvoiceLine:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/CommercialInvoiceLine'
+          description: List of individual line items of a commercial invoice.
+        additionalNotes:
+          type:
+          - string
+          - 'null'
+          description: A free-text field used to capture any supplementary comments or contextual information that applies to the overall customs declaration. This field is intended for general remarks that do not relate to a specific data element, item line, or section of the declaration.
+      description: The full customs declaration object containing header, line items, invoices, and additional notes.
+    Tax:
+      type:
+      - object
+      - 'null'
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+          description: Type of tax (e.g., VAT, customs duty).
+        base:
+          type:
+          - number
+          - 'null'
+          description: Value on which the tax is calculated.
+          format: double
+        rate:
+          type:
+          - number
+          - 'null'
+          description: Applicable tax rate.
+          format: double
+        payableAmount:
+          type:
+          - number
+          - 'null'
+          description: Tax amount due.
+          format: double
+        total:
+          type:
+          - number
+          - 'null'
+          description: Total of all taxes.
+          format: double
+        paymentMethod:
+          type:
+          - string
+          - 'null'
+          description: Method used to pay taxes.
+      description: Duty and tax details at header level.
+    CustomsDeclarationEnvelope:
+      type:
+      - object
+      - 'null'
+      properties:
+        id:
+          type:
+          - string
+          - 'null'
+          description: Unique identifier of the customs declaration.
+        declaration:
+          $ref: '#/components/schemas/Declaration'
+    AdditionalCodeLine:
+      type:
+      - object
+      - 'null'
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+          description: Secondary HS code required to be declared by customs authority due to the kind of commodity being imported and any additionally applied duties.
+      description: Secondary HS code required by customs authority for certain commodities (e.g., Section 301 duties for goods from CN).
+    CommercialInvoiceLine:
+      type:
+      - object
+      - 'null'
+      properties:
+        partNumber:
+          type:
+          - string
+          - 'null'
+          description: Customer commodity reference (e.g., ASIN, Apple part number) representing the commodity for this line.
+        partNumberDescription:
+          type:
+          - string
+          - 'null'
+          description: Description of the commodity reference representing the commodity for this line.
+        commercialInvoiceNumber:
+          type:
+          - string
+          - 'null'
+          description: Reference to the commercial invoice this line belongs to.
+        commercialInvoiceLineNumber:
+          type:
+          - integer
+          - 'null'
+          description: Line item position number in the commercial invoice.
+        commercialInvoiceLineItemQuantity:
+          type:
+          - integer
+          - 'null'
+          description: Number of pieces at each part number level.
+        commercialInvoiceNumberOfPackages:
+          type:
+          - integer
+          - 'null'
+          description: Number of units for the part number as listed on the commercial invoice.
+        commercialInvoicePackageType:
+          type:
+          - string
+          - 'null'
+          description: Package type as listed on the commercial invoice line.
+        commercialInvoiceGrossWeight:
+          type:
+          - number
+          - 'null'
+          description: Total gross weight amount of the invoice line.
+          format: double
+        commercialInvoiceGrossWeightUom:
+          type:
+          - string
+          - 'null'
+          description: Gross weight unit of measure of the invoice line.
+        commercialInvoiceNetWeight:
+          type:
+          - number
+          - 'null'
+          description: Net weight amount of the invoice line.
+          format: double
+        commercialInvoiceNetWeightUom:
+          type:
+          - string
+          - 'null'
+          description: Net weight unit of measure of the invoice line.
+        commercialInvoiceLinePrice:
+          type:
+          - number
+          - 'null'
+          description: Price of a single line on the invoice — unit price multiplied by quantity.
+          format: double
+        unitPriceOfCommercialInvoiceLineItem:
+          type:
+          - number
+          - 'null'
+          description: Unit price of an item being imported as stated on the commercial invoice.
+          format: double
+      description: Individual line item of a commercial invoice.
+    AdditionalInformation:
+      type:
+      - object
+      - 'null'
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+          description: Code indicating the nature of the additional information.
+        reference:
+          type:
+          - string
+          - 'null'
+          description: Identifier or description of the information.
+      description: Supplementary data required for customs at header level.
+    Line:
+      type:
+      - object
+      - 'null'
+      properties:
+        lineNumber:
+          type:
+          - integer
+          - 'null'
+          description: The line number as presented in the actual Entry filing.
+        commercialInvoiceNumber:
+          type:
+          - string
+          - 'null'
+          description: Reference to the commercial invoice associated with this line.
+        htsCode:
+          type:
+          - string
+          - 'null'
+          description: The HTS classification code for this line.
+        htsDescription:
+          type:
+          - string
+          - 'null'
+          description: Description of the HTS classification for this line.
+        additionalCodes:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/AdditionalCodeLine'
+          description: Secondary HS codes required by customs authority, e.g., for Section 301 duties on goods with country of origin CN.
+        htsQuantity:
+          type:
+          - integer
+          - 'null'
+          description: Declared number of goods based on the HTS code level.
+        countryOfOrigin:
+          type:
+          - string
+          - 'null'
+          description: 2-letter ISO country code for the country of origin of this line.
+        grossWeight:
+          type:
+          - number
+          - 'null'
+          description: Gross weight amount at HS code level.
+          format: double
+        grossWeightUom:
+          type:
+          - string
+          - 'null'
+          description: Gross weight unit of measure at HS code level.
+        netWeight:
+          type:
+          - number
+          - 'null'
+          description: Net weight amount at HS code level.
+          format: double
+        netWeightUom:
+          type:
+          - string
+          - 'null'
+          description: Net weight unit of measure at HS code level.
+        htsLineValue:
+          type:
+          - number
+          - 'null'
+          description: Invoice value of goods at HS code level.
+          format: double
+        htsLineCurrency:
+          type:
+          - string
+          - 'null'
+          description: Total amount currency at HS code level.
+        packageType:
+          type:
+          - string
+          - 'null'
+          description: Package type related to the HS Code Line.
+        numberOfPackages:
+          type:
+          - number
+          - 'null'
+          description: Number of packages per HS Code Line.
+          format: double
+        packageMarks:
+          type:
+          - string
+          - 'null'
+          description: Identifying marks on packages.
+        supplementaryUnits:
+          type:
+          - integer
+          - 'null'
+          description: Additional units of measurement used to describe the quantity of goods beyond the primary unit.
+        supplementaryUnitsOfMeasure:
+          type:
+          - string
+          - 'null'
+          description: Measures of supplementary units (e.g., LTR, KG).
+        additionalDocuments:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/AdditionalDocumentLine'
+          description: Extra documents related to a specific item that support or clarify the declaration.
+        additionalInformation:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/AdditionalInformationLine'
+          description: Supplementary data related to a specific item in the customs declaration.
+        quota:
+          type:
+          - string
+          - 'null'
+          description: Government-imposed limit on the quantity or value of certain goods that can be imported or exported during a specific period.
+        taxes:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/TaxLine'
+          description: Specific types of tax or duty applied to imported or exported goods at line level.
+        dutyLineBaseValue:
+          type:
+          - number
+          - 'null'
+          description: Customs Value / CIF Value (including freight and insurance costs plus HS line value); basis amount that will be multiplied with a percentage of HS code.
+          format: double
+        dutyLinePayableAmount:
+          type:
+          - number
+          - 'null'
+          description: The duty paid for the goods on this line in the currency of the customs declaration.
+          format: double
+        dutyLineRate:
+          type:
+          - number
+          - 'null'
+          description: Duty rate percentage based on HS code as set by customs.
+          format: double
+        taxLineBaseValue:
+          type:
+          - number
+          - 'null'
+          description: Basis amount that will be multiplied with a percentage of tax rate. Import Duty Value + Duties paid amount = Import Tax Value Amount.
+          format: double
+        taxLinePayableAmount:
+          type:
+          - number
+          - 'null'
+          description: Import/export tax value paid for the goods on this line in the currency of the customs declaration. E.g. VAT (GST).
+          format: double
+        taxLineRate:
+          type:
+          - number
+          - 'null'
+          description: Tax rate percentage based on HS code as set by customs.
+          format: double
+        postponedVatLineValue:
+          type:
+          - number
+          - 'null'
+          description: Postponed VAT amount for declaration.
+          format: double
+        postponedVatLineCurrency:
+          type:
+          - string
+          - 'null'
+          description: Postponed VAT currency for declaration.
+        consumptionTaxLinePayableAmount:
+          type:
+          - number
+          - 'null'
+          description: Consumption tax paid for the goods on this line in the currency of the customs declaration.
+          format: double
+        consumptionTaxLineRate:
+          type:
+          - integer
+          - 'null'
+          description: Consumption tax rate percentage based on HS code as set by customs.
+        antidumpingLinePayableAmount:
+          type:
+          - number
+          - 'null'
+          description: Antidumping duty paid for the goods on this line in the currency of the customs declaration.
+          format: double
+        antidumpingLineRate:
+          type:
+          - number
+          - 'null'
+          description: Antidumping duty rate percentage based on HS code as set by customs.
+          format: double
+        antidumpingLineCaseNumber:
+          type:
+          - string
+          - 'null'
+          description: Antidumping Duty Case Number reported to Customs.
+        countervailingLinePayableAmount:
+          type:
+          - number
+          - 'null'
+          description: The countervailing duty paid for the goods on this line in the currency of the customs declaration.
+          format: double
+        countervailingLineRate:
+          type:
+          - number
+          - 'null'
+          description: Countervailing duty rate percentage based on HS code as set by customs.
+          format: double
+        countervailingLineCaseNumber:
+          type:
+          - string
+          - 'null'
+          description: Countervailing Duty Case Number reported to Customs.
+        exciseLinePayableAmount:
+          type:
+          - number
+          - 'null'
+          description: 'Excise duty paid for the goods on this line in the currency of the customs declaration. Examples: CVD in India, IPI in Brazil, HMF in US; e.g. tobacco, alcohol duties.'
+          format: double
+        exciseLineRate:
+          type:
+          - number
+          - 'null'
+          description: Excise duty rate percentage based on HS code as set by customs.
+          format: double
+        exchangeRate:
+          type:
+          - number
+          - 'null'
+          description: Exchange rate as locked for this item (from currency, to currency, rate).
+          format: double
+        exchangeRateFromCurrency:
+          type:
+          - string
+          - 'null'
+          description: Source currency for the exchange rate.
+        exchangeRateToCurrency:
+          type:
+          - string
+          - 'null'
+          description: Target currency for the exchange rate.
+        additionsAndDeductions:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/AdditionsAndDeductionsLine'
+          description: Costs or amounts that can be added to or subtracted from the value of the goods to get the total customs value.
+        internationalFreightChargesValue:
+          type:
+          - number
+          - 'null'
+          description: Value of international freight charges.
+          format: double
+        internationalFreightChargesCurrency:
+          type:
+          - string
+          - 'null'
+          description: Currency of international freight charges.
+        internationalFreightChargesConvertedValue:
+          type:
+          - number
+          - 'null'
+          description: Converted value of international freight charges.
+          format: double
+        internationalFreightChargesExchangeRate:
+          type:
+          - number
+          - 'null'
+          description: Exchange rate applied to international freight charges.
+          format: double
+        localFreightChargesValue:
+          type:
+          - number
+          - 'null'
+          description: Value of local freight charges.
+          format: double
+        localFreightChargesCurrency:
+          type:
+          - string
+          - 'null'
+          description: Currency of local freight charges.
+        localFreightChargesConvertedValue:
+          type:
+          - number
+          - 'null'
+          description: Converted value of local freight charges.
+          format: double
+        localFreightChargesExchangeRate:
+          type:
+          - number
+          - 'null'
+          description: Exchange rate applied to local freight charges.
+          format: double
+        insuranceChargesValue:
+          type:
+          - number
+          - 'null'
+          description: Value of insurance charges.
+          format: double
+        insuranceChargesCurrency:
+          type:
+          - string
+          - 'null'
+          description: Currency of insurance charges.
+        insuranceChargesConvertedValue:
+          type:
+          - number
+          - 'null'
+          description: Converted value of insurance charges.
+          format: double
+        insuranceChargesExchangeRate:
+          type:
+          - number
+          - 'null'
+          description: Exchange rate applied to insurance charges.
+          format: double
+        customsProcedureCode:
+          type:
+          - string
+          - 'null'
+          description: Customs Procedure Code identifying the customs regime applicable to the goods.
+        additionalCustomsProcedureCode:
+          type:
+          - string
+          - 'null'
+          description: Supplementary code or classification used alongside the main Customs Procedure Code (CPC) to provide further details about the customs clearance process of goods.
+        preference:
+          type:
+          - string
+          - 'null'
+          description: Application of preferential tariff rates or duty exemptions to goods that meet certain conditions.
+        preferentialOriginCountry:
+          type:
+          - string
+          - 'null'
+          description: Country qualifying for preferential tariff treatment.
+        statisticalValue:
+          type:
+          - number
+          - 'null'
+          description: Value declared for statistical purposes of those goods in a consignment which are subject to the same customs procedure.
+          format: double
+        guarantee:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Guarantee'
+          description: Financial security provided to Customs to ensure the payment of duties, taxes, or compliance with customs procedures at line level.
+        previousDocuments:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/PreviousDocumentLine'
+          description: References to documents related to or supporting a specific item in the shipment that were issued earlier in the trade or shipping process.
+        purchaseOrderNumber:
+          type:
+          - string
+          - 'null'
+          description: Contains the PO/sales order reference.
+        inspectionFlag:
+          type:
+          - string
+          - 'null'
+          description: Indicates whether examination of goods by customs in goods traffic was conducted.
+        inspectionType:
+          type:
+          - string
+          - 'null'
+          description: The type of inspection conducted.
+        transactionNature:
+          type:
+          - string
+          - 'null'
+          description: Describes the relationship and conditions under which the goods were sold or transferred, which can affect how customs value and duties are assessed.
+        valuationMethod:
+          type:
+          - string
+          - 'null'
+          description: Defines how the value of goods is established for customs purposes.
+        incotermsLineCode:
+          type:
+          - string
+          - 'null'
+          description: Incoterm at HS Code line level declared to Customs in the entry declaration.
+        incotermsLineLocation:
+          type:
+          - string
+          - 'null'
+          description: Named place relevant to the Incoterm at line level.
+        incotermsLineUnlocode:
+          type:
+          - string
+          - 'null'
+          description: UN location code for the Incoterm place at line level.
+        incotermsLineCountry:
+          type:
+          - string
+          - 'null'
+          description: Country of the Incoterm location at line level.
+        lineRemarks:
+          type:
+          - string
+          - 'null'
+          description: Used to add specific information to the import or export line. Mostly customer information. In EU countries also known as Box 44.
+        relationshipStatusLine:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates a price influence as a result of a party relationship between the buyer and seller.
+        buyerRestrictionsLine:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates restrictions on the disposal or use of the goods by the buyer at line level.
+        conditionsOnSaleOrPriceLine:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates if the sale is subject to some condition or consideration at line level.
+        proceedsOfSaleOrUseLine:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates if the sale is subject to an arrangement under which part of the proceeds of any subsequent resale, disposal or use accrues directly or indirectly to the seller at line level.
+      description: Line item in the declaration.
+    CustomsDeclarationRequest:
+      type:
+      - object
+      - 'null'
+      properties:
+        id:
+          type:
+          - string
+          - 'null'
+          description: Unique identifier of the customs declaration.
+        declaration:
+          $ref: '#/components/schemas/Declaration'
+      description: Request payload used to create a new customs declaration. Contains the full declaration data submitted by the client.
+    Container:
+      type:
+      - object
+      - 'null'
+      properties:
+        containerNumber:
+          type:
+          - string
+          - 'null'
+          description: Number from the shipped container.
+        sealNumber:
+          type:
+          - string
+          - 'null'
+          description: Seal number used on the container.
+      description: Container and seal information for goods shipment.
+    TotalAdditionsAndDeductions:
+      type:
+      - object
+      - 'null'
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+          description: Standardized numerical or alphanumeric codes used to specify the type of adjustment made to the item value — whether it is an addition or deduction — to ensure clarity and uniformity in declarations.
+        value:
+          type:
+          - number
+          - 'null'
+          description: Value of the adjustment.
+          format: double
+        currency:
+          type:
+          - string
+          - 'null'
+          description: Currency used for the adjustment.
+        exchangeRate:
+          type:
+          - number
+          - 'null'
+          description: Exchange rate for the currency used for the adjustment.
+          format: double
+        convertedValue:
+          type:
+          - number
+          - 'null'
+          description: Converted value of the adjustment.
+          format: double
+      description: Adjustments to customs value of goods at header level.
+    PreviousDocument:
+      type:
+      - object
+      - 'null'
+      properties:
+        category:
+          type:
+          - string
+          - 'null'
+          description: Broad classification of the previous document (e.g., transport document, declaration, certificate).
+        type:
+          type:
+          - string
+          - 'null'
+          description: Specific type of document, coded according to WCO standards (e.g., invoice, airway bill, previous declaration).
+        reference:
+          type:
+          - string
+          - 'null'
+          description: Unique identifier or number of the referenced document.
+      description: Reference to a document that precedes or supports the current customs declaration.
+    Header:
+      type:
+      - object
+      - 'null'
+      properties:
+        entryNumber:
+          type:
+          - string
+          - 'null'
+          description: 'An ID that represents a physical entry, likely assigned by Customs / Movement Reference Number: Unique identifier assigned by Customs upon acceptance of the declaration to track the movement of goods.'
+        lrn:
+          type:
+          - string
+          - 'null'
+          description: 'Local Reference Number: Unique identifier assigned by the declarant or trader for internal tracking; used before MRN is issued.'
+        ucr:
+          type:
+          - string
+          - 'null'
+          description: 'Unique Consignment Reference: Globally unique reference for a consignment, used across systems.'
+        jobDate:
+          type:
+          - string
+          - 'null'
+          description: Date of creating an entry of the declaration in the Customs System.
+        jobTime:
+          type:
+          - string
+          - 'null'
+          description: Time of creating an entry of the declaration in the Customs System.
+        jobType:
+          enum:
+          - StandardImport
+          - StandardExport
+          - OwnBroker
+          - WarehouseRemovalImport
+          - BrokerStandardImport
+          - BrokerStandardExport
+          - ReExport
+          - Warehouse
+          - Transit
+          - T1
+          - T2
+          type:
+          - string
+          - 'null'
+          description: The entry type/identifier code for the type of entry. This must be the customs procedure code that was used. Refers to the classification of the nature of a customs transaction or operation (e.g., standard import, export, warehouse removal).
+        jobTypeDescription:
+          type:
+          - string
+          - 'null'
+          description: The description of the entry type related to the used customs procedure.
+        shipmentType:
+          type:
+          - string
+          - 'null'
+          description: 'Identifies type of shipment from a logistical standpoint. Values: IMPORT, EXPORT.'
+        declarationType:
+          type:
+          - string
+          - 'null'
+          description: This field informs if an import declaration was submitted as a consumption entry, temporary entry, Foreign Trade Zone (FTZ), inbond entry, or any other special customs procedure.
+        declarationCategory:
+          type:
+          - string
+          - 'null'
+          description: Indicates the procedural context of the declaration, such as simplified, standard, or pre-arrival.
+        declarationCountry:
+          type:
+          - string
+          - 'null'
+          description: Country for which the declaration is done.
+        declarationDivision:
+          enum:
+          - Air
+          - Road
+          - Sea
+          type:
+          - string
+          - 'null'
+          description: Division (Sea / Air / Road) of the declaration.
+        portOfEntry:
+          type:
+          - string
+          - 'null'
+          description: 'Port of entry or Airport of Entry. For airports please provide the ISO Code of the Airport. For other ports please provide the data in the following format ''COUNTRYCODEPORTCODE'' e.g. Germany-Hamburg: DEHAM.'
+        cityOfEntry:
+          type:
+          - string
+          - 'null'
+          description: Name of the city of entry.
+        countryOfImport:
+          type:
+          - string
+          - 'null'
+          description: 2-letter ISO country code for the country of import.
+        countryOfExport:
+          type:
+          - string
+          - 'null'
+          description: 2-letter ISO country code for the country of export.
+        portOfLoading:
+          type:
+          - string
+          - 'null'
+          description: 'Port of lading Code. For airports please provide the ISO Code of the Airport. For other ports please provide the data in the following format ''COUNTRYCODEPORTCODE'' e.g. Germany-Hamburg: DEHAM.'
+        portOfDischarge:
+          type:
+          - string
+          - 'null'
+          description: 'Port of discharge Code. For airports please provide the ISO Code of the Airport. For other ports please provide the data in the following format ''COUNTRYCODEPORTCODE'' e.g. Germany-Hamburg: DEHAM.'
+        borderTransportId:
+          type:
+          - string
+          - 'null'
+          description: Name of vessel from voyage or flight or licence plate of transport at the border.
+        inlandTransportId:
+          type:
+          - string
+          - 'null'
+          description: Name of vessel from voyage or flight or licence plate of transport within the country.
+        borderModeOfTransport:
+          type:
+          - string
+          - 'null'
+          description: Code for mode-of-transport at the border. Please provide legend or translation for the codes.
+        inlandModeOfTransport:
+          type:
+          - string
+          - 'null'
+          description: Code for mode-of-transport within the country. Please provide legend or translation for the codes.
+        borderModeOfTransportDescription:
+          type:
+          - string
+          - 'null'
+          description: 'Description of code for mode of transport at the border. Values: AIR, OCEAN, LAND, CONTRACT LOGISTICS.'
+        inlandModeOfTransportDescription:
+          type:
+          - string
+          - 'null'
+          description: 'Description of code for mode of transport within the country. Values: AIR, OCEAN, LAND, CONTRACT LOGISTICS.'
+        borderTransportNationality:
+          type:
+          - string
+          - 'null'
+          description: Country of registration of the transport crossing the border.
+        inlandTransportNationality:
+          type:
+          - string
+          - 'null'
+          description: Country of registration of the transport within the country.
+        importDate:
+          type:
+          - string
+          - 'null'
+          description: Date of arrival at the port of unlading.
+        exportDate:
+          type:
+          - string
+          - 'null'
+          description: Date of departure from the last port in the country of export.
+        houseBillOfLading:
+          type:
+          - string
+          - 'null'
+          description: House Bill Number of a shipment or entry.
+        houseAirwayBill:
+          type:
+          - string
+          - 'null'
+          description: House Airway Bill Number of a shipment or entry.
+        masterBillOfLading:
+          type:
+          - string
+          - 'null'
+          description: Master Bill Number of a shipment or entry.
+        masterAirwayBill:
+          type:
+          - string
+          - 'null'
+          description: Master Airway Bill Number of a shipment or entry.
+        shipmentId:
+          type:
+          - string
+          - 'null'
+          description: Internal STT Number produced by Schenker TMS system, or Shipment Number produced by other TMS systems.
+        parties:
+          $ref: '#/components/schemas/Parties'
+        brokerReferenceNumber:
+          type:
+          - string
+          - 'null'
+          description: Unique number generated by broker that represents the Entry Reference Number.
+        brokerOfficeNumber:
+          type:
+          - string
+          - 'null'
+          description: Broker office code. Tells us which office processed that shipment.
+        brokerLicense:
+          type:
+          - string
+          - 'null'
+          description: Broker Licenses to allow the broker to work as customs procedures. Code OR description.
+        customerId:
+          type:
+          - string
+          - 'null'
+          description: Unique ID assigned to shipment by customer.
+        incotermsCode:
+          type:
+          - string
+          - 'null'
+          description: Incoterm declared to Customs in the entry declaration.
+        incotermsLocation:
+          type:
+          - string
+          - 'null'
+          description: Named place relevant to the Incoterm.
+        incotermsUnlocode:
+          type:
+          - string
+          - 'null'
+          description: UN location code for the Incoterm place.
+        incotermsCountry:
+          type:
+          - string
+          - 'null'
+          description: Country of the Incoterm location.
+        holderOfAuthorization:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/HolderOfAuthorization'
+          description: Entities authorized for specific customs procedures.
+        fiscalReferenceId:
+          type:
+          - string
+          - 'null'
+          description: 'Tax-related identifier and fiscal representation: VAT number or fiscal ID.'
+        fiscalReferenceRole:
+          type:
+          - string
+          - 'null'
+          description: Role of the entity (e.g., fiscal representative, importer, declarant).
+        defermentAccountTaxes:
+          type:
+          - string
+          - 'null'
+          description: Identifies the account used for deferred payment of taxes.
+        defermentAccountDuties:
+          type:
+          - string
+          - 'null'
+          description: Identifies the account used for deferred payment of duties.
+        warehouseId:
+          type:
+          - string
+          - 'null'
+          description: Identifier of the customs warehouse where goods will be / are / have been stored.
+        totalGrossWeight:
+          type:
+          - number
+          - 'null'
+          description: Total gross weight amount of shipment.
+          format: double
+        totalGrossWeightUom:
+          type:
+          - string
+          - 'null'
+          description: Gross weight unit of measure of shipment.
+        totalNetWeight:
+          type:
+          - number
+          - 'null'
+          description: Net weight amount of shipment.
+          format: double
+        totalNetWeightUom:
+          type:
+          - string
+          - 'null'
+          description: Net weight unit of measure of shipment.
+        totalNumberOfPackages:
+          type:
+          - integer
+          - 'null'
+          description: Total quantity as reported in the Bill of Lading.
+        containers:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Container'
+          description: Containers and seals that goods are shipped in.
+        totalValueDeclared:
+          type:
+          - number
+          - 'null'
+          description: Total value declared on the declaration.
+          format: double
+        customsDeclarationCurrency:
+          type:
+          - string
+          - 'null'
+          description: Currency used in the customs declaration.
+        taxes:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Tax'
+          description: Duty and tax details at header level.
+        totalAdditionsAndDeductions:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/TotalAdditionsAndDeductions'
+          description: Adjustments to customs value of goods at header level.
+        totalValueFreightCharges:
+          type:
+          - number
+          - 'null'
+          description: Total costs of transportation.
+          format: double
+        totalFreightChargesCurrency:
+          type:
+          - string
+          - 'null'
+          description: Currency of the freight charges.
+        totalFreightExchangeRate:
+          type:
+          - integer
+          - 'null'
+          description: Exchange rate for freight charges at header level.
+        totalConvertedValueFreightCharges:
+          type:
+          - number
+          - 'null'
+          description: Converted value of freight charges at header level.
+          format: double
+        totalValueInsuranceCharges:
+          type:
+          - number
+          - 'null'
+          description: Total costs of insurance.
+          format: double
+        totalInsuranceChargesCurrency:
+          type:
+          - string
+          - 'null'
+          description: Currency of the insurance charges.
+        totalInsuranceExchangeRate:
+          type:
+          - number
+          - 'null'
+          description: Exchange rate for insurance charges at header level.
+          format: double
+        totalConvertedValueInsuranceCharges:
+          type:
+          - number
+          - 'null'
+          description: Converted value of insurance charges at header level.
+          format: double
+        transmittedDate:
+          type:
+          - string
+          - 'null'
+          description: Date when the customs declaration was transmitted, in case it differs from the entry date.
+        transmittedTime:
+          type:
+          - string
+          - 'null'
+          description: Time when the customs declaration was transmitted, in case it differs from the entry date.
+        acceptanceDate:
+          type:
+          - string
+          - 'null'
+          description: Date when the declaration is accepted by Customs.
+        acceptanceTime:
+          type:
+          - string
+          - 'null'
+          description: Time when the declaration is accepted by Customs.
+        customsReleaseDate:
+          type:
+          - string
+          - 'null'
+          description: 'Customs release date / Custom Clearance Completed Date - Milestone: Out of charge.'
+        customsReleaseTime:
+          type:
+          - string
+          - 'null'
+          description: Time of customs release / clearance completion.
+        taxesDutiesPaidDate:
+          type:
+          - string
+          - 'null'
+          description: Date on which duty was paid by the customer/importer.
+        taxesDutiesPaidTime:
+          type:
+          - string
+          - 'null'
+          description: Time at which duty was paid by the customer/importer.
+        relationshipStatus:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates whether the shipper and importer are related parties (true = related / Yes, false = not related / No). Customs authorities use this to ensure the declared value reflects fair market value and not a preferential price due to related-party status.
+        buyerRestrictions:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates restrictions on the disposal or use of the goods by the buyer.
+        conditionsOnSaleOrPrice:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates if the sale is subject to some condition or consideration.
+        proceedsOfSaleOrUse:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates if the sale is subject to an arrangement under which part of the proceeds of any subsequent resale, disposal or use accrues directly or indirectly to the seller.
+        transactionNature:
+          type:
+          - string
+          - 'null'
+          description: Indicates the nature of the transaction (e.g., sale, return).
+        previousDocuments:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/PreviousDocument'
+          description: References to documents that preceed or support the current customs declaration. These may include transport, commercial, or customs-related documents.
+        additionalInformation:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/AdditionalInformation'
+          description: Supplementary data required for customs at header level.
+        additionalDocuments:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/AdditionalDocument'
+          description: Documents supporting the declaration at header level.
+        remarks:
+          type:
+          - string
+          - 'null'
+          description: Used to add specific information to the import or export. Mostly customer information. In EU countries also known as Box 44.
+        totalGuarantee:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/TotalGuarantee'
+          description: Financial security provided to Customs to ensure the payment of duties, taxes, or compliance with customs procedures.
+        customsAuthorizationNumber:
+          type:
+          - string
+          - 'null'
+          description: Customs authorisation number to use a simplified procedure.
+        loadingLocation:
+          type:
+          - string
+          - 'null'
+          description: Location where goods are loaded.
+        expirationDate:
+          type:
+          - string
+          - 'null'
+          description: Date when the customs document will expire and become invalid.
+        dischargeDate:
+          type:
+          - string
+          - 'null'
+          description: Date when the customs document/movement was closed.
+        goodsLocation:
+          type:
+          - string
+          - 'null'
+          description: Physical location of goods at the time of declaration.
+        exitCustomsOfficeCode:
+          type:
+          - string
+          - 'null'
+          description: Customs office to which the goods are to be presented before they leave the customs territory. The Export Document must always be presented to this customs office.
+        exitCustomsOfficeName:
+          type:
+          - string
+          - 'null'
+          description: Name of the exit customs office.
+        exportCustomsOfficeCode:
+          type:
+          - string
+          - 'null'
+          description: Customs office responsible for the place where the exporter is established or in whose district the goods are loaded or packed for export.
+        exportCustomsOfficeName:
+          type:
+          - string
+          - 'null'
+          description: Name of the export customs office.
+        importCustomsOfficeCode:
+          type:
+          - string
+          - 'null'
+          description: Customs office in charge of import customs clearance and responsible for the complete import customs declaration.
+        importCustomsOfficeName:
+          type:
+          - string
+          - 'null'
+          description: Name of the import customs office.
+        declarationStatus:
+          enum:
+          - DRAFT
+          - SUBMITTED_TO_CUSTOMS_AUTHORITIES
+          - REJECTED_BY_CUSTOMS_AUTHORITIES
+          - ACCEPTED_BY_CUSTOMS_AUTHORITIES
+          - UNCLEARED
+          - AUTHORITIES_HOLD
+          - CLEARED
+          type:
+          - string
+          - 'null'
+          description: Shows the current status of the declaration. Can be represented as a color code or descriptive wording.
+        stateOfData:
+          enum:
+          - RECEIVED
+          - PROCESSING
+          - NEW
+          - ASSIGNED
+          - IN_PROGRESS
+          - CSAI_FIRST_REVIEW
+          - SENT_TO_BROKER
+          - SUBMITTED_FOR_PRE_CLEARANCE
+          - PRE_CLEARANCE_REJECTED
+          - PRE_CLEARANCE_ACCEPTED
+          - NOT_RECEIVED_BY_BROKER
+          - DEADLINE_EXCEEDED
+          - MISSING_VALID_DOCUMENTS
+          - CSAI_NEXT_REVIEW
+          - APPROVED_BY_DSV
+          - REJECTED_BY_DSV
+          - SUBMITTED
+          - SUBMISSION_ERROR
+          - SENT_TO_CUSTOMS_SYSTEM
+          - RECEIVED_BY_CUSTOMS_SYSTEM
+          - CUSTOMS_SYSTEM_ERROR
+          type:
+          - string
+          - 'null'
+          description: Refers to the status and integrity of the information submitted to customs or logistics systems.
+        stateOfShipment:
+          enum:
+          - NOT_ARRIVED
+          - ARRIVED
+          - NOT_DEPARTED
+          - DEPARTED
+          type:
+          - string
+          - 'null'
+          description: Describes the physical and logistical status of the goods being transported.
+        supervisingOfficeCode:
+          type:
+          - string
+          - 'null'
+          description: Customs office responsible for supervising the discharge of a government procedure. It may be different from the office of declaration.
+        supervisingOfficeName:
+          type:
+          - string
+          - 'null'
+          description: Name of the supervising customs office.
+        borderTransportIdType:
+          type:
+          - string
+          - 'null'
+          description: Indicates the type of identifier used to uniquely identify the active means of transport at the border, i.e., the actual vehicle/vessel/aircraft that physically crosses the customs frontier.
+        inlandTransportIdType:
+          type:
+          - string
+          - 'null'
+          description: Indicates the type of identifier used to identify the means of transport operating inland, i.e., the conveyance used before reaching the border (export) or after crossing the border (import).
+      description: Contains all header-level information for the declaration, including shipment details, parties involved, transport data, dates, and customs procedure references.
+    CommercialInvoice:
+      type:
+      - object
+      - 'null'
+      properties:
+        invoiceNumber:
+          type:
+          - string
+          - 'null'
+          description: Reference number of the commercial invoice.
+        invoiceDate:
+          type:
+          - string
+          - 'null'
+          description: Date on the commercial invoice.
+        invoiceValue:
+          type:
+          - number
+          - 'null'
+          description: Total value stated in the commercial invoice.
+          format: double
+        invoiceCurrency:
+          type:
+          - string
+          - 'null'
+          description: Currency as shown on the commercial invoice.
+      description: Commercial invoice associated with the customs declaration.
+    HolderOfAuthorization:
+      type:
+      - object
+      - 'null'
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+          description: Code specifying the type of person being the holder of the authorization (e.g., AEO, customs warehousing).
+        reference:
+          type:
+          - string
+          - 'null'
+          description: Authorization number.
+      description: Entity holding a specific customs authorization.
+    Parties:
+      type:
+      - object
+      - 'null'
+      properties:
+        broker:
+          allOf:
+          - $ref: '#/components/schemas/Party'
+          - description: The entity authorized to act on behalf of another in customs matters, typically facilitating the submission of declarations and ensuring compliance with customs regulations.
+        ior:
+          allOf:
+          - $ref: '#/components/schemas/Party'
+          - description: The entity (Importer of Record) legally responsible for ensuring that imported goods comply with local laws and regulations, including payment of duties and taxes.
+        eor:
+          allOf:
+          - $ref: '#/components/schemas/Party'
+          - description: The entity (Exporter of Record) responsible for ensuring that goods exported from a country comply with export regulations, including documentation and licensing.
+        consignee:
+          allOf:
+          - $ref: '#/components/schemas/Party'
+          - description: Ultimate consignee in case it is different from IOR. The Ultimate Consignee is the last recipient of a shipment.
+        declarant:
+          allOf:
+          - $ref: '#/components/schemas/Party'
+          - description: Details related to the party who makes a declaration to an official body or - where legally permitted - in whose name, or on whose behalf, a declaration to an official body is made.
+        representative:
+          allOf:
+          - $ref: '#/components/schemas/Party'
+          - description: Details related to the entity acting as a representative.
+        buyer:
+          allOf:
+          - $ref: '#/components/schemas/Party'
+          - description: Details related to the party to which merchandise or services are sold.
+        seller:
+          allOf:
+          - $ref: '#/components/schemas/Party'
+          - description: Details related to the party selling merchandise to a buyer.
+        authorizedConsignee:
+          allOf:
+          - $ref: '#/components/schemas/Party'
+          - description: Entity authorized by the customs administration to receive goods directly at their premises without presenting them at the customs office at the point of destination.
+        forwarder:
+          allOf:
+          - $ref: '#/components/schemas/Party'
+          - description: A logistics provider responsible for organizing the transportation of goods, often acting as an intermediary between shipper and carrier.
+        carrier:
+          allOf:
+          - $ref: '#/components/schemas/Party'
+          - description: The party responsible for physically transporting the goods, such as a shipping line, airline, or trucking company.
+        shipper:
+          allOf:
+          - $ref: '#/components/schemas/Party'
+          - description: The party initiating the shipment, typically the seller or consignor.
+        delivery:
+          allOf:
+          - $ref: '#/components/schemas/Party'
+          - description: Party to which goods should be or have been delivered or positioned.
+        intermediateConsignee:
+          allOf:
+          - $ref: '#/components/schemas/Party'
+          - description: A party, other than the final consignee, that is designated to receive, hold, or forward the goods at an intermediate stage of the supply chain before they reach their final destination.
+      description: A collection of all parties involved in the customs declaration and the associated shipment. Each party represents a distinct role in the trade or logistics chain, such as the broker, importer, exporter, carrier, or consignee.
+    Address:
+      type:
+      - object
+      - 'null'
+      properties:
+        name1:
+          type:
+          - string
+          - 'null'
+          description: First line of the party's address.
+        name2:
+          type:
+          - string
+          - 'null'
+          description: Second line of the party's address.
+        name3:
+          type:
+          - string
+          - 'null'
+          description: Third line of the party's address.
+        name4:
+          type:
+          - string
+          - 'null'
+          description: Fourth line of the party's address.
+        city:
+          type:
+          - string
+          - 'null'
+          description: Name of the city.
+        postalCode:
+          type:
+          - string
+          - 'null'
+          description: Postal or ZIP code of the party's address.
+        state:
+          type:
+          - string
+          - 'null'
+          description: The name or code of the state, province, region, or other sub-national administrative division.
+        country:
+          type:
+          - string
+          - 'null'
+          description: ISO 3166-1 alpha-2 country code representing the country of registration or operation of the party.
+      description: Physical or registered address of a party involved in the customs declaration. Supports up to four address lines to accommodate varying international address formats.
+    TaxLine:
+      type:
+      - object
+      - 'null'
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+          description: Classification used in customs declarations to identify which kind of tax is being charged.
+        base:
+          type:
+          - number
+          - 'null'
+          description: Value or quantity on which the tax is calculated.
+          format: double
+        rate:
+          type:
+          - number
+          - 'null'
+          description: Percentage or fixed amount applied to the tax base to calculate the total tax or duty owed on imported or exported goods.
+          format: double
+        payableAmount:
+          type:
+          - number
+          - 'null'
+          description: Final calculated amount of taxes and duties due to customs authorities based on the declared value, applicable tax rates, and other charges.
+          format: double
+        paymentMethod:
+          type:
+          - string
+          - 'null'
+          description: The way or mode by which duties, taxes, and fees are paid to customs authorities during the import or export process.
+      description: Classification and amount details for a specific tax or duty applied at line level.
+    AdditionalDocumentLine:
+      type:
+      - object
+      - 'null'
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+          description: Type of document used related to the declaration line.
+        amount:
+          type:
+          - number
+          - 'null'
+          description: Value related to the document type.
+          format: double
+        reference:
+          type:
+          - string
+          - 'null'
+          description: Unique identifier or number assigned to an additional supporting document related to a specific item in a customs declaration.
+        issueDate:
+          type:
+          - string
+          - 'null'
+          description: Date on which the supplementary customs document (e.g., certificate of origin, inspection certificate, license, or permit) was officially issued by the relevant authority or issuer.
+        validityDate:
+          type:
+          - string
+          - 'null'
+          description: The last date on which the additional document remains effective and valid for customs use.
+      description: Extra document related to a specific line item that supports or clarifies the declaration.
+  securitySchemes:
+    apiKeyHeader:
+      type: apiKey
+      name: DSV-Subscription-Key
+      in: header
+    apiKeyQuery:
+      type: apiKey
+      name: DSV-Subscription-Key
+      in: query

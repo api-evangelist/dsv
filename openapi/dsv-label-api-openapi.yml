@@ -1,0 +1,515 @@
+openapi: 3.2.0
+info:
+  title: Labels (DEMO) - Air, Sea, Road(EU), Rail Label API
+  description: Prints package labels (PDF) for bookings submitted via the Booking API or myDSV.
+  version: v1
+servers:
+- url: https://api.dsv.com/my-demo/printing/v1
+security:
+- apiKeyHeader: []
+- apiKeyQuery: []
+tags:
+- name: Label
+  description: Printing API
+paths:
+  /labels/{bookingId}:
+    get:
+      tags:
+      - Label
+      summary: Download PDF label(s) via Booking ID
+      description: 'Download PDF package labels via API for bookings submitted via the Booking API or online via DSV’s myDSV customer portal.<BR>
+
+        <BR>
+
+        DEMO ACCOUNT<BR>
+
+        Authorization: client_id: api.demo@demo.dsv.com, client_secret: Demo12345<BR>
+
+        Sample Booking IDs: 40257145990010760574, 40257145990010760581 '
+      operationId: printLabelUsingGET
+      parameters:
+      - name: bookingId
+        in: path
+        description: Booking identifier (GSIN)
+        required: true
+        schema:
+          type: string
+      - name: printFormat
+        in: query
+        description: 'These are the supported print formats
+
+          - Landscape1Label
+
+          - Landscape2Labels
+
+          - Portrait1Label
+
+
+          If a "printFormat" is not added to the request the label response will default to "Landscape1Label"'
+        schema:
+          enum:
+          - Landscape1Label
+          - Landscape2Labels
+          - Portrait1Label
+          type: string
+          default: Landscape1Label
+      - name: Authorization
+        in: header
+        description: DSV Oauth header
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: PDF File
+          content:
+            application/pdf+json:
+              schema:
+                $ref: '#/components/schemas/LabelsBookingIdGet200ApplicationPdf-jsonResponse'
+              example: string
+        '401':
+          description: Unauthorized
+          content:
+            application/pdf+json: {}
+        '403':
+          description: User has no access to the booking
+          content:
+            application/pdf+json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+              example:
+                code: ERR12345
+                development:
+                  exception: string
+                  message: string
+                fields:
+                - code: ERR12345
+                  message: validation error
+                  name: field_name
+                message: 'Not found booking: 40257145990010785188'
+        '404':
+          description: Booking was not found
+          content:
+            application/pdf+json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+              example:
+                code: ERR12345
+                development:
+                  exception: string
+                  message: string
+                fields:
+                - code: ERR12345
+                  message: validation error
+                  name: field_name
+                message: 'Not found booking: 40257145990010785188'
+        '500':
+          description: Internal Server Error
+          content:
+            application/pdf+json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+              example:
+                code: ERR12345
+                development:
+                  exception: string
+                  message: string
+                fields:
+                - code: ERR12345
+                  message: validation error
+                  name: field_name
+                message: 'Not found booking: 40257145990010785188'
+  /labels/reference/{reference}/zpl:
+    get:
+      tags:
+      - Label
+      summary: Download ZPL label(s) via Booking's reference
+      description: Download ZPL package labels via API using booking's reference
+      operationId: printZPLLabelUsingGET
+      parameters:
+      - name: reference
+        in: path
+        description: 'Customer booking reference.
+
+          Reference must be unique (assigned to single shipment)'
+        required: true
+        schema:
+          type: string
+      - name: zoom
+        in: query
+        description: Scaling of the label
+        schema:
+          type: number
+          default: 1
+      - name: Authorization
+        in: header
+        description: DSV Oauth header
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ZPL File
+        '401':
+          description: Unauthorized
+        '403':
+          description: User has no access to the booking
+        '404':
+          description: Booking was not found
+        '500':
+          description: Internal Server Error
+  /labels/tmsId/{tmsId}:
+    get:
+      tags:
+      - Label
+      summary: Download PDF label(s) via Shipment ID
+      description: Download PDF package labels via API using DSV Shipment ID
+      operationId: printLabelUsingtmsId
+      parameters:
+      - name: tmsId
+        in: path
+        description: Booking identifier (GSIN)
+        required: true
+        schema:
+          type: string
+      - name: printFormat
+        in: query
+        description: 'These are the supported print formats
+
+          - Landscape1Label
+
+          - Landscape2Labels
+
+          - Portrait1Label
+
+
+          If a "printFormat" is not added to the request the label response will default to "Landscape1Label"'
+        schema:
+          enum:
+          - Landscape1Label
+          - Landscape2Labels
+          - Portrait1Label
+          type: string
+          default: Landscape1Label
+      - name: Authorization
+        in: header
+        description: DSV Oauth header
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: PDF File
+          content:
+            application/pdf+json:
+              schema:
+                $ref: '#/components/schemas/LabelsBookingIdGet200ApplicationPdf-jsonResponse'
+              example: string
+        '401':
+          description: Unauthorized
+          content:
+            application/pdf+json: {}
+        '403':
+          description: User has no access to the booking
+          content:
+            application/pdf+json: {}
+        '404':
+          description: Booking was not found
+          content:
+            application/pdf+json: {}
+        '500':
+          description: Internal Server Error
+          content:
+            application/pdf+json: {}
+  /labels/reference/{reference}:
+    get:
+      tags:
+      - Label
+      summary: Download PDF label(s) via Booking's reference
+      description: Download PDF package labels via API using booking's reference
+      operationId: printLabelUsingreference
+      parameters:
+      - name: reference
+        in: path
+        description: Booking identifier (GSIN)
+        required: true
+        schema:
+          type: string
+      - name: printFormat
+        in: query
+        description: 'These are the supported print formats
+
+          - Landscape1Label
+
+          - Landscape2Labels
+
+          - Portrait1Label
+
+
+          If a "printFormat" is not added to the request the label response will default to "Landscape1Label"'
+        schema:
+          enum:
+          - Landscape1Label
+          - Landscape2Labels
+          - Portrait1Label
+          type: string
+          default: Landscape1Label
+      - name: Authorization
+        in: header
+        description: DSV Oauth header
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: PDF File
+          content:
+            application/pdf+json:
+              schema:
+                $ref: '#/components/schemas/LabelsBookingIdGet200ApplicationPdf-jsonResponse'
+              example: string
+        '401':
+          description: Unauthorized
+          content:
+            application/pdf+json: {}
+        '403':
+          description: User has no access to the booking
+          content:
+            application/pdf+json: {}
+        '404':
+          description: Booking was not found
+          content:
+            application/pdf+json: {}
+        '500':
+          description: Internal Server Error
+          content:
+            application/pdf+json: {}
+  /labels/{bookingId}/zpl:
+    get:
+      tags:
+      - Label
+      summary: Download ZPL label(s) via Booking ID
+      description: 'Download ZPL package labels via API for bookings submitted via the Booking API or online via DSV’s myDSV customer portal.<BR>
+
+        <BR>
+
+        DEMO ACCOUNT<BR>
+
+        Authorization: client_id: api.demo@demo.dsv.com, client_secret: Demo12345<BR>
+
+        Sample Booking IDs: 40257145990010760574, 40257145990010760581 '
+      operationId: printZPLLabelByBookingId
+      parameters:
+      - name: bookingId
+        in: path
+        description: Booking identifier (GSIN)
+        required: true
+        schema:
+          type: string
+      - name: zoom
+        in: query
+        description: 'Use the "zoom" to get the label(s) sized to your printer needs. If "zoom" is not added to the request, the label response will provide 10x15 cm label(s) in 203dpi.<br>To receive the 10x15 cm label(s) in other commonly used densities, use these "zoom" values:
+
+          - 152dpi - zoom=0.85
+
+          - 203dpi - zoom=1.00
+
+          - 300dpi - zoom=1.20
+
+          - 600dpi - zoom=1.70'
+        schema:
+          type: number
+          default: 1
+      - name: Authorization
+        in: header
+        description: DSV Oauth header
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ZPL File
+        '401':
+          description: Unauthorized
+        '403':
+          description: User has no access to the booking
+        '404':
+          description: Booking was not found
+        '500':
+          description: Internal Server Error
+  /labels/tmsId/{tmsId}/zpl:
+    get:
+      tags:
+      - Label
+      summary: Download ZPL label(s) via Shipment ID
+      description: Download ZPL package labels via API using DSV Shipment ID
+      operationId: printZPLLabelBytmsId
+      parameters:
+      - name: tmsId
+        in: path
+        description: DSV Shipment ID
+        required: true
+        schema:
+          type: string
+      - name: zoom
+        in: query
+        description: Scaling of the label
+        schema:
+          type: number
+          default: 1
+      - name: Authorization
+        in: header
+        description: DSV Oauth header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ZPL File
+        '401':
+          description: Unauthorized
+        '403':
+          description: User has no access to the booking
+        '404':
+          description: Booking was not found
+        '500':
+          description: Internal Server Error
+  /labels/documents/{bookingId}:
+    get:
+      tags:
+      - Label
+      summary: Download booking documents
+      description: Download documents for bookings submitted via the Booking API or online via DSV’s myDSV customer portal.
+      operationId: printDocumentsByBookingId
+      parameters:
+      - name: bookingId
+        in: path
+        description: DSV Booking id - Identifier of the Booking
+        required: true
+        schema:
+          type: string
+        example: 4.02570846300034e+19
+      - name: documentType
+        in: query
+        description: 'One of the supported document types:
+
+          - DeliveryNote
+
+          - PickupNote
+
+          - ReceiptList
+
+          - CMR'
+        required: true
+        schema:
+          enum:
+          - DeliveryNote
+          - PickupNote
+          - CMR
+          - ReceiptList
+          type: string
+        example: DeliveryNote
+      - name: Authorization
+        in: header
+        description: DSV Oauth header
+        schema:
+          type: string
+      responses:
+        '403':
+          description: User has no access to the booking
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+              example:
+                code: E97
+                message: 'User has no access to the booking: 40257084630003353337'
+        '200':
+          description: PDF File
+          headers:
+            Content-Disposition:
+              description: Contains name of PDF File
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                type: string
+              example: string
+        '404':
+          description: Booking was not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+              example: '{ code: "E98", message: "Not found booking: "40257084630003353337" }'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+              example:
+                code: E100
+                message: 'Error: b410e2e1-2087-4618-8bca-981c51deda2e occurred. Please contact myDSV support.'
+components:
+  schemas:
+    ErrorDTO:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: string
+          description: Unique error code
+          example: ERR12345
+        message:
+          type: string
+          description: Error message passed to the user
+          example: 'Not found booking: 40257145990010785188'
+        fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/FieldDTO'
+          description: List of fields that didn't pass validation
+        development:
+          $ref: '#/components/schemas/DevelopmentDTO'
+      description: Error
+    FieldDTO:
+      title: FieldDTO
+      type: object
+      properties:
+        name:
+          type: string
+          description: Error name
+          example: field_name
+        message:
+          type: string
+          description: Description of error
+          example: validation error
+        code:
+          type: string
+          description: Type of error
+          example: ERR12345
+      description: Field
+    DevelopmentDTO:
+      title: Development
+      type: object
+      properties:
+        exception:
+          type: string
+          description: dump from exception
+        message:
+          type: string
+          description: verbose, plain language description of the problem for the app developer with hints on how to fix it
+    LabelsBookingIdGet200ApplicationPdf-jsonResponse:
+      type: string
+  securitySchemes:
+    apiKeyHeader:
+      type: apiKey
+      name: DSV-Subscription-Key
+      in: header
+    apiKeyQuery:
+      type: apiKey
+      name: DSV-Subscription-Key
+      in: query

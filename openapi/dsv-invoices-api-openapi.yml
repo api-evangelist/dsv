@@ -1,0 +1,1168 @@
+openapi: 3.2.0
+info:
+  title: Invoice (DEMO) - Air, Sea, Rail Invoices API
+  description: 'Submit request for invoice demo details to DSV via the invoice demo API. The API supports single invoices, credit notes, and consolidated invoices. Supported transport modes: Air, Sea, and Rail.'
+  version: v1
+servers:
+- url: https://api.dsv.com/my-demo/invoice/v1
+security:
+- apiKeyHeader: []
+- apiKeyQuery: []
+tags:
+- name: Invoices
+paths:
+  /invoices:
+    post:
+      tags:
+      - Invoices
+      summary: Invoices based on the filters
+      description: 'Retrieve a list of DSV invoices including the invoice data via the Invoice list API - Supported transport modes: Air, Sea, Rail'
+      operationId: Invoices_Post
+      parameters:
+      - name: continuationToken
+        in: query
+        description: Token to get next page of invoices
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: OAuth header
+        schema:
+          type: string
+      requestBody:
+        description: Filters
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InvoiceFilterDto'
+            example:
+              countryCode: US
+              transportMode: Air
+              mdm: '6412345678'
+              invoiceStartDateFilter: '2022-01-31'
+              invoiceEndDateFilter: '2022-01-31'
+              invoiceDueDateStartFilter: '2022-01-31'
+              invoiceDueDateEndFilter: '2022-01-31'
+              pageSize: '100'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedInvoicesDto'
+              example:
+                pagination: 'Pagination : ContinuationToken - 2023-08-10T16:46:19.763000Z'
+                data: Invoice list
+                links: https://invoice-service?continuationToken=2023-08-10T16:46:19.763000Z
+        '400':
+          description: ''
+        '500':
+          description: ''
+  /invoices/{id}:
+    get:
+      tags:
+      - Invoices
+      summary: Invoice by DSV Invoice Id
+      description: Invoice by DSV Invoice Id
+      operationId: Invoices_Get
+      parameters:
+      - name: id
+        in: path
+        description: Invoice Id
+        required: true
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: OAuth header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvoiceDto'
+              example:
+                chargesLineItems: Charges Line Items
+                customer: Customer
+                documentType: INV
+                dsvDetails: DSV Details
+                dueDate: '2023-09-22T12:00:00.0000000+00:00'
+                invoiceDate: '2023-08-23T12:00:00.0000000+00:00'
+                invoiceId: 1NV0000000
+                issuedBy: Issued By
+                mdm: 64xxxxxx
+                modesOfTransport: Sea
+                paymentTerm: INV
+                paymentTermDays: 30
+                pdfDownloadUrl: https://invoice-service/000000000001
+                remittanceBankDetails: Remittance Bank Details
+                shipments: Shipments
+                totalCharges: Total Charges
+                transactionCategory: FIN
+        '400':
+          description: ''
+        '500':
+          description: ''
+  /invoices/shipments/{shipmentId}:
+    get:
+      tags:
+      - Invoices
+      summary: Invoice by DSV Shipment Id
+      description: Invoice by DSV Shipment Id
+      operationId: Invoices_GetInvoicesByShipmentId
+      parameters:
+      - name: shipmentId
+        in: path
+        description: Shipment Id
+        required: true
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: OAuth header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/InvoiceDto'
+              example:
+              - chargesLineItems: Charges Line Items
+                customer: Customer
+                documentType: INV
+                dsvDetails: DSV Details
+                dueDate: '2023-09-22T12:00:00.0000000+00:00'
+                invoiceDate: '2023-08-23T12:00:00.0000000+00:00'
+                invoiceId: 1NV0000000
+                issuedBy: Issued By
+                mdm: 64xxxxxx
+                modesOfTransport: Sea
+                paymentTerm: INV
+                paymentTermDays: 30
+                pdfDownloadUrl: https://invoice-service/000000000001
+                remittanceBankDetails: Remittance Bank Details
+                shipments: Shipments
+                totalCharges: Total Charges
+                transactionCategory: FIN
+        '400':
+          description: ''
+        '500':
+          description: ''
+  /invoices/referenceNumbers/{referenceNumber}:
+    get:
+      tags:
+      - Invoices
+      summary: Invoice by Customer Reference
+      description: Invoice by Customer Reference
+      operationId: Invoices_GetInvoicesByReferenceNumber
+      parameters:
+      - name: referenceNumber
+        in: path
+        description: Reference number
+        required: true
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: OAuth header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/InvoiceDto'
+              example:
+              - chargesLineItems: Charges Line Items
+                customer: Customer
+                documentType: INV
+                dsvDetails: DSV Details
+                dueDate: '2023-09-22T12:00:00.0000000+00:00'
+                invoiceDate: '2023-08-23T12:00:00.0000000+00:00'
+                invoiceId: 1NV0000000
+                issuedBy: Issued By
+                mdm: 64xxxxxx
+                modesOfTransport: Sea
+                paymentTerm: INV
+                paymentTermDays: 30
+                pdfDownloadUrl: https://invoice-service/000000000001
+                remittanceBankDetails: Remittance Bank Details
+                shipments: Shipments
+                totalCharges: Total Charges
+                transactionCategory: FIN
+        '400':
+          description: ''
+        '500':
+          description: ''
+  /invoices/pdf/{id}:
+    get:
+      tags:
+      - Invoices
+      summary: Invoice PDF by DSV Invoice Id
+      description: Invoice PDF by DSV Invoice Id
+      operationId: Invoices_GetInvoicePdfByInvoiceId
+      parameters:
+      - name: id
+        in: path
+        description: Invoice Id
+        required: true
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: OAuth header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+        '400':
+          description: ''
+        '404':
+          description: ''
+        '500':
+          description: ''
+components:
+  schemas:
+    ChargesLineItemDto:
+      type: object
+      properties:
+        amount:
+          type:
+          - number
+          - 'null'
+          description: Amount of charge line item
+          format: decimal
+          example: 631.5
+        currency:
+          type:
+          - string
+          - 'null'
+          description: The currency of  the charge line item
+          example: DKK
+        description:
+          type:
+          - string
+          - 'null'
+          description: Description of charge line item
+          example: Delivery
+        taxCode:
+          type:
+          - string
+          - 'null'
+          description: Tax code of the charge line item
+          example: FREEVAT
+        vatAmount:
+          type:
+          - number
+          - 'null'
+          description: VAT Amount of charge line item
+          format: decimal
+          example: 0
+        localAmount:
+          type:
+          - number
+          - 'null'
+          description: Local amount
+          format: decimal
+          example: 631.5
+        localTaxAmount:
+          type:
+          - number
+          - 'null'
+          description: Local tax amount
+          format: decimal
+          example: 0
+        localCurrency:
+          type:
+          - string
+          - 'null'
+          description: Local currency
+          example: DKK
+        chargeAmount:
+          type:
+          - number
+          - 'null'
+          description: Charged Amount for line item
+          format: decimal
+          example: 0
+        chargeTaxAmount:
+          type:
+          - number
+          - 'null'
+          description: Charge tax amount
+          format: decimal
+          example: 0
+        chargeCurrency:
+          type:
+          - string
+          - 'null'
+          description: Charged Currency of line item
+          example: DKK
+        currencyExchangeRate:
+          type:
+          - number
+          - 'null'
+          description: Currency exchange rate
+          format: decimal
+          example: 1
+      additionalProperties: false
+    PageLinkDto:
+      type: object
+      properties:
+        next:
+          type:
+          - string
+          - 'null'
+          description: Next page link
+          example: https://invoice-service?continuationToken=2023-08-10T16:46:19.763000Z
+      additionalProperties: false
+    AddressDto:
+      type: object
+      properties:
+        city:
+          type:
+          - string
+          - 'null'
+          description: City name
+          example: Copenhagen
+        country:
+          type:
+          - string
+          - 'null'
+          description: Country
+          example: Denmark
+        countryCode:
+          type:
+          - string
+          - 'null'
+          description: 2 letter ISO country code (e.g. US)
+          example: DK
+        identifier:
+          type:
+          - string
+          - 'null'
+          description: Address ID
+          example: xxxxxxx
+        line1:
+          type:
+          - string
+          - 'null'
+          description: Address line 1 (e.g. street and house number)
+          example: Line 1
+        line2:
+          type:
+          - string
+          - 'null'
+          description: Additional address line
+          example: Line 2
+        line3:
+          type:
+          - string
+          - 'null'
+          description: Additional address line
+          example: Line 3
+        state:
+          type:
+          - string
+          - 'null'
+          description: State name
+          example: State
+        unlocode:
+          type:
+          - string
+          - 'null'
+          description: 2 letter  country code and 3 letter city according to ISO standard
+          example: xxxxx
+        zip:
+          type:
+          - string
+          - 'null'
+          description: Postal code associated with the street address
+          example: '0'
+      additionalProperties: false
+    StageDetailsDto:
+      type: object
+      properties:
+        carrier:
+          oneOf:
+          - $ref: '#/components/schemas/CarrierDto'
+          description: Carrier
+          example: Demo Carrier
+        masterBill:
+          type:
+          - string
+          - 'null'
+          description: Identification of the Bill of Lading issued by the carrier to DSV
+          example: xxxxxxxxxx
+        meansOfTransport:
+          oneOf:
+          - $ref: '#/components/schemas/TransportMeansDto'
+          description: Means of Transport
+          example: Demo EXPRESS
+        vesselLloydsIMO:
+          type:
+          - string
+          - 'null'
+          description: Carrier Name handling the main voyage
+          example: xxxxxxxxx
+      additionalProperties: false
+    PartyDto:
+      type: object
+      properties:
+        address:
+          oneOf:
+          - $ref: '#/components/schemas/AddressDto'
+          description: Address
+          example: 'Origin : City - Copenhagen, CountryCode - DK, Country - Denmark'
+        company:
+          type:
+          - string
+          - 'null'
+          description: Company
+          example: Demo company
+        contact:
+          oneOf:
+          - $ref: '#/components/schemas/ContactDto'
+          description: Contact
+          example: Contact
+      additionalProperties: false
+    InvoiceDto:
+      type: object
+      properties:
+        chargesLineItems:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ChargesLineItemDto'
+          description: Charges Line Items
+          example: Charges Line Items
+        customer:
+          oneOf:
+          - $ref: '#/components/schemas/CompanyDto'
+          description: Customer
+          example: Customer
+        documentType:
+          type:
+          - string
+          - 'null'
+          description: Document Type
+          example: INV
+        dsvDetails:
+          oneOf:
+          - $ref: '#/components/schemas/CompanyDto'
+          description: DSV Details
+          example: DSV Details
+        dueDate:
+          type: string
+          description: Due date of the invoice (Coordinated Universal Time (UTC))
+          format: date-time
+          example: '2023-09-22T12:00:00.0000000+00:00'
+        invoiceDate:
+          type: string
+          description: Issue date of the invoice (Coordinated Universal Time (UTC))
+          format: date-time
+          example: '2023-08-23T12:00:00.0000000+00:00'
+        invoiceId:
+          type:
+          - string
+          - 'null'
+          description: DSV Invoice ID
+          example: 1NV0000000
+        issuedBy:
+          oneOf:
+          - $ref: '#/components/schemas/ContactDto'
+          description: Issued by
+          example: Issued By
+        mdm:
+          type: integer
+          description: DSV customer ID
+          format: int64
+          example: 64xxxxxx
+        modesOfTransport:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          description: Transport modes
+          example: Sea
+        paymentTerm:
+          type:
+          - string
+          - 'null'
+          description: Payment term
+          example: INV
+        paymentTermDays:
+          type: integer
+          description: Payment term days
+          format: int32
+          example: 30
+        pdfDownloadUrl:
+          type:
+          - string
+          - 'null'
+          description: URL to retrieve the pdf invoice
+          example: https://invoice-service/000000000001
+        remittanceBankDetails:
+          oneOf:
+          - $ref: '#/components/schemas/BankDetailsDto'
+          description: Remittance Bank Details
+          example: Remittance Bank Details
+        shipments:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ShipmentDto'
+          description: Shipments
+          example: Shipments
+        totalCharges:
+          oneOf:
+          - $ref: '#/components/schemas/TotalChargesDto'
+          description: The total invoice charge of the invoice
+          example: Total Charges
+        transactionCategory:
+          type:
+          - string
+          - 'null'
+          description: Invoice transaction category
+          example: FIN
+      additionalProperties: false
+    ConsigneeDto:
+      allOf:
+      - $ref: '#/components/schemas/PartyDto'
+      - type: object
+        properties:
+          ean:
+            type:
+            - string
+            - 'null'
+            description: EAN number
+            example: xxxxxxxx
+          vatNumber:
+            type:
+            - string
+            - 'null'
+            description: VAT Number
+            example: xxxxxxxx
+        additionalProperties: false
+    ContactDto:
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+          description: Name
+          example: Demo name
+        email:
+          type:
+          - string
+          - 'null'
+          description: Email
+          example: demo@demo.com
+        phone:
+          type:
+          - string
+          - 'null'
+          description: Phone
+          example: '+1111111111'
+        code:
+          type:
+          - string
+          - 'null'
+          description: Code
+          example: Demo code
+        fax:
+          type:
+          - string
+          - 'null'
+          description: Fax
+          example: Demo fax
+      additionalProperties: false
+    InvoiceFilterDto:
+      type: object
+      properties:
+        countryCode:
+          type:
+          - string
+          - 'null'
+          description: 2 letter ISO country code (e.g. US) Needs to be sent in case the address is not provided via "mdm", "alias" or based on a template
+          example: US
+        transportMode:
+          type:
+          - string
+          - 'null'
+          description: Main transport mode selection - Air/Sea/Rail/Road
+          example: Air
+        mdm:
+          type:
+          - string
+          - 'null'
+          description: Customer number as existing in the address book in DSV's myDSV customer portal
+          example: '6412345678'
+        invoiceStartDateFilter:
+          type:
+          - string
+          - 'null'
+          description: 'Invoice Date (Start). Format - (yyyy-MM-dd).
+
+            Value cannot be greater than today''s date.
+
+            If InvoiceStartDateFilter and InvoiceEndDateFilter are not provided then default search range is -30 days from today.
+
+            If InvoiceEndDateFilter is provided and InvoiceStartDateFilter is empty then system automatically sets 30 days older date as its value.'
+          example: '2022-01-31'
+        invoiceEndDateFilter:
+          type:
+          - string
+          - 'null'
+          description: 'Invoice Date (End). Format - (yyyy-MM-dd).
+
+            Value cannot be greater than today''s date.
+
+            If InvoiceStartDateFilter and InvoiceEndDateFilter are not provided then default search range is -30 days from today.
+
+            If InvoiceStartDateFilter is provided and InvoiceEndDateFilter is empty then system automatically sets today''s date as its value.'
+          example: '2022-01-31'
+        invoiceDueDateStartFilter:
+          type:
+          - string
+          - 'null'
+          description: Invoice Due Date (Start). Format - (yyyy-MM-dd).
+          example: '2022-01-31'
+        invoiceDueDateEndFilter:
+          type:
+          - string
+          - 'null'
+          description: Invoice Due Date (End). Format - (yyyy-MM-dd).
+          example: '2022-01-31'
+        pageSize:
+          type:
+          - string
+          - 'null'
+          description: 'Invoices returned per page.
+
+            Default value is 100. Max value is 100'
+          example: '100'
+      additionalProperties: false
+    CompanyDto:
+      type: object
+      properties:
+        vatNumber:
+          type:
+          - string
+          - 'null'
+          description: Value Added Tax number. Identification number for VAT purposes in the country where the number was issued
+          example: xxxxxxxx
+        vatType:
+          type:
+          - string
+          - 'null'
+          description: VATType
+          example: Demo type
+        companyName:
+          type:
+          - string
+          - 'null'
+          description: Company name
+          example: Demo Company
+        address:
+          oneOf:
+          - $ref: '#/components/schemas/AddressDto'
+          description: Address
+          example: Address
+        contact:
+          oneOf:
+          - $ref: '#/components/schemas/ContactDto'
+          description: Contact
+          example: Contact
+        registrationNumbers:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/RegistrationNumberDto'
+          description: RegistrationNumbers
+          example: Registration Numbers
+      additionalProperties: false
+    RegistrationNumberDto:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+          description: Type
+          example: GCR
+        value:
+          type:
+          - string
+          - 'null'
+          description: Company registration number
+          example: xxxxx
+        countryOfIssue:
+          oneOf:
+          - $ref: '#/components/schemas/CountryDto'
+          description: Company registration country
+          example: DK
+      additionalProperties: false
+    CountryDto:
+      type: object
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+          description: 2 letter ISO country code (e.g. US) Needs to be sent in case the address is not provided via "mdm", "alias" or based on a template
+          example: DK
+      additionalProperties: false
+    RoutingDto:
+      allOf:
+      - $ref: '#/components/schemas/StageDetailsDto'
+      - type: object
+        properties:
+          arrivalAddress:
+            oneOf:
+            - $ref: '#/components/schemas/AddressDto'
+            description: Arrival address
+            example: 'ArrivalAddress : City - Copenhagen, CountryCode - DK, Country - Denmark'
+          departureAddress:
+            oneOf:
+            - $ref: '#/components/schemas/AddressDto'
+            description: Departure address
+            example: 'DepartureAddress : City - Copenhagen, CountryCode - DK, Country - Denmark'
+          eta:
+            type:
+            - string
+            - 'null'
+            description: Estimated time to arrival (Coordinated Universal Time (UTC))
+            format: date-time
+            example: '2023-09-20T10:00:00.0000000+00:00'
+          etd:
+            type:
+            - string
+            - 'null'
+            description: Estimated time of departure (Coordinated Universal Time (UTC))
+            format: date-time
+            example: '2023-08-18T07:00:00.0000000+00:00'
+          modeOfTransport:
+            type:
+            - string
+            - 'null'
+            description: Means of Transport
+            example: Sea
+        additionalProperties: false
+    EquipmentTypeDto:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+          description: Equipment type
+          example: Container
+        sizeTypeCode:
+          type:
+          - string
+          - 'null'
+          description: Size type code
+          example: 40HC
+        units:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/EquipmentUnitDto'
+          description: Units
+          example: Units
+      additionalProperties: false
+    EquipmentUnitDto:
+      type: object
+      properties:
+        unitId:
+          type:
+          - string
+          - 'null'
+          description: Unit id
+          example: xxxxxx
+        sealId:
+          type:
+          - string
+          - 'null'
+          description: Seal id
+          example: xxxxxx
+      additionalProperties: false
+    ShipmentDto:
+      type: object
+      properties:
+        chargeableWeight:
+          oneOf:
+          - $ref: '#/components/schemas/MeasuredValueDto'
+          description: Weight which is used for to calculate the charge
+          example: 'ChargeableWeight : Unit - KG, Value - 344'
+        delivery:
+          oneOf:
+          - $ref: '#/components/schemas/PartyDto'
+          description: Delivery
+          example: 'Delivery : Company - xxxxxxx, Address - DK'
+        departmentCode:
+          type:
+          - string
+          - 'null'
+          description: DSV department code of the responsible department of the shipment
+          example: xxxx
+        destination:
+          oneOf:
+          - $ref: '#/components/schemas/AddressDto'
+          description: Destination
+          example: 'Origin : City - Copenhagen, CountryCode - DK, Country - Denmark'
+        eta:
+          type:
+          - string
+          - 'null'
+          description: Estimated time to arrival (Coordinated Universal Time (UTC))
+          format: date-time
+          example: '2023-09-20T10:00:00.0000000+00:00'
+        etd:
+          type:
+          - string
+          - 'null'
+          description: Estimated time of departure (Coordinated Universal Time (UTC))
+          format: date-time
+          example: '2023-08-18T07:00:00.0000000+00:00'
+        containers:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/EquipmentTypeDto'
+          description: Equipment types
+          example: 'Containers : Type - Container, SizeTypeCode - 40HC'
+        freightForwarder:
+          oneOf:
+          - $ref: '#/components/schemas/PartyDto'
+          description: Freight Forwarder
+          example: 'FreightForwarder : Company - xxxxxxx, Address - DK'
+        goodsDescription:
+          type:
+          - string
+          - 'null'
+          description: Package level cargo description
+          example: Demo goods
+        houseBill:
+          type:
+          - string
+          - 'null'
+          description: Identification of the Bill of Lading issued by DSV to the customer
+          example: xxxxxx
+        incoTerms:
+          type:
+          - string
+          - 'null'
+          description: Incoterm of the shipment
+          example: xxxxxx
+        mainCarriage:
+          oneOf:
+          - $ref: '#/components/schemas/StageDetailsDto'
+          description: Main Carriage
+          example: 'MainCarriage : Carrier - Demo Carrier, masterBill - xxxxx, MeansOfTransport - Demo express, VesselLloydsIMO - xxxxx'
+        numberOfPackages:
+          oneOf:
+          - $ref: '#/components/schemas/MeasuredValueDto'
+          description: Number of package items on the shipment
+          example: 'NumberOfPackages : Unit - Null, Value - 26'
+        orderNumbers:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          description: Order numbers
+          example: OR1 OR2, OR3 OR4
+        origin:
+          oneOf:
+          - $ref: '#/components/schemas/AddressDto'
+          description: Origin
+          example: 'Origin : City - Copenhagen, CountryCode - DK, Country - Denmark'
+        pickup:
+          oneOf:
+          - $ref: '#/components/schemas/PartyDto'
+          description: Pickup
+          example: 'FreightForwarder : Company - xxxxxxx, Address - DK'
+        receiver:
+          oneOf:
+          - $ref: '#/components/schemas/ConsigneeDto'
+          description: Receiver details of the shipment
+          example: 'Receiver : Company - xxxxxxx, Address - DK, Contact - Test Contact'
+        references:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          description: Customer invoice reference
+          example: xxxx, xxxx
+        sender:
+          oneOf:
+          - $ref: '#/components/schemas/PartyDto'
+          description: Sender details of the shipment
+          example: 'Sender : Company - xxxxxxx, Address - DK'
+        serviceLevel:
+          type:
+          - string
+          - 'null'
+          description: The service level of the shipment
+          example: STD
+        shipmentId:
+          type:
+          - string
+          - 'null'
+          description: DSV Identifier of the shipment
+          example: SG123456789
+        routingInformation:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/RoutingDto'
+          description: Routing information
+          example: 'RoutingInformation : ModeOfTransport - Sea, ArrivalAddress - DK, DepartureAddress - DK'
+        volume:
+          oneOf:
+          - $ref: '#/components/schemas/MeasuredValueDto'
+          description: Total volume of this package line.
+          example: 'Volume : Unit - M3, Value - 2.1'
+        weight:
+          oneOf:
+          - $ref: '#/components/schemas/MeasuredValueDto'
+          description: Total gross weight for this package line.
+          example: 'Weight : Unit - KG, Value - 344'
+      additionalProperties: false
+      description: Shipment Dto
+    PagedInvoicesDto:
+      type: object
+      properties:
+        pagination:
+          oneOf:
+          - $ref: '#/components/schemas/PaginationDto'
+          description: Pagination object
+          example: 'Pagination : ContinuationToken - 2023-08-10T16:46:19.763000Z'
+        data:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/InvoiceDto'
+          description: Invoice data page
+          example: Invoice list
+        links:
+          oneOf:
+          - $ref: '#/components/schemas/PageLinkDto'
+          description: Next page link
+          example: https://invoice-service?continuationToken=2023-08-10T16:46:19.763000Z
+      additionalProperties: false
+    BankDetailsDto:
+      type: object
+      properties:
+        accountName:
+          type:
+          - string
+          - 'null'
+        acccountNumber:
+          type:
+          - string
+          - 'null'
+          description: Account number
+          example: xxxxxxxxxxxxxxx
+        bankAbbreviation:
+          type:
+          - string
+          - 'null'
+          description: Institution code
+          example: xxx
+        bankCode:
+          type:
+          - string
+          - 'null'
+          description: Bank code
+          example: xxxxxxxxxx
+        bankName:
+          type:
+          - string
+          - 'null'
+          description: Name of Bank institution
+          example: Demo Bank
+        branchNumber:
+          type:
+          - string
+          - 'null'
+          description: Institution branch identifier
+          example: Demo
+        description:
+          type:
+          - string
+          - 'null'
+          description: Bank description
+          example: Demo Bank Account
+        bankAddress:
+          type:
+          - string
+          - 'null'
+          description: Bank address
+          example: xxxxxxx
+        paymentReference:
+          type:
+          - string
+          - 'null'
+          description: Reference to be used with the payment
+          example: '640000'
+        swiftCode:
+          type:
+          - string
+          - 'null'
+          description: SWIFT
+          example: xxxxxxx
+      additionalProperties: false
+    PaginationDto:
+      type: object
+      properties:
+        continuationToken:
+          type:
+          - string
+          - 'null'
+          description: Continuation token to get the next page of invoices
+          example: '2023-08-10T16:46:19.763Z'
+      additionalProperties: false
+    CarrierDto:
+      type: object
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+          description: Carrier id
+          example: xxxxx
+        dakosyCode:
+          type:
+          - string
+          - 'null'
+          description: Dakosy code
+          example: xxxxx
+        localCarrierCode:
+          type:
+          - string
+          - 'null'
+          description: Local carrier code
+          example: xxxxx
+        name:
+          type:
+          - string
+          - 'null'
+          description: Carrier Name handling the main voyage
+          example: Demo Carrier
+        nationality:
+          type:
+          - string
+          - 'null'
+          description: Carrier nationality
+          example: DK
+        scac:
+          type:
+          - string
+          - 'null'
+          description: Carrier scac code (Only Sea)
+          example: xxxx
+      additionalProperties: false
+    MeasuredValueDto:
+      type: object
+      properties:
+        unit:
+          type:
+          - string
+          - 'null'
+          description: Unit
+          example: KG
+        value:
+          type: number
+          description: Value
+          format: double
+          example: 344
+      additionalProperties: false
+    TotalChargesDto:
+      type: object
+      properties:
+        subTotal:
+          type:
+          - number
+          - 'null'
+          description: Subtotal Amount before VAT
+          format: decimal
+          example: 631.5
+        total:
+          type:
+          - number
+          - 'null'
+          description: The total invoice charge of the invoice
+          format: decimal
+          example: 631.5
+        vat:
+          type:
+          - number
+          - 'null'
+          description: VAT of the total charge of the invoice
+          format: decimal
+          example: 0
+        currency:
+          type:
+          - string
+          - 'null'
+          description: Currency
+          example: DKK
+      additionalProperties: false
+    TransportMeansDto:
+      type: object
+      properties:
+        motId:
+          type:
+          - string
+          - 'null'
+          description: Voyage number on the main voyage.
+          example: xxxx
+        name:
+          type:
+          - string
+          - 'null'
+          description: Name
+          example: Demo express
+        nationality:
+          type:
+          - string
+          - 'null'
+          description: Nationality
+          example: DK
+      additionalProperties: false
+  securitySchemes:
+    apiKeyHeader:
+      type: apiKey
+      name: DSV-Subscription-Key
+      in: header
+    apiKeyQuery:
+      type: apiKey
+      name: DSV-Subscription-Key
+      in: query

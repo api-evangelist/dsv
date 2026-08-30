@@ -1,0 +1,112 @@
+openapi: 3.2.0
+info:
+  title: Access (DEMO) Token API
+  description: "This API is used to generate a DSV OAuth 2.0 access token for the Demo environment.\n\nThe access token is required to authenticate and authorize requests to DSV APIs.\n\nTo obtain the token, send a POST request with the content type application/x-www-form-urlencoded.\n\nThe request must include the grant_type parameter, which defines the authentication flow:\n\n- client_credentials – Generates an access token using the provided client credentials\n- refresh_token – Generates a new access token using a previously issued refresh token\n\nThe client credentials must be passed using:\n- client_id : 'abc@company.com' (MyDSV Username) \n- client_secret : Password (MyDSV Password) \n - API Key : cxxxxxxx4f4ad3afe8312317XXXXf(DSV-Subscription-Key) \n\nFor integrations consuming WMS APIs, the scope parameter must be set to CL. \n\nFor WMS APIs, the client credentials must be passed using:\n- client_id : 'abc@company.com' (CL User ID) \n- client_secret : Password (CL Password) \n- Scope : CL (Scope always CL) \n - API Key : cxxxxxxx4f4ad3afe8312317XXXXf (DSV-Subscription-Key) \n\nPlease refer to the API specification and Postman collection for request format, required parameters, and sample usage."
+  version: v1
+servers:
+- url: https://api.dsv.com/my-demo/oauth/v1
+security:
+- apiKeyHeader: []
+- apiKeyQuery: []
+tags:
+- name: Token
+paths:
+  /token:
+    post:
+      tags:
+      - Token
+      summary: Fetch DSV Access Token
+      description: Fetch myDSV Access Token (DEMO)
+      operationId: get-token
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              properties:
+                grant_type:
+                  type: string
+                  description: "Possible values \n client_credentials - for issuing the token, to be used along wiht client_id and client_secret, \n refresh_token - for refreshing the token, to be used along with refresh_token"
+                client_id:
+                  type: string
+                  description: Your username (i.e. your myDSV login for Generic APIs)
+                client_secret:
+                  type: string
+                  description: Your password (i.e. your myDSV password for Generic APIs)
+                scope:
+                  type: string
+                  description: "The scopes or permissions associated with the access token. Possible values \n CL - aplicable only for Warehousing APIs."
+                refresh_token:
+                  type: string
+                  description: Refresh bearer token
+            example:
+              grant_type: client_credentials
+              client_id: my-client-id-123
+              client_secret: my-password-xyz
+              scope: CL
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenResponse'
+              example:
+                access_token: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImR1bW15LWtleS1pZCJ9.eyJleHAiOjE5MjQ5OTIwMDAsImlhdCI6MTkyNDk4ODQwMCwianRpIjoiZHVtbXktanRpLTEyMzQ1IiwiaXNzIjoiaHR0cHM6Ly9xYS5zc28uZHN2LmNvbS9hdXRoL3JlYWxtcy9EU1YiLCJhdWQiOiJhY2NvdW50Iiwic3ViIjoiZHVtbXktc3ViLWlkIiwidHlwIjoiQmVhcmVyIiwiYXpwIjoiZHN2LXFhLXB1YmxpYy1hcGkiLCJzY29wZSI6Im9wZW5pZCBwcm9maWxlIGVtYWlsIiwibmFtZSI6IkR1bW15IFNlcnZpY2UgQWNjb3VudCIsInByZWZlcnJlZF91c2VybmFtZSI6ImR1bW15LnVzZXJAZXhhbXBsZS5jb20iLCJlbWFpbCI6ImR1bW15LnVzZXJAZXhhbXBsZS5jb20ifQ
+                expires_in: 600
+                refresh_expires_in: 2592000
+                refresh_token: eyJhbGciOiJIUzUxMiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJhYjkzN2FiZC03OTY0LTRmOWItODdmZS05ZWI1YjU1N2Q5MTAifQ.eyJleHAiOjE3NzY5MzY5NDMsImlhdCI6MTc3NDM0NDk0MywianRpIjoiZmY2ZjA5MDctNDg0OC00MGRmLWE2NTgtNTgwYzc1NTExYTRhIiwiaXNzIjoiaHR0cHM6Ly9xYS5zc28uZHN2LmNvbS9hdXRoL3JlYWxtcy9EU1YiLCJhdWQiOiJodHRwczovL3FhLnNzby5kc3YuY29tL2F1dGgvcmVhbG1zL0RTViIsInN1YiI6IjhkZjUzYTRjLWUyMjYtNDY3Zi04YjFiLWFmMjI3ODA2ZDIzNiIsInR5cCI6IlJlZnJlc2giLCJhenAiOiJkc3YtcXVhLXB1YmxpYy1hcGkiLCJzaWQiOiI3NTkwMzg3My0xYWEwLTRjMGItYTAyNi0xZDU1N2NlODEwMmIiLCJzY29wZSI6Im9wZW5pZCB1c2VyLWF0dHJpYnV0ZXMgd2ViLW9yaWdpbnMgYWNyIGJhc2ljIGVtYWlsIG9yZ2FuaXphdGlvbiByb2xlcyBwcm9maWxlIn0.lYkFwOnzrDhxcmESN_UoN1kRyfddmt4g3u8n5-1oDOlHRzkAkmrkn6ipFTP3m0KK25cR2mkZN-QOa_qJWpN_CA
+                token_type: Bearer
+                id_token: eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJIUC03UklfZTF3RjlyaklhdmdlaF84R0xsTm5weWRlVFhiQ0djYk04dGdrIn0.eyJleHAiOjE3NzQzNDU1NDMsImlhdCI6MTc3NDM0NDk0MywianRpIjoiYTVhOGM3NGMtODkyZS00MjM0LWEwMmUtM2Q5OThiYTQwZTM4IiwiaXNzIjoiaHR0cHM6Ly9xYS5zc28uZHN2LmNvbS9hdXRoL3JlYWxtcy9EU1YiLCJhdWQiOiJkc3YtcXVhLXB1YmxpYy1hcGkiLCJzdWIiOiI4ZGY1M2E0Yy1lMjI2LTQ2N2YtOGIxYi1hZjIyNzgwNmQyMzYiLCJ0eXAiOiJJRCIsImF6cCI6ImRzdi1xdWEtcHVibGljLWFwaSIsInNpZCI6Ijc1OTAzODczLTFhYTAtNGMwYi1hMDI2LTFkNTU3Y2U4MTAyYiIsImF0X2hhc2giOiI5My1HVElkNGc3ZU9wR1RMYlBvZkJ3IiwiYWNyIjoiMSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwibmFtZSI6IlNlcnZpY2UgQWNjb3VudCIsInByZWZlcnJlZF91c2VybmFtZSI6ImFwaTIuZHN2QGltcGFjdC5kayIsImZhbWlseV9uYW1lIjoiU2VydmljZSBBY2NvdW50IiwiZW1haWwiOiJhcGkyLmRzdkBpbXBhY3QuZGsifQ.X68Ab3aVjK1b-m1CCUK5wdMfUq6AjN9e63A0OsMkxi2A-rTqi7xr4EH_3gP1fVjEkd4ptaY54LkQZzz6zNr-csQYrA7uCz-fLBoV19VIM3QSpfWQYAiCJLsAfRfXWF3sOWTwKjTuXlzMKu7ZHNYekmAPDFMSsPQsBOEbQwLdIuCHy4FADmMjXjZEckt_ho3Aq3biz8-WKbAixBUshfpFXsVBrx2sMTRnQE-u599y1rJMRJJhw6OxxY8JmNC6eGslkc4gjcF6_Qlr1sjI7TJLlCnrejQyA8pHQyhVM8wNYH9bbq3QSd2a2y_n0ZBeKXE3BHJ8NHDBB4sDqmbYo5W17ylopn_Ldje6-F2isCnneqai9QFmPNEz9XA2mWGP41OgWFZzKvQsVbKRkEL1f-sjIkr2p6J0Mq0DL0zojILCyAAjJJjfI-w4blDvyjjgJfMJzQyNEb9QZquHgTgEAxa1ONSlZ9zRzhXaq1b_kjAjpn0IjYZ2xTiclbPEExQcbrGODjTp0g7l3dDlYSMH-5uLxLmiaRzLmaZkwbc_zg4lXxeSxsg24FQev6GCPs4NHHo5dwEili0IaVPK1Ms5WUyTuk20Omr_4vI708k1n3J1OXi-bNEjkqeInTAVVfdIfZrJvrZg2aZVbriRvO-DhyZG_zSpteNyhVz8PxgDyBnBqjk
+                not-before-policy: 0
+                session_state: 75903873-1aa0-4c0b-a026-1d557ce8102b
+                scope: openid user-attributes email organization profile
+        '401':
+          description: Unauthorized
+components:
+  schemas:
+    TokenResponse:
+      type: object
+      properties:
+        accessToken:
+          type:
+          - string
+          - 'null'
+          description: The OAuth 2.0 access token string that must be used in the Authorization header for API requests.
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+        expiresIn:
+          type: integer
+          description: Time in seconds before the access token expires.
+          format: int32
+          example: 3600
+        refreshExpiresIn:
+          type: integer
+          description: Time in seconds before the refresh token expires.
+          format: int32
+          example: 7200
+        refreshToken:
+          type:
+          - string
+          - 'null'
+          description: The token used to refresh the access token once it expires.
+          example: d1f3a9e4-1234-4b56-b89c-9876543210ab
+        tokenType:
+          type:
+          - string
+          - 'null'
+          description: The type of token issued, usually 'Bearer'.
+          example: Bearer
+        scope:
+          type:
+          - string
+          - 'null'
+          description: Granted scopes associated with the token.
+          example: openid user-attributes email organization profile
+  securitySchemes:
+    apiKeyHeader:
+      type: apiKey
+      name: DSV-Subscription-Key
+      in: header
+    apiKeyQuery:
+      type: apiKey
+      name: DSV-Subscription-Key
+      in: query

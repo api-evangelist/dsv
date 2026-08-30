@@ -1,0 +1,643 @@
+openapi: 3.2.0
+info:
+  title: XPress Tracking API
+  description: Track the status and latest events of your bookings and shipments moved by DSV.
+  version: v2
+servers:
+- url: https://api.dsv.com/xp/tracking/v2
+security:
+- apiKeyHeader: []
+- apiKeyQuery: []
+tags:
+- name: Tracking
+paths:
+  /shipments/shipmentId/{shipmentId}:
+    get:
+      tags:
+      - Tracking
+      summary: Events by DSV Shipment ID
+      description: Retrieve actual events for a specific shipment by searching for the DSV Shipment Id. (e.g. actual departure, transit events, exception events, actual delivery etc.)
+      operationId: trackShipment
+      parameters:
+      - name: shipmentId
+        in: path
+        description: ID of shipment to track
+        required: true
+        schema:
+          type: integer
+      - name: dsv-service-auth
+        in: header
+        description: DSV XPress service auth for the selected API (found on DSV XPress API profile page)
+        required: true
+        schema:
+          type: string
+      - name: x-pat
+        in: header
+        description: DSV XPress personal access token (found on DSV XPress API profile page)
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful operation. Return the list of shipment events.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrackingResponse'
+              example:
+                shipmentId: 10123456
+                carrierTrackingNumber: 1Z3E123412345678
+                trackingUrl: https://tracking-url.dsv.com/#/track-shipment?id=10123456
+                trackingStatus: DELIVERED
+                pickupDate: '2020-02-25T09:57:28.0000000+00:00'
+                delivery:
+                  deliveryDate: '2020-02-26T09:38:06.0000000+00:00'
+                  deliverySignature: SMITH
+                  deliveryLocation: Dock
+                events:
+                - eventCode: KB
+                  deviationCode: D
+                  eventDate: '2020-02-26T09:38:06.0000000+00:00'
+                  eventDescription: 'Delivered (Signed by : SMITH)'
+                  location: NL-AMERSFOORT
+                  deliverySignature: SMITH
+                  deliveryLocation: Dock
+                  eventType: P
+                  carrierTrackingNumber: 1Z3E123412345678
+                  source: UPS
+                - eventCode: OF
+                  deviationCode: I
+                  eventDate: '2020-02-26T04:46:00.0000000+00:00'
+                  eventDescription: Out For Delivery
+                  location: NL-Apeldoorn
+                  eventType: P
+                  carrierTrackingNumber: 1Z3E123412345678
+                  source: UPS
+                - eventCode: AR
+                  deviationCode: I
+                  eventDate: '2020-02-26T04:45:00.0000000+00:00'
+                  eventDescription: Arrival Scan
+                  location: NL-Apeldoorn
+                  eventType: P
+                  carrierTrackingNumber: 1Z3E123412345678
+                  source: UPS
+                - eventCode: DP
+                  deviationCode: I
+                  eventDate: '2020-02-26T02:55:00.0000000+00:00'
+                  eventDescription: Departure Scan
+                  location: DE-Herne-Boernig
+                  eventType: P
+                  carrierTrackingNumber: 1Z3E123412345678
+                  source: UPS
+                - eventCode: AR
+                  deviationCode: I
+                  eventDate: '2020-02-26T01:21:00.0000000+00:00'
+                  eventDescription: Arrival Scan
+                  location: DE-Herne-Boernig
+                  eventType: P
+                  carrierTrackingNumber: 1Z3E123412345678
+                  source: UPS
+                - eventCode: DP
+                  deviationCode: I
+                  eventDate: '2020-02-25T09:15:00.0000000+00:00'
+                  eventDescription: Departure Scan
+                  location: DE-Hamburg
+                  eventType: P
+                  carrierTrackingNumber: 1Z3E123412345678
+                  source: UPS
+                - eventCode: DP
+                  deviationCode: I
+                  eventDate: '2020-02-25T06:45:00.0000000+00:00'
+                  eventDescription: Departure Scan
+                  location: DE-Reinfeld
+                  eventType: P
+                  carrierTrackingNumber: 1Z3E123412345678
+                  source: UPS
+                - eventCode: OR
+                  deviationCode: I
+                  eventDate: '2020-02-25T05:40:47.0000000+00:00'
+                  eventDescription: Origin Scan
+                  location: DE-Reinfeld
+                  eventType: P
+                  carrierTrackingNumber: 1Z3E123412345678
+                  source: UPS
+                - eventCode: MP
+                  deviationCode: M
+                  eventDate: '2020-02-25T03:15:55.0000000+00:00'
+                  eventDescription: 'Order Processed: Ready for UPS'
+                  location: DE
+                  eventType: P
+                  carrierTrackingNumber: 1Z3E123412345678
+                  source: UPS
+                - eventCode: PRS
+                  eventDate: '2020-02-25T09:57:28.0000000+00:00'
+                  eventDescription: Shipment submited
+                  eventType: S
+                  carrierTrackingNumber: 1Z3E123412345678
+                  source: DSVXPRESS
+                - eventCode: PRC
+                  eventDate: '2020-02-25T09:57:16.0000000+00:00'
+                  eventDescription: Shipment created
+                  eventType: S
+                  carrierTrackingNumber: 1Z3E123412345678
+                  source: DSVXPRESS
+        '400':
+          description: Invalid ID supplied
+        '401':
+          description: Unauthorized
+        '404':
+          description: Shipment not found
+  /shipments/carrierTrackingNumber/{carrierTrackingNumber}:
+    get:
+      tags:
+      - Tracking
+      summary: Events by Carrier tracking number
+      description: Retrieve actual events for a specific shipment by searching for the Carrier tracking id. (e.g. actual departure, transit events, exception events, actual delivery etc.)
+      operationId: trackShipmentByCarrierTrackingNumber
+      parameters:
+      - name: carrierTrackingNumber
+        in: path
+        description: Carrier tracking number of shipment to track
+        required: true
+        schema:
+          type: string
+      - name: dsv-service-auth
+        in: header
+        description: DSV XPress service auth for the selected API (found on DSV XPress API profile page)
+        required: true
+        schema:
+          type: string
+      - name: x-pat
+        in: header
+        description: DSV XPress personal access token (found on DSV XPress API profile page)
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful operation. Return the list of shipment events.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrackingResponse'
+              example:
+                shipmentId: 10123456
+                carrierTrackingNumber: 1Z3E123412345678
+                trackingUrl: https://tracking-url.dsv.com/#/track-shipment?id=10123456
+                trackingStatus: DELIVERED
+                pickupDate: '2020-02-25T09:57:28.0000000+00:00'
+                delivery:
+                  deliveryDate: '2020-02-26T09:38:06.0000000+00:00'
+                  deliverySignature: SMITH
+                  deliveryLocation: Dock
+                events:
+                - eventCode: KB
+                  deviationCode: D
+                  eventDate: '2020-02-26T09:38:06.0000000+00:00'
+                  eventDescription: 'Delivered (Signed by : SMITH)'
+                  location: NL-AMERSFOORT
+                  deliverySignature: SMITH
+                  deliveryLocation: Dock
+                  eventType: P
+                  carrierTrackingNumber: 1Z3E123412345678
+                  source: UPS
+                - eventCode: OF
+                  deviationCode: I
+                  eventDate: '2020-02-26T04:46:00.0000000+00:00'
+                  eventDescription: Out For Delivery
+                  location: NL-Apeldoorn
+                  eventType: P
+                  carrierTrackingNumber: 1Z3E123412345678
+                  source: UPS
+                - eventCode: AR
+                  deviationCode: I
+                  eventDate: '2020-02-26T04:45:00.0000000+00:00'
+                  eventDescription: Arrival Scan
+                  location: NL-Apeldoorn
+                  eventType: P
+                  carrierTrackingNumber: 1Z3E123412345678
+                  source: UPS
+                - eventCode: DP
+                  deviationCode: I
+                  eventDate: '2020-02-26T02:55:00.0000000+00:00'
+                  eventDescription: Departure Scan
+                  location: DE-Herne-Boernig
+                  eventType: P
+                  carrierTrackingNumber: 1Z3E123412345678
+                  source: UPS
+                - eventCode: AR
+                  deviationCode: I
+                  eventDate: '2020-02-26T01:21:00.0000000+00:00'
+                  eventDescription: Arrival Scan
+                  location: DE-Herne-Boernig
+                  eventType: P
+                  carrierTrackingNumber: 1Z3E123412345678
+                  source: UPS
+                - eventCode: DP
+                  deviationCode: I
+                  eventDate: '2020-02-25T09:15:00.0000000+00:00'
+                  eventDescription: Departure Scan
+                  location: DE-Hamburg
+                  eventType: P
+                  carrierTrackingNumber: 1Z3E123412345678
+                  source: UPS
+                - eventCode: DP
+                  deviationCode: I
+                  eventDate: '2020-02-25T06:45:00.0000000+00:00'
+                  eventDescription: Departure Scan
+                  location: DE-Reinfeld
+                  eventType: P
+                  carrierTrackingNumber: 1Z3E123412345678
+                  source: UPS
+                - eventCode: OR
+                  deviationCode: I
+                  eventDate: '2020-02-25T05:40:47.0000000+00:00'
+                  eventDescription: Origin Scan
+                  location: DE-Reinfeld
+                  eventType: P
+                  carrierTrackingNumber: 1Z3E123412345678
+                  source: UPS
+                - eventCode: MP
+                  deviationCode: M
+                  eventDate: '2020-02-25T03:15:55.0000000+00:00'
+                  eventDescription: 'Order Processed: Ready for UPS'
+                  location: DE
+                  eventType: P
+                  carrierTrackingNumber: 1Z3E123412345678
+                  source: UPS
+                - eventCode: PRS
+                  eventDate: '2020-02-25T09:57:28.0000000+00:00'
+                  eventDescription: Shipment submited
+                  eventType: S
+                  carrierTrackingNumber: 1Z3E123412345678
+                  source: DSVXPRESS
+                - eventCode: PRC
+                  eventDate: '2020-02-25T09:57:16.0000000+00:00'
+                  eventDescription: Shipment created
+                  eventType: S
+                  carrierTrackingNumber: 1Z3E123412345678
+                  source: DSVXPRESS
+        '400':
+          description: Invalid carrier tracking number supplied
+        '401':
+          description: Unauthorized
+        '404':
+          description: Shipment not found
+  /shipments/awb/{awb}:
+    get:
+      tags:
+      - Tracking
+      summary: Events by AWB number
+      description: Retrieve actual events for a specific shipment by searching for the AWB number. (e.g. actual departure, transit events, exception events, actual delivery etc.)
+      operationId: trackShipmentByAwb
+      parameters:
+      - name: awb
+        in: path
+        description: AWB of shipment to track
+        required: true
+        schema:
+          type: string
+      - name: dsv-service-auth
+        in: header
+        description: DSV XPress service auth for the selected API (found on DSV XPress API profile page)
+        required: true
+        schema:
+          type: string
+      - name: x-pat
+        in: header
+        description: DSV XPress personal access token (found on DSV XPress API profile page)
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful operation. Return the list of shipment events.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrackingResponse'
+              example:
+                shipmentId: 10123456
+                carrierTrackingNumber: 1Z3E123412345678
+                trackingUrl: https://tracking-url.dsv.com/#/track-shipment?id=10123456
+                trackingStatus: DELIVERED
+                pickupDate: '2020-02-25T09:57:28.0000000+00:00'
+                delivery:
+                  deliveryDate: '2020-02-26T09:38:06.0000000+00:00'
+                  deliverySignature: SMITH
+                  deliveryLocation: Dock
+                events:
+                - eventCode: KB
+                  deviationCode: D
+                  eventDate: '2020-02-26T09:38:06.0000000+00:00'
+                  eventDescription: 'Delivered (Signed by : SMITH)'
+                  location: NL-AMERSFOORT
+                  deliverySignature: SMITH
+                  deliveryLocation: Dock
+                  eventType: P
+                  carrierTrackingNumber: 1Z3E123412345678
+                  source: UPS
+                - eventCode: OF
+                  deviationCode: I
+                  eventDate: '2020-02-26T04:46:00.0000000+00:00'
+                  eventDescription: Out For Delivery
+                  location: NL-Apeldoorn
+                  eventType: P
+                  carrierTrackingNumber: 1Z3E123412345678
+                  source: UPS
+                - eventCode: AR
+                  deviationCode: I
+                  eventDate: '2020-02-26T04:45:00.0000000+00:00'
+                  eventDescription: Arrival Scan
+                  location: NL-Apeldoorn
+                  eventType: P
+                  carrierTrackingNumber: 1Z3E123412345678
+                  source: UPS
+                - eventCode: DP
+                  deviationCode: I
+                  eventDate: '2020-02-26T02:55:00.0000000+00:00'
+                  eventDescription: Departure Scan
+                  location: DE-Herne-Boernig
+                  eventType: P
+                  carrierTrackingNumber: 1Z3E123412345678
+                  source: UPS
+                - eventCode: AR
+                  deviationCode: I
+                  eventDate: '2020-02-26T01:21:00.0000000+00:00'
+                  eventDescription: Arrival Scan
+                  location: DE-Herne-Boernig
+                  eventType: P
+                  carrierTrackingNumber: 1Z3E123412345678
+                  source: UPS
+                - eventCode: DP
+                  deviationCode: I
+                  eventDate: '2020-02-25T09:15:00.0000000+00:00'
+                  eventDescription: Departure Scan
+                  location: DE-Hamburg
+                  eventType: P
+                  carrierTrackingNumber: 1Z3E123412345678
+                  source: UPS
+                - eventCode: DP
+                  deviationCode: I
+                  eventDate: '2020-02-25T06:45:00.0000000+00:00'
+                  eventDescription: Departure Scan
+                  location: DE-Reinfeld
+                  eventType: P
+                  carrierTrackingNumber: 1Z3E123412345678
+                  source: UPS
+                - eventCode: OR
+                  deviationCode: I
+                  eventDate: '2020-02-25T05:40:47.0000000+00:00'
+                  eventDescription: Origin Scan
+                  location: DE-Reinfeld
+                  eventType: P
+                  carrierTrackingNumber: 1Z3E123412345678
+                  source: UPS
+                - eventCode: MP
+                  deviationCode: M
+                  eventDate: '2020-02-25T03:15:55.0000000+00:00'
+                  eventDescription: 'Order Processed: Ready for UPS'
+                  location: DE
+                  eventType: P
+                  carrierTrackingNumber: 1Z3E123412345678
+                  source: UPS
+                - eventCode: PRS
+                  eventDate: '2020-02-25T09:57:28.0000000+00:00'
+                  eventDescription: Shipment submited
+                  eventType: S
+                  carrierTrackingNumber: 1Z3E123412345678
+                  source: DSVXPRESS
+                - eventCode: PRC
+                  eventDate: '2020-02-25T09:57:16.0000000+00:00'
+                  eventDescription: Shipment created
+                  eventType: S
+                  carrierTrackingNumber: 1Z3E123412345678
+                  source: DSVXPRESS
+        '400':
+          description: Invalid AWB number supplied
+        '401':
+          description: Unauthorized
+        '404':
+          description: Shipment not found
+components:
+  schemas:
+    ErrorItem:
+      type: object
+      properties:
+        message:
+          type: string
+        details:
+          type: string
+    TrackingEvent:
+      type: object
+      properties:
+        eventCode:
+          type: string
+          description: Code of event
+        deviationCode:
+          type: string
+          description: Deviation Code
+        deviationDescription:
+          type: string
+          description: Deviation Description
+        eventDate:
+          type: string
+          description: Date of event
+          format: date-time
+        eventDescription:
+          type: string
+          description: Detailed description of the event
+        location:
+          type: string
+          description: Event location.
+        deliverySignature:
+          type: string
+          description: Name of the person who signed.
+        deliveryLocation:
+          type: string
+          description: Delivery location.
+        eventType:
+          type: string
+          description: Type of event. P for event related to package, S for event related to shipment.
+        carrierTrackingNumber:
+          type: string
+          description: Shipment carrier tracking number
+        awb:
+          type: string
+          description: Shipment AirWay Bill number
+        source:
+          type: string
+          description: Source of the event. DSV / carrier
+      example:
+        eventCode: KB
+        deviationCode: D
+        eventDate: '2020-02-26T09:38:06.0000000+00:00'
+        eventDescription: 'Delivered (Signed by : SMITH)'
+        location: NL-AMERSFOORT
+        deliverySignature: SMITH
+        deliveryLocation: Dock
+        eventType: P
+        carrierTrackingNumber: 1Z3E123412345678
+    TrackingDelivery:
+      type: object
+      properties:
+        deliveryDate:
+          type: string
+          description: Date shipment was delivered.
+          format: date-time
+        deliverySignature:
+          type: string
+          description: Name of the person who signed.
+        deliveryLocation:
+          type: string
+          description: Delivery location.
+      description: Container for delivery details.
+      example:
+        deliveryDate: '2020-02-26T09:38:06.0000000+00:00'
+        deliverySignature: SMITH
+        deliveryLocation: Dock
+    TrackingResponse:
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorItem'
+        warnings:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorItem'
+        shipmentId:
+          type: integer
+          description: DSV Shipment ID
+          format: int32
+        carrierTrackingNumber:
+          type: string
+          description: Shipment carrier tracking number
+        awb:
+          type: string
+          description: Shipment AirWay Bill number
+        trackingUrl:
+          type: string
+          description: Tracking URL
+        trackingStatus:
+          type: string
+          description: Current status of the shipment. Could be INIT / IN_TRANSIT / DELIVERED.
+        pickupDate:
+          type: string
+          description: Date shipment was picked-up.
+          format: date-time
+        delivery:
+          $ref: '#/components/schemas/TrackingDelivery'
+        events:
+          maxItems: 200
+          minItems: 0
+          type: array
+          items:
+            $ref: '#/components/schemas/TrackingEvent'
+      description: Container for shipment tracking response
+      example:
+        shipmentId: 10123456
+        carrierTrackingNumber: 1Z3E123412345678
+        trackingUrl: https://tracking-url.dsv.com/#/track-shipment?id=10123456
+        trackingStatus: DELIVERED
+        pickupDate: '2020-02-25T09:57:28.0000000+00:00'
+        delivery:
+          deliveryDate: '2020-02-26T09:38:06.0000000+00:00'
+          deliverySignature: SMITH
+          deliveryLocation: Dock
+        events:
+        - eventCode: KB
+          deviationCode: D
+          eventDate: '2020-02-26T09:38:06.0000000+00:00'
+          eventDescription: 'Delivered (Signed by : SMITH)'
+          location: NL-AMERSFOORT
+          deliverySignature: SMITH
+          deliveryLocation: Dock
+          eventType: P
+          carrierTrackingNumber: 1Z3E123412345678
+          source: UPS
+        - eventCode: OF
+          deviationCode: I
+          eventDate: '2020-02-26T04:46:00.0000000+00:00'
+          eventDescription: Out For Delivery
+          location: NL-Apeldoorn
+          eventType: P
+          carrierTrackingNumber: 1Z3E123412345678
+          source: UPS
+        - eventCode: AR
+          deviationCode: I
+          eventDate: '2020-02-26T04:45:00.0000000+00:00'
+          eventDescription: Arrival Scan
+          location: NL-Apeldoorn
+          eventType: P
+          carrierTrackingNumber: 1Z3E123412345678
+          source: UPS
+        - eventCode: DP
+          deviationCode: I
+          eventDate: '2020-02-26T02:55:00.0000000+00:00'
+          eventDescription: Departure Scan
+          location: DE-Herne-Boernig
+          eventType: P
+          carrierTrackingNumber: 1Z3E123412345678
+          source: UPS
+        - eventCode: AR
+          deviationCode: I
+          eventDate: '2020-02-26T01:21:00.0000000+00:00'
+          eventDescription: Arrival Scan
+          location: DE-Herne-Boernig
+          eventType: P
+          carrierTrackingNumber: 1Z3E123412345678
+          source: UPS
+        - eventCode: DP
+          deviationCode: I
+          eventDate: '2020-02-25T09:15:00.0000000+00:00'
+          eventDescription: Departure Scan
+          location: DE-Hamburg
+          eventType: P
+          carrierTrackingNumber: 1Z3E123412345678
+          source: UPS
+        - eventCode: DP
+          deviationCode: I
+          eventDate: '2020-02-25T06:45:00.0000000+00:00'
+          eventDescription: Departure Scan
+          location: DE-Reinfeld
+          eventType: P
+          carrierTrackingNumber: 1Z3E123412345678
+          source: UPS
+        - eventCode: OR
+          deviationCode: I
+          eventDate: '2020-02-25T05:40:47.0000000+00:00'
+          eventDescription: Origin Scan
+          location: DE-Reinfeld
+          eventType: P
+          carrierTrackingNumber: 1Z3E123412345678
+          source: UPS
+        - eventCode: MP
+          deviationCode: M
+          eventDate: '2020-02-25T03:15:55.0000000+00:00'
+          eventDescription: 'Order Processed: Ready for UPS'
+          location: DE
+          eventType: P
+          carrierTrackingNumber: 1Z3E123412345678
+          source: UPS
+        - eventCode: PRS
+          eventDate: '2020-02-25T09:57:28.0000000+00:00'
+          eventDescription: Shipment submited
+          eventType: S
+          carrierTrackingNumber: 1Z3E123412345678
+          source: DSVXPRESS
+        - eventCode: PRC
+          eventDate: '2020-02-25T09:57:16.0000000+00:00'
+          eventDescription: Shipment created
+          eventType: S
+          carrierTrackingNumber: 1Z3E123412345678
+          source: DSVXPRESS
+  securitySchemes:
+    apiKeyHeader:
+      type: apiKey
+      name: DSV-Subscription-Key
+      in: header
+    apiKeyQuery:
+      type: apiKey
+      name: DSV-Subscription-Key
+      in: query

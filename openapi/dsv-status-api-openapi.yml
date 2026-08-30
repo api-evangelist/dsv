@@ -1,0 +1,274 @@
+openapi: 3.2.0
+info:
+  title: Dsv Status API
+  version: v1
+  description: 'Operations tagged Status across 2 of this provider''s published API definitions: dsv-es-webhook-demo-v1-openapi.json, dsv-warehousing-status-demo-v1-openapi.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api.dsv.com/my-demo/webhook/v1
+- url: https://api.dsv.com/cl-demo/status/v1
+security:
+- apiKeyHeader: []
+- apiKeyQuery: []
+tags:
+- name: Status
+paths:
+  /status/health:
+    get:
+      tags:
+      - Status
+      summary: Check if application is up and running
+      description: Check if application is up and running
+      operationId: Status_Get
+      parameters:
+      - name: api-version
+        in: header
+        description: api-version
+        schema:
+          type: string
+        example: 1
+      - name: Authorization
+        in: header
+        description: OAuth header
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+    servers:
+    - url: https://api.dsv.com/my-demo/webhook/v1
+  /notification:
+    post:
+      tags:
+      - Status
+      summary: Retrieve Order Status on a Delivery or Inbound Notification
+      description: This message is sent to retrieve current order status of a specific Delivery or Inbound Order
+      operationId: Status_Post
+      parameters:
+      - name: api-version
+        in: header
+        description: api-version
+        schema:
+          type: string
+        example: 1
+      - name: Authorization
+        in: header
+        description: OAuth header
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NotificationStatusRequestDto'
+            example:
+              warehouseId: 36643f9b7c1c48ef
+              notificationType: Inbound
+              notificationId: IN001
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationStatusResponseDto'
+              example:
+                warehouseId: 36643f9b7c1c48ef
+                status: Hold
+                notificationType: Inbound
+                notificationId: IN001
+                dateAndTimeOfChange: '2025-03-25T02:30:00.0000000+00:00'
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+              example:
+                code: ERR12345
+                message: 'Not found id : 4025988810785188'
+                fields:
+                - name: field_name
+                  message: validation error
+                  code: ERR12345
+                development:
+                  message: string
+                  exception: string
+        '401':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+              example:
+                code: ERR12345
+                message: 'Not found id : 4025988810785188'
+                fields:
+                - name: field_name
+                  message: validation error
+                  code: ERR12345
+                development:
+                  message: string
+                  exception: string
+        '500':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+              example:
+                code: ERR12345
+                message: 'Not found id : 4025988810785188'
+                fields:
+                - name: field_name
+                  message: validation error
+                  code: ERR12345
+                development:
+                  message: string
+                  exception: string
+    servers:
+    - url: https://api.dsv.com/cl-demo/status/v1
+components:
+  schemas:
+    DevelopmentDTO:
+      type: object
+      properties:
+        message:
+          type:
+          - string
+          - 'null'
+          description: Verbose, plain language description of the problem for the app developer with hints on how to fix it
+        exception:
+          type:
+          - string
+          - 'null'
+          description: Dump from exception
+    ErrorDTO:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          minLength: 1
+          type: string
+          description: Unique error code
+          example: ERR12345
+        message:
+          minLength: 1
+          type: string
+          description: Error message passed to the user
+          example: 'Not found id : 4025988810785188'
+        fields:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/FieldDTO'
+        development:
+          $ref: '#/components/schemas/DevelopmentDTO'
+    OrderStatus:
+      enum:
+      - Hold
+      - Released
+      - InProgress
+      - PreReceived
+      - Complete
+      - Allocated
+      - Picked
+      - Packed
+      - ReadytoLoad
+      - Shipped
+      - Delivered
+      - Cancelled
+      - Awaiting
+      - DutyError
+      - InTransit
+      - Kitting
+      type: string
+      description: ''
+    NotificationType:
+      enum:
+      - Inbound
+      - Delivery
+      type: string
+      description: ''
+    FieldDTO:
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+          description: Error name
+          example: field_name
+        message:
+          type:
+          - string
+          - 'null'
+          description: Description of error
+          example: validation error
+        code:
+          type:
+          - string
+          - 'null'
+          description: Type of error
+          example: ERR12345
+    NotificationStatusResponseDto:
+      type: object
+      properties:
+        warehouseId:
+          maxLength: 20
+          minLength: 0
+          type: string
+          description: To be resolved in Token database
+          example: 36643f9b7c1c48ef
+        status:
+          $ref: '#/components/schemas/OrderStatus'
+        notificationType:
+          $ref: '#/components/schemas/NotificationType'
+        notificationId:
+          maxLength: 20
+          minLength: 0
+          type: string
+          description: DeliveryNotification Id or InboundNotification Id
+          example: IN001
+        dateAndTimeOfChange:
+          type: string
+          description: 'Format: CCYY-MM-DDTHH:mm:ssZ'
+          example: '2025-03-25T14:30:00Z'
+      description: Notification Status Response
+    NotificationStatusRequestDto:
+      required:
+      - warehouseId
+      - notificationType
+      - notificationId
+      type: object
+      properties:
+        warehouseId:
+          maxLength: 20
+          minLength: 0
+          type: string
+          description: To be resolved in Token database
+          example: 36643f9b7c1c48ef
+        notificationType:
+          $ref: '#/components/schemas/NotificationType'
+        notificationId:
+          maxLength: 20
+          minLength: 0
+          type: string
+          description: InboundNotification Id or DeliveryNotification Id
+          example: IN001
+      description: Notification Status Request
+  securitySchemes:
+    apiKeyHeader:
+      type: apiKey
+      name: DSV-Subscription-Key
+      in: header
+    apiKeyQuery:
+      type: apiKey
+      name: DSV-Subscription-Key
+      in: query
+x-refined-from:
+- dsv-es-webhook-demo-v1-openapi.json
+- dsv-warehousing-status-demo-v1-openapi.json
