@@ -1475,6 +1475,8 @@ apis:
   humanURL: https://developer.dsv.com/api-details#api=access-token-demo-v1
   baseURL: https://api.dsv.com/my-demo/oauth/v1
   tags:
+  - Event
+  tags_raw:
   - Events
   properties:
   - type: OpenAPI
@@ -2537,6 +2539,8 @@ apis:
   humanURL: https://developer.dsv.com/api-details#api=access-token-demo-v1
   baseURL: https://api.dsv.com/my-demo/oauth/v1
   tags:
+  - Order
+  tags_raw:
   - Orders
   properties:
   - type: OpenAPI
@@ -2891,6 +2895,8 @@ apis:
   humanURL: https://developer.dsv.com/api-details#api=access-token-demo-v1
   baseURL: https://api.dsv.com/my-demo/oauth/v1
   tags:
+  - Product Data
+  tags_raw:
   - ProductData
   properties:
   - type: OpenAPI
@@ -3245,6 +3251,8 @@ apis:
   humanURL: https://developer.dsv.com/api-details#api=access-token-demo-v1
   baseURL: https://api.dsv.com/my-demo/oauth/v1
   tags:
+  - Quotes
+  tags_raw:
   - Quote
   properties:
   - type: OpenAPI
