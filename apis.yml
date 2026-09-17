@@ -1292,183 +1292,6 @@ apis:
   - type: PostmanCollection
     url: >-
       https://developer.dsv.com/content/WMS%20Notification%20Status%20v1.0%20API.postman_collection.zip
-- aid: dsv:dsv-edocs-api
-  name: DSV E Docs API
-  description: The EDocs API from DSV — 5 operation(s) for edocs.
-  humanURL: https://developer.dsv.com/api-details#api=access-token-demo-v1
-  baseURL: https://api.dsv.com/my-demo/oauth/v1
-  tags:
-  - EDocs
-  properties:
-  - type: OpenAPI
-    url: openapi/dsv-edocs-api-openapi.yml
-  - type: APIReference
-    url: https://developer.dsv.com/api-details#api=access-token-demo-v1
-  - type: Documentation
-    url: https://developer.dsv.com/oauth-guide
-  - type: Documentation
-    url: https://developer.dsv.com/apicatalogue-generic
-  - type: PostmanCollection
-    url: >-
-      https://developer.dsv.com/content/DSV%20API%20(Access%20Token%20v1.0%20-%20samples%20with%20Bearer%20Token).postman_collection.zip
-  - type: Authentication
-    url: https://developer.dsv.com/oauth-guide
-  - type: APIReference
-    url: https://developer.dsv.com/api-details#api=generic-booking-demo-v2
-  - type: Documentation
-    url: https://developer.dsv.com/guide-mydsv
-  - type: PostmanCollection
-    url: >-
-      https://developer.dsv.com/content/DSV%20API%20(Booking%20V2%20-%20samples%20with%20Bearer%20Token).zip
-  - type: APIReference
-    url: https://developer.dsv.com/api-details#api=generic-tracking-demo-v2
-  - type: PostmanCollection
-    url: >-
-      https://developer.dsv.com/content/DSV%20API%20(Tracking%20v2.0%20-%20samples%20with%20Bearer%20Token).postman_collection.zip
-  - type: APIReference
-    url: https://developer.dsv.com/api-details#api=generic-labels-demo-v1
-  - type: PostmanCollection
-    url: >-
-      https://developer.dsv.com/content/DSV%20API%20(Label%20v1.0%20-%20samples%20with%20Bearer%20Token).postman_collection.zip
-  - type: APIReference
-    url: https://developer.dsv.com/api-details#api=generic-upload-demo-v1
-  - type: PostmanCollection
-    url: >-
-      https://developer.dsv.com/content/DSV%20API%20(Upload%20v1.0%20-%20samples%20with%20Bearer%20Token).postman_collection.zip
-  - type: APIReference
-    url: https://developer.dsv.com/api-details#api=generic-download-demo-v1
-  - type: PostmanCollection
-    url: >-
-      https://developer.dsv.com/content/DSV%20API%20(Download%20v1.0%20-%20samples%20with%20Bearer%20Token).postman_collection.zip
-  - type: APIReference
-    url: https://developer.dsv.com/api-details#api=generic-invoice-demo-v1
-  - type: APIReference
-    url: https://developer.dsv.com/api-details#api=generic-visibilitydemo-v1
-  - type: PostmanCollection
-    url: >-
-      https://developer.dsv.com/content/DSV%20API%20(Visibility%20v1.0%20-%20samples%20with%20Bearer%20Token).postman_collection.zip
-  - type: APIReference
-    url: https://developer.dsv.com/api-details#api=es-quote-demo-v1
-  - type: PostmanCollection
-    url: >-
-      https://developer.dsv.com/content/DSV%20API%20(Quote%20v1.0%20-%20samples%20with%20Bearer%20Token).postman_collection.zip
-  - type: APIReference
-    url: https://developer.dsv.com/api-details#api=es-webhook-demo-v1
-  - type: Documentation
-    url: https://developer.dsv.com/webhook-guide
-  - type: PostmanCollection
-    url: >-
-      https://developer.dsv.com/content/DSV%20API%20(Webhook%20v1.0%20-%20samples%20with%20Bearer%20Token).postman_collection.zip
-  - type: APIReference
-    url: https://developer.dsv.com/api-details#api=es-webhook-int-v1
-  - type: Documentation
-    url: https://developer.dsv.com/apicatalogue-cl
-  - type: PostmanCollection
-    url: >-
-      https://developer.dsv.com/content/DSV%20API%20(WMS%20Webhook%20V1.0%20INT%20-%20samples%20with%20Bearer%20Token).postman_collection.zip
-  - type: APIReference
-    url: https://developer.dsv.com/api-details#api=customs-ai-demo-v2
-  - type: PostmanCollection
-    url: >-
-      https://developer.dsv.com/content/DSV%20API%20(Customs%20v2.0%20-%20samples%20with%20Bearer%20Token).postman_collection.zip
-  - type: APIReference
-    url: https://developer.dsv.com/api-details#api=connect-api-booking-demo-v1
-  - type: Documentation
-    url: https://developer.dsv.com/guide-road
-  - type: Documentation
-    url: https://developer.dsv.com/apicatalogue-road
-  - type: PostmanCollection
-    url: >-
-      https://developer.dsv.com/content/BookingWebService%20SOAP%20API%20v1.3.postman_collection.zip
-  - type: APIReference
-    url: https://developer.dsv.com/api-details#api=connect-api-tracking-demo-v1
-  - type: PostmanCollection
-    url: >-
-      https://developer.dsv.com/content/TrackingWebService%20SOAP%20API%20v1.3.postman_collection.zip
-  - type: APIReference
-    url: https://developer.dsv.com/api-details#api=xpress-booking-v2
-  - type: Documentation
-    url: https://developer.dsv.com/guide-xpress
-  - type: Documentation
-    url: https://developer.dsv.com/apicatalogue-xpress
-  - type: PostmanCollection
-    url: >-
-      https://developer.dsv.com/content/DSV%20API(XPress%20Booking%20V2.0%20-%20samples).postman_collection.zip
-  - type: APIReference
-    url: https://developer.dsv.com/api-details#api=xpress-tracking-v2
-  - type: PostmanCollection
-    url: >-
-      https://developer.dsv.com/content/DSV%20API(XPress%20Tracking%20V2.0).postman_collection.zip
-  - type: APIReference
-    url: https://developer.dsv.com/api-details#api=xpress-comparator-v2
-  - type: PostmanCollection
-    url: >-
-      https://developer.dsv.com/content/DSV%20API(XPress%20Quote%20V2.0%20-%20samples).postman_collection.zip
-  - type: APIReference
-    url: https://developer.dsv.com/api-details#api=edc-public-api-v2
-  - type: Documentation
-    url: https://developer.dsv.com/guide-scm
-  - type: Documentation
-    url: https://developer.dsv.com/apicatalogue-scm
-  - type: PostmanCollection
-    url: >-
-      https://developer.dsv.com/content/DSV%20API%20(eDC%20Orders%20V2.0%20-%20samples).postman_collection.zip
-  - type: APIReference
-    url: https://developer.dsv.com/api-details#api=edc-booking-api-v2
-  - type: PostmanCollection
-    url: >-
-      https://developer.dsv.com/content/DSV%20API%20(eDC%20Booking%20V2.0%20-samples).postman_collection.zip
-  - type: APIReference
-    url: https://developer.dsv.com/api-details#api=edc-shipments-api-v2
-  - type: PostmanCollection
-    url: >-
-      https://developer.dsv.com/content/DSV%20API%20(eDC%20Shipments%20V2.0%20-%20samples).postman_collection.zip
-  - type: APIReference
-    url: https://developer.dsv.com/api-details#api=edc-loadplan-api-v2
-  - type: PostmanCollection
-    url: >-
-      https://developer.dsv.com/content/DSV%20API%20(eDC%20Loadplans%20V2.0%20-%20samples).postman_collection.zip
-  - type: APIReference
-    url: https://developer.dsv.com/api-details#api=edc-edocs-api-v2
-  - type: PostmanCollection
-    url: >-
-      https://developer.dsv.com/content/DSV%20API%20(eDC%20eDocs%20V2.0%20-%20samples).postman_collection.zip
-  - type: APIReference
-    url: https://developer.dsv.com/api-details#api=edc-events-api-v2
-  - type: PostmanCollection
-    url: >-
-      https://developer.dsv.com/content/DSV%20API%20(eDC%20Events%20V2.0%20-%20samples).postman_collection.zip
-  - type: APIReference
-    url: https://developer.dsv.com/api-details#api=edc-neom-api-v2
-  - type: Documentation
-    url: https://developer.dsv.com/guide-neom
-  - type: APIReference
-    url: https://developer.dsv.com/api-details#api=warehousing-productdata-demo-v1
-  - type: Documentation
-    url: https://developer.dsv.com/guide-contract-logistics
-  - type: PostmanCollection
-    url: >-
-      https://developer.dsv.com/content/DSV%20API%20(WMS%20Product%20Data%20v1.0%20-%20samples%20with%20Bearer%20token).postman_collection.zip
-  - type: APIReference
-    url: https://developer.dsv.com/api-details#api=warehousing-preadvice-demo-v1
-  - type: PostmanCollection
-    url: >-
-      https://developer.dsv.com/content/DSV%20API%20(WMS%20Inbound%20Notification%20v1.0%20-%20samples%20with%20Bearer%20Token).postman_collection.zip
-  - type: APIReference
-    url: https://developer.dsv.com/api-details#api=warehousing-despatch-demo-v1
-  - type: PostmanCollection
-    url: >-
-      https://developer.dsv.com/content/DSV%20API%20(WMS%20Delivery%20Notification%20v1.0%20-%20samples%20with%20Bearer%20token).postman_collection.zip
-  - type: APIReference
-    url: https://developer.dsv.com/api-details#api=warehousing-inventory-demo-v1
-  - type: PostmanCollection
-    url: >-
-      https://developer.dsv.com/content/DSV%20API%20(WMS%20Inventory%20v1.0%20-%20samples%20with%20Bearer%20token).postman_collection.zip
-  - type: APIReference
-    url: https://developer.dsv.com/api-details#api=warehousing-status-demo-v1
-  - type: PostmanCollection
-    url: >-
-      https://developer.dsv.com/content/WMS%20Notification%20Status%20v1.0%20API.postman_collection.zip
 - aid: dsv:dsv-events-api
   name: DSV Events API
   description: The Events API from DSV — 2 operation(s) for events.
@@ -2722,185 +2545,6 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/dsv-ordersasync-api-openapi.yml
-  - type: APIReference
-    url: https://developer.dsv.com/api-details#api=access-token-demo-v1
-  - type: Documentation
-    url: https://developer.dsv.com/oauth-guide
-  - type: Documentation
-    url: https://developer.dsv.com/apicatalogue-generic
-  - type: PostmanCollection
-    url: >-
-      https://developer.dsv.com/content/DSV%20API%20(Access%20Token%20v1.0%20-%20samples%20with%20Bearer%20Token).postman_collection.zip
-  - type: Authentication
-    url: https://developer.dsv.com/oauth-guide
-  - type: APIReference
-    url: https://developer.dsv.com/api-details#api=generic-booking-demo-v2
-  - type: Documentation
-    url: https://developer.dsv.com/guide-mydsv
-  - type: PostmanCollection
-    url: >-
-      https://developer.dsv.com/content/DSV%20API%20(Booking%20V2%20-%20samples%20with%20Bearer%20Token).zip
-  - type: APIReference
-    url: https://developer.dsv.com/api-details#api=generic-tracking-demo-v2
-  - type: PostmanCollection
-    url: >-
-      https://developer.dsv.com/content/DSV%20API%20(Tracking%20v2.0%20-%20samples%20with%20Bearer%20Token).postman_collection.zip
-  - type: APIReference
-    url: https://developer.dsv.com/api-details#api=generic-labels-demo-v1
-  - type: PostmanCollection
-    url: >-
-      https://developer.dsv.com/content/DSV%20API%20(Label%20v1.0%20-%20samples%20with%20Bearer%20Token).postman_collection.zip
-  - type: APIReference
-    url: https://developer.dsv.com/api-details#api=generic-upload-demo-v1
-  - type: PostmanCollection
-    url: >-
-      https://developer.dsv.com/content/DSV%20API%20(Upload%20v1.0%20-%20samples%20with%20Bearer%20Token).postman_collection.zip
-  - type: APIReference
-    url: https://developer.dsv.com/api-details#api=generic-download-demo-v1
-  - type: PostmanCollection
-    url: >-
-      https://developer.dsv.com/content/DSV%20API%20(Download%20v1.0%20-%20samples%20with%20Bearer%20Token).postman_collection.zip
-  - type: APIReference
-    url: https://developer.dsv.com/api-details#api=generic-invoice-demo-v1
-  - type: APIReference
-    url: https://developer.dsv.com/api-details#api=generic-visibilitydemo-v1
-  - type: PostmanCollection
-    url: >-
-      https://developer.dsv.com/content/DSV%20API%20(Visibility%20v1.0%20-%20samples%20with%20Bearer%20Token).postman_collection.zip
-  - type: APIReference
-    url: https://developer.dsv.com/api-details#api=es-quote-demo-v1
-  - type: PostmanCollection
-    url: >-
-      https://developer.dsv.com/content/DSV%20API%20(Quote%20v1.0%20-%20samples%20with%20Bearer%20Token).postman_collection.zip
-  - type: APIReference
-    url: https://developer.dsv.com/api-details#api=es-webhook-demo-v1
-  - type: Documentation
-    url: https://developer.dsv.com/webhook-guide
-  - type: PostmanCollection
-    url: >-
-      https://developer.dsv.com/content/DSV%20API%20(Webhook%20v1.0%20-%20samples%20with%20Bearer%20Token).postman_collection.zip
-  - type: APIReference
-    url: https://developer.dsv.com/api-details#api=es-webhook-int-v1
-  - type: Documentation
-    url: https://developer.dsv.com/apicatalogue-cl
-  - type: PostmanCollection
-    url: >-
-      https://developer.dsv.com/content/DSV%20API%20(WMS%20Webhook%20V1.0%20INT%20-%20samples%20with%20Bearer%20Token).postman_collection.zip
-  - type: APIReference
-    url: https://developer.dsv.com/api-details#api=customs-ai-demo-v2
-  - type: PostmanCollection
-    url: >-
-      https://developer.dsv.com/content/DSV%20API%20(Customs%20v2.0%20-%20samples%20with%20Bearer%20Token).postman_collection.zip
-  - type: APIReference
-    url: https://developer.dsv.com/api-details#api=connect-api-booking-demo-v1
-  - type: Documentation
-    url: https://developer.dsv.com/guide-road
-  - type: Documentation
-    url: https://developer.dsv.com/apicatalogue-road
-  - type: PostmanCollection
-    url: >-
-      https://developer.dsv.com/content/BookingWebService%20SOAP%20API%20v1.3.postman_collection.zip
-  - type: APIReference
-    url: https://developer.dsv.com/api-details#api=connect-api-tracking-demo-v1
-  - type: PostmanCollection
-    url: >-
-      https://developer.dsv.com/content/TrackingWebService%20SOAP%20API%20v1.3.postman_collection.zip
-  - type: APIReference
-    url: https://developer.dsv.com/api-details#api=xpress-booking-v2
-  - type: Documentation
-    url: https://developer.dsv.com/guide-xpress
-  - type: Documentation
-    url: https://developer.dsv.com/apicatalogue-xpress
-  - type: PostmanCollection
-    url: >-
-      https://developer.dsv.com/content/DSV%20API(XPress%20Booking%20V2.0%20-%20samples).postman_collection.zip
-  - type: APIReference
-    url: https://developer.dsv.com/api-details#api=xpress-tracking-v2
-  - type: PostmanCollection
-    url: >-
-      https://developer.dsv.com/content/DSV%20API(XPress%20Tracking%20V2.0).postman_collection.zip
-  - type: APIReference
-    url: https://developer.dsv.com/api-details#api=xpress-comparator-v2
-  - type: PostmanCollection
-    url: >-
-      https://developer.dsv.com/content/DSV%20API(XPress%20Quote%20V2.0%20-%20samples).postman_collection.zip
-  - type: APIReference
-    url: https://developer.dsv.com/api-details#api=edc-public-api-v2
-  - type: Documentation
-    url: https://developer.dsv.com/guide-scm
-  - type: Documentation
-    url: https://developer.dsv.com/apicatalogue-scm
-  - type: PostmanCollection
-    url: >-
-      https://developer.dsv.com/content/DSV%20API%20(eDC%20Orders%20V2.0%20-%20samples).postman_collection.zip
-  - type: APIReference
-    url: https://developer.dsv.com/api-details#api=edc-booking-api-v2
-  - type: PostmanCollection
-    url: >-
-      https://developer.dsv.com/content/DSV%20API%20(eDC%20Booking%20V2.0%20-samples).postman_collection.zip
-  - type: APIReference
-    url: https://developer.dsv.com/api-details#api=edc-shipments-api-v2
-  - type: PostmanCollection
-    url: >-
-      https://developer.dsv.com/content/DSV%20API%20(eDC%20Shipments%20V2.0%20-%20samples).postman_collection.zip
-  - type: APIReference
-    url: https://developer.dsv.com/api-details#api=edc-loadplan-api-v2
-  - type: PostmanCollection
-    url: >-
-      https://developer.dsv.com/content/DSV%20API%20(eDC%20Loadplans%20V2.0%20-%20samples).postman_collection.zip
-  - type: APIReference
-    url: https://developer.dsv.com/api-details#api=edc-edocs-api-v2
-  - type: PostmanCollection
-    url: >-
-      https://developer.dsv.com/content/DSV%20API%20(eDC%20eDocs%20V2.0%20-%20samples).postman_collection.zip
-  - type: APIReference
-    url: https://developer.dsv.com/api-details#api=edc-events-api-v2
-  - type: PostmanCollection
-    url: >-
-      https://developer.dsv.com/content/DSV%20API%20(eDC%20Events%20V2.0%20-%20samples).postman_collection.zip
-  - type: APIReference
-    url: https://developer.dsv.com/api-details#api=edc-neom-api-v2
-  - type: Documentation
-    url: https://developer.dsv.com/guide-neom
-  - type: APIReference
-    url: https://developer.dsv.com/api-details#api=warehousing-productdata-demo-v1
-  - type: Documentation
-    url: https://developer.dsv.com/guide-contract-logistics
-  - type: PostmanCollection
-    url: >-
-      https://developer.dsv.com/content/DSV%20API%20(WMS%20Product%20Data%20v1.0%20-%20samples%20with%20Bearer%20token).postman_collection.zip
-  - type: APIReference
-    url: https://developer.dsv.com/api-details#api=warehousing-preadvice-demo-v1
-  - type: PostmanCollection
-    url: >-
-      https://developer.dsv.com/content/DSV%20API%20(WMS%20Inbound%20Notification%20v1.0%20-%20samples%20with%20Bearer%20Token).postman_collection.zip
-  - type: APIReference
-    url: https://developer.dsv.com/api-details#api=warehousing-despatch-demo-v1
-  - type: PostmanCollection
-    url: >-
-      https://developer.dsv.com/content/DSV%20API%20(WMS%20Delivery%20Notification%20v1.0%20-%20samples%20with%20Bearer%20token).postman_collection.zip
-  - type: APIReference
-    url: https://developer.dsv.com/api-details#api=warehousing-inventory-demo-v1
-  - type: PostmanCollection
-    url: >-
-      https://developer.dsv.com/content/DSV%20API%20(WMS%20Inventory%20v1.0%20-%20samples%20with%20Bearer%20token).postman_collection.zip
-  - type: APIReference
-    url: https://developer.dsv.com/api-details#api=warehousing-status-demo-v1
-  - type: PostmanCollection
-    url: >-
-      https://developer.dsv.com/content/WMS%20Notification%20Status%20v1.0%20API.postman_collection.zip
-- aid: dsv:dsv-productdata-api
-  name: DSV Product Data API
-  description: The ProductData API from DSV — 1 operation(s) for productdata.
-  humanURL: https://developer.dsv.com/api-details#api=access-token-demo-v1
-  baseURL: https://api.dsv.com/my-demo/oauth/v1
-  tags:
-  - Product Data
-  tags_raw:
-  - ProductData
-  properties:
-  - type: OpenAPI
-    url: openapi/dsv-productdata-api-openapi.yml
   - type: APIReference
     url: https://developer.dsv.com/api-details#api=access-token-demo-v1
   - type: Documentation
@@ -5562,6 +5206,360 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/dsv-webhook-api-openapi.yml
+  - type: APIReference
+    url: https://developer.dsv.com/api-details#api=access-token-demo-v1
+  - type: Documentation
+    url: https://developer.dsv.com/oauth-guide
+  - type: Documentation
+    url: https://developer.dsv.com/apicatalogue-generic
+  - type: PostmanCollection
+    url: >-
+      https://developer.dsv.com/content/DSV%20API%20(Access%20Token%20v1.0%20-%20samples%20with%20Bearer%20Token).postman_collection.zip
+  - type: Authentication
+    url: https://developer.dsv.com/oauth-guide
+  - type: APIReference
+    url: https://developer.dsv.com/api-details#api=generic-booking-demo-v2
+  - type: Documentation
+    url: https://developer.dsv.com/guide-mydsv
+  - type: PostmanCollection
+    url: >-
+      https://developer.dsv.com/content/DSV%20API%20(Booking%20V2%20-%20samples%20with%20Bearer%20Token).zip
+  - type: APIReference
+    url: https://developer.dsv.com/api-details#api=generic-tracking-demo-v2
+  - type: PostmanCollection
+    url: >-
+      https://developer.dsv.com/content/DSV%20API%20(Tracking%20v2.0%20-%20samples%20with%20Bearer%20Token).postman_collection.zip
+  - type: APIReference
+    url: https://developer.dsv.com/api-details#api=generic-labels-demo-v1
+  - type: PostmanCollection
+    url: >-
+      https://developer.dsv.com/content/DSV%20API%20(Label%20v1.0%20-%20samples%20with%20Bearer%20Token).postman_collection.zip
+  - type: APIReference
+    url: https://developer.dsv.com/api-details#api=generic-upload-demo-v1
+  - type: PostmanCollection
+    url: >-
+      https://developer.dsv.com/content/DSV%20API%20(Upload%20v1.0%20-%20samples%20with%20Bearer%20Token).postman_collection.zip
+  - type: APIReference
+    url: https://developer.dsv.com/api-details#api=generic-download-demo-v1
+  - type: PostmanCollection
+    url: >-
+      https://developer.dsv.com/content/DSV%20API%20(Download%20v1.0%20-%20samples%20with%20Bearer%20Token).postman_collection.zip
+  - type: APIReference
+    url: https://developer.dsv.com/api-details#api=generic-invoice-demo-v1
+  - type: APIReference
+    url: https://developer.dsv.com/api-details#api=generic-visibilitydemo-v1
+  - type: PostmanCollection
+    url: >-
+      https://developer.dsv.com/content/DSV%20API%20(Visibility%20v1.0%20-%20samples%20with%20Bearer%20Token).postman_collection.zip
+  - type: APIReference
+    url: https://developer.dsv.com/api-details#api=es-quote-demo-v1
+  - type: PostmanCollection
+    url: >-
+      https://developer.dsv.com/content/DSV%20API%20(Quote%20v1.0%20-%20samples%20with%20Bearer%20Token).postman_collection.zip
+  - type: APIReference
+    url: https://developer.dsv.com/api-details#api=es-webhook-demo-v1
+  - type: Documentation
+    url: https://developer.dsv.com/webhook-guide
+  - type: PostmanCollection
+    url: >-
+      https://developer.dsv.com/content/DSV%20API%20(Webhook%20v1.0%20-%20samples%20with%20Bearer%20Token).postman_collection.zip
+  - type: APIReference
+    url: https://developer.dsv.com/api-details#api=es-webhook-int-v1
+  - type: Documentation
+    url: https://developer.dsv.com/apicatalogue-cl
+  - type: PostmanCollection
+    url: >-
+      https://developer.dsv.com/content/DSV%20API%20(WMS%20Webhook%20V1.0%20INT%20-%20samples%20with%20Bearer%20Token).postman_collection.zip
+  - type: APIReference
+    url: https://developer.dsv.com/api-details#api=customs-ai-demo-v2
+  - type: PostmanCollection
+    url: >-
+      https://developer.dsv.com/content/DSV%20API%20(Customs%20v2.0%20-%20samples%20with%20Bearer%20Token).postman_collection.zip
+  - type: APIReference
+    url: https://developer.dsv.com/api-details#api=connect-api-booking-demo-v1
+  - type: Documentation
+    url: https://developer.dsv.com/guide-road
+  - type: Documentation
+    url: https://developer.dsv.com/apicatalogue-road
+  - type: PostmanCollection
+    url: >-
+      https://developer.dsv.com/content/BookingWebService%20SOAP%20API%20v1.3.postman_collection.zip
+  - type: APIReference
+    url: https://developer.dsv.com/api-details#api=connect-api-tracking-demo-v1
+  - type: PostmanCollection
+    url: >-
+      https://developer.dsv.com/content/TrackingWebService%20SOAP%20API%20v1.3.postman_collection.zip
+  - type: APIReference
+    url: https://developer.dsv.com/api-details#api=xpress-booking-v2
+  - type: Documentation
+    url: https://developer.dsv.com/guide-xpress
+  - type: Documentation
+    url: https://developer.dsv.com/apicatalogue-xpress
+  - type: PostmanCollection
+    url: >-
+      https://developer.dsv.com/content/DSV%20API(XPress%20Booking%20V2.0%20-%20samples).postman_collection.zip
+  - type: APIReference
+    url: https://developer.dsv.com/api-details#api=xpress-tracking-v2
+  - type: PostmanCollection
+    url: >-
+      https://developer.dsv.com/content/DSV%20API(XPress%20Tracking%20V2.0).postman_collection.zip
+  - type: APIReference
+    url: https://developer.dsv.com/api-details#api=xpress-comparator-v2
+  - type: PostmanCollection
+    url: >-
+      https://developer.dsv.com/content/DSV%20API(XPress%20Quote%20V2.0%20-%20samples).postman_collection.zip
+  - type: APIReference
+    url: https://developer.dsv.com/api-details#api=edc-public-api-v2
+  - type: Documentation
+    url: https://developer.dsv.com/guide-scm
+  - type: Documentation
+    url: https://developer.dsv.com/apicatalogue-scm
+  - type: PostmanCollection
+    url: >-
+      https://developer.dsv.com/content/DSV%20API%20(eDC%20Orders%20V2.0%20-%20samples).postman_collection.zip
+  - type: APIReference
+    url: https://developer.dsv.com/api-details#api=edc-booking-api-v2
+  - type: PostmanCollection
+    url: >-
+      https://developer.dsv.com/content/DSV%20API%20(eDC%20Booking%20V2.0%20-samples).postman_collection.zip
+  - type: APIReference
+    url: https://developer.dsv.com/api-details#api=edc-shipments-api-v2
+  - type: PostmanCollection
+    url: >-
+      https://developer.dsv.com/content/DSV%20API%20(eDC%20Shipments%20V2.0%20-%20samples).postman_collection.zip
+  - type: APIReference
+    url: https://developer.dsv.com/api-details#api=edc-loadplan-api-v2
+  - type: PostmanCollection
+    url: >-
+      https://developer.dsv.com/content/DSV%20API%20(eDC%20Loadplans%20V2.0%20-%20samples).postman_collection.zip
+  - type: APIReference
+    url: https://developer.dsv.com/api-details#api=edc-edocs-api-v2
+  - type: PostmanCollection
+    url: >-
+      https://developer.dsv.com/content/DSV%20API%20(eDC%20eDocs%20V2.0%20-%20samples).postman_collection.zip
+  - type: APIReference
+    url: https://developer.dsv.com/api-details#api=edc-events-api-v2
+  - type: PostmanCollection
+    url: >-
+      https://developer.dsv.com/content/DSV%20API%20(eDC%20Events%20V2.0%20-%20samples).postman_collection.zip
+  - type: APIReference
+    url: https://developer.dsv.com/api-details#api=edc-neom-api-v2
+  - type: Documentation
+    url: https://developer.dsv.com/guide-neom
+  - type: APIReference
+    url: https://developer.dsv.com/api-details#api=warehousing-productdata-demo-v1
+  - type: Documentation
+    url: https://developer.dsv.com/guide-contract-logistics
+  - type: PostmanCollection
+    url: >-
+      https://developer.dsv.com/content/DSV%20API%20(WMS%20Product%20Data%20v1.0%20-%20samples%20with%20Bearer%20token).postman_collection.zip
+  - type: APIReference
+    url: https://developer.dsv.com/api-details#api=warehousing-preadvice-demo-v1
+  - type: PostmanCollection
+    url: >-
+      https://developer.dsv.com/content/DSV%20API%20(WMS%20Inbound%20Notification%20v1.0%20-%20samples%20with%20Bearer%20Token).postman_collection.zip
+  - type: APIReference
+    url: https://developer.dsv.com/api-details#api=warehousing-despatch-demo-v1
+  - type: PostmanCollection
+    url: >-
+      https://developer.dsv.com/content/DSV%20API%20(WMS%20Delivery%20Notification%20v1.0%20-%20samples%20with%20Bearer%20token).postman_collection.zip
+  - type: APIReference
+    url: https://developer.dsv.com/api-details#api=warehousing-inventory-demo-v1
+  - type: PostmanCollection
+    url: >-
+      https://developer.dsv.com/content/DSV%20API%20(WMS%20Inventory%20v1.0%20-%20samples%20with%20Bearer%20token).postman_collection.zip
+  - type: APIReference
+    url: https://developer.dsv.com/api-details#api=warehousing-status-demo-v1
+  - type: PostmanCollection
+    url: >-
+      https://developer.dsv.com/content/WMS%20Notification%20Status%20v1.0%20API.postman_collection.zip
+- aid: dsv:dsv-edocs-api
+  name: DSV E Docs API
+  description: The EDocs API from DSV — 5 operation(s) for edocs.
+  humanURL: https://developer.dsv.com/api-details#api=access-token-demo-v1
+  baseURL: https://api.dsv.com/my-demo/oauth/v1
+  tags:
+  - EDocs
+  properties:
+  - type: OpenAPI
+    url: openapi/dsv-edocs-api-openapi.yml
+  - type: APIReference
+    url: https://developer.dsv.com/api-details#api=access-token-demo-v1
+  - type: Documentation
+    url: https://developer.dsv.com/oauth-guide
+  - type: Documentation
+    url: https://developer.dsv.com/apicatalogue-generic
+  - type: PostmanCollection
+    url: >-
+      https://developer.dsv.com/content/DSV%20API%20(Access%20Token%20v1.0%20-%20samples%20with%20Bearer%20Token).postman_collection.zip
+  - type: Authentication
+    url: https://developer.dsv.com/oauth-guide
+  - type: APIReference
+    url: https://developer.dsv.com/api-details#api=generic-booking-demo-v2
+  - type: Documentation
+    url: https://developer.dsv.com/guide-mydsv
+  - type: PostmanCollection
+    url: >-
+      https://developer.dsv.com/content/DSV%20API%20(Booking%20V2%20-%20samples%20with%20Bearer%20Token).zip
+  - type: APIReference
+    url: https://developer.dsv.com/api-details#api=generic-tracking-demo-v2
+  - type: PostmanCollection
+    url: >-
+      https://developer.dsv.com/content/DSV%20API%20(Tracking%20v2.0%20-%20samples%20with%20Bearer%20Token).postman_collection.zip
+  - type: APIReference
+    url: https://developer.dsv.com/api-details#api=generic-labels-demo-v1
+  - type: PostmanCollection
+    url: >-
+      https://developer.dsv.com/content/DSV%20API%20(Label%20v1.0%20-%20samples%20with%20Bearer%20Token).postman_collection.zip
+  - type: APIReference
+    url: https://developer.dsv.com/api-details#api=generic-upload-demo-v1
+  - type: PostmanCollection
+    url: >-
+      https://developer.dsv.com/content/DSV%20API%20(Upload%20v1.0%20-%20samples%20with%20Bearer%20Token).postman_collection.zip
+  - type: APIReference
+    url: https://developer.dsv.com/api-details#api=generic-download-demo-v1
+  - type: PostmanCollection
+    url: >-
+      https://developer.dsv.com/content/DSV%20API%20(Download%20v1.0%20-%20samples%20with%20Bearer%20Token).postman_collection.zip
+  - type: APIReference
+    url: https://developer.dsv.com/api-details#api=generic-invoice-demo-v1
+  - type: APIReference
+    url: https://developer.dsv.com/api-details#api=generic-visibilitydemo-v1
+  - type: PostmanCollection
+    url: >-
+      https://developer.dsv.com/content/DSV%20API%20(Visibility%20v1.0%20-%20samples%20with%20Bearer%20Token).postman_collection.zip
+  - type: APIReference
+    url: https://developer.dsv.com/api-details#api=es-quote-demo-v1
+  - type: PostmanCollection
+    url: >-
+      https://developer.dsv.com/content/DSV%20API%20(Quote%20v1.0%20-%20samples%20with%20Bearer%20Token).postman_collection.zip
+  - type: APIReference
+    url: https://developer.dsv.com/api-details#api=es-webhook-demo-v1
+  - type: Documentation
+    url: https://developer.dsv.com/webhook-guide
+  - type: PostmanCollection
+    url: >-
+      https://developer.dsv.com/content/DSV%20API%20(Webhook%20v1.0%20-%20samples%20with%20Bearer%20Token).postman_collection.zip
+  - type: APIReference
+    url: https://developer.dsv.com/api-details#api=es-webhook-int-v1
+  - type: Documentation
+    url: https://developer.dsv.com/apicatalogue-cl
+  - type: PostmanCollection
+    url: >-
+      https://developer.dsv.com/content/DSV%20API%20(WMS%20Webhook%20V1.0%20INT%20-%20samples%20with%20Bearer%20Token).postman_collection.zip
+  - type: APIReference
+    url: https://developer.dsv.com/api-details#api=customs-ai-demo-v2
+  - type: PostmanCollection
+    url: >-
+      https://developer.dsv.com/content/DSV%20API%20(Customs%20v2.0%20-%20samples%20with%20Bearer%20Token).postman_collection.zip
+  - type: APIReference
+    url: https://developer.dsv.com/api-details#api=connect-api-booking-demo-v1
+  - type: Documentation
+    url: https://developer.dsv.com/guide-road
+  - type: Documentation
+    url: https://developer.dsv.com/apicatalogue-road
+  - type: PostmanCollection
+    url: >-
+      https://developer.dsv.com/content/BookingWebService%20SOAP%20API%20v1.3.postman_collection.zip
+  - type: APIReference
+    url: https://developer.dsv.com/api-details#api=connect-api-tracking-demo-v1
+  - type: PostmanCollection
+    url: >-
+      https://developer.dsv.com/content/TrackingWebService%20SOAP%20API%20v1.3.postman_collection.zip
+  - type: APIReference
+    url: https://developer.dsv.com/api-details#api=xpress-booking-v2
+  - type: Documentation
+    url: https://developer.dsv.com/guide-xpress
+  - type: Documentation
+    url: https://developer.dsv.com/apicatalogue-xpress
+  - type: PostmanCollection
+    url: >-
+      https://developer.dsv.com/content/DSV%20API(XPress%20Booking%20V2.0%20-%20samples).postman_collection.zip
+  - type: APIReference
+    url: https://developer.dsv.com/api-details#api=xpress-tracking-v2
+  - type: PostmanCollection
+    url: >-
+      https://developer.dsv.com/content/DSV%20API(XPress%20Tracking%20V2.0).postman_collection.zip
+  - type: APIReference
+    url: https://developer.dsv.com/api-details#api=xpress-comparator-v2
+  - type: PostmanCollection
+    url: >-
+      https://developer.dsv.com/content/DSV%20API(XPress%20Quote%20V2.0%20-%20samples).postman_collection.zip
+  - type: APIReference
+    url: https://developer.dsv.com/api-details#api=edc-public-api-v2
+  - type: Documentation
+    url: https://developer.dsv.com/guide-scm
+  - type: Documentation
+    url: https://developer.dsv.com/apicatalogue-scm
+  - type: PostmanCollection
+    url: >-
+      https://developer.dsv.com/content/DSV%20API%20(eDC%20Orders%20V2.0%20-%20samples).postman_collection.zip
+  - type: APIReference
+    url: https://developer.dsv.com/api-details#api=edc-booking-api-v2
+  - type: PostmanCollection
+    url: >-
+      https://developer.dsv.com/content/DSV%20API%20(eDC%20Booking%20V2.0%20-samples).postman_collection.zip
+  - type: APIReference
+    url: https://developer.dsv.com/api-details#api=edc-shipments-api-v2
+  - type: PostmanCollection
+    url: >-
+      https://developer.dsv.com/content/DSV%20API%20(eDC%20Shipments%20V2.0%20-%20samples).postman_collection.zip
+  - type: APIReference
+    url: https://developer.dsv.com/api-details#api=edc-loadplan-api-v2
+  - type: PostmanCollection
+    url: >-
+      https://developer.dsv.com/content/DSV%20API%20(eDC%20Loadplans%20V2.0%20-%20samples).postman_collection.zip
+  - type: APIReference
+    url: https://developer.dsv.com/api-details#api=edc-edocs-api-v2
+  - type: PostmanCollection
+    url: >-
+      https://developer.dsv.com/content/DSV%20API%20(eDC%20eDocs%20V2.0%20-%20samples).postman_collection.zip
+  - type: APIReference
+    url: https://developer.dsv.com/api-details#api=edc-events-api-v2
+  - type: PostmanCollection
+    url: >-
+      https://developer.dsv.com/content/DSV%20API%20(eDC%20Events%20V2.0%20-%20samples).postman_collection.zip
+  - type: APIReference
+    url: https://developer.dsv.com/api-details#api=edc-neom-api-v2
+  - type: Documentation
+    url: https://developer.dsv.com/guide-neom
+  - type: APIReference
+    url: https://developer.dsv.com/api-details#api=warehousing-productdata-demo-v1
+  - type: Documentation
+    url: https://developer.dsv.com/guide-contract-logistics
+  - type: PostmanCollection
+    url: >-
+      https://developer.dsv.com/content/DSV%20API%20(WMS%20Product%20Data%20v1.0%20-%20samples%20with%20Bearer%20token).postman_collection.zip
+  - type: APIReference
+    url: https://developer.dsv.com/api-details#api=warehousing-preadvice-demo-v1
+  - type: PostmanCollection
+    url: >-
+      https://developer.dsv.com/content/DSV%20API%20(WMS%20Inbound%20Notification%20v1.0%20-%20samples%20with%20Bearer%20Token).postman_collection.zip
+  - type: APIReference
+    url: https://developer.dsv.com/api-details#api=warehousing-despatch-demo-v1
+  - type: PostmanCollection
+    url: >-
+      https://developer.dsv.com/content/DSV%20API%20(WMS%20Delivery%20Notification%20v1.0%20-%20samples%20with%20Bearer%20token).postman_collection.zip
+  - type: APIReference
+    url: https://developer.dsv.com/api-details#api=warehousing-inventory-demo-v1
+  - type: PostmanCollection
+    url: >-
+      https://developer.dsv.com/content/DSV%20API%20(WMS%20Inventory%20v1.0%20-%20samples%20with%20Bearer%20token).postman_collection.zip
+  - type: APIReference
+    url: https://developer.dsv.com/api-details#api=warehousing-status-demo-v1
+  - type: PostmanCollection
+    url: >-
+      https://developer.dsv.com/content/WMS%20Notification%20Status%20v1.0%20API.postman_collection.zip
+- aid: dsv:dsv-product-data-api
+  name: DSV Product Data API
+  description: The Product Data API from DSV — 1 operation(s) for product data.
+  humanURL: https://developer.dsv.com/api-details#api=access-token-demo-v1
+  baseURL: https://api.dsv.com/my-demo/oauth/v1
+  tags:
+  - Product Data
+  properties:
+  - type: OpenAPI
+    url: openapi/dsv-product-data-api-openapi.yml
   - type: APIReference
     url: https://developer.dsv.com/api-details#api=access-token-demo-v1
   - type: Documentation
