@@ -11,7 +11,7 @@ capability_model:
   attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
     CC BY 4.0
   notice: NOTICE
-edge_count: 18
+edge_count: 19
 edges:
 - tag: Declarations
   spec_file: dsv-declarations-api-openapi.yml
@@ -164,6 +164,18 @@ edges:
     InboundNotificationDto, SupplierDto, InboundOrderType'
   reason: Advance notification of goods arriving into a contract-logistics warehouse (supplier, inbound
     order type, line details), which drives receipt and putaway — inbound warehouse operations.
+- tag: BPO Inbound
+  spec_file: dsv-bpo-inbound-api-openapi.yml
+  capability_id: BC-520.40
+  capability_id_l1: BC-520
+  capability_name: Order Fulfilment Management
+  confidence: 0.7
+  evidence: POST /Orders "1. Create or Update Order"; POST /Orders/SearchCriteria "2. Search Order"; DELETE
+    /Orders/{orderNumber}/{splitNo} "4. Cancel Order"; schemas OrderDto, Shipment, TransportSummary
+  reason: Order intake, amendment and cancellation feeding shipments and transport summaries at a freight
+    forwarder is order capture and fulfilment orchestration. Some ambiguity between order fulfilment and
+    logistics execution, hence 0.7.
+  recovered_from: sweep-20260829T005356Z-edges.json
 - tag: Inventory
   spec_file: dsv-inventory-api-openapi.yml
   capability_id: BC-2460.20
