@@ -933,360 +933,127 @@ paths:
                 ID: 7c6c3c04-6106-4ec1-255f-08dc2c5c0d8f
 components:
   schemas:
-    eDC.Web.Api.v2.Models.Entities.Event:
-      type: object
-      properties:
-        eventCode:
-          type:
-          - string
-          - 'null'
-          description: The unique event code - usually 3 chars, but can be 2 or more.
-        description:
-          type:
-          - string
-          - 'null'
-          description: A description of the event code.
-        eventDate:
-          type:
-          - string
-          - 'null'
-          description: The date in which the event happened
-          format: date-time
-        reasonCodes:
-          type:
-          - string
-          - 'null'
-          description: Legacy, do not use.
-        eventPlace:
-          type:
-          - string
-          - 'null'
-          description: The place in which the event happened.
-        eventSource:
-          type:
-          - string
-          - 'null'
-          description: The source system that input the event.
-        qaIssueCode:
-          type:
-          - string
-          - 'null'
-        qaResponsibleParty:
-          type:
-          - string
-          - 'null'
-        stage:
-          type:
-          - string
-          - 'null'
-        qaIssueNotes:
-          type:
-          - string
-          - 'null'
-        qaIssueResolvedDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        vehicleRegistration:
-          type:
-          - string
-          - 'null'
-        driverName:
-          type:
-          - string
-          - 'null'
-        secondDriver:
-          type:
-          - string
-          - 'null'
-        locationType:
-          type:
-          - string
-          - 'null'
-          description: Options - Intermediate / Transit Customs / Destination Customs
-        qaIssueCodeDescription:
-          type:
-          - string
-          - 'null'
-        externalTrackingLink:
-          type:
-          - string
-          - 'null'
-        dateModified:
-          type:
-          - string
-          - 'null'
-          description: Date the event was modified - in general events cannot be modified but QA issues can be resolved.
-          format: date-time
-        userModified:
-          type:
-          - string
-          - 'null'
-          description: User who modified the event - in general events cannot be modified but QA issues can be resolved.
-        dateCreated:
-          type:
-          - string
-          - 'null'
-          description: Date the event was input
-          format: date-time
-        userCreated:
-          type:
-          - string
-          - 'null'
-          description: User who input the event
-      additionalProperties: false
-    eDC.Web.Api.v2.Models.CustomField:
+    eDC.Web.Api.v2.Models.Entities.Address:
       type: object
       properties:
         name:
           type:
           - string
           - 'null'
-        type:
+          description: Name
+        address1:
           type:
           - string
           - 'null'
-        value:
+          description: Address line 1
+        address2:
           type:
           - string
           - 'null'
-      additionalProperties: false
-    eDC.Web.Api.v2.Models.Entities.Measurement:
-      type: object
-      properties:
-        value:
+          description: Address line 2
+        address3:
+          type:
+          - string
+          - 'null'
+          description: Address line 3
+        unloco:
+          type:
+          - string
+          - 'null'
+        nearestPort:
+          type:
+          - string
+          - 'null'
+        city:
+          type:
+          - string
+          - 'null'
+          description: City
+        state:
+          type:
+          - string
+          - 'null'
+          description: State
+        postCode:
+          type:
+          - string
+          - 'null'
+          description: Postal code
+        countryCode:
+          type:
+          - string
+          - 'null'
+          description: 2-Letter Country Code
+        country:
+          type:
+          - string
+          - 'null'
+          description: Country
+        addressCode:
+          type:
+          - string
+          - 'null'
+          description: Address Code
+        lockUNLOCO:
+          type: boolean
+        longitude:
           type:
           - number
           - 'null'
-          description: Value
+          description: Longitude
           format: double
-        unit:
+        latitude:
           type:
-          - string
+          - number
           - 'null'
-          description: Unit
-      additionalProperties: false
-    eDC.Web.Api.v2.Models.EventRequest:
-      type: object
-      properties:
-        module:
-          type:
-          - string
-          - 'null'
-        entityNumber:
-          type:
-          - string
-          - 'null'
-        secondaryNumber:
-          type:
-          - string
-          - 'null'
-        eventCode:
-          type:
-          - string
-          - 'null'
-        description:
-          type:
-          - string
-          - 'null'
-        eventDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        reasonCodes:
-          type:
-          - string
-          - 'null'
-        eventPlace:
-          type:
-          - string
-          - 'null'
-        eventSource:
-          type:
-          - string
-          - 'null'
-        qaIssueCode:
-          type:
-          - string
-          - 'null'
-        qaResponsibleParty:
-          type:
-          - string
-          - 'null'
-        stage:
-          type:
-          - string
-          - 'null'
-        qaIssueNotes:
-          type:
-          - string
-          - 'null'
-        qaIssueResolvedDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        vehicleRegistration:
-          type:
-          - string
-          - 'null'
-        driverName:
-          type:
-          - string
-          - 'null'
-        secondDriver:
-          type:
-          - string
-          - 'null'
-        note:
-          type:
-          - string
-          - 'null'
-        locationCode:
-          type:
-          - string
-          - 'null'
-        locationType:
-          type:
-          - string
-          - 'null'
-        reference:
-          type:
-          - string
-          - 'null'
-        intendedParties:
-          type:
-          - string
-          - 'null'
-        externalTrackingLink:
-          type:
-          - string
-          - 'null'
-        externalBookingNumber:
-          type:
-          - string
-          - 'null'
-        externalBookingSender:
-          type:
-          - string
-          - 'null'
-        customFields:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/eDC.Web.Api.v2.Models.CustomField'
-        references:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/eDC.Web.Api.v2.Models.EventReference'
-        transportLegs:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.JobConsol'
-        containers:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.JobContainer'
-      additionalProperties: false
-    eDC.Web.Api.v2.Models.Entities.AdditionalReference:
-      type: object
-      properties:
-        type:
-          type:
-          - string
-          - 'null'
-        description:
-          type:
-          - string
-          - 'null'
-        value:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    eDC.Web.Api.v2.Models.Entities.Company:
-      type: object
-      properties:
-        type:
-          type:
-          - string
-          - 'null'
-          description: Type
-        code:
-          type:
-          - string
-          - 'null'
-          description: Code
-        externalCode:
-          type:
-          - string
-          - 'null'
-          description: External Code
-        isActive:
-          type: boolean
-          description: Active
-        fullName:
-          type:
-          - string
-          - 'null'
-          description: Full Name
-        closestPort:
-          type:
-          - string
-          - 'null'
-          description: Closest Port
-        currency:
-          type:
-          - string
-          - 'null'
-          description: Currency
-        phoneNumber:
-          type:
-          - string
-          - 'null'
-          description: Phone Number
-        email:
-          type:
-          - string
-          - 'null'
-          description: Email
-        vatNumber:
-          type:
-          - string
-          - 'null'
-        registeredNumber:
-          type:
-          - string
-          - 'null'
-          description: Registered Number
-        ediCode:
-          type:
-          - string
-          - 'null'
-        address:
-          $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.Address'
-        contact:
-          $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.Contact'
-        additionalReferences:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.AdditionalReference'
+          description: Latitude
+          format: double
         dateModified:
           type:
           - string
           - 'null'
           description: Date Modified
+          format: date-time
+        userModified:
+          type:
+          - string
+          - 'null'
+          description: User Modified
+        dateCreated:
+          type:
+          - string
+          - 'null'
+          description: Creation Date
+          format: date-time
+        userCreated:
+          type:
+          - string
+          - 'null'
+          description: User creating the address
+      additionalProperties: false
+    eDC.Web.Api.v2.Models.Entities.GenCustomAddOnValue:
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+          description: Name
+        type:
+          type:
+          - string
+          - 'null'
+          description: Type
+        value:
+          type:
+          - string
+          - 'null'
+          description: Value
+        dateModified:
+          type:
+          - string
+          - 'null'
+          description: Date Modiefied
           format: date-time
         userModified:
           type:
@@ -1304,6 +1071,22 @@ components:
           - string
           - 'null'
           description: User Created
+      additionalProperties: false
+    eDC.Web.Api.v2.Models.CustomField:
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+        type:
+          type:
+          - string
+          - 'null'
+        value:
+          type:
+          - string
+          - 'null'
       additionalProperties: false
     eDC.Domain.Enums.ContainerState:
       enum:
@@ -1323,6 +1106,40 @@ components:
       - EmptyReturned
       type: string
       format: int32
+    eDC.Web.Api.v2.Models.EventReference:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+        value:
+          type:
+          - string
+          - 'null'
+        customField:
+          type: boolean
+        customFieldType:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    eDC.Web.Api.v2.Models.Entities.AdditionalReference:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+        description:
+          type:
+          - string
+          - 'null'
+        value:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
     eDC.Web.Api.v2.Models.Entities.JobConsol:
       type: object
       properties:
@@ -1635,96 +1452,238 @@ components:
           - 'null'
           description: User Created
       additionalProperties: false
-    eDC.Web.Api.v2.Models.EventReference:
+    eDC.Web.Api.v2.Models.EventRequest:
       type: object
       properties:
-        type:
+        module:
           type:
           - string
           - 'null'
-        value:
+        entityNumber:
           type:
           - string
           - 'null'
-        customField:
-          type: boolean
-        customFieldType:
+        secondaryNumber:
           type:
           - string
           - 'null'
+        eventCode:
+          type:
+          - string
+          - 'null'
+        description:
+          type:
+          - string
+          - 'null'
+        eventDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        reasonCodes:
+          type:
+          - string
+          - 'null'
+        eventPlace:
+          type:
+          - string
+          - 'null'
+        eventSource:
+          type:
+          - string
+          - 'null'
+        qaIssueCode:
+          type:
+          - string
+          - 'null'
+        qaResponsibleParty:
+          type:
+          - string
+          - 'null'
+        stage:
+          type:
+          - string
+          - 'null'
+        qaIssueNotes:
+          type:
+          - string
+          - 'null'
+        qaIssueResolvedDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        vehicleRegistration:
+          type:
+          - string
+          - 'null'
+        driverName:
+          type:
+          - string
+          - 'null'
+        secondDriver:
+          type:
+          - string
+          - 'null'
+        note:
+          type:
+          - string
+          - 'null'
+        locationCode:
+          type:
+          - string
+          - 'null'
+        locationType:
+          type:
+          - string
+          - 'null'
+        reference:
+          type:
+          - string
+          - 'null'
+        intendedParties:
+          type:
+          - string
+          - 'null'
+        externalTrackingLink:
+          type:
+          - string
+          - 'null'
+        externalBookingNumber:
+          type:
+          - string
+          - 'null'
+        externalBookingSender:
+          type:
+          - string
+          - 'null'
+        customFields:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/eDC.Web.Api.v2.Models.CustomField'
+        references:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/eDC.Web.Api.v2.Models.EventReference'
+        transportLegs:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.JobConsol'
+        containers:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.JobContainer'
       additionalProperties: false
-    eDC.Web.Api.v2.Models.Entities.GenCustomAddOnValue:
+    eDC.Web.Api.v2.Models.Entities.Event:
       type: object
       properties:
-        name:
+        eventCode:
           type:
           - string
           - 'null'
-          description: Name
-        type:
+          description: The unique event code - usually 3 chars, but can be 2 or more.
+        description:
           type:
           - string
           - 'null'
-          description: Type
-        value:
+          description: A description of the event code.
+        eventDate:
           type:
           - string
           - 'null'
-          description: Value
+          description: The date in which the event happened
+          format: date-time
+        reasonCodes:
+          type:
+          - string
+          - 'null'
+          description: Legacy, do not use.
+        eventPlace:
+          type:
+          - string
+          - 'null'
+          description: The place in which the event happened.
+        eventSource:
+          type:
+          - string
+          - 'null'
+          description: The source system that input the event.
+        qaIssueCode:
+          type:
+          - string
+          - 'null'
+        qaResponsibleParty:
+          type:
+          - string
+          - 'null'
+        stage:
+          type:
+          - string
+          - 'null'
+        qaIssueNotes:
+          type:
+          - string
+          - 'null'
+        qaIssueResolvedDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        vehicleRegistration:
+          type:
+          - string
+          - 'null'
+        driverName:
+          type:
+          - string
+          - 'null'
+        secondDriver:
+          type:
+          - string
+          - 'null'
+        locationType:
+          type:
+          - string
+          - 'null'
+          description: Options - Intermediate / Transit Customs / Destination Customs
+        qaIssueCodeDescription:
+          type:
+          - string
+          - 'null'
+        externalTrackingLink:
+          type:
+          - string
+          - 'null'
         dateModified:
           type:
           - string
           - 'null'
-          description: Date Modiefied
+          description: Date the event was modified - in general events cannot be modified but QA issues can be resolved.
           format: date-time
         userModified:
           type:
           - string
           - 'null'
-          description: User Modified
+          description: User who modified the event - in general events cannot be modified but QA issues can be resolved.
         dateCreated:
           type:
           - string
           - 'null'
-          description: Date Created
+          description: Date the event was input
           format: date-time
         userCreated:
           type:
           - string
           - 'null'
-          description: User Created
-      additionalProperties: false
-    eDC.Web.Api.v2.Models.Entities.Contact:
-      type: object
-      properties:
-        type:
-          type:
-          - string
-          - 'null'
-        name:
-          type:
-          - string
-          - 'null'
-        title:
-          type:
-          - string
-          - 'null'
-        phone:
-          type:
-          - string
-          - 'null'
-        mobile:
-          type:
-          - string
-          - 'null'
-        fax:
-          type:
-          - string
-          - 'null'
-        email:
-          type:
-          - string
-          - 'null'
+          description: User who input the event
       additionalProperties: false
     eDC.Web.Api.v2.Models.Entities.JobContainer:
       type: object
@@ -2076,81 +2035,75 @@ components:
           items:
             $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.Event'
       additionalProperties: false
-    eDC.Web.Api.v2.Models.Entities.Address:
+    eDC.Web.Api.v2.Models.Entities.Company:
       type: object
       properties:
-        name:
+        type:
           type:
           - string
           - 'null'
-          description: Name
-        address1:
+          description: Type
+        code:
           type:
           - string
           - 'null'
-          description: Address line 1
-        address2:
+          description: Code
+        externalCode:
           type:
           - string
           - 'null'
-          description: Address line 2
-        address3:
-          type:
-          - string
-          - 'null'
-          description: Address line 3
-        unloco:
-          type:
-          - string
-          - 'null'
-        nearestPort:
-          type:
-          - string
-          - 'null'
-        city:
-          type:
-          - string
-          - 'null'
-          description: City
-        state:
-          type:
-          - string
-          - 'null'
-          description: State
-        postCode:
-          type:
-          - string
-          - 'null'
-          description: Postal code
-        countryCode:
-          type:
-          - string
-          - 'null'
-          description: 2-Letter Country Code
-        country:
-          type:
-          - string
-          - 'null'
-          description: Country
-        addressCode:
-          type:
-          - string
-          - 'null'
-          description: Address Code
-        lockUNLOCO:
+          description: External Code
+        isActive:
           type: boolean
-        longitude:
+          description: Active
+        fullName:
           type:
-          - number
+          - string
           - 'null'
-          description: Longitude
-          format: double
-        latitude:
+          description: Full Name
+        closestPort:
           type:
-          - number
+          - string
           - 'null'
-          description: Latitude
-          format: double
+          description: Closest Port
+        currency:
+          type:
+          - string
+          - 'null'
+          description: Currency
+        phoneNumber:
+          type:
+          - string
+          - 'null'
+          description: Phone Number
+        email:
+          type:
+          - string
+          - 'null'
+          description: Email
+        vatNumber:
+          type:
+          - string
+          - 'null'
+        registeredNumber:
+          type:
+          - string
+          - 'null'
+          description: Registered Number
+        ediCode:
+          type:
+          - string
+          - 'null'
+        address:
+          $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.Address'
+        contact:
+          $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.Contact'
+        additionalReferences:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.AdditionalReference'
         dateModified:
           type:
           - string
@@ -2166,13 +2119,60 @@ components:
           type:
           - string
           - 'null'
-          description: Creation Date
+          description: Date Created
           format: date-time
         userCreated:
           type:
           - string
           - 'null'
-          description: User creating the address
+          description: User Created
+      additionalProperties: false
+    eDC.Web.Api.v2.Models.Entities.Contact:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+        name:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        phone:
+          type:
+          - string
+          - 'null'
+        mobile:
+          type:
+          - string
+          - 'null'
+        fax:
+          type:
+          - string
+          - 'null'
+        email:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    eDC.Web.Api.v2.Models.Entities.Measurement:
+      type: object
+      properties:
+        value:
+          type:
+          - number
+          - 'null'
+          description: Value
+          format: double
+        unit:
+          type:
+          - string
+          - 'null'
+          description: Unit
       additionalProperties: false
   securitySchemes:
     apiKeyHeader:

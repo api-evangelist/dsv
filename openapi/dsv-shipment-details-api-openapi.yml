@@ -17,13 +17,13 @@ paths:
       tags:
       - Shipment details
       summary: Shipment details by DSV Booking ID
-      description: 'Retrieve detailed shipment data for a specific shipment by searching the DSV booking ID received from API booking or bookings submitted via myDSV.<BR>
+      description: 'Retrieve detailed shipment data for a specific shipment by searching the DSV booking ID received from API booking or bookings submitted via myDSV.
 
-        <BR>
 
-        Authorization: client_id: api.demo@demo.dsv.com, client_secret: Demo12345</I> <BR><BR>
+        Authorization: client_id: api.demo@demo.dsv.com, client_secret: Demo12345
 
-        Sample Booking IDs: 40257145990010760574, 40257145990010760581 '
+
+        Sample Booking IDs: 40257145990010760574, 40257145990010760581'
       operationId: getShipmentByBookingId
       parameters:
       - name: bookingId
@@ -409,13 +409,15 @@ paths:
       tags:
       - Shipment details
       summary: Shipment details by DSV Shipment ID
-      description: 'Retrieve detailed shipment data for a specific shipment by searching the DSV Shipment ID.<BR>
+      description: 'Retrieve detailed shipment data for a specific shipment by searching the DSV Shipment ID.
 
-        <BR>
 
-        DEMO ACCOUNT<BR>Authorization: client_id: api.demo@demo.dsv.com, client_secret: Demo12345</I> <BR><BR>
+        DEMO ACCOUNT
 
-        Sample TMS IDs: SDSV0069726, SDSV0069727, SDFW0090209 '
+        Authorization: client_id: api.demo@demo.dsv.com, client_secret: Demo12345
+
+
+        Sample TMS IDs: SDSV0069726, SDSV0069727, SDFW0090209'
       operationId: getShipmentByTmsId
       parameters:
       - name: tmsId
@@ -1271,247 +1273,6 @@ paths:
     - url: https://api.dsv.com/my-demo/visibility/v1
 components:
   schemas:
-    TransportApiDto:
-      type: object
-      properties:
-        houseBillNumber:
-          type: string
-          description: Identification of the Bill of Lading issued by DSV to the customer
-        masterBillNumber:
-          type: string
-          description: Identification of the Bill of Lading issued by the carrier to DSV
-        awb:
-          type: string
-          description: Air Waybill Number used by the underlying express carrier
-        originName:
-          type: string
-          description: Name of the first departure port/airport
-        originCode:
-          type: string
-          description: UN location code of the first departure port/airport
-        destinationName:
-          type: string
-          description: Name of the last arrival port/airport
-        destinationCode:
-          type: string
-          description: UN location code of the last arrival port/airport
-        scac:
-          type: string
-          description: The Standard Carrier Alpha Code, or SCAC Code, is a two to four-letter code used to identify vessel operating common carriers (VOCC)
-        carrierBookingRef:
-          type: string
-          description: Booking references from the carrier
-      description: This section carries the information about the main transport and some directly associated parameters applicable for "Air", "Sea", "Rail" shipments.
-    IncotermsDTO:
-      type: object
-      properties:
-        code:
-          type: string
-          description: Incoterms® Code according to Incoterms® 2020 standard
-        location:
-          type: string
-          description: The location element specified as the collection/delivery
-      description: Incoterms® describe the rights and obligations applicable between the buyer and seller of the goods being transported. They set out when transfer of liability and control take place, who pays for what and who is liable in the event of any damage or loss of goods in transit. For more information check the Incoterms® Information on https://www.dsv.com/en/insights/expert-opinions/what-are-incoterms
-    EventApiDto:
-      required:
-      - cancelled
-      type: object
-      properties:
-        eventDate:
-          type: string
-          description: 'The date/time of the event at the location the event took place. Format: 2020-07-13T22:00:00.000+0000'
-          format: date-time
-        eventLastModified:
-          type: string
-          description: 'The date/time of when event was last modified. Format: 2020-07-13T22:00:00.000+0000'
-          format: date-time
-        eventGroup:
-          type: string
-          description: 'Name of event group:
-
-            - Booking - Group for events related to the booking
-
-            - Pickup - Group for events related to the pick up for Road shipments
-
-            - Pickup / Received - Group for events related to the pick up or received for Air and Sea Shipments
-
-            - Main transport - Group for events related to multi-leg shipments
-
-            - Import Customs - Group for events related to import customs
-
-            - Export customs - Group for events related to import customs
-
-            - Delivery - Group for events related to the delivery'
-        eventCode:
-          type: string
-          description: 'Event code as provided by the Transport Management System:
-
-            - ACT - Set shipment to active
-
-            - ATC - Attach to Console
-
-            - ARV - Actual arrival (last port/airport)
-
-            - BOOKING - Booking
-
-            - CANCEL - Cancelled
-
-            - CLR - Customs cleared
-
-            - DCF - Actual delivery
-
-            - DEP - Actual departure (first port/airport)
-
-            - DLV - Container delivered
-
-            - ESTIMATED_DELIVERY - Estimated delivery
-
-            - ESTIMATED_PICKUP - Estimated pickup
-
-            - ETA - Estimated arrival (last port/airport)
-
-            - ETD - Estimated departure (first port/airport)
-
-            - FLO - Freight loaded
-
-            - FUL - Freight unloaded
-
-            - GIC - Arrived at warehouse
-
-            - GIN - Gate In
-
-            - GOC - Departure at warehouse
-
-            - GOU - Gate Out
-
-            - HPD - Held in depot
-
-            - IGC - Trailer arrived at collection address
-
-            - IGD - Trailer arrived at delivery address
-
-            - INA - Set shipment to inactive
-
-            - IRP - Cargo received
-
-            - NCE - No pickup at customer
-
-            - NDE - Not delivered at customer
-
-            - OFD - Out for delivery
-
-            - PCF - Actual pickup
-
-            - PUP - Container picked up
-
-            - REQUESTED_DELIVERY - Requested delivery
-
-            - REQUESTED_PICKUP - Requested pickup
-
-            - Z70 - Handover responsibility of cargo
-
-            - Z71 - Customs reported
-
-            - Z73 - Handover of cargo
-
-            - Z74 - Handover of documents
-
-            - RTC - Receipt Commenced
-
-            - CAV - Cargo Available
-
-            - Z72 - Customs Hold
-
-            - DOR - Delivery Order Received
-
-            - CCC - Customs Commenced
-
-            - DDI (POD) - Document Imported - POD
-
-            - DDI (CUI) - Clearance Instructions Received
-
-            - ECM - Export Customs Commenced
-
-            - ECC - Export Customs Cleared'
-        eventDescription:
-          type: string
-          description: Description of the event code
-        eventType:
-          type: string
-          description: "The associated element of this event:\n- SHIPMENT -  DSV Shipment level event, \n- CONTAINER - Container level event (only \"Sea\" and \"Rail\" shipments), \n- COLLI - Package level event (only \"Road\" shipments)"
-        eventTypeValue:
-          type: string
-          description: ID of the shipment, container or package
-        location:
-          $ref: '#/components/schemas/LocationApiDto'
-        transportMode:
-          type: string
-          description: Mode of transport in case of multi-leg transport
-        vesselName:
-          type: string
-          description: Vessel name in case of multi-leg transport
-        voyageFlightNo:
-          type: string
-          description: Flight or vessel ID in case of multi-leg transport
-        cargoCutOff:
-          type: string
-          description: Cut off date and time of when the shipment must be ready in the port
-          format: date-time
-        cargoAvailability:
-          type: string
-          description: Cargo availability date
-          format: date-time
-        cancelled:
-          type: boolean
-          description: Indicates if the event has been cancelled
-        docsDue:
-          type: string
-          description: Documents due deadline
-          format: date-time
-        vgmCutOff:
-          type: string
-          description: The date and time when the verified gross mass check must be completed
-          format: date-time
-      description: Track and trace events
-    CustomsApiDto:
-      required:
-      - entryNumber
-      type: object
-      properties:
-        shippedOnboardDate:
-          type: string
-          description: Date when the cargo was loaded on the Vessel at the Port of Loading mentioned on the Bill of Lading
-        customsStatus:
-          type: string
-          description: "Customs status:\n- CLR - Import customs cleared\n- Z72 - Customs hold\n- CCC - Import customs commenced\n- ECC - Export customs cleared\n - ECM - Export customs commenced"
-        entryNumber:
-          type: array
-          items:
-            type: string
-            description: Customs Entry reference given by Customs authority in the local customs process
-          description: Customs Entry reference given by Customs authority in the local customs process
-        forwarder:
-          $ref: '#/components/schemas/BaseParty'
-        removalMode:
-          type: string
-          description: Mode of transport for a transit into another country
-      description: Customs data
-    FieldDTO:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Error name
-          example: field_name
-        message:
-          type: string
-          description: Description of error
-          example: validation error
-        code:
-          type: string
-          description: Type of error
-          example: ERR12345
-      description: Field
     Pickup:
       type: object
       properties:
@@ -1520,19 +1281,25 @@ components:
         contact:
           $ref: '#/components/schemas/ContactPerson'
       description: Name and address of the party shipment is picked up.
-    Party:
-      required:
-      - role
+    DevelopmentDTO:
+      type: object
+      properties:
+        message:
+          type: string
+          description: verbose, plain language description of the problem for the app developer with hints on how to fix it
+        exception:
+          type: string
+          description: dump from exception
+      description: Development
+      deprecated: true
+    Carrier:
       type: object
       properties:
         address:
           $ref: '#/components/schemas/Address'
         contact:
           $ref: '#/components/schemas/ContactPerson'
-        role:
-          type: string
-          description: Business role of the party
-      description: Reserved for future use.
+      description: Name and address of the carrier
     ProductApiDto:
       required:
       - name
@@ -1605,205 +1372,6 @@ components:
             - FAS = First air then sea'
           example: FAS
       description: The product section carries the information about the main transport mode and some directly associated parameters, if any.
-    DateTimeSection:
-      type: object
-      properties:
-        pickupTime:
-          $ref: '#/components/schemas/DateTimeRange'
-        deliveryTime:
-          $ref: '#/components/schemas/DateTimeRange'
-      description: Date and time specification for the shipment
-    TypeValueDTO:
-      type: object
-      properties:
-        type:
-          type: string
-          description: 'Type of reference: <ul><li>INVOICING_REFERENCE</li><li>ORDER_NUMBER</li><li>CONSIGNEE_REFERENCE</li><li>SHIPPER_REFERENCE</li><li>CUSTOMS_REFERENCE</li><li>OTHER</li><li>ROUTING</li></ul>'
-        value:
-          type: string
-          description: Reference value
-      description: References that can be used to identify linked information. It is allowed to send several references of the same reference type.
-    FreightPayer:
-      type: object
-      properties:
-        address:
-          $ref: '#/components/schemas/Address'
-        contact:
-          $ref: '#/components/schemas/ContactPerson'
-      description: Name and address of the party that receives the freight invoice.
-    Notify:
-      type: object
-      properties:
-        address:
-          $ref: '#/components/schemas/Address'
-        contact:
-          $ref: '#/components/schemas/ContactPerson'
-      description: Name and address of the party who will be notified
-    Sender:
-      type: object
-      properties:
-        address:
-          $ref: '#/components/schemas/Address'
-        contact:
-          $ref: '#/components/schemas/ContactPerson'
-      description: 'Name and address of the party sending the goods (shipper).
-
-        If address is not already available, it will be created from supplied address data.'
-    BaseParty:
-      type: object
-      properties:
-        address:
-          $ref: '#/components/schemas/Address'
-        contact:
-          $ref: '#/components/schemas/ContactPerson'
-      description: The forwarder responsible for the transport
-    DangerousGoodsDTO:
-      type: object
-      properties:
-        className:
-          type: string
-          description: 'The UN className can be derived from the mandatory unCode.
-
-            If this value is supplied, it will match the UN className that is stored for the unCode.'
-        subRisk:
-          type: string
-          description: 'The UN subRisk can be derived from the mandatory unCode.
-
-            If this value is supplied, it will match the UN subRisk that is stored for the unCode.'
-        flashPoint:
-          type: number
-          description: 'The flashPoint will be provided in the "Unit of Measure" selected for temperature in the units object.
-
-            This can only be used for dangerous goods type = "IMDG".
-
-            This value can be mandatory depending on the UN code.'
-        limitedQuantity:
-          type: boolean
-          description: This value can be mandatory depending on the UN code.
-        marinePollutant:
-          type: boolean
-          description: This value can be mandatory depending on the UN code.
-        packingGroup:
-          type: string
-          description: This value can be mandatory depending on the UN code.
-        properShippingName:
-          type: string
-          description: 'The UN properShippingName can be derived from the mandatory unCode.
-
-            If this value is supplied, it will match the UN properShippingName that is stored for the provided unCode.'
-        technicalName:
-          type: string
-          description: This value can be mandatory depending on the UN code.
-        technicalNameNational:
-          type: string
-          description: This value can be mandatory depending on the UN code.
-        temperatureFrom:
-          type: number
-          description: This value can be mandatory depending on the UN code.
-        temperatureTo:
-          type: number
-          description: This value can be mandatory depending on the UN code.
-        type:
-          type: string
-          description: 'Classification type used for the declaration
-
-            - ADR = According to "Agreement concerning the International Carriage of Dangerous Goods by Road".
-
-            - IMDG = According to "International Maritime Dangerous Goods Code".
-
-            - IATA = According to "International Air Transport Association (IATA) Dangerous Goods Regulations (DGR)"'
-        unCode:
-          type: integer
-          description: The UN code identifying the Dangerous Goods.
-          format: int32
-        tunnelCode:
-          type: string
-          description: This value can be mandatory depending on the UN code.
-        packagesCount:
-          type: integer
-          description: Number of Packages containing these dangerous goods
-          format: int32
-        packingKind:
-          enum:
-          - BAG
-          - BOX
-          - CAN
-          - DRUM
-          - IBC
-          - JERRY
-          - CP
-          - LGM
-          - BOB
-          - PD
-          - SB
-          - DRM
-          - JCN
-          type: string
-          description: 'Package type containing these dangerous goods. Possible values are:
-
-            - BAG - Bag
-
-            - BOX - Carton / Box
-
-            - IBC - Intermediate Bulk Container
-
-            - CP - Composite Packaging
-
-            - LGM - Light Gauge Metal Packaging
-
-            - BOB - Bundle of Bottles
-
-            - PD - Pressure Drum
-
-            - SB - Steel Bottle
-
-            - DRM - Drum
-
-            - JCN - Jerry Can'
-        netQuantity:
-          type: number
-          description: Net quantity of the dangerous goods
-        netQuantityUnit:
-          enum:
-          - KG
-          - M3
-          - DM3
-          - CM
-          - M
-          - LM
-          - LTR
-          - C
-          - LB
-          - FT3
-          - IN
-          - FT
-          - F
-          type: string
-          description: Quantity unit of the dangerous goods
-        grossQuantity:
-          type: number
-          description: Gross quantity of the dangerous goods
-        grossQuantityUnit:
-          enum:
-          - KG
-          - M3
-          - DM3
-          - CM
-          - M
-          - LM
-          - LTR
-          - C
-          - LB
-          - FT3
-          - IN
-          - FT
-          - F
-          type: string
-          description: Quantity unit of the dangerous goods
-        empty:
-          type: boolean
-          description: True / False
-      description: This section contains the details of the dangerous goods in the booking/shipment.
     LocationApiDto:
       type: object
       properties:
@@ -1817,261 +1385,6 @@ components:
           type: string
           description: Associated location name
       description: Event location details
-    LocalTime:
-      type: object
-      properties:
-        hour:
-          type: integer
-          format: int32
-        minute:
-          type: integer
-          format: int32
-        second:
-          type: integer
-          format: int32
-        nano:
-          type: integer
-          format: int32
-      description: The requested pickup/delivery time (end of time window) using the 24 hours format hh:mm:ss
-      example: '14:15:00'
-    DocumentDto:
-      required:
-      - documentId
-      - documentType
-      - downloadUrl
-      - fileName
-      - fileType
-      - typeDescription
-      type: object
-      properties:
-        documentId:
-          type: string
-          description: Document ID
-        documentType:
-          type: string
-          description: "Proof of delivery (POD), \nCommercial Invoice, \nOther goods documents, \nCustoms declaration, \nDangerous goods documents, \nPacking list, \nHouse bill of lading"
-        typeDescription:
-          type: string
-          description: Description of the document type
-        createDate:
-          type: string
-          description: Date of creation
-          format: date-time
-        fileName:
-          type: string
-          description: File name
-        fileType:
-          type: string
-          description: File type
-        downloadUrl:
-          type: string
-          description: URL for file download
-      description: This section contains all document details of Profs of delivery.
-    Carrier:
-      type: object
-      properties:
-        address:
-          $ref: '#/components/schemas/Address'
-        contact:
-          $ref: '#/components/schemas/ContactPerson'
-      description: Name and address of the carrier
-    IssueAPI:
-      type: object
-      properties:
-        issueDate:
-          type: string
-          description: Date when the issue has occurred (or spotted)
-          format: date-time
-        issuePointCode:
-          type: string
-          description: 'Place code where the issue occurred:
-
-            - PRODPLAN - Production Planning
-
-            - PROD - Production
-
-            - POST - Post-Delivery
-
-            - PIC - Origin/Pick up
-
-            - TRAN - Main transport
-
-            - DEL - Destination/Delivery
-
-            - BOOK - Booking'
-        issuePointDescription:
-          type: string
-          description: Place where the issue occurred
-        issuePartyCode:
-          type: string
-          description: 'Party code who caused the issue:- TERMIN - Terminal
-
-            - SHPR - Shipper
-
-            - SUP - Pickup From/Supplier
-
-            - HAUL - Haulier/Trucker
-
-            - FM - Force Majeure
-
-            - DSV - DSV
-
-            - DELV - Deliver To
-
-            - CUS - Consignee/Buyer
-
-            - CAR - Carrier
-
-            - BRO - Broker
-
-            - AUT - Authorities
-
-            - 3PARTY - 3rd Party'
-        issuePartyDescription:
-          type: string
-          description: Party who caused the issue
-        issueTypeCode:
-          type: string
-          description: 'Coded categorization of the issue:- UND - Underload
-
-            - SAFETY - Safety
-
-            - PRDQU - Product Quality
-
-            - PRDAV - Product Availability
-
-            - OVR - Overload
-
-            - MISSING - Missing
-
-            - LATE - Late
-
-            - INV - Invoicing
-
-            - EARLY - Early
-
-            - DOC - Documentation / Administration
-
-            - DMG - Damage (use notes for detailed information)
-
-            - OTH - Other
-
-            - TMP - Temperature
-
-            - QRTO - Quarantine Open
-
-            - QRTC - Quarantine Closed'
-        issueTypeDescription:
-          type: string
-          description: Categorization of the issue
-        issueReasonCode:
-          type: string
-          description: 'Coded reason why the issue occurred:- ACC - Accident, Theft and Vandalism
-
-            - BANK - Bank Holiday
-
-            - COM - Communication/Incorrect Instructions
-
-            - COST - Cost Approval
-
-            - DEST - DSV Destination Process/Query
-
-            - DOCS - Document(s)
-
-            - ECOND - Equipment Condition/Type
-
-            - EQU - Equipment Breakdown
-
-            - HUM - Human Error/Incorrect Handling
-
-            - IMPROP - Improper Packaging/Labeling
-
-            - INS - Inspection / Excessive Customs Process
-
-            - IT - IT
-
-            - LACKEQ - Lack of Equipment
-
-            - LATEINS - Late Instruction/Communication
-
-            - MISROUTE - Change in Schedule/Misrouting
-
-            - NON - Non Availability
-
-            - ORIG - DSV Origin Process/Query
-
-            - PROD - Faulty product
-
-            - PST - Postponed
-
-            - RAW - Lack of raw material
-
-            - REJECT - Rejection
-
-            - RSC - Resources
-
-            - SLP - Sales process
-
-            - SOP - Operating Procedure
-
-            - SPOT - None Contractual Shipment/Spot Shipment
-
-            - STR - Strike
-
-            - TRF - Traffic
-
-            - TTNOT - Agreed Transittime Not Achievable
-
-            - UNS - Unsafe Conditions
-
-            - UPR - Upon Request
-
-            - WAR - War
-
-            - WTH - Weather/Nature'
-        issueReasonDescription:
-          type: string
-          description: Reason why the issue occurred
-        issueNotes:
-          type: string
-          description: Additional information about the issue (max 100 characters)
-        issueResolved:
-          type: string
-          description: Date when the issue was resolved
-          format: date-time
-      description: This section contains Issues details from the booking/shipment.
-    DevelopmentDTO:
-      type: object
-      properties:
-        message:
-          type: string
-          description: verbose, plain language description of the problem for the app developer with hints on how to fix it
-        exception:
-          type: string
-          description: dump from exception
-      description: Development
-      deprecated: true
-    ContactPerson:
-      required:
-      - name
-      type: object
-      properties:
-        name:
-          maxLength: 34
-          type: string
-          description: Name of the contact person
-          example: Test Name
-        email:
-          maxLength: 34
-          type: string
-          description: Email address of the contact person
-          example: testemail@testcompany.com
-        telephone:
-          maxLength: 16
-          type: string
-          description: Phone number of the contact person.
-          example: '+4512345678'
-      description: All fields related to Contact Person e.g. Name, Phone, email
     ShipmentDetailsAPI:
       required:
       - childShipmentIds
@@ -2193,6 +1506,212 @@ components:
           type: string
           description: Reference qualifier
       description: This section contains Package identifier details from  the booking/shipment.
+    Parties:
+      required:
+      - bookingParty
+      - receiver
+      - sender
+      type: object
+      properties:
+        sender:
+          $ref: '#/components/schemas/Sender'
+        receiver:
+          $ref: '#/components/schemas/Receiver'
+        delivery:
+          $ref: '#/components/schemas/Delivery'
+        pickup:
+          $ref: '#/components/schemas/Pickup'
+        notify:
+          $ref: '#/components/schemas/Notify'
+        freightPayer:
+          $ref: '#/components/schemas/FreightPayer'
+        bookingParty:
+          $ref: '#/components/schemas/BookingParty'
+        carrier:
+          $ref: '#/components/schemas/Carrier'
+        party:
+          type: array
+          items:
+            $ref: '#/components/schemas/Party'
+          description: reserved for future use
+      description: Contains all parties involved in the booking. See the party definition section for more details.
+    Delivery:
+      type: object
+      properties:
+        address:
+          $ref: '#/components/schemas/Address'
+        contact:
+          $ref: '#/components/schemas/ContactPerson'
+      description: Name and address of the party where shipment is delivered
+    DateTimeSection:
+      type: object
+      properties:
+        pickupTime:
+          $ref: '#/components/schemas/DateTimeRange'
+        deliveryTime:
+          $ref: '#/components/schemas/DateTimeRange'
+      description: Date and time specification for the shipment
+    Notify:
+      type: object
+      properties:
+        address:
+          $ref: '#/components/schemas/Address'
+        contact:
+          $ref: '#/components/schemas/ContactPerson'
+      description: Name and address of the party who will be notified
+    TypeValueDTO:
+      type: object
+      properties:
+        type:
+          type: string
+          description: 'Type of reference: <ul><li>INVOICING_REFERENCE</li><li>ORDER_NUMBER</li><li>CONSIGNEE_REFERENCE</li><li>SHIPPER_REFERENCE</li><li>CUSTOMS_REFERENCE</li><li>OTHER</li><li>ROUTING</li></ul>'
+        value:
+          type: string
+          description: Reference value
+      description: References that can be used to identify linked information. It is allowed to send several references of the same reference type.
+    DateTimeRange:
+      required:
+      - date
+      type: object
+      properties:
+        date:
+          type: string
+          description: The requested pickup/delivery date using the format YYYY-MM-DD
+          format: date
+          example: '2020-08-30'
+        start:
+          $ref: '#/components/schemas/LocalTime'
+        end:
+          $ref: '#/components/schemas/LocalTime'
+      description: Date with time range. Used e.g., for Pickup Date and Time.
+    TransportApiDto:
+      type: object
+      properties:
+        houseBillNumber:
+          type: string
+          description: Identification of the Bill of Lading issued by DSV to the customer
+        masterBillNumber:
+          type: string
+          description: Identification of the Bill of Lading issued by the carrier to DSV
+        awb:
+          type: string
+          description: Air Waybill Number used by the underlying express carrier
+        originName:
+          type: string
+          description: Name of the first departure port/airport
+        originCode:
+          type: string
+          description: UN location code of the first departure port/airport
+        destinationName:
+          type: string
+          description: Name of the last arrival port/airport
+        destinationCode:
+          type: string
+          description: UN location code of the last arrival port/airport
+        scac:
+          type: string
+          description: The Standard Carrier Alpha Code, or SCAC Code, is a two to four-letter code used to identify vessel operating common carriers (VOCC)
+        carrierBookingRef:
+          type: string
+          description: Booking references from the carrier
+      description: This section carries the information about the main transport and some directly associated parameters applicable for "Air", "Sea", "Rail" shipments.
+    Battery:
+      type: object
+      properties:
+        batteryType:
+          enum:
+          - DRY
+          - LITHIUM
+          type: string
+          description: Battery type
+        batteryPackageType:
+          enum:
+          - IN_EQUIPMENT
+          - SEPARATE
+          - WITH_EQUIPMENT
+          type: string
+          description: Battery Package type
+      description: Battery information
+    GoodsApiDto:
+      type: object
+      properties:
+        grossWeightUom:
+          type: string
+          description: "Unit of measure for total weight\n - KG = Kilo\n - LB = Pound"
+        grossWeightValue:
+          type: number
+          description: Total gross weight of this shipment (summary off all package lines).
+        loadingMetersUom:
+          type: string
+          description: "Unit of measure for total loading meters\n - LM = Load Meter"
+        loadingMetersValue:
+          type: number
+          description: Total loading meters of this shipment (summary off all package lines).
+        quantityUom:
+          type: string
+          description: Unit of measure for total quantity
+        quantityValue:
+          type: number
+          description: Total quantity of this shipment (summary off all package lines).
+        volumeUom:
+          type: string
+          description: 'Unit of measure for total volume
+
+            - M3 = Cubic meter
+
+            - DM3 = Cubic decimetre
+
+            - LTR = Liter
+
+            - FT3 = Cubic feet'
+        volumeValue:
+          type: number
+          description: Total volume of this shipment (summary off all package lines).
+        description:
+          type: string
+          description: Description of the goods / commodity
+        chargeableWeight:
+          type: number
+          description: The volumetric weight (based on dimension and a given factor) can be higher than the actual cargo weight.
+        chargeableWeightUOM:
+          type: string
+          description: 'Weight UOM:
+
+            - KG = Kilo
+
+            - LB = Pound'
+        chargeableVolume:
+          type: number
+          description: The volume used for charges (based on dimension and a given factor) can be higher than the actual cargo volume.
+        chargeableVolumeUOM:
+          type: string
+          description: 'Volume UOM:
+
+            - M3 = Cubic meter
+
+            - DM3 = Cubic decimetre
+
+            - LTR = Liter
+
+            - FT3 = Cubic feet'
+      description: This section contains the details of the  goods from the booking/shipment.
+    LocalTime:
+      type: object
+      properties:
+        hour:
+          type: integer
+          format: int32
+        minute:
+          type: integer
+          format: int32
+        second:
+          type: integer
+          format: int32
+        nano:
+          type: integer
+          format: int32
+      description: The requested pickup/delivery time (end of time window) using the 24 hours format hh:mm:ss
+      example: '14:15:00'
     Container:
       type: object
       properties:
@@ -2325,408 +1844,42 @@ components:
           description: Maximum temperature allowed for moving the content in this container.Only available for reefer container types. UOM as specified in section “unitOfMeasure”. Accepted format decimal(3.1)
           example: -20
       description: Specify the required containers of a certain type. Additional attributes can be submitted for certain container types. More details on container types can be found at https://www.dsv.com/en/our-solutions/modes-of-transport/sea-freight/shipping-container-dimensions
-    BookingParty:
+    FieldDTO:
       type: object
       properties:
-        address:
-          $ref: '#/components/schemas/Address'
-        contact:
-          $ref: '#/components/schemas/ContactPerson'
-      description: Name and address of the party that created the booking.
-    DateTimeRange:
-      required:
-      - date
-      type: object
-      properties:
-        date:
+        name:
           type: string
-          description: The requested pickup/delivery date using the format YYYY-MM-DD
-          format: date
-          example: '2020-08-30'
-        start:
-          $ref: '#/components/schemas/LocalTime'
-        end:
-          $ref: '#/components/schemas/LocalTime'
-      description: Date with time range. Used e.g., for Pickup Date and Time.
-    GoodsApiDto:
-      type: object
-      properties:
-        grossWeightUom:
+          description: Error name
+          example: field_name
+        message:
           type: string
-          description: "Unit of measure for total weight\n - KG = Kilo\n - LB = Pound"
-        grossWeightValue:
-          type: number
-          description: Total gross weight of this shipment (summary off all package lines).
-        loadingMetersUom:
+          description: Description of error
+          example: validation error
+        code:
           type: string
-          description: "Unit of measure for total loading meters\n - LM = Load Meter"
-        loadingMetersValue:
-          type: number
-          description: Total loading meters of this shipment (summary off all package lines).
-        quantityUom:
-          type: string
-          description: Unit of measure for total quantity
-        quantityValue:
-          type: number
-          description: Total quantity of this shipment (summary off all package lines).
-        volumeUom:
-          type: string
-          description: 'Unit of measure for total volume
-
-            - M3 = Cubic meter
-
-            - DM3 = Cubic decimetre
-
-            - LTR = Liter
-
-            - FT3 = Cubic feet'
-        volumeValue:
-          type: number
-          description: Total volume of this shipment (summary off all package lines).
-        description:
-          type: string
-          description: Description of the goods / commodity
-        chargeableWeight:
-          type: number
-          description: The volumetric weight (based on dimension and a given factor) can be higher than the actual cargo weight.
-        chargeableWeightUOM:
-          type: string
-          description: 'Weight UOM:
-
-            - KG = Kilo
-
-            - LB = Pound'
-        chargeableVolume:
-          type: number
-          description: The volume used for charges (based on dimension and a given factor) can be higher than the actual cargo volume.
-        chargeableVolumeUOM:
-          type: string
-          description: 'Volume UOM:
-
-            - M3 = Cubic meter
-
-            - DM3 = Cubic decimetre
-
-            - LTR = Liter
-
-            - FT3 = Cubic feet'
-      description: This section contains the details of the  goods from the booking/shipment.
-    PackageDTO:
-      required:
-      - type
-      type: object
-      properties:
-        stackable:
-          type: object
-          description: "- STACKABLE = the goods could be stacked\n- STACKED = the goods were stacked prior to pickup. \n- NO = the goods were not stackable."
-        length:
-          type: number
-          description: 'Dimension of single package in UOM: length'
-        lengthUOM:
-          type: string
-          description: This element specifies the units of measure (UOM) applied to length measurement
-        loadingMeters:
-          type: number
-          description: Loading meter is one meter of length of goods on a trailer. This is only available for product "Road"
-        palletSpace:
-          type: integer
-          description: Number of pallets on the ground floor (e.g. if 6 pallets are stacked 2 by 2, palletSpace will be equal to 3). This is only available for product "Road"
-          format: int32
-        grossWeight:
-          type: number
-          description: Total gross weight for this package line.
-        netWeight:
-          type: number
-          description: Net weight for this package line.
-        quantity:
-          type: integer
-          description: Number of packages in this package line
-          format: int32
-        totalVolume:
-          type: number
-          description: Total volume of this package line.
-        volumeUOM:
-          type: string
-          description: This section is used to specify the units of measure (UOM) applied to Volume measurement
-        totalWeight:
-          type: number
-          description: Total weight for this package line.
-        width:
-          type: number
-          description: 'Dimension of single package in UOM: width'
-        widthUOM:
-          type: string
-          description: This section is used to specify the units of measure (UOM) applied to Width measurement
-        height:
-          type: number
-          description: 'Dimension of single package in UOM: height'
-        heightUOM:
-          type: string
-          description: This section is used to specify the units of measure (UOM) applied to height measurement
-        packageType:
-          enum:
-          - P100
-          - P1A
-          - P1B
-          - P1G
-          - P1H
-          - P3A
-          - P3H
-          - P4A
-          - P4C
-          - P4D
-          - P4G
-          - P4H
-          - P4N
-          - P5H
-          - P5M
-          - BAG
-          - BAL
-          - BBA
-          - BBG
-          - BBK
-          - BIN
-          - BLC
-          - BND
-          - BOB
-          - BOK
-          - BOT
-          - BOX
-          - BSK
-          - BUL
-          - CAG
-          - CAN
-          - CAR
-          - CAS
-          - CDB
-          - CLL
-          - COI
-          - CON
-          - CRD
-          - CRT
-          - CTN
-          - CYL
-          - DRM
-          - EA
-          - ENV
-          - EUP
-          - EUR
-          - EWP
-          - GIB
-          - HPL
-          - IBC
-          - IPL
-          - ISO
-          - JCN
-          - KPL
-          - LD7
-          - LOAD
-          - LOD
-          - LD
-          - LOT
-          - MIX
-          - PAI
-          - PCE
-          - PKG
-          - PLB
-          - PLL
-          - PLP
-          - PLT
-          - PLY
-          - PPL
-          - PSP
-          - PXL
-          - QPL
-          - RAC
-          - RCT
-          - REF
-          - REL
-          - RLL
-          - ROR
-          - SAK
-          - SET
-          - SHT
-          - SKD
-          - SPL
-          - TAN
-          - TMC
-          - TOT
-          - TRY
-          - TUB
-          - UCR
-          - UCT
-          - UNP
-          - UNT
-          - UPL
-          - UTO
-          - VEH
-          - WDB
-          - WDC
-          - WDP
-          - WDR
-          type: string
-          description: Package type used for this package line.
-        temperatureMin:
-          type: integer
-          description: Minimum level temperature requirement for temperature controlled cargo.
-          format: int64
-        temperatureMax:
-          type: integer
-          description: Maximum level temperature requirement for temperature controlled cargo.
-          format: int64
-        description:
-          type: string
-          description: Package level cargo description
-        shippingMarks:
-          type: string
-          description: Package level Marks and Numbers (only "Road" shipments)
-        shippingMarksList:
-          type: array
-          items:
-            type: string
-            description: Package level Marks and Numbers list (only "Air" and "Sea"  shipments)
-          description: Package level Marks and Numbers list (only "Air" and "Sea"  shipments)
-        harmonizedCodes:
-          type: array
-          items:
-            type: string
-            description: Package level Harmonized Codes (HS Codes)
-          description: Package level Harmonized Codes (HS Codes)
-        isDangerous:
-          type: boolean
-          description: If the content of this package line is classified as dangerous goods this field will be set to "true".
-        dangerous:
-          type: array
-          items:
-            $ref: '#/components/schemas/DangerousGoodsDTO'
-          description: This section contains the details of the dangerous goods.
-        containerNo:
-          type: integer
-          description: Reference to an FCL container line (see container section above), this is only to be used for products "Sea" and "Rail".
-          format: int32
-        trackingNumbers:
-          type: array
-          items:
-            type: string
-            description: SSCC tracking number for the package element.
-          description: SSCC tracking number for the package element.
-        cargoAircraftOnly:
-          type: boolean
-          description: Only used for dangerous goods packages, only used for product "Air"
-        temperatureControlled:
-          type: boolean
-          description: If the goods required a certain temperature (or temperature range) during transport it will be set to "true"
-        goodsType:
-          type: string
-          description: Goods type
-        battery:
-          $ref: '#/components/schemas/Battery'
-        referenceNumber:
-          type: string
-          description: Package reference number
-        references:
-          type: array
-          items:
-            $ref: '#/components/schemas/PackageIdentifierDTO'
-          description: References sent along with the booking that can be later on used to identify linked information.
-        type:
-          type: string
-      description: All package details in the booking/shipment.
-      discriminator:
-        propertyName: type
-    ErrorDTO:
-      required:
-      - code
-      - message
+          description: Type of error
+          example: ERR12345
+      description: Field
+    ServiceLevelDTO:
       type: object
       properties:
         code:
           type: string
-          description: Unique error code
-          example: ERR12345
-        message:
+          description: Service level code
+        description:
           type: string
-          description: Error message passed to the user
-          example: 'Not found booking: 40257145990010785188'
-        fields:
-          type: array
-          items:
-            $ref: '#/components/schemas/FieldDTO'
-          description: List of fields that didn't pass validation
-        development:
-          $ref: '#/components/schemas/DevelopmentDTO'
-      description: Error
-    Receiver:
+          description: Service level description
+      description: This section contains details on the requested service level from the "Air", "Sea" or "Rail" booking/shipment
+    Sender:
       type: object
       properties:
         address:
           $ref: '#/components/schemas/Address'
         contact:
           $ref: '#/components/schemas/ContactPerson'
-      description: Name and address of the party receiving the shipment (consignee).
-    ContainerSummaryDTO:
-      type: object
-      properties:
-        containerNumber:
-          type: string
-          description: Container Number
-        containerType:
-          type: string
-          description: Container type
-        sealNumber:
-          type: string
-          description: Seal Number
-        slotDate:
-          type: string
-          description: 'Slot Date. Format: 2020-07-13T22:00:00.000+0000'
-          format: date-time
-      description: Summary of container information
-    Battery:
-      type: object
-      properties:
-        batteryType:
-          enum:
-          - DRY
-          - LITHIUM
-          type: string
-          description: Battery type
-        batteryPackageType:
-          enum:
-          - IN_EQUIPMENT
-          - SEPARATE
-          - WITH_EQUIPMENT
-          type: string
-          description: Battery Package type
-      description: Battery information
-    Parties:
-      required:
-      - bookingParty
-      - receiver
-      - sender
-      type: object
-      properties:
-        sender:
-          $ref: '#/components/schemas/Sender'
-        receiver:
-          $ref: '#/components/schemas/Receiver'
-        delivery:
-          $ref: '#/components/schemas/Delivery'
-        pickup:
-          $ref: '#/components/schemas/Pickup'
-        notify:
-          $ref: '#/components/schemas/Notify'
-        freightPayer:
-          $ref: '#/components/schemas/FreightPayer'
-        bookingParty:
-          $ref: '#/components/schemas/BookingParty'
-        carrier:
-          $ref: '#/components/schemas/Carrier'
-        party:
-          type: array
-          items:
-            $ref: '#/components/schemas/Party'
-          description: reserved for future use
-      description: Contains all parties involved in the booking. See the party definition section for more details.
+      description: 'Name and address of the party sending the goods (shipper).
+
+        If address is not already available, it will be created from supplied address data.'
     Address:
       type: object
       properties:
@@ -3044,14 +2197,820 @@ components:
           type: string
           description: Information about the sender/pickup being an approved shipper. Only available for transport modes "Air".
       description: All fields related to the address of the business partner.
-    Delivery:
+    BookingParty:
       type: object
       properties:
         address:
           $ref: '#/components/schemas/Address'
         contact:
           $ref: '#/components/schemas/ContactPerson'
-      description: Name and address of the party where shipment is delivered
+      description: Name and address of the party that created the booking.
+    IssueAPI:
+      type: object
+      properties:
+        issueDate:
+          type: string
+          description: Date when the issue has occurred (or spotted)
+          format: date-time
+        issuePointCode:
+          type: string
+          description: 'Place code where the issue occurred:
+
+            - PRODPLAN - Production Planning
+
+            - PROD - Production
+
+            - POST - Post-Delivery
+
+            - PIC - Origin/Pick up
+
+            - TRAN - Main transport
+
+            - DEL - Destination/Delivery
+
+            - BOOK - Booking'
+        issuePointDescription:
+          type: string
+          description: Place where the issue occurred
+        issuePartyCode:
+          type: string
+          description: 'Party code who caused the issue:- TERMIN - Terminal
+
+            - SHPR - Shipper
+
+            - SUP - Pickup From/Supplier
+
+            - HAUL - Haulier/Trucker
+
+            - FM - Force Majeure
+
+            - DSV - DSV
+
+            - DELV - Deliver To
+
+            - CUS - Consignee/Buyer
+
+            - CAR - Carrier
+
+            - BRO - Broker
+
+            - AUT - Authorities
+
+            - 3PARTY - 3rd Party'
+        issuePartyDescription:
+          type: string
+          description: Party who caused the issue
+        issueTypeCode:
+          type: string
+          description: 'Coded categorization of the issue:- UND - Underload
+
+            - SAFETY - Safety
+
+            - PRDQU - Product Quality
+
+            - PRDAV - Product Availability
+
+            - OVR - Overload
+
+            - MISSING - Missing
+
+            - LATE - Late
+
+            - INV - Invoicing
+
+            - EARLY - Early
+
+            - DOC - Documentation / Administration
+
+            - DMG - Damage (use notes for detailed information)
+
+            - OTH - Other
+
+            - TMP - Temperature
+
+            - QRTO - Quarantine Open
+
+            - QRTC - Quarantine Closed'
+        issueTypeDescription:
+          type: string
+          description: Categorization of the issue
+        issueReasonCode:
+          type: string
+          description: 'Coded reason why the issue occurred:- ACC - Accident, Theft and Vandalism
+
+            - BANK - Bank Holiday
+
+            - COM - Communication/Incorrect Instructions
+
+            - COST - Cost Approval
+
+            - DEST - DSV Destination Process/Query
+
+            - DOCS - Document(s)
+
+            - ECOND - Equipment Condition/Type
+
+            - EQU - Equipment Breakdown
+
+            - HUM - Human Error/Incorrect Handling
+
+            - IMPROP - Improper Packaging/Labeling
+
+            - INS - Inspection / Excessive Customs Process
+
+            - IT - IT
+
+            - LACKEQ - Lack of Equipment
+
+            - LATEINS - Late Instruction/Communication
+
+            - MISROUTE - Change in Schedule/Misrouting
+
+            - NON - Non Availability
+
+            - ORIG - DSV Origin Process/Query
+
+            - PROD - Faulty product
+
+            - PST - Postponed
+
+            - RAW - Lack of raw material
+
+            - REJECT - Rejection
+
+            - RSC - Resources
+
+            - SLP - Sales process
+
+            - SOP - Operating Procedure
+
+            - SPOT - None Contractual Shipment/Spot Shipment
+
+            - STR - Strike
+
+            - TRF - Traffic
+
+            - TTNOT - Agreed Transittime Not Achievable
+
+            - UNS - Unsafe Conditions
+
+            - UPR - Upon Request
+
+            - WAR - War
+
+            - WTH - Weather/Nature'
+        issueReasonDescription:
+          type: string
+          description: Reason why the issue occurred
+        issueNotes:
+          type: string
+          description: Additional information about the issue (max 100 characters)
+        issueResolved:
+          type: string
+          description: Date when the issue was resolved
+          format: date-time
+      description: This section contains Issues details from the booking/shipment.
+    DangerousGoodsDTO:
+      type: object
+      properties:
+        className:
+          type: string
+          description: 'The UN className can be derived from the mandatory unCode.
+
+            If this value is supplied, it will match the UN className that is stored for the unCode.'
+        subRisk:
+          type: string
+          description: 'The UN subRisk can be derived from the mandatory unCode.
+
+            If this value is supplied, it will match the UN subRisk that is stored for the unCode.'
+        flashPoint:
+          type: number
+          description: 'The flashPoint will be provided in the "Unit of Measure" selected for temperature in the units object.
+
+            This can only be used for dangerous goods type = "IMDG".
+
+            This value can be mandatory depending on the UN code.'
+        limitedQuantity:
+          type: boolean
+          description: This value can be mandatory depending on the UN code.
+        marinePollutant:
+          type: boolean
+          description: This value can be mandatory depending on the UN code.
+        packingGroup:
+          type: string
+          description: This value can be mandatory depending on the UN code.
+        properShippingName:
+          type: string
+          description: 'The UN properShippingName can be derived from the mandatory unCode.
+
+            If this value is supplied, it will match the UN properShippingName that is stored for the provided unCode.'
+        technicalName:
+          type: string
+          description: This value can be mandatory depending on the UN code.
+        technicalNameNational:
+          type: string
+          description: This value can be mandatory depending on the UN code.
+        temperatureFrom:
+          type: number
+          description: This value can be mandatory depending on the UN code.
+        temperatureTo:
+          type: number
+          description: This value can be mandatory depending on the UN code.
+        type:
+          type: string
+          description: 'Classification type used for the declaration
+
+            - ADR = According to "Agreement concerning the International Carriage of Dangerous Goods by Road".
+
+            - IMDG = According to "International Maritime Dangerous Goods Code".
+
+            - IATA = According to "International Air Transport Association (IATA) Dangerous Goods Regulations (DGR)"'
+        unCode:
+          type: integer
+          description: The UN code identifying the Dangerous Goods.
+          format: int32
+        tunnelCode:
+          type: string
+          description: This value can be mandatory depending on the UN code.
+        packagesCount:
+          type: integer
+          description: Number of Packages containing these dangerous goods
+          format: int32
+        packingKind:
+          enum:
+          - BAG
+          - BOX
+          - CAN
+          - DRUM
+          - IBC
+          - JERRY
+          - CP
+          - LGM
+          - BOB
+          - PD
+          - SB
+          - DRM
+          - JCN
+          type: string
+          description: 'Package type containing these dangerous goods. Possible values are:
+
+            - BAG - Bag
+
+            - BOX - Carton / Box
+
+            - IBC - Intermediate Bulk Container
+
+            - CP - Composite Packaging
+
+            - LGM - Light Gauge Metal Packaging
+
+            - BOB - Bundle of Bottles
+
+            - PD - Pressure Drum
+
+            - SB - Steel Bottle
+
+            - DRM - Drum
+
+            - JCN - Jerry Can'
+        netQuantity:
+          type: number
+          description: Net quantity of the dangerous goods
+        netQuantityUnit:
+          enum:
+          - KG
+          - M3
+          - DM3
+          - CM
+          - M
+          - LM
+          - LTR
+          - C
+          - LB
+          - FT3
+          - IN
+          - FT
+          - F
+          type: string
+          description: Quantity unit of the dangerous goods
+        grossQuantity:
+          type: number
+          description: Gross quantity of the dangerous goods
+        grossQuantityUnit:
+          enum:
+          - KG
+          - M3
+          - DM3
+          - CM
+          - M
+          - LM
+          - LTR
+          - C
+          - LB
+          - FT3
+          - IN
+          - FT
+          - F
+          type: string
+          description: Quantity unit of the dangerous goods
+        empty:
+          type: boolean
+          description: True / False
+      description: This section contains the details of the dangerous goods in the booking/shipment.
+    FreightPayer:
+      type: object
+      properties:
+        address:
+          $ref: '#/components/schemas/Address'
+        contact:
+          $ref: '#/components/schemas/ContactPerson'
+      description: Name and address of the party that receives the freight invoice.
+    ErrorDTO:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: string
+          description: Unique error code
+          example: ERR12345
+        message:
+          type: string
+          description: Error message passed to the user
+          example: 'Not found booking: 40257145990010785188'
+        fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/FieldDTO'
+          description: List of fields that didn't pass validation
+        development:
+          $ref: '#/components/schemas/DevelopmentDTO'
+      description: Error
+    DocumentDto:
+      required:
+      - documentId
+      - documentType
+      - downloadUrl
+      - fileName
+      - fileType
+      - typeDescription
+      type: object
+      properties:
+        documentId:
+          type: string
+          description: Document ID
+        documentType:
+          type: string
+          description: "Proof of delivery (POD), \nCommercial Invoice, \nOther goods documents, \nCustoms declaration, \nDangerous goods documents, \nPacking list, \nHouse bill of lading"
+        typeDescription:
+          type: string
+          description: Description of the document type
+        createDate:
+          type: string
+          description: Date of creation
+          format: date-time
+        fileName:
+          type: string
+          description: File name
+        fileType:
+          type: string
+          description: File type
+        downloadUrl:
+          type: string
+          description: URL for file download
+      description: This section contains all document details of Profs of delivery.
+    BaseParty:
+      type: object
+      properties:
+        address:
+          $ref: '#/components/schemas/Address'
+        contact:
+          $ref: '#/components/schemas/ContactPerson'
+      description: The forwarder responsible for the transport
+    EventApiDto:
+      required:
+      - cancelled
+      type: object
+      properties:
+        eventDate:
+          type: string
+          description: 'The date/time of the event at the location the event took place. Format: 2020-07-13T22:00:00.000+0000'
+          format: date-time
+        eventLastModified:
+          type: string
+          description: 'The date/time of when event was last modified. Format: 2020-07-13T22:00:00.000+0000'
+          format: date-time
+        eventGroup:
+          type: string
+          description: 'Name of event group:
+
+            - Booking - Group for events related to the booking
+
+            - Pickup - Group for events related to the pick up for Road shipments
+
+            - Pickup / Received - Group for events related to the pick up or received for Air and Sea Shipments
+
+            - Main transport - Group for events related to multi-leg shipments
+
+            - Import Customs - Group for events related to import customs
+
+            - Export customs - Group for events related to import customs
+
+            - Delivery - Group for events related to the delivery'
+        eventCode:
+          type: string
+          description: 'Event code as provided by the Transport Management System:
+
+            - ACT - Set shipment to active
+
+            - ATC - Attach to Console
+
+            - ARV - Actual arrival (last port/airport)
+
+            - BOOKING - Booking
+
+            - CANCEL - Cancelled
+
+            - CLR - Customs cleared
+
+            - DCF - Actual delivery
+
+            - DEP - Actual departure (first port/airport)
+
+            - DLV - Container delivered
+
+            - ESTIMATED_DELIVERY - Estimated delivery
+
+            - ESTIMATED_PICKUP - Estimated pickup
+
+            - ETA - Estimated arrival (last port/airport)
+
+            - ETD - Estimated departure (first port/airport)
+
+            - FLO - Freight loaded
+
+            - FUL - Freight unloaded
+
+            - GIC - Arrived at warehouse
+
+            - GIN - Gate In
+
+            - GOC - Departure at warehouse
+
+            - GOU - Gate Out
+
+            - HPD - Held in depot
+
+            - IGC - Trailer arrived at collection address
+
+            - IGD - Trailer arrived at delivery address
+
+            - INA - Set shipment to inactive
+
+            - IRP - Cargo received
+
+            - NCE - No pickup at customer
+
+            - NDE - Not delivered at customer
+
+            - OFD - Out for delivery
+
+            - PCF - Actual pickup
+
+            - PUP - Container picked up
+
+            - REQUESTED_DELIVERY - Requested delivery
+
+            - REQUESTED_PICKUP - Requested pickup
+
+            - Z70 - Handover responsibility of cargo
+
+            - Z71 - Customs reported
+
+            - Z73 - Handover of cargo
+
+            - Z74 - Handover of documents
+
+            - RTC - Receipt Commenced
+
+            - CAV - Cargo Available
+
+            - Z72 - Customs Hold
+
+            - DOR - Delivery Order Received
+
+            - CCC - Customs Commenced
+
+            - DDI (POD) - Document Imported - POD
+
+            - DDI (CUI) - Clearance Instructions Received
+
+            - ECM - Export Customs Commenced
+
+            - ECC - Export Customs Cleared'
+        eventDescription:
+          type: string
+          description: Description of the event code
+        eventType:
+          type: string
+          description: "The associated element of this event:\n- SHIPMENT -  DSV Shipment level event, \n- CONTAINER - Container level event (only \"Sea\" and \"Rail\" shipments), \n- COLLI - Package level event (only \"Road\" shipments)"
+        eventTypeValue:
+          type: string
+          description: ID of the shipment, container or package
+        location:
+          $ref: '#/components/schemas/LocationApiDto'
+        transportMode:
+          type: string
+          description: Mode of transport in case of multi-leg transport
+        vesselName:
+          type: string
+          description: Vessel name in case of multi-leg transport
+        voyageFlightNo:
+          type: string
+          description: Flight or vessel ID in case of multi-leg transport
+        cargoCutOff:
+          type: string
+          description: Cut off date and time of when the shipment must be ready in the port
+          format: date-time
+        cargoAvailability:
+          type: string
+          description: Cargo availability date
+          format: date-time
+        cancelled:
+          type: boolean
+          description: Indicates if the event has been cancelled
+        docsDue:
+          type: string
+          description: Documents due deadline
+          format: date-time
+        vgmCutOff:
+          type: string
+          description: The date and time when the verified gross mass check must be completed
+          format: date-time
+      description: Track and trace events
+    ContactPerson:
+      required:
+      - name
+      type: object
+      properties:
+        name:
+          maxLength: 34
+          type: string
+          description: Name of the contact person
+          example: Test Name
+        email:
+          maxLength: 34
+          type: string
+          description: Email address of the contact person
+          example: testemail@testcompany.com
+        telephone:
+          maxLength: 16
+          type: string
+          description: Phone number of the contact person.
+          example: '+4512345678'
+      description: All fields related to Contact Person e.g. Name, Phone, email
+    PackageDTO:
+      required:
+      - type
+      type: object
+      properties:
+        stackable:
+          type: object
+          description: "- STACKABLE = the goods could be stacked\n- STACKED = the goods were stacked prior to pickup. \n- NO = the goods were not stackable."
+        length:
+          type: number
+          description: 'Dimension of single package in UOM: length'
+        lengthUOM:
+          type: string
+          description: This element specifies the units of measure (UOM) applied to length measurement
+        loadingMeters:
+          type: number
+          description: Loading meter is one meter of length of goods on a trailer. This is only available for product "Road"
+        palletSpace:
+          type: integer
+          description: Number of pallets on the ground floor (e.g. if 6 pallets are stacked 2 by 2, palletSpace will be equal to 3). This is only available for product "Road"
+          format: int32
+        grossWeight:
+          type: number
+          description: Total gross weight for this package line.
+        netWeight:
+          type: number
+          description: Net weight for this package line.
+        quantity:
+          type: integer
+          description: Number of packages in this package line
+          format: int32
+        totalVolume:
+          type: number
+          description: Total volume of this package line.
+        volumeUOM:
+          type: string
+          description: This section is used to specify the units of measure (UOM) applied to Volume measurement
+        totalWeight:
+          type: number
+          description: Total weight for this package line.
+        width:
+          type: number
+          description: 'Dimension of single package in UOM: width'
+        widthUOM:
+          type: string
+          description: This section is used to specify the units of measure (UOM) applied to Width measurement
+        height:
+          type: number
+          description: 'Dimension of single package in UOM: height'
+        heightUOM:
+          type: string
+          description: This section is used to specify the units of measure (UOM) applied to height measurement
+        packageType:
+          enum:
+          - P100
+          - P1A
+          - P1B
+          - P1G
+          - P1H
+          - P3A
+          - P3H
+          - P4A
+          - P4C
+          - P4D
+          - P4G
+          - P4H
+          - P4N
+          - P5H
+          - P5M
+          - BAG
+          - BAL
+          - BBA
+          - BBG
+          - BBK
+          - BIN
+          - BLC
+          - BND
+          - BOB
+          - BOK
+          - BOT
+          - BOX
+          - BSK
+          - BUL
+          - CAG
+          - CAN
+          - CAR
+          - CAS
+          - CDB
+          - CLL
+          - COI
+          - CON
+          - CRD
+          - CRT
+          - CTN
+          - CYL
+          - DRM
+          - EA
+          - ENV
+          - EUP
+          - EUR
+          - EWP
+          - GIB
+          - HPL
+          - IBC
+          - IPL
+          - ISO
+          - JCN
+          - KPL
+          - LD7
+          - LOAD
+          - LOD
+          - LD
+          - LOT
+          - MIX
+          - PAI
+          - PCE
+          - PKG
+          - PLB
+          - PLL
+          - PLP
+          - PLT
+          - PLY
+          - PPL
+          - PSP
+          - PXL
+          - QPL
+          - RAC
+          - RCT
+          - REF
+          - REL
+          - RLL
+          - ROR
+          - SAK
+          - SET
+          - SHT
+          - SKD
+          - SPL
+          - TAN
+          - TMC
+          - TOT
+          - TRY
+          - TUB
+          - UCR
+          - UCT
+          - UNP
+          - UNT
+          - UPL
+          - UTO
+          - VEH
+          - WDB
+          - WDC
+          - WDP
+          - WDR
+          type: string
+          description: Package type used for this package line.
+        temperatureMin:
+          type: integer
+          description: Minimum level temperature requirement for temperature controlled cargo.
+          format: int64
+        temperatureMax:
+          type: integer
+          description: Maximum level temperature requirement for temperature controlled cargo.
+          format: int64
+        description:
+          type: string
+          description: Package level cargo description
+        shippingMarks:
+          type: string
+          description: Package level Marks and Numbers (only "Road" shipments)
+        shippingMarksList:
+          type: array
+          items:
+            type: string
+            description: Package level Marks and Numbers list (only "Air" and "Sea"  shipments)
+          description: Package level Marks and Numbers list (only "Air" and "Sea"  shipments)
+        harmonizedCodes:
+          type: array
+          items:
+            type: string
+            description: Package level Harmonized Codes (HS Codes)
+          description: Package level Harmonized Codes (HS Codes)
+        isDangerous:
+          type: boolean
+          description: If the content of this package line is classified as dangerous goods this field will be set to "true".
+        dangerous:
+          type: array
+          items:
+            $ref: '#/components/schemas/DangerousGoodsDTO'
+          description: This section contains the details of the dangerous goods.
+        containerNo:
+          type: integer
+          description: Reference to an FCL container line (see container section above), this is only to be used for products "Sea" and "Rail".
+          format: int32
+        trackingNumbers:
+          type: array
+          items:
+            type: string
+            description: SSCC tracking number for the package element.
+          description: SSCC tracking number for the package element.
+        cargoAircraftOnly:
+          type: boolean
+          description: Only used for dangerous goods packages, only used for product "Air"
+        temperatureControlled:
+          type: boolean
+          description: If the goods required a certain temperature (or temperature range) during transport it will be set to "true"
+        goodsType:
+          type: string
+          description: Goods type
+        battery:
+          $ref: '#/components/schemas/Battery'
+        referenceNumber:
+          type: string
+          description: Package reference number
+        references:
+          type: array
+          items:
+            $ref: '#/components/schemas/PackageIdentifierDTO'
+          description: References sent along with the booking that can be later on used to identify linked information.
+        type:
+          type: string
+      description: All package details in the booking/shipment.
+      discriminator:
+        propertyName: type
+    IncotermsDTO:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Incoterms® Code according to Incoterms® 2020 standard
+        location:
+          type: string
+          description: The location element specified as the collection/delivery
+      description: Incoterms® describe the rights and obligations applicable between the buyer and seller of the goods being transported. They set out when transfer of liability and control take place, who pays for what and who is liable in the event of any damage or loss of goods in transit. For more information check the Incoterms® Information on https://www.dsv.com/en/insights/expert-opinions/what-are-incoterms
+    Receiver:
+      type: object
+      properties:
+        address:
+          $ref: '#/components/schemas/Address'
+        contact:
+          $ref: '#/components/schemas/ContactPerson'
+      description: Name and address of the party receiving the shipment (consignee).
     Service:
       required:
       - displayName
@@ -3075,16 +3034,59 @@ components:
             description: Booked service details
           description: Booked service details
       description: This section contains additional Service details from the booking/shipment.
-    ServiceLevelDTO:
+    ContainerSummaryDTO:
       type: object
       properties:
-        code:
+        containerNumber:
           type: string
-          description: Service level code
-        description:
+          description: Container Number
+        containerType:
           type: string
-          description: Service level description
-      description: This section contains details on the requested service level from the "Air", "Sea" or "Rail" booking/shipment
+          description: Container type
+        sealNumber:
+          type: string
+          description: Seal Number
+        slotDate:
+          type: string
+          description: 'Slot Date. Format: 2020-07-13T22:00:00.000+0000'
+          format: date-time
+      description: Summary of container information
+    CustomsApiDto:
+      required:
+      - entryNumber
+      type: object
+      properties:
+        shippedOnboardDate:
+          type: string
+          description: Date when the cargo was loaded on the Vessel at the Port of Loading mentioned on the Bill of Lading
+        customsStatus:
+          type: string
+          description: "Customs status:\n- CLR - Import customs cleared\n- Z72 - Customs hold\n- CCC - Import customs commenced\n- ECC - Export customs cleared\n - ECM - Export customs commenced"
+        entryNumber:
+          type: array
+          items:
+            type: string
+            description: Customs Entry reference given by Customs authority in the local customs process
+          description: Customs Entry reference given by Customs authority in the local customs process
+        forwarder:
+          $ref: '#/components/schemas/BaseParty'
+        removalMode:
+          type: string
+          description: Mode of transport for a transit into another country
+      description: Customs data
+    Party:
+      required:
+      - role
+      type: object
+      properties:
+        address:
+          $ref: '#/components/schemas/Address'
+        contact:
+          $ref: '#/components/schemas/ContactPerson'
+        role:
+          type: string
+          description: Business role of the party
+      description: Reserved for future use.
     DeviceReadingResultModelDto:
       type: object
       properties:
@@ -3130,35 +3132,6 @@ components:
           example: Readings
       additionalProperties: false
       description: Device reading result model
-    DeviceReadingFilterDto:
-      type: object
-      properties:
-        shipmentId:
-          type:
-          - string
-          - 'null'
-          description: Shipment Id
-          example: SH0000000000
-        measuredAtStartDateTime:
-          type:
-          - string
-          - 'null'
-          description: Device reading measured at (Start date and time in 24 hrs format). Format - yyyy-MM-dd HH:mm
-          example: 2023-01-01 00:00
-        measuredAtEndDateTime:
-          type:
-          - string
-          - 'null'
-          description: Device reading measured at (End date and time in 24 hrs format). Format - yyyy-MM-dd HH:mm
-          example: 2023-01-31 23:59
-        measuredAtPredefinedRange:
-          type:
-          - string
-          - 'null'
-          description: "Measured at predefined date range. Possible values are: \n- PAST_MONTH \n- PAST_WEEK \n- YESTERDAY \n- TODAY"
-          example: PAST_MONTH
-      additionalProperties: false
-      description: DeviceReadingFilterDto
     DeviceReadingDto:
       type: object
       properties:
@@ -3255,6 +3228,35 @@ components:
           example: 0.969757540573931
       additionalProperties: false
       description: 'Device reading dto '
+    DeviceReadingFilterDto:
+      type: object
+      properties:
+        shipmentId:
+          type:
+          - string
+          - 'null'
+          description: Shipment Id
+          example: SH0000000000
+        measuredAtStartDateTime:
+          type:
+          - string
+          - 'null'
+          description: Device reading measured at (Start date and time in 24 hrs format). Format - yyyy-MM-dd HH:mm
+          example: 2023-01-01 00:00
+        measuredAtEndDateTime:
+          type:
+          - string
+          - 'null'
+          description: Device reading measured at (End date and time in 24 hrs format). Format - yyyy-MM-dd HH:mm
+          example: 2023-01-31 23:59
+        measuredAtPredefinedRange:
+          type:
+          - string
+          - 'null'
+          description: "Measured at predefined date range. Possible values are: \n- PAST_MONTH \n- PAST_WEEK \n- YESTERDAY \n- TODAY"
+          example: PAST_MONTH
+      additionalProperties: false
+      description: DeviceReadingFilterDto
   securitySchemes:
     apiKeyHeader:
       type: apiKey

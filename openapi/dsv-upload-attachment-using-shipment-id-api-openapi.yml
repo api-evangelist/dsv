@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: UPLOAD - Air, Sea, Road (EU), Rail (DEMO) Upload attachment using Shipment Id API
+  title: UPLOAD - Air, Sea, Road (EU), Rail (DEMO) Upload attachment…
   description: 'Upload available documents for your bookings and shipments moved by DSV. Supported transport modes: Air, Sea, Road (EU) and Rail.'
   version: v1
 servers:

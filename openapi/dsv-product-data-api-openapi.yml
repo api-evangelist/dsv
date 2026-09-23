@@ -9,12 +9,12 @@ security:
 - apiKeyHeader: []
 - apiKeyQuery: []
 tags:
-- name: ProductData
+- name: Product Data
 paths:
   /productData:
     post:
       tags:
-      - ProductData
+      - Product Data
       summary: Create new Product Data record(s)
       description: Create new Product Data records with full product information via API
       operationId: ProductData_Post
@@ -142,7 +142,7 @@ paths:
                   exception: string
     put:
       tags:
-      - ProductData
+      - Product Data
       summary: Update Product Data record(s)
       description: Request used to update previously created product data records.
       operationId: ProductData_Put
@@ -270,6 +270,78 @@ paths:
                   exception: string
 components:
   schemas:
+    DevelopmentDTO:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Verbose, plain language description of the problem for the app developer with hints on how to fix it
+        exception:
+          type: string
+          description: Dump from exception
+    ProductDto:
+      required:
+      - warehouseId
+      - productId
+      - productValue
+      - productDescription
+      type: object
+      properties:
+        warehouseId:
+          maxLength: 20
+          minLength: 0
+          type: string
+          description: To be resolved in Token database
+          example: 36643f9b7c1c48ef
+        productId:
+          maxLength: 50
+          minLength: 0
+          type: string
+          description: Unique identifier of the Stock Keeping Unit (product)
+          example: '11112222'
+        commodityCode:
+          maxLength: 22
+          minLength: 0
+          type: string
+          description: Commodity code
+          example: '1023456789'
+        commodityDescription:
+          maxLength: 35
+          minLength: 0
+          type: string
+          description: Commodity description
+          example: '1543234567'
+        productAttributes:
+          $ref: '#/components/schemas/ProductAttributesDto'
+        productDimensions:
+          $ref: '#/components/schemas/ProductDimensionsDto'
+        productValue:
+          $ref: '#/components/schemas/ProductValueDto'
+        additionalProductAttributes:
+          $ref: '#/components/schemas/AdditionalProductAttributesDto'
+        additionalInformation:
+          $ref: '#/components/schemas/AdditionalInformationDto'
+        productDescription:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductDescriptionDto'
+          description: Prodect Descriptions
+        productStackConfiguration:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductStackConfigurationDto'
+          description: Product Stack Configuration
+      description: Product
+    VolumeUOM:
+      enum:
+      - MMQ
+      - CMQ
+      - DMQ
+      - MTQ
+      - INQ
+      - FTQ
+      type: string
+      description: ''
     WeightUOM:
       enum:
       - GRM
@@ -282,6 +354,30 @@ components:
       - GLI
       type: string
       description: ''
+    DimensionUOM:
+      enum:
+      - MMT
+      - CMT
+      - DMT
+      - MTR
+      - INH
+      - FOT
+      type: string
+      description: ''
+    ProductDescriptionDto:
+      required:
+      - description
+      type: object
+      properties:
+        language:
+          $ref: '#/components/schemas/CombinedLanguageCode'
+        description:
+          maxLength: 80
+          minLength: 0
+          type: string
+          description: Product description
+          example: Product description
+      description: ' Product Description'
     CurrencyCode:
       enum:
       - AED
@@ -454,35 +550,15 @@ components:
       - ZWL
       type: string
       description: 3-digit currency code (ISO 4217-3) <br>If valueOfProduct is provided, currency becomes mandatory
-    VolumeUOM:
-      enum:
-      - MMQ
-      - CMQ
-      - DMQ
-      - MTQ
-      - INQ
-      - FTQ
-      type: string
-      description: ''
-    NumericFieldDto:
-      required:
-      - sequence
+    ProductDataDto:
       type: object
       properties:
-        sequence:
-          maximum: 4.0
-          minimum: 1.0
-          type: integer
-          description: User Def Num 1-4
-          format: int32
-          example: 1
-        value:
-          maximum: 999999999.999999
-          minimum: 0.0
-          type: number
-          description: 'min: 0, max: 999999999.999999 (9.6)'
-          example: 999999999.999999
-      description: User defined numeric fields
+        products:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductDto'
+          description: Products Details
+      description: ' Product Data'
     FieldDTO:
       type: object
       properties:
@@ -498,140 +574,6 @@ components:
           type: string
           description: Type of error
           example: ERR12345
-    ProductStackConfigurationDto:
-      type: object
-      properties:
-        productUOM:
-          $ref: '#/components/schemas/ProductUOM'
-        quantityInUOM:
-          maximum: 999999.0
-          minimum: 0.0
-          type: integer
-          description: 'If productUOM is ''EACH'', quantityInUOM must be set to 1 (min: 0, max: 999999 (6.0))'
-          format: int32
-          example: 999999
-        weight:
-          maximum: 9999999.999999
-          minimum: 0.0
-          type: number
-          description: 'Weight of the second track level of the product - default Uom is kilograms. [min: 0, max: 9999999.999999 (7.6)]'
-          example: 9999999.999999
-        weightUOM:
-          $ref: '#/components/schemas/WeightUOM'
-        volume:
-          maximum: 9999999.999999
-          minimum: 0.0
-          type: number
-          description: 'Volume of the second track level of the product - default Uom is cubic meter. [min: 0, max: 9999999.999999 (7.6)]'
-          example: 9999999.999999
-        volumeUOM:
-          $ref: '#/components/schemas/VolumeUOM'
-        height:
-          maximum: 9999.999
-          minimum: 0.0
-          type: number
-          description: 'Height of the second track level of the product - default Uom is meters. [min: 0, max: 9999.999 (4.3)]'
-          example: 9999.999
-        width:
-          maximum: 9999.999
-          minimum: 0.0
-          type: number
-          description: 'Width of the second track level of the product - default Uom is meters. [min: 0, max: 9999.999 (4.3)]'
-          example: 9999.999
-        depth:
-          maximum: 9999.999
-          minimum: 0.0
-          type: number
-          description: 'Depth (length) of the second track level of the product - default Uom is meters. [min: 0, max: 9999.999 (4.3)]'
-          example: 9999.999
-        dimensionUOM:
-          $ref: '#/components/schemas/DimensionUOM'
-      description: Product Stack Configuration
-    ProductDimensionsDto:
-      type: object
-      properties:
-        weight:
-          maximum: 9999999.999999
-          minimum: 0.0
-          type: number
-          description: 'Weight of the lowest track level of the product - default Uom is kilograms. [min: 0, max: 9999999.999999 (7.6)]'
-          example: 9999999.999999
-        weightUOM:
-          $ref: '#/components/schemas/WeightUOM'
-        volume:
-          maximum: 9999999.999999
-          minimum: 0.0
-          type: number
-          description: 'Volume of the lowest track level of the product - default Uom is cubic meter. min: 0, max: 9999999.999999 (7.6)'
-          example: 9999999.999999
-        volumeUOM:
-          $ref: '#/components/schemas/VolumeUOM'
-        height:
-          maximum: 9999.999
-          minimum: 0.0
-          type: number
-          description: 'Height of the lowest track level of the product - default Uom is meters. [min: 0, max: 9999.999 (4.3)]'
-          example: 9999.999
-        width:
-          maximum: 9999.999
-          minimum: 0.0
-          type: number
-          description: 'Width of the lowest track level of the product - default Uom is meters. [min: 0, max: 9999.999 (4.3)]'
-          example: 9999.999
-        depth:
-          maximum: 9999.999
-          minimum: 0.0
-          type: number
-          description: Depth (length) of the lowest track level of the product - default Uom is meters
-          example: 9999.999
-        dimensionUOM:
-          $ref: '#/components/schemas/DimensionUOM'
-      description: Product Dimensions
-    ProductValueDto:
-      type: object
-      properties:
-        valueOfProduct:
-          maximum: 999999999.999999
-          minimum: 0.0
-          type: number
-          description: Selling price of the lowest track level of the product
-          example: 999
-        currency:
-          $ref: '#/components/schemas/CurrencyCode'
-      description: Product Value
-    TextFieldDto:
-      required:
-      - sequence
-      type: object
-      properties:
-        sequence:
-          maximum: 8.0
-          minimum: 1.0
-          type: integer
-          description: User Def Type 1-8
-          format: int32
-          example: 1
-        value:
-          maxLength: 30
-          minLength: 0
-          type: string
-          description: Max length 30 characters
-          example: Value1
-      description: User defined text fields
-    AdditionalInformationDto:
-      type: object
-      properties:
-        numericFields:
-          type: array
-          items:
-            $ref: '#/components/schemas/NumericFieldDto'
-          description: User defined numeric fields
-        textFields:
-          type: array
-          items:
-            $ref: '#/components/schemas/TextFieldDto'
-          description: User defined text fields
-      description: Additional Information
     ProductAttributesDto:
       type: object
       properties:
@@ -680,29 +622,6 @@ components:
           description: Universal Product Code of the lowest track level of the product
           example: '12345678901234'
       description: Product Attributes
-    ProductDescriptionDto:
-      required:
-      - description
-      type: object
-      properties:
-        language:
-          $ref: '#/components/schemas/CombinedLanguageCode'
-        description:
-          maxLength: 80
-          minLength: 0
-          type: string
-          description: Product description
-          example: Product description
-      description: ' Product Description'
-    ProductDataDto:
-      type: object
-      properties:
-        products:
-          type: array
-          items:
-            $ref: '#/components/schemas/ProductDto'
-          description: Products Details
-      description: ' Product Data'
     AdditionalProductAttributesDto:
       type: object
       properties:
@@ -731,21 +650,67 @@ components:
           description: Additional Product Description
           example: AdditionalProductDescription
       description: Additional Product Attributes
+    TextFieldDto:
+      required:
+      - sequence
+      type: object
+      properties:
+        sequence:
+          maximum: 8.0
+          minimum: 1.0
+          type: integer
+          description: User Def Type 1-8
+          format: int32
+          example: 1
+        value:
+          maxLength: 30
+          minLength: 0
+          type: string
+          description: Max length 30 characters
+          example: Value1
+      description: User defined text fields
+    ErrorDTO:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          minLength: 1
+          type: string
+          description: Unique error code
+          example: ERR12345
+        message:
+          minLength: 1
+          type: string
+          description: Error message passed to the user
+          example: 'Not found id : 4025988810785188'
+        fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/FieldDTO'
+        development:
+          $ref: '#/components/schemas/DevelopmentDTO'
     Gender:
       enum:
       - F
       - M
       type: string
       description: ''
-    DevelopmentDTO:
+    AdditionalInformationDto:
       type: object
       properties:
-        message:
-          type: string
-          description: Verbose, plain language description of the problem for the app developer with hints on how to fix it
-        exception:
-          type: string
-          description: Dump from exception
+        numericFields:
+          type: array
+          items:
+            $ref: '#/components/schemas/NumericFieldDto'
+          description: User defined numeric fields
+        textFields:
+          type: array
+          items:
+            $ref: '#/components/schemas/TextFieldDto'
+          description: User defined text fields
+      description: Additional Information
     CombinedLanguageCode:
       enum:
       - AF_ZA
@@ -949,91 +914,107 @@ components:
       - ZU_ZA
       type: string
       description: ''
-    ProductDto:
-      required:
-      - warehouseId
-      - productId
-      - productValue
-      - productDescription
+    ProductDimensionsDto:
       type: object
       properties:
-        warehouseId:
-          maxLength: 20
-          minLength: 0
-          type: string
-          description: To be resolved in Token database
-          example: 36643f9b7c1c48ef
-        productId:
-          maxLength: 50
-          minLength: 0
-          type: string
-          description: Unique identifier of the Stock Keeping Unit (product)
-          example: '11112222'
-        commodityCode:
-          maxLength: 22
-          minLength: 0
-          type: string
-          description: Commodity code
-          example: '1023456789'
-        commodityDescription:
-          maxLength: 35
-          minLength: 0
-          type: string
-          description: Commodity description
-          example: '1543234567'
-        productAttributes:
-          $ref: '#/components/schemas/ProductAttributesDto'
-        productDimensions:
-          $ref: '#/components/schemas/ProductDimensionsDto'
-        productValue:
-          $ref: '#/components/schemas/ProductValueDto'
-        additionalProductAttributes:
-          $ref: '#/components/schemas/AdditionalProductAttributesDto'
-        additionalInformation:
-          $ref: '#/components/schemas/AdditionalInformationDto'
-        productDescription:
-          type: array
-          items:
-            $ref: '#/components/schemas/ProductDescriptionDto'
-          description: Prodect Descriptions
-        productStackConfiguration:
-          type: array
-          items:
-            $ref: '#/components/schemas/ProductStackConfigurationDto'
-          description: Product Stack Configuration
-      description: Product
-    DimensionUOM:
-      enum:
-      - MMT
-      - CMT
-      - DMT
-      - MTR
-      - INH
-      - FOT
-      type: string
-      description: ''
-    ErrorDTO:
-      required:
-      - code
-      - message
+        weight:
+          maximum: 9999999.999999
+          minimum: 0.0
+          type: number
+          description: 'Weight of the lowest track level of the product - default Uom is kilograms. [min: 0, max: 9999999.999999 (7.6)]'
+          example: 9999999.999999
+        weightUOM:
+          $ref: '#/components/schemas/WeightUOM'
+        volume:
+          maximum: 9999999.999999
+          minimum: 0.0
+          type: number
+          description: 'Volume of the lowest track level of the product - default Uom is cubic meter. min: 0, max: 9999999.999999 (7.6)'
+          example: 9999999.999999
+        volumeUOM:
+          $ref: '#/components/schemas/VolumeUOM'
+        height:
+          maximum: 9999.999
+          minimum: 0.0
+          type: number
+          description: 'Height of the lowest track level of the product - default Uom is meters. [min: 0, max: 9999.999 (4.3)]'
+          example: 9999.999
+        width:
+          maximum: 9999.999
+          minimum: 0.0
+          type: number
+          description: 'Width of the lowest track level of the product - default Uom is meters. [min: 0, max: 9999.999 (4.3)]'
+          example: 9999.999
+        depth:
+          maximum: 9999.999
+          minimum: 0.0
+          type: number
+          description: Depth (length) of the lowest track level of the product - default Uom is meters
+          example: 9999.999
+        dimensionUOM:
+          $ref: '#/components/schemas/DimensionUOM'
+      description: Product Dimensions
+    ProductStackConfigurationDto:
       type: object
       properties:
-        code:
-          minLength: 1
-          type: string
-          description: Unique error code
-          example: ERR12345
-        message:
-          minLength: 1
-          type: string
-          description: Error message passed to the user
-          example: 'Not found id : 4025988810785188'
-        fields:
-          type: array
-          items:
-            $ref: '#/components/schemas/FieldDTO'
-        development:
-          $ref: '#/components/schemas/DevelopmentDTO'
+        productUOM:
+          $ref: '#/components/schemas/ProductUOM'
+        quantityInUOM:
+          maximum: 999999.0
+          minimum: 0.0
+          type: integer
+          description: 'If productUOM is ''EACH'', quantityInUOM must be set to 1 (min: 0, max: 999999 (6.0))'
+          format: int32
+          example: 999999
+        weight:
+          maximum: 9999999.999999
+          minimum: 0.0
+          type: number
+          description: 'Weight of the second track level of the product - default Uom is kilograms. [min: 0, max: 9999999.999999 (7.6)]'
+          example: 9999999.999999
+        weightUOM:
+          $ref: '#/components/schemas/WeightUOM'
+        volume:
+          maximum: 9999999.999999
+          minimum: 0.0
+          type: number
+          description: 'Volume of the second track level of the product - default Uom is cubic meter. [min: 0, max: 9999999.999999 (7.6)]'
+          example: 9999999.999999
+        volumeUOM:
+          $ref: '#/components/schemas/VolumeUOM'
+        height:
+          maximum: 9999.999
+          minimum: 0.0
+          type: number
+          description: 'Height of the second track level of the product - default Uom is meters. [min: 0, max: 9999.999 (4.3)]'
+          example: 9999.999
+        width:
+          maximum: 9999.999
+          minimum: 0.0
+          type: number
+          description: 'Width of the second track level of the product - default Uom is meters. [min: 0, max: 9999.999 (4.3)]'
+          example: 9999.999
+        depth:
+          maximum: 9999.999
+          minimum: 0.0
+          type: number
+          description: 'Depth (length) of the second track level of the product - default Uom is meters. [min: 0, max: 9999.999 (4.3)]'
+          example: 9999.999
+        dimensionUOM:
+          $ref: '#/components/schemas/DimensionUOM'
+      description: Product Stack Configuration
+    ProductValueDto:
+      type: object
+      properties:
+        valueOfProduct:
+          maximum: 999999999.999999
+          minimum: 0.0
+          type: number
+          description: Selling price of the lowest track level of the product
+          example: 999
+        currency:
+          $ref: '#/components/schemas/CurrencyCode'
+      description: Product Value
     ProductUOM:
       enum:
       - EACH
@@ -1051,6 +1032,25 @@ components:
       - KGM
       type: string
       description: ''
+    NumericFieldDto:
+      required:
+      - sequence
+      type: object
+      properties:
+        sequence:
+          maximum: 4.0
+          minimum: 1.0
+          type: integer
+          description: User Def Num 1-4
+          format: int32
+          example: 1
+        value:
+          maximum: 999999999.999999
+          minimum: 0.0
+          type: number
+          description: 'min: 0, max: 999999999.999999 (9.6)'
+          example: 999999999.999999
+      description: User defined numeric fields
   securitySchemes:
     apiKeyHeader:
       type: apiKey

@@ -50,20 +50,103 @@ paths:
       - BookingWebService
 components:
   schemas:
-    BookingResponse:
+    OceanFCLOperation:
+      type: object
+      properties:
+        in:
+          properties:
+            applicationArea:
+              $ref: '#/components/schemas/ApplicationArea'
+            bookingOceanFCL:
+              properties:
+                container:
+                  type: array
+                  items:
+                    properties:
+                      containerType:
+                        type: string
+                      containerNo:
+                        type: string
+      xml:
+        name: getBookingRequestOceanFCL
+    CancelOperation:
+      type: object
+      properties:
+        applicationArea:
+          $ref: '#/components/schemas/ApplicationArea'
+        cancelRequest:
+          properties:
+            bookingId:
+              type: string
+      xml:
+        name: getBookingCancelRequest
+    BarcodeOperation:
       type: object
       properties:
         applicationArea:
           $ref: '#/components/schemas/ApplicationArea'
         bookingId:
           type: string
-    SoapEnvelopeResponse:
+      xml:
+        name: getBookingBarcodeRequest
+    Address:
+      required:
+      - name1
+      - street
+      - city
+      - countryCode
+      - type
       type: object
       properties:
+        name1:
+          maxLength: 500
+          type: string
+        street:
+          type: string
+        city:
+          type: string
+        postalCode:
+          type: string
+        countryCode:
+          type: string
+        type:
+          type: string
+      description: addressType (2..6 addresses required)
+    WaybillOperation:
+      type: object
+      properties:
+        applicationArea:
+          $ref: '#/components/schemas/ApplicationArea'
+        bookingId:
+          type: string
+      xml:
+        name: getWaybillRequest
+    AirOperation:
+      type: object
+      properties:
+        in:
+          properties:
+            applicationArea:
+              $ref: '#/components/schemas/ApplicationArea'
+            bookingAir:
+              properties:
+                serviceType:
+                  type: string
+                departureAirport:
+                  type: string
+                destinationAirport:
+                  type: string
+      xml:
+        name: getBookingRequestAir
+    SoapEnvelopeRequest:
+      type: object
+      properties:
+        Header:
+          type: object
         Body:
-          oneOf:
-          - $ref: '#/components/schemas/BookingResponse'
-          - $ref: '#/components/schemas/BarcodeResponse'
+          $ref: '#/components/schemas/SoapRequestBody'
+      xml:
+        name: Envelope
     ShipmentPosition:
       required:
       - cargoDesc
@@ -84,58 +167,28 @@ components:
         pieces:
           type: integer
       description: shipmentPositionType (1..n)
-    ShippingInformation:
-      type: object
-      properties:
-        shipmentPosition:
-          type: array
-          items:
-            $ref: '#/components/schemas/ShipmentPosition'
-        grossWeight:
-          type: number
-        volume:
-          type: number
-    FreightListOperation:
+    BookingResponse:
       type: object
       properties:
         applicationArea:
           $ref: '#/components/schemas/ApplicationArea'
         bookingId:
           type: string
-      xml:
-        name: getFreightListRequest
-    BarcodeResponse:
-      type: object
-      properties:
-        document:
-          type: string
-          description: Barcode document (Base64 encoded).
-    SoapEnvelopeRequest:
-      type: object
-      properties:
-        Header:
-          type: object
-        Body:
-          $ref: '#/components/schemas/SoapRequestBody'
-      xml:
-        name: Envelope
-    AirOperation:
+    OceanLCLOperation:
       type: object
       properties:
         in:
           properties:
             applicationArea:
               $ref: '#/components/schemas/ApplicationArea'
-            bookingAir:
+            bookingOceanLCL:
               properties:
-                serviceType:
+                portLoading:
                   type: string
-                departureAirport:
-                  type: string
-                destinationAirport:
+                portDischarge:
                   type: string
       xml:
-        name: getBookingRequestAir
+        name: getBookingRequestOceanLCL
     LandOperation:
       type: object
       properties:
@@ -173,44 +226,37 @@ components:
                   $ref: '#/components/schemas/ShippingInformation'
       xml:
         name: getBookingRequestLand
-    Address:
-      required:
-      - name1
-      - street
-      - city
-      - countryCode
-      - type
+    SoapRequestBody:
+      oneOf:
+      - $ref: '#/components/schemas/LandOperation'
+      - $ref: '#/components/schemas/AirOperation'
+      - $ref: '#/components/schemas/OceanLCLOperation'
+      - $ref: '#/components/schemas/OceanFCLOperation'
+      - $ref: '#/components/schemas/CancelOperation'
+      - $ref: '#/components/schemas/BarcodeOperation'
+      - $ref: '#/components/schemas/WaybillOperation'
+      - $ref: '#/components/schemas/FreightListOperation'
+      description: One of the supported operations
+    FreightListOperation:
       type: object
       properties:
-        name1:
-          maxLength: 500
+        applicationArea:
+          $ref: '#/components/schemas/ApplicationArea'
+        bookingId:
           type: string
-        street:
-          type: string
-        city:
-          type: string
-        postalCode:
-          type: string
-        countryCode:
-          type: string
-        type:
-          type: string
-      description: addressType (2..6 addresses required)
-    OceanLCLOperation:
-      type: object
-      properties:
-        in:
-          properties:
-            applicationArea:
-              $ref: '#/components/schemas/ApplicationArea'
-            bookingOceanLCL:
-              properties:
-                portLoading:
-                  type: string
-                portDischarge:
-                  type: string
       xml:
-        name: getBookingRequestOceanLCL
+        name: getFreightListRequest
+    ShippingInformation:
+      type: object
+      properties:
+        shipmentPosition:
+          type: array
+          items:
+            $ref: '#/components/schemas/ShipmentPosition'
+        grossWeight:
+          type: number
+        volume:
+          type: number
     ApplicationArea:
       type: object
       properties:
@@ -229,65 +275,19 @@ components:
         groupName:
           type: string
       description: applicationAreaType (mandatory)
-    BarcodeOperation:
+    BarcodeResponse:
       type: object
       properties:
-        applicationArea:
-          $ref: '#/components/schemas/ApplicationArea'
-        bookingId:
+        document:
           type: string
-      xml:
-        name: getBookingBarcodeRequest
-    SoapRequestBody:
-      oneOf:
-      - $ref: '#/components/schemas/LandOperation'
-      - $ref: '#/components/schemas/AirOperation'
-      - $ref: '#/components/schemas/OceanLCLOperation'
-      - $ref: '#/components/schemas/OceanFCLOperation'
-      - $ref: '#/components/schemas/CancelOperation'
-      - $ref: '#/components/schemas/BarcodeOperation'
-      - $ref: '#/components/schemas/WaybillOperation'
-      - $ref: '#/components/schemas/FreightListOperation'
-      description: One of the supported operations
-    CancelOperation:
+          description: Barcode document (Base64 encoded).
+    SoapEnvelopeResponse:
       type: object
       properties:
-        applicationArea:
-          $ref: '#/components/schemas/ApplicationArea'
-        cancelRequest:
-          properties:
-            bookingId:
-              type: string
-      xml:
-        name: getBookingCancelRequest
-    OceanFCLOperation:
-      type: object
-      properties:
-        in:
-          properties:
-            applicationArea:
-              $ref: '#/components/schemas/ApplicationArea'
-            bookingOceanFCL:
-              properties:
-                container:
-                  type: array
-                  items:
-                    properties:
-                      containerType:
-                        type: string
-                      containerNo:
-                        type: string
-      xml:
-        name: getBookingRequestOceanFCL
-    WaybillOperation:
-      type: object
-      properties:
-        applicationArea:
-          $ref: '#/components/schemas/ApplicationArea'
-        bookingId:
-          type: string
-      xml:
-        name: getWaybillRequest
+        Body:
+          oneOf:
+          - $ref: '#/components/schemas/BookingResponse'
+          - $ref: '#/components/schemas/BarcodeResponse'
   securitySchemes:
     apiKeyHeader:
       type: apiKey

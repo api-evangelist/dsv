@@ -17,15 +17,16 @@ paths:
       tags:
       - Label
       summary: Download PDF label(s) via Booking ID
-      description: 'Download PDF package labels via API for bookings submitted via the Booking API or online via DSV’s myDSV customer portal.<BR>
+      description: 'Download PDF package labels via API for bookings submitted via the Booking API or online via DSV’s myDSV customer portal.
 
-        <BR>
 
-        DEMO ACCOUNT<BR>
+        DEMO ACCOUNT
 
-        Authorization: client_id: api.demo@demo.dsv.com, client_secret: Demo12345<BR>
 
-        Sample Booking IDs: 40257145990010760574, 40257145990010760581 '
+        Authorization: client_id: api.demo@demo.dsv.com, client_secret: Demo12345
+
+
+        Sample Booking IDs: 40257145990010760574, 40257145990010760581'
       operationId: printLabelUsingGET
       parameters:
       - name: bookingId
@@ -289,15 +290,16 @@ paths:
       tags:
       - Label
       summary: Download ZPL label(s) via Booking ID
-      description: 'Download ZPL package labels via API for bookings submitted via the Booking API or online via DSV’s myDSV customer portal.<BR>
+      description: 'Download ZPL package labels via API for bookings submitted via the Booking API or online via DSV’s myDSV customer portal.
 
-        <BR>
 
-        DEMO ACCOUNT<BR>
+        DEMO ACCOUNT
 
-        Authorization: client_id: api.demo@demo.dsv.com, client_secret: Demo12345<BR>
 
-        Sample Booking IDs: 40257145990010760574, 40257145990010760581 '
+        Authorization: client_id: api.demo@demo.dsv.com, client_secret: Demo12345
+
+
+        Sample Booking IDs: 40257145990010760574, 40257145990010760581'
       operationId: printZPLLabelByBookingId
       parameters:
       - name: bookingId
@@ -453,6 +455,18 @@ paths:
                 message: 'Error: b410e2e1-2087-4618-8bca-981c51deda2e occurred. Please contact myDSV support.'
 components:
   schemas:
+    LabelsBookingIdGet200ApplicationPdf-jsonResponse:
+      type: string
+    DevelopmentDTO:
+      title: Development
+      type: object
+      properties:
+        exception:
+          type: string
+          description: dump from exception
+        message:
+          type: string
+          description: verbose, plain language description of the problem for the app developer with hints on how to fix it
     ErrorDTO:
       required:
       - code
@@ -492,18 +506,6 @@ components:
           description: Type of error
           example: ERR12345
       description: Field
-    DevelopmentDTO:
-      title: Development
-      type: object
-      properties:
-        exception:
-          type: string
-          description: dump from exception
-        message:
-          type: string
-          description: verbose, plain language description of the problem for the app developer with hints on how to fix it
-    LabelsBookingIdGet200ApplicationPdf-jsonResponse:
-      type: string
   securitySchemes:
     apiKeyHeader:
       type: apiKey

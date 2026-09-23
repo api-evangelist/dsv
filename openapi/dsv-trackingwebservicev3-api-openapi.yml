@@ -14,7 +14,6 @@ paths:
   /trackingWebServiceV3:
     post:
       summary: Get shipment tracking details
-      description: Get shipment tracking details
       operationId: post-trackingwebservicev3
       requestBody:
         content:
@@ -36,6 +35,24 @@ paths:
       - TrackingWebServiceV3
 components:
   schemas:
+    StatusEvent:
+      type: object
+      properties:
+        Status:
+          type: string
+        Date:
+          type: string
+        Time:
+          type: string
+        StatusInfo:
+          type: string
+    Location:
+      type: object
+      properties:
+        LocationName:
+          type: string
+        type:
+          type: string
     GetShipmentDetailsResponse:
       type: object
       properties:
@@ -50,40 +67,11 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/Shipment'
-    ShipmentBasicInfo:
+    SoapResponse:
       type: object
       properties:
-        UniqueID:
-          type: string
-        ShipmentNumberExport:
-          type: string
-        Location:
-          type: array
-          items:
-            $ref: '#/components/schemas/Location'
-        StatusEventList:
-          type: array
-          items:
-            $ref: '#/components/schemas/StatusEvent'
-    ApplicationArea:
-      type: object
-      properties:
-        requestId:
-          type: string
-        CreationDateTime:
-          type: string
-          format: date-time
-    StatusEvent:
-      type: object
-      properties:
-        Status:
-          type: string
-        Date:
-          type: string
-        Time:
-          type: string
-        StatusInfo:
-          type: string
+        Body:
+          $ref: '#/components/schemas/GetShipmentDetailsResponse'
     GetShipmentDetailsRequest:
       type: object
       properties:
@@ -94,11 +82,6 @@ components:
           $ref: '#/components/schemas/ShipmentDetailsRequest'
       xml:
         name: getPublicServiceShipmentDetails
-    SoapResponse:
-      type: object
-      properties:
-        Body:
-          $ref: '#/components/schemas/GetShipmentDetailsResponse'
     ShipmentDetailsRequest:
       type: object
       properties:
@@ -119,6 +102,21 @@ components:
         shipmentDateTo:
           type: string
           format: date
+    ApplicationArea:
+      type: object
+      properties:
+        requestId:
+          type: string
+        CreationDateTime:
+          type: string
+          format: date-time
+    SoapRequest:
+      type: object
+      properties:
+        Body:
+          $ref: '#/components/schemas/GetShipmentDetailsRequest'
+      xml:
+        name: Envelope
     Shipment:
       type: object
       properties:
@@ -129,20 +127,21 @@ components:
           properties:
             ShipmentBasicInfo:
               $ref: '#/components/schemas/ShipmentBasicInfo'
-    Location:
+    ShipmentBasicInfo:
       type: object
       properties:
-        LocationName:
+        UniqueID:
           type: string
-        type:
+        ShipmentNumberExport:
           type: string
-    SoapRequest:
-      type: object
-      properties:
-        Body:
-          $ref: '#/components/schemas/GetShipmentDetailsRequest'
-      xml:
-        name: Envelope
+        Location:
+          type: array
+          items:
+            $ref: '#/components/schemas/Location'
+        StatusEventList:
+          type: array
+          items:
+            $ref: '#/components/schemas/StatusEvent'
   securitySchemes:
     apiKeyHeader:
       type: apiKey

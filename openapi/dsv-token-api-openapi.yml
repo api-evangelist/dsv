@@ -1,7 +1,7 @@
 openapi: 3.2.0
 info:
   title: Access (DEMO) Token API
-  description: "This API is used to generate a DSV OAuth 2.0 access token for the Demo environment.\n\nThe access token is required to authenticate and authorize requests to DSV APIs.\n\nTo obtain the token, send a POST request with the content type application/x-www-form-urlencoded.\n\nThe request must include the grant_type parameter, which defines the authentication flow:\n\n- client_credentials – Generates an access token using the provided client credentials\n- refresh_token – Generates a new access token using a previously issued refresh token\n\nThe client credentials must be passed using:\n- client_id : 'abc@company.com' (MyDSV Username) \n- client_secret : Password (MyDSV Password) \n - API Key : cxxxxxxx4f4ad3afe8312317XXXXf(DSV-Subscription-Key) \n\nFor integrations consuming WMS APIs, the scope parameter must be set to CL. \n\nFor WMS APIs, the client credentials must be passed using:\n- client_id : 'abc@company.com' (CL User ID) \n- client_secret : Password (CL Password) \n- Scope : CL (Scope always CL) \n - API Key : cxxxxxxx4f4ad3afe8312317XXXXf (DSV-Subscription-Key) \n\nPlease refer to the API specification and Postman collection for request format, required parameters, and sample usage."
+  description: This API is used to generate a DSV OAuth 2.0 access token for the Demo environment.
   version: v1
 servers:
 - url: https://api.dsv.com/my-demo/oauth/v1

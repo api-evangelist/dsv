@@ -296,423 +296,71 @@ paths:
                   exception: string
 components:
   schemas:
-    CurrencyCode:
-      enum:
-      - AED
-      - AFN
-      - ALL
-      - AMD
-      - ANG
-      - AOA
-      - ARS
-      - AUD
-      - AWG
-      - AZN
-      - BAM
-      - BBD
-      - BDT
-      - BGN
-      - BHD
-      - BIF
-      - BMD
-      - BND
-      - BOB
-      - BOV
-      - BRL
-      - BSD
-      - BTN
-      - BWP
-      - BYN
-      - BZD
-      - CAD
-      - CDF
-      - CHE
-      - CHF
-      - CHW
-      - CLF
-      - CLP
-      - CNY
-      - COP
-      - COU
-      - CRC
-      - CUC
-      - CUP
-      - CVE
-      - CZK
-      - DJF
-      - DKK
-      - DOP
-      - DZD
-      - EGP
-      - ERN
-      - ETB
-      - EUR
-      - FJD
-      - FKP
-      - GBP
-      - GEL
-      - GHS
-      - GIP
-      - GMD
-      - GNF
-      - GTQ
-      - GYD
-      - HKD
-      - HNL
-      - HTG
-      - HUF
-      - IDR
-      - ILS
-      - INR
-      - IQD
-      - IRR
-      - ISK
-      - JMD
-      - JOD
-      - JPY
-      - KES
-      - KGS
-      - KHR
-      - KMF
-      - KPW
-      - KRW
-      - KWD
-      - KYD
-      - KZT
-      - LAK
-      - LBP
-      - LKR
-      - LRD
-      - LSL
-      - LYD
-      - MAD
-      - MDL
-      - MGA
-      - MKD
-      - MMK
-      - MNT
-      - MOP
-      - MRU
-      - MUR
-      - MVR
-      - MWK
-      - MXN
-      - MXV
-      - MYR
-      - MZN
-      - NAD
-      - NGN
-      - NIO
-      - NOK
-      - NPR
-      - NZD
-      - OMR
-      - PAB
-      - PEN
-      - PGK
-      - PHP
-      - PKR
-      - PLN
-      - PYG
-      - QAR
-      - RON
-      - RSD
-      - RUB
-      - RWF
-      - SAR
-      - SBD
-      - SCR
-      - SDG
-      - SEK
-      - SGD
-      - SHP
-      - SLE
-      - SOS
-      - SRD
-      - SSP
-      - STN
-      - SVC
-      - SYP
-      - SZL
-      - THB
-      - TJS
-      - TMT
-      - TND
-      - TOP
-      - TRY
-      - TTD
-      - TWD
-      - TZS
-      - UAH
-      - UGX
-      - USD
-      - USN
-      - UYI
-      - UYU
-      - UZS
-      - VED
-      - VEF
-      - VND
-      - VUV
-      - WST
-      - XAF
-      - XCD
-      - XDR
-      - XOF
-      - XPF
-      - XSU
-      - XUA
-      - YER
-      - ZAR
-      - ZMW
-      - ZWL
-      type: string
-      description: 3-digit currency code (ISO 4217-3) <br>If valueOfProduct is provided, currency becomes mandatory
-    NumericFieldDto:
+    LineDetailDto:
       required:
-      - sequence
+      - lineId
+      - productId
+      - quantity
       type: object
       properties:
-        sequence:
-          maximum: 4.0
-          minimum: 1.0
+        lineId:
+          maximum: 999999.0
+          minimum: 0.0
           type: integer
-          description: User Def Num 1-4
+          description: Line identifier
           format: int32
           example: 1
-        value:
-          maximum: 999999999.999999
-          minimum: 0.0
-          type: number
-          description: 'min: 0, max: 999999999.999999 (9.6)'
-          example: 999999999.999999
-      description: User defined numeric fields
-    IncotermsEnum:
-      enum:
-      - EXW
-      - FCA
-      - CPT
-      - CIP
-      - DAP
-      - DPU
-      - DDP
-      - FAS
-      - FOB
-      - CFR
-      - CIF
-      - DDU
-      type: string
-      description: ''
-    FieldDTO:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Error name
-          example: field_name
-        message:
-          type: string
-          description: Description of error
-          example: validation error
-        code:
-          type: string
-          description: Type of error
-          example: ERR12345
-    TransportDetailsDto:
-      type: object
-      properties:
-        carrierName:
+        productId:
           maxLength: 50
           minLength: 0
           type: string
-          description: Carrier company transporting the goods
-          example: FedEx
-        carrierReference:
-          maxLength: 20
-          minLength: 0
-          type: string
-          description: Carrier Reference of the shipment
-          example: '#123456'
-        modeOfTransport:
-          $ref: '#/components/schemas/ModeOfTransport'
-        containerType:
-          $ref: '#/components/schemas/ContainerType'
-        containerNumber:
-          maxLength: 35
-          minLength: 0
-          type: string
-          description: Container number
-          example: '#123456'
-      description: TransportDetailsDto
-    ProductValueDto:
-      type: object
-      properties:
-        valueOfProduct:
-          maximum: 999999999.999999
-          minimum: 0.0
-          type: number
-          description: Selling price of the lowest track level of the product
-          example: 999
-        currency:
-          $ref: '#/components/schemas/CurrencyCode'
-      description: Product Value
-    AddressDto:
-      type: object
-      properties:
-        partyId:
-          maxLength: 15
-          minLength: 0
-          type: string
-          description: Unique code identifying the address
+          description: Stock Keeping Unit identifier
           example: PId123456
-        companyName:
-          maxLength: 50
-          minLength: 0
-          type: string
-          description: Company name
-          example: DSV
-        addressLine1:
-          maxLength: 60
-          minLength: 0
-          type: string
-          description: Address line 1.
-          example: AddressLine1
-        addressLine2:
-          maxLength: 60
-          minLength: 0
-          type: string
-          description: Address line 2.
-          example: AddressLine2
-        city:
-          maxLength: 60
-          minLength: 0
-          type: string
-          description: Address town
-          example: Copenhagen
-        state:
-          maxLength: 60
-          minLength: 0
-          type: string
-          description: Address county or state
-          example: Capital Region of Denmark
-        zipCode:
+        quantity:
+          maximum: 999999999.0
+          minimum: 0.0
+          type: integer
+          description: Quantity expected
+          format: int32
+          example: 1
+        sscc:
           maxLength: 20
           minLength: 0
           type: string
-          description: Postal Code
-          example: '1000'
-        countryCode:
+          description: SSCC (Serial Shipping Container Code) Max 20 characters.
+          example: '123456789012345678'
+        conditionOfProduct:
+          $ref: '#/components/schemas/ConditionCode'
+        origin:
           $ref: '#/components/schemas/CountryCode'
-        vatNumber:
-          maxLength: 20
-          minLength: 0
+        expirationDate:
           type: string
-          description: Supplier VAT number
-          example: '#123456'
-        contactName:
-          maxLength: 25
-          minLength: 0
-          type: string
-          description: Contact name
-          example: Test
-        contactPhone:
-          maxLength: 25
-          minLength: 0
-          type: string
-          description: Phone number
-          example: '+1123456789'
-        contactEmail:
-          maxLength: 70
-          minLength: 0
-          type: string
-          description: Email
-          format: email
-          example: test@gmail.com
-        contactMobile:
+          description: 'Field can only be used if flag on ProductData productExpirationDateControlled is set Format: YYYY-MM-DD'
+          example: '2025-03-25'
+        lotId:
           maxLength: 15
           minLength: 0
           type: string
-          description: Mobile number
-          example: '+1123456789'
-      description: Address
-    ModeOfTransport:
-      enum:
-      - Road
-      - Air
-      - Sea
-      - Rail
-      type: string
-      description: ''
-    TextFieldDto:
-      required:
-      - sequence
-      type: object
-      properties:
-        sequence:
-          maximum: 8.0
-          minimum: 1.0
-          type: integer
-          description: User Def Type 1-8
-          format: int32
-          example: 1
-        value:
-          maxLength: 30
-          minLength: 0
-          type: string
-          description: Max length 30 characters
-          example: Value1
-      description: User defined text fields
-    AdditionalInformationDto:
-      type: object
-      properties:
-        numericFields:
+          description: Field can only be used if flag on ProductData productLotControlled is set
+          example: LId123456789
+        productValue:
+          $ref: '#/components/schemas/ProductValueDto'
+        additionalInformations:
+          $ref: '#/components/schemas/AdditionalInformationDto'
+        inboundNotes:
           type: array
           items:
-            $ref: '#/components/schemas/NumericFieldDto'
-          description: User defined numeric fields
-        textFields:
+            $ref: '#/components/schemas/InboundNoteDto'
+          description: Inbound notes related to the line.
+        serialNumbers:
           type: array
           items:
-            $ref: '#/components/schemas/TextFieldDto'
-          description: User defined text fields
-      description: Additional Information
-    ConditionCode:
-      enum:
-      - OK1
-      - OK2
-      - DM1
-      - DM2
-      - HO1
-      - HO2
-      - QU1
-      - QU2
-      - RN1
-      - RN2
-      - SC1
-      - SC2
-      type: string
-      description: ''
-    InboundNotificationDto:
-      type: object
-      properties:
-        inboundNotifications:
-          type: array
-          items:
-            $ref: '#/components/schemas/InboundNotificationItemDto'
-          description: Array of inbound notifications.
-      description: InboundNotificationDto
-    SupplierDto:
-      type: object
-      properties:
-        reference:
-          maxLength: 20
-          minLength: 0
-          type: string
-          description: Supplier reference
-          example: ABC
-        address:
-          $ref: '#/components/schemas/AddressDto'
-      description: SupplierDto
+            type: string
+          description: Segment can only be used if flag on ProductData productHoldsSerialNumber is set
+          example:
+          - SN1234567890
+          - SN1234567891
+      description: LineDetailDto
     DevelopmentDTO:
       type: object
       properties:
@@ -722,24 +370,23 @@ components:
         exception:
           type: string
           description: Dump from exception
-    InboundNoteDto:
-      required:
-      - code
-      type: object
-      properties:
-        code:
-          maxLength: 20
-          minLength: 0
-          type: string
-          description: Code of the inbound note.
-          example: '#123456'
-        text:
-          maxLength: 180
-          minLength: 0
-          type: string
-          description: Text of the inbound note.
-          example: This is Test
-      description: InboundNoteDto
+    InboundOrderType:
+      enum:
+      - NORMAL
+      - RETURN
+      type: string
+      description: ''
+    ContainerType:
+      enum:
+      - 20FT
+      - 40FT
+      - 20HC
+      - 40HC
+      - TRCK
+      - VAN
+      - CAR
+      type: string
+      description: ''
     CountryCode:
       enum:
       - AF
@@ -991,77 +638,346 @@ components:
       - AX
       type: string
       description: ''
-    LineDetailDto:
-      required:
-      - lineId
-      - productId
-      - quantity
+    InboundNotificationDto:
       type: object
       properties:
-        lineId:
-          maximum: 999999.0
-          minimum: 0.0
-          type: integer
-          description: Line identifier
-          format: int32
-          example: 1
-        productId:
-          maxLength: 50
-          minLength: 0
-          type: string
-          description: Stock Keeping Unit identifier
-          example: PId123456
-        quantity:
-          maximum: 999999999.0
-          minimum: 0.0
-          type: integer
-          description: Quantity expected
-          format: int32
-          example: 1
-        sscc:
+        inboundNotifications:
+          type: array
+          items:
+            $ref: '#/components/schemas/InboundNotificationItemDto'
+          description: Array of inbound notifications.
+      description: InboundNotificationDto
+    InboundNoteDto:
+      required:
+      - code
+      type: object
+      properties:
+        code:
           maxLength: 20
           minLength: 0
           type: string
-          description: SSCC (Serial Shipping Container Code) Max 20 characters.
-          example: '123456789012345678'
-        conditionOfProduct:
-          $ref: '#/components/schemas/ConditionCode'
-        origin:
-          $ref: '#/components/schemas/CountryCode'
-        expirationDate:
+          description: Code of the inbound note.
+          example: '#123456'
+        text:
+          maxLength: 180
+          minLength: 0
           type: string
-          description: 'Field can only be used if flag on ProductData productExpirationDateControlled is set Format: YYYY-MM-DD'
-          example: '2025-03-25'
-        lotId:
+          description: Text of the inbound note.
+          example: This is Test
+      description: InboundNoteDto
+    CurrencyCode:
+      enum:
+      - AED
+      - AFN
+      - ALL
+      - AMD
+      - ANG
+      - AOA
+      - ARS
+      - AUD
+      - AWG
+      - AZN
+      - BAM
+      - BBD
+      - BDT
+      - BGN
+      - BHD
+      - BIF
+      - BMD
+      - BND
+      - BOB
+      - BOV
+      - BRL
+      - BSD
+      - BTN
+      - BWP
+      - BYN
+      - BZD
+      - CAD
+      - CDF
+      - CHE
+      - CHF
+      - CHW
+      - CLF
+      - CLP
+      - CNY
+      - COP
+      - COU
+      - CRC
+      - CUC
+      - CUP
+      - CVE
+      - CZK
+      - DJF
+      - DKK
+      - DOP
+      - DZD
+      - EGP
+      - ERN
+      - ETB
+      - EUR
+      - FJD
+      - FKP
+      - GBP
+      - GEL
+      - GHS
+      - GIP
+      - GMD
+      - GNF
+      - GTQ
+      - GYD
+      - HKD
+      - HNL
+      - HTG
+      - HUF
+      - IDR
+      - ILS
+      - INR
+      - IQD
+      - IRR
+      - ISK
+      - JMD
+      - JOD
+      - JPY
+      - KES
+      - KGS
+      - KHR
+      - KMF
+      - KPW
+      - KRW
+      - KWD
+      - KYD
+      - KZT
+      - LAK
+      - LBP
+      - LKR
+      - LRD
+      - LSL
+      - LYD
+      - MAD
+      - MDL
+      - MGA
+      - MKD
+      - MMK
+      - MNT
+      - MOP
+      - MRU
+      - MUR
+      - MVR
+      - MWK
+      - MXN
+      - MXV
+      - MYR
+      - MZN
+      - NAD
+      - NGN
+      - NIO
+      - NOK
+      - NPR
+      - NZD
+      - OMR
+      - PAB
+      - PEN
+      - PGK
+      - PHP
+      - PKR
+      - PLN
+      - PYG
+      - QAR
+      - RON
+      - RSD
+      - RUB
+      - RWF
+      - SAR
+      - SBD
+      - SCR
+      - SDG
+      - SEK
+      - SGD
+      - SHP
+      - SLE
+      - SOS
+      - SRD
+      - SSP
+      - STN
+      - SVC
+      - SYP
+      - SZL
+      - THB
+      - TJS
+      - TMT
+      - TND
+      - TOP
+      - TRY
+      - TTD
+      - TWD
+      - TZS
+      - UAH
+      - UGX
+      - USD
+      - USN
+      - UYI
+      - UYU
+      - UZS
+      - VED
+      - VEF
+      - VND
+      - VUV
+      - WST
+      - XAF
+      - XCD
+      - XDR
+      - XOF
+      - XPF
+      - XSU
+      - XUA
+      - YER
+      - ZAR
+      - ZMW
+      - ZWL
+      type: string
+      description: 3-digit currency code (ISO 4217-3) <br>If valueOfProduct is provided, currency becomes mandatory
+    AddressDto:
+      type: object
+      properties:
+        partyId:
           maxLength: 15
           minLength: 0
           type: string
-          description: Field can only be used if flag on ProductData productLotControlled is set
-          example: LId123456789
-        productValue:
-          $ref: '#/components/schemas/ProductValueDto'
-        additionalInformations:
-          $ref: '#/components/schemas/AdditionalInformationDto'
-        inboundNotes:
-          type: array
-          items:
-            $ref: '#/components/schemas/InboundNoteDto'
-          description: Inbound notes related to the line.
-        serialNumbers:
-          type: array
-          items:
-            type: string
-          description: Segment can only be used if flag on ProductData productHoldsSerialNumber is set
-          example:
-          - SN1234567890
-          - SN1234567891
-      description: LineDetailDto
-    InboundOrderType:
+          description: Unique code identifying the address
+          example: PId123456
+        companyName:
+          maxLength: 50
+          minLength: 0
+          type: string
+          description: Company name
+          example: DSV
+        addressLine1:
+          maxLength: 60
+          minLength: 0
+          type: string
+          description: Address line 1.
+          example: AddressLine1
+        addressLine2:
+          maxLength: 60
+          minLength: 0
+          type: string
+          description: Address line 2.
+          example: AddressLine2
+        city:
+          maxLength: 60
+          minLength: 0
+          type: string
+          description: Address town
+          example: Copenhagen
+        state:
+          maxLength: 60
+          minLength: 0
+          type: string
+          description: Address county or state
+          example: Capital Region of Denmark
+        zipCode:
+          maxLength: 20
+          minLength: 0
+          type: string
+          description: Postal Code
+          example: '1000'
+        countryCode:
+          $ref: '#/components/schemas/CountryCode'
+        vatNumber:
+          maxLength: 20
+          minLength: 0
+          type: string
+          description: Supplier VAT number
+          example: '#123456'
+        contactName:
+          maxLength: 25
+          minLength: 0
+          type: string
+          description: Contact name
+          example: Test
+        contactPhone:
+          maxLength: 25
+          minLength: 0
+          type: string
+          description: Phone number
+          example: '+1123456789'
+        contactEmail:
+          maxLength: 70
+          minLength: 0
+          type: string
+          description: Email
+          format: email
+          example: test@gmail.com
+        contactMobile:
+          maxLength: 15
+          minLength: 0
+          type: string
+          description: Mobile number
+          example: '+1123456789'
+      description: Address
+    ConditionCode:
       enum:
-      - NORMAL
-      - RETURN
+      - OK1
+      - OK2
+      - DM1
+      - DM2
+      - HO1
+      - HO2
+      - QU1
+      - QU2
+      - RN1
+      - RN2
+      - SC1
+      - SC2
       type: string
       description: ''
+    FieldDTO:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Error name
+          example: field_name
+        message:
+          type: string
+          description: Description of error
+          example: validation error
+        code:
+          type: string
+          description: Type of error
+          example: ERR12345
+    SupplierDto:
+      type: object
+      properties:
+        reference:
+          maxLength: 20
+          minLength: 0
+          type: string
+          description: Supplier reference
+          example: ABC
+        address:
+          $ref: '#/components/schemas/AddressDto'
+      description: SupplierDto
+    TextFieldDto:
+      required:
+      - sequence
+      type: object
+      properties:
+        sequence:
+          maximum: 8.0
+          minimum: 1.0
+          type: integer
+          description: User Def Type 1-8
+          format: int32
+          example: 1
+        value:
+          maxLength: 30
+          minLength: 0
+          type: string
+          description: Max length 30 characters
+          example: Value1
+      description: User defined text fields
     ErrorDTO:
       required:
       - code
@@ -1084,6 +1000,66 @@ components:
             $ref: '#/components/schemas/FieldDTO'
         development:
           $ref: '#/components/schemas/DevelopmentDTO'
+    IncotermsDto:
+      type: object
+      properties:
+        code:
+          $ref: '#/components/schemas/IncotermsEnum'
+        location:
+          maxLength: 60
+          minLength: 0
+          type: string
+          description: Place related to Terms of Delivery (Incoterms)
+          example: Denmark
+      description: Incoterms
+    ModeOfTransport:
+      enum:
+      - Road
+      - Air
+      - Sea
+      - Rail
+      type: string
+      description: ''
+    TransportDetailsDto:
+      type: object
+      properties:
+        carrierName:
+          maxLength: 50
+          minLength: 0
+          type: string
+          description: Carrier company transporting the goods
+          example: FedEx
+        carrierReference:
+          maxLength: 20
+          minLength: 0
+          type: string
+          description: Carrier Reference of the shipment
+          example: '#123456'
+        modeOfTransport:
+          $ref: '#/components/schemas/ModeOfTransport'
+        containerType:
+          $ref: '#/components/schemas/ContainerType'
+        containerNumber:
+          maxLength: 35
+          minLength: 0
+          type: string
+          description: Container number
+          example: '#123456'
+      description: TransportDetailsDto
+    AdditionalInformationDto:
+      type: object
+      properties:
+        numericFields:
+          type: array
+          items:
+            $ref: '#/components/schemas/NumericFieldDto'
+          description: User defined numeric fields
+        textFields:
+          type: array
+          items:
+            $ref: '#/components/schemas/TextFieldDto'
+          description: User defined text fields
+      description: Additional Information
     InboundNotificationItemDto:
       required:
       - warehouseId
@@ -1131,29 +1107,53 @@ components:
             $ref: '#/components/schemas/LineDetailDto'
           description: The LineDetails  for the warehouse.
       description: InboundNotificationItemDto
-    IncotermsDto:
-      type: object
-      properties:
-        code:
-          $ref: '#/components/schemas/IncotermsEnum'
-        location:
-          maxLength: 60
-          minLength: 0
-          type: string
-          description: Place related to Terms of Delivery (Incoterms)
-          example: Denmark
-      description: Incoterms
-    ContainerType:
+    IncotermsEnum:
       enum:
-      - 20FT
-      - 40FT
-      - 20HC
-      - 40HC
-      - TRCK
-      - VAN
-      - CAR
+      - EXW
+      - FCA
+      - CPT
+      - CIP
+      - DAP
+      - DPU
+      - DDP
+      - FAS
+      - FOB
+      - CFR
+      - CIF
+      - DDU
       type: string
       description: ''
+    ProductValueDto:
+      type: object
+      properties:
+        valueOfProduct:
+          maximum: 999999999.999999
+          minimum: 0.0
+          type: number
+          description: Selling price of the lowest track level of the product
+          example: 999
+        currency:
+          $ref: '#/components/schemas/CurrencyCode'
+      description: Product Value
+    NumericFieldDto:
+      required:
+      - sequence
+      type: object
+      properties:
+        sequence:
+          maximum: 4.0
+          minimum: 1.0
+          type: integer
+          description: User Def Num 1-4
+          format: int32
+          example: 1
+        value:
+          maximum: 999999999.999999
+          minimum: 0.0
+          type: number
+          description: 'min: 0, max: 999999999.999999 (9.6)'
+          example: 999999999.999999
+      description: User defined numeric fields
   securitySchemes:
     apiKeyHeader:
       type: apiKey

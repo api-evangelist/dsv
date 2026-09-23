@@ -24,9 +24,7 @@ paths:
         This API is designed for customers cooperating with DSV and supports the structured submission of customs declarations that have already been filed with local customs systems and officially cleared by the authorities.
 
 
-        The transmitted data is integrated into DSV’s Global Customs Reporting platform, where it is used to support centralized reporting, compliance monitoring and data-driven insights.
-
-        '
+        The transmitted data is integrated into DSV’s Global Customs Reporting platform, where it is used to support centralized reporting, compliance monitoring and data-driven insights.'
       operationId: 03-post-declarations
       requestBody:
         content:
@@ -971,9 +969,7 @@ paths:
         This API enables customers to access draft declarations created by DSV in Customs AI platform for pre-clearance audit and validation purposes.
 
 
-        Customers can retrieve only those draft declarations that are linked to their unique customer identifier (ID64…) and associated with a specific Shipment ID within the relevant transport management system.
-
-        '
+        Customers can retrieve only those draft declarations that are linked to their unique customer identifier (ID64…) and associated with a specific Shipment ID within the relevant transport management system.'
       operationId: 01-get-declarations-id
       parameters:
       - name: id
@@ -1467,9 +1463,7 @@ paths:
         If no changes are needed and the declaration is marked as accepted ("stateOfData": "PRE_CLEARANCE_ACCEPTED"), it is automatically submitted to the customs system.
 
 
-        If updates are required ("stateOfData": "PRE_CLEARANCE_REJECTED"), DSV revises the draft accordingly and makes it available for the customer to perform a subsequent audit cycle until an accepted status is achieved.
-
-        '
+        If updates are required ("stateOfData": "PRE_CLEARANCE_REJECTED"), DSV revises the draft accordingly and makes it available for the customer to perform a subsequent audit cycle until an accepted status is achieved.'
       operationId: 02-put-declarations-id
       parameters:
       - name: id
@@ -2412,120 +2406,6 @@ paths:
           description: Internal server error
 components:
   schemas:
-    TotalGuarantee:
-      type:
-      - object
-      - 'null'
-      properties:
-        value:
-          type:
-          - number
-          - 'null'
-          description: Total guarantee amount from the declaration.
-          format: double
-        currency:
-          type:
-          - string
-          - 'null'
-          description: Currency of the guarantee amount from the declaration.
-        type:
-          type:
-          - string
-          - 'null'
-          description: Specifies the nature of the guarantee provided (e.g., cash deposit, bond).
-        number:
-          type:
-          - string
-          - 'null'
-          description: Unique reference or identification number assigned to the guarantee.
-      description: Financial security provided to Customs to ensure payment of duties, taxes, or compliance with customs procedures.
-    Guarantee:
-      type:
-      - object
-      - 'null'
-      properties:
-        value:
-          type:
-          - number
-          - 'null'
-          description: Guarantee amount per line from the declaration.
-          format: double
-        currency:
-          type:
-          - string
-          - 'null'
-          description: Original currency of the guarantee value.
-        reference:
-          type:
-          - string
-          - 'null'
-          description: Unique reference or identification number assigned to the guarantee.
-        type:
-          type:
-          - string
-          - 'null'
-          description: Specifies the nature of the guarantee provided (e.g., cash deposit, bond).
-        exchangeRate:
-          type:
-          - number
-          - 'null'
-          description: Exchange rate used to convert from foreign currency into local currency.
-          format: double
-        convertedValue:
-          type:
-          - number
-          - 'null'
-          description: Converted guarantee amount in local currency.
-          format: double
-        convertedValueCurrency:
-          type:
-          - string
-          - 'null'
-          description: Currency of the converted guarantee amount on line level.
-      description: Financial security provided to Customs at line level.
-    AdditionalInformationLine:
-      type:
-      - object
-      - 'null'
-      properties:
-        code:
-          type:
-          - string
-          - 'null'
-          description: Categories or classifications of extra details that can be added to each item in a customs declaration to provide more context or specify certain conditions.
-        information:
-          type:
-          - string
-          - 'null'
-          description: Specific code or identifier that refers to the kind of additional information provided for an item in a customs declaration.
-      description: Supplementary data related to a specific item in the customs declaration.
-    Party:
-      type:
-      - object
-      - 'null'
-      properties:
-        registrationCode:
-          type:
-          - string
-          - 'null'
-          description: Party's legal reference number (e.g., EORI number, Importer ID, Exporter ID).
-        vatGst:
-          type:
-          - string
-          - 'null'
-          description: VAT / Tax Identifier of the party.
-        name:
-          type:
-          - string
-          - 'null'
-          description: Full legal name of the party.
-        address:
-          $ref: '#/components/schemas/Address'
-        representativeStatus:
-          type:
-          - string
-          - 'null'
-          description: Representational relationship type (e.g., direct or indirect representation).
     PreviousDocumentLine:
       type:
       - object
@@ -2547,41 +2427,7 @@ components:
           - 'null'
           description: More specific classification or code that identifies the exact kind of prior document linked to an individual item in a customs declaration.
       description: Reference to a document related to or supporting a specific item in the shipment.
-    AdditionsAndDeductionsLine:
-      type:
-      - object
-      - 'null'
-      properties:
-        code:
-          type:
-          - string
-          - 'null'
-          description: Standardized numerical or alphanumeric codes used to specify the type of adjustment made to the item value — whether it is an addition or deduction — to ensure clarity and uniformity in declarations.
-        value:
-          type:
-          - number
-          - 'null'
-          description: Monetary value that is either added to or subtracted from the declared value of an item to calculate the correct customs value.
-          format: double
-        currency:
-          type:
-          - string
-          - 'null'
-          description: Currency unit in which the amounts for additions or deductions are expressed.
-        exchangeRate:
-          type:
-          - number
-          - 'null'
-          description: Exchange rate for currency used for additions or deductions.
-          format: double
-        convertedValue:
-          type:
-          - number
-          - 'null'
-          description: Converted value that is either added to or subtracted from the declared value of an item.
-          format: double
-      description: Costs or amounts added to or subtracted from the value of the goods to calculate the total customs value at line level.
-    AdditionalDocument:
+    HolderOfAuthorization:
       type:
       - object
       - 'null'
@@ -2590,29 +2436,25 @@ components:
           type:
           - string
           - 'null'
-          description: Type of document (e.g., certificate of origin).
+          description: Code specifying the type of person being the holder of the authorization (e.g., AEO, customs warehousing).
         reference:
           type:
           - string
           - 'null'
-          description: Document number or identifier.
-        amount:
-          type:
-          - number
-          - 'null'
-          description: Value related to the document type.
-          format: double
-        issueDate:
-          type:
-          - string
-          - 'null'
-          description: Date on which the supplementary customs document was officially issued by the relevant authority or issuer.
-        validityDate:
+          description: Authorization number.
+      description: Entity holding a specific customs authorization.
+    CustomsDeclarationEnvelope:
+      type:
+      - object
+      - 'null'
+      properties:
+        id:
           type:
           - string
           - 'null'
-          description: The last date on which the additional document remains effective and valid for customs use.
-      description: Document supporting the customs declaration at header level.
+          description: Unique identifier of the customs declaration.
+        declaration:
+          $ref: '#/components/schemas/Declaration'
     Declaration:
       type:
       - object
@@ -2647,160 +2489,27 @@ components:
           - 'null'
           description: A free-text field used to capture any supplementary comments or contextual information that applies to the overall customs declaration. This field is intended for general remarks that do not relate to a specific data element, item line, or section of the declaration.
       description: The full customs declaration object containing header, line items, invoices, and additional notes.
-    Tax:
+    PreviousDocument:
       type:
       - object
       - 'null'
       properties:
+        category:
+          type:
+          - string
+          - 'null'
+          description: Broad classification of the previous document (e.g., transport document, declaration, certificate).
         type:
           type:
           - string
           - 'null'
-          description: Type of tax (e.g., VAT, customs duty).
-        base:
-          type:
-          - number
-          - 'null'
-          description: Value on which the tax is calculated.
-          format: double
-        rate:
-          type:
-          - number
-          - 'null'
-          description: Applicable tax rate.
-          format: double
-        payableAmount:
-          type:
-          - number
-          - 'null'
-          description: Tax amount due.
-          format: double
-        total:
-          type:
-          - number
-          - 'null'
-          description: Total of all taxes.
-          format: double
-        paymentMethod:
-          type:
-          - string
-          - 'null'
-          description: Method used to pay taxes.
-      description: Duty and tax details at header level.
-    CustomsDeclarationEnvelope:
-      type:
-      - object
-      - 'null'
-      properties:
-        id:
-          type:
-          - string
-          - 'null'
-          description: Unique identifier of the customs declaration.
-        declaration:
-          $ref: '#/components/schemas/Declaration'
-    AdditionalCodeLine:
-      type:
-      - object
-      - 'null'
-      properties:
-        code:
-          type:
-          - string
-          - 'null'
-          description: Secondary HS code required to be declared by customs authority due to the kind of commodity being imported and any additionally applied duties.
-      description: Secondary HS code required by customs authority for certain commodities (e.g., Section 301 duties for goods from CN).
-    CommercialInvoiceLine:
-      type:
-      - object
-      - 'null'
-      properties:
-        partNumber:
-          type:
-          - string
-          - 'null'
-          description: Customer commodity reference (e.g., ASIN, Apple part number) representing the commodity for this line.
-        partNumberDescription:
-          type:
-          - string
-          - 'null'
-          description: Description of the commodity reference representing the commodity for this line.
-        commercialInvoiceNumber:
-          type:
-          - string
-          - 'null'
-          description: Reference to the commercial invoice this line belongs to.
-        commercialInvoiceLineNumber:
-          type:
-          - integer
-          - 'null'
-          description: Line item position number in the commercial invoice.
-        commercialInvoiceLineItemQuantity:
-          type:
-          - integer
-          - 'null'
-          description: Number of pieces at each part number level.
-        commercialInvoiceNumberOfPackages:
-          type:
-          - integer
-          - 'null'
-          description: Number of units for the part number as listed on the commercial invoice.
-        commercialInvoicePackageType:
-          type:
-          - string
-          - 'null'
-          description: Package type as listed on the commercial invoice line.
-        commercialInvoiceGrossWeight:
-          type:
-          - number
-          - 'null'
-          description: Total gross weight amount of the invoice line.
-          format: double
-        commercialInvoiceGrossWeightUom:
-          type:
-          - string
-          - 'null'
-          description: Gross weight unit of measure of the invoice line.
-        commercialInvoiceNetWeight:
-          type:
-          - number
-          - 'null'
-          description: Net weight amount of the invoice line.
-          format: double
-        commercialInvoiceNetWeightUom:
-          type:
-          - string
-          - 'null'
-          description: Net weight unit of measure of the invoice line.
-        commercialInvoiceLinePrice:
-          type:
-          - number
-          - 'null'
-          description: Price of a single line on the invoice — unit price multiplied by quantity.
-          format: double
-        unitPriceOfCommercialInvoiceLineItem:
-          type:
-          - number
-          - 'null'
-          description: Unit price of an item being imported as stated on the commercial invoice.
-          format: double
-      description: Individual line item of a commercial invoice.
-    AdditionalInformation:
-      type:
-      - object
-      - 'null'
-      properties:
-        type:
-          type:
-          - string
-          - 'null'
-          description: Code indicating the nature of the additional information.
+          description: Specific type of document, coded according to WCO standards (e.g., invoice, airway bill, previous declaration).
         reference:
           type:
           - string
           - 'null'
-          description: Identifier or description of the information.
-      description: Supplementary data required for customs at header level.
+          description: Unique identifier or number of the referenced document.
+      description: Reference to a document that precedes or supports the current customs declaration.
     Line:
       type:
       - object
@@ -3248,6 +2957,84 @@ components:
         declaration:
           $ref: '#/components/schemas/Declaration'
       description: Request payload used to create a new customs declaration. Contains the full declaration data submitted by the client.
+    AdditionalInformationLine:
+      type:
+      - object
+      - 'null'
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+          description: Categories or classifications of extra details that can be added to each item in a customs declaration to provide more context or specify certain conditions.
+        information:
+          type:
+          - string
+          - 'null'
+          description: Specific code or identifier that refers to the kind of additional information provided for an item in a customs declaration.
+      description: Supplementary data related to a specific item in the customs declaration.
+    Parties:
+      type:
+      - object
+      - 'null'
+      properties:
+        broker:
+          allOf:
+          - $ref: '#/components/schemas/Party'
+          - description: The entity authorized to act on behalf of another in customs matters, typically facilitating the submission of declarations and ensuring compliance with customs regulations.
+        ior:
+          allOf:
+          - $ref: '#/components/schemas/Party'
+          - description: The entity (Importer of Record) legally responsible for ensuring that imported goods comply with local laws and regulations, including payment of duties and taxes.
+        eor:
+          allOf:
+          - $ref: '#/components/schemas/Party'
+          - description: The entity (Exporter of Record) responsible for ensuring that goods exported from a country comply with export regulations, including documentation and licensing.
+        consignee:
+          allOf:
+          - $ref: '#/components/schemas/Party'
+          - description: Ultimate consignee in case it is different from IOR. The Ultimate Consignee is the last recipient of a shipment.
+        declarant:
+          allOf:
+          - $ref: '#/components/schemas/Party'
+          - description: Details related to the party who makes a declaration to an official body or - where legally permitted - in whose name, or on whose behalf, a declaration to an official body is made.
+        representative:
+          allOf:
+          - $ref: '#/components/schemas/Party'
+          - description: Details related to the entity acting as a representative.
+        buyer:
+          allOf:
+          - $ref: '#/components/schemas/Party'
+          - description: Details related to the party to which merchandise or services are sold.
+        seller:
+          allOf:
+          - $ref: '#/components/schemas/Party'
+          - description: Details related to the party selling merchandise to a buyer.
+        authorizedConsignee:
+          allOf:
+          - $ref: '#/components/schemas/Party'
+          - description: Entity authorized by the customs administration to receive goods directly at their premises without presenting them at the customs office at the point of destination.
+        forwarder:
+          allOf:
+          - $ref: '#/components/schemas/Party'
+          - description: A logistics provider responsible for organizing the transportation of goods, often acting as an intermediary between shipper and carrier.
+        carrier:
+          allOf:
+          - $ref: '#/components/schemas/Party'
+          - description: The party responsible for physically transporting the goods, such as a shipping line, airline, or trucking company.
+        shipper:
+          allOf:
+          - $ref: '#/components/schemas/Party'
+          - description: The party initiating the shipment, typically the seller or consignor.
+        delivery:
+          allOf:
+          - $ref: '#/components/schemas/Party'
+          - description: Party to which goods should be or have been delivered or positioned.
+        intermediateConsignee:
+          allOf:
+          - $ref: '#/components/schemas/Party'
+          - description: A party, other than the final consignee, that is designated to receive, hold, or forward the goods at an intermediate stage of the supply chain before they reach their final destination.
+      description: A collection of all parties involved in the customs declaration and the associated shipment. Each party represents a distinct role in the trade or logistics chain, such as the broker, importer, exporter, carrier, or consignee.
     Container:
       type:
       - object
@@ -3298,27 +3085,6 @@ components:
           description: Converted value of the adjustment.
           format: double
       description: Adjustments to customs value of goods at header level.
-    PreviousDocument:
-      type:
-      - object
-      - 'null'
-      properties:
-        category:
-          type:
-          - string
-          - 'null'
-          description: Broad classification of the previous document (e.g., transport document, declaration, certificate).
-        type:
-          type:
-          - string
-          - 'null'
-          description: Specific type of document, coded according to WCO standards (e.g., invoice, airway bill, previous declaration).
-        reference:
-          type:
-          - string
-          - 'null'
-          description: Unique identifier or number of the referenced document.
-      description: Reference to a document that precedes or supports the current customs declaration.
     Header:
       type:
       - object
@@ -3934,84 +3700,6 @@ components:
           - 'null'
           description: Currency as shown on the commercial invoice.
       description: Commercial invoice associated with the customs declaration.
-    HolderOfAuthorization:
-      type:
-      - object
-      - 'null'
-      properties:
-        type:
-          type:
-          - string
-          - 'null'
-          description: Code specifying the type of person being the holder of the authorization (e.g., AEO, customs warehousing).
-        reference:
-          type:
-          - string
-          - 'null'
-          description: Authorization number.
-      description: Entity holding a specific customs authorization.
-    Parties:
-      type:
-      - object
-      - 'null'
-      properties:
-        broker:
-          allOf:
-          - $ref: '#/components/schemas/Party'
-          - description: The entity authorized to act on behalf of another in customs matters, typically facilitating the submission of declarations and ensuring compliance with customs regulations.
-        ior:
-          allOf:
-          - $ref: '#/components/schemas/Party'
-          - description: The entity (Importer of Record) legally responsible for ensuring that imported goods comply with local laws and regulations, including payment of duties and taxes.
-        eor:
-          allOf:
-          - $ref: '#/components/schemas/Party'
-          - description: The entity (Exporter of Record) responsible for ensuring that goods exported from a country comply with export regulations, including documentation and licensing.
-        consignee:
-          allOf:
-          - $ref: '#/components/schemas/Party'
-          - description: Ultimate consignee in case it is different from IOR. The Ultimate Consignee is the last recipient of a shipment.
-        declarant:
-          allOf:
-          - $ref: '#/components/schemas/Party'
-          - description: Details related to the party who makes a declaration to an official body or - where legally permitted - in whose name, or on whose behalf, a declaration to an official body is made.
-        representative:
-          allOf:
-          - $ref: '#/components/schemas/Party'
-          - description: Details related to the entity acting as a representative.
-        buyer:
-          allOf:
-          - $ref: '#/components/schemas/Party'
-          - description: Details related to the party to which merchandise or services are sold.
-        seller:
-          allOf:
-          - $ref: '#/components/schemas/Party'
-          - description: Details related to the party selling merchandise to a buyer.
-        authorizedConsignee:
-          allOf:
-          - $ref: '#/components/schemas/Party'
-          - description: Entity authorized by the customs administration to receive goods directly at their premises without presenting them at the customs office at the point of destination.
-        forwarder:
-          allOf:
-          - $ref: '#/components/schemas/Party'
-          - description: A logistics provider responsible for organizing the transportation of goods, often acting as an intermediary between shipper and carrier.
-        carrier:
-          allOf:
-          - $ref: '#/components/schemas/Party'
-          - description: The party responsible for physically transporting the goods, such as a shipping line, airline, or trucking company.
-        shipper:
-          allOf:
-          - $ref: '#/components/schemas/Party'
-          - description: The party initiating the shipment, typically the seller or consignor.
-        delivery:
-          allOf:
-          - $ref: '#/components/schemas/Party'
-          - description: Party to which goods should be or have been delivered or positioned.
-        intermediateConsignee:
-          allOf:
-          - $ref: '#/components/schemas/Party'
-          - description: A party, other than the final consignee, that is designated to receive, hold, or forward the goods at an intermediate stage of the supply chain before they reach their final destination.
-      description: A collection of all parties involved in the customs declaration and the associated shipment. Each party represents a distinct role in the trade or logistics chain, such as the broker, importer, exporter, carrier, or consignee.
     Address:
       type:
       - object
@@ -4058,6 +3746,267 @@ components:
           - 'null'
           description: ISO 3166-1 alpha-2 country code representing the country of registration or operation of the party.
       description: Physical or registered address of a party involved in the customs declaration. Supports up to four address lines to accommodate varying international address formats.
+    Guarantee:
+      type:
+      - object
+      - 'null'
+      properties:
+        value:
+          type:
+          - number
+          - 'null'
+          description: Guarantee amount per line from the declaration.
+          format: double
+        currency:
+          type:
+          - string
+          - 'null'
+          description: Original currency of the guarantee value.
+        reference:
+          type:
+          - string
+          - 'null'
+          description: Unique reference or identification number assigned to the guarantee.
+        type:
+          type:
+          - string
+          - 'null'
+          description: Specifies the nature of the guarantee provided (e.g., cash deposit, bond).
+        exchangeRate:
+          type:
+          - number
+          - 'null'
+          description: Exchange rate used to convert from foreign currency into local currency.
+          format: double
+        convertedValue:
+          type:
+          - number
+          - 'null'
+          description: Converted guarantee amount in local currency.
+          format: double
+        convertedValueCurrency:
+          type:
+          - string
+          - 'null'
+          description: Currency of the converted guarantee amount on line level.
+      description: Financial security provided to Customs at line level.
+    AdditionalCodeLine:
+      type:
+      - object
+      - 'null'
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+          description: Secondary HS code required to be declared by customs authority due to the kind of commodity being imported and any additionally applied duties.
+      description: Secondary HS code required by customs authority for certain commodities (e.g., Section 301 duties for goods from CN).
+    TotalGuarantee:
+      type:
+      - object
+      - 'null'
+      properties:
+        value:
+          type:
+          - number
+          - 'null'
+          description: Total guarantee amount from the declaration.
+          format: double
+        currency:
+          type:
+          - string
+          - 'null'
+          description: Currency of the guarantee amount from the declaration.
+        type:
+          type:
+          - string
+          - 'null'
+          description: Specifies the nature of the guarantee provided (e.g., cash deposit, bond).
+        number:
+          type:
+          - string
+          - 'null'
+          description: Unique reference or identification number assigned to the guarantee.
+      description: Financial security provided to Customs to ensure payment of duties, taxes, or compliance with customs procedures.
+    Tax:
+      type:
+      - object
+      - 'null'
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+          description: Type of tax (e.g., VAT, customs duty).
+        base:
+          type:
+          - number
+          - 'null'
+          description: Value on which the tax is calculated.
+          format: double
+        rate:
+          type:
+          - number
+          - 'null'
+          description: Applicable tax rate.
+          format: double
+        payableAmount:
+          type:
+          - number
+          - 'null'
+          description: Tax amount due.
+          format: double
+        total:
+          type:
+          - number
+          - 'null'
+          description: Total of all taxes.
+          format: double
+        paymentMethod:
+          type:
+          - string
+          - 'null'
+          description: Method used to pay taxes.
+      description: Duty and tax details at header level.
+    AdditionalDocument:
+      type:
+      - object
+      - 'null'
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+          description: Type of document (e.g., certificate of origin).
+        reference:
+          type:
+          - string
+          - 'null'
+          description: Document number or identifier.
+        amount:
+          type:
+          - number
+          - 'null'
+          description: Value related to the document type.
+          format: double
+        issueDate:
+          type:
+          - string
+          - 'null'
+          description: Date on which the supplementary customs document was officially issued by the relevant authority or issuer.
+        validityDate:
+          type:
+          - string
+          - 'null'
+          description: The last date on which the additional document remains effective and valid for customs use.
+      description: Document supporting the customs declaration at header level.
+    CommercialInvoiceLine:
+      type:
+      - object
+      - 'null'
+      properties:
+        partNumber:
+          type:
+          - string
+          - 'null'
+          description: Customer commodity reference (e.g., ASIN, Apple part number) representing the commodity for this line.
+        partNumberDescription:
+          type:
+          - string
+          - 'null'
+          description: Description of the commodity reference representing the commodity for this line.
+        commercialInvoiceNumber:
+          type:
+          - string
+          - 'null'
+          description: Reference to the commercial invoice this line belongs to.
+        commercialInvoiceLineNumber:
+          type:
+          - integer
+          - 'null'
+          description: Line item position number in the commercial invoice.
+        commercialInvoiceLineItemQuantity:
+          type:
+          - integer
+          - 'null'
+          description: Number of pieces at each part number level.
+        commercialInvoiceNumberOfPackages:
+          type:
+          - integer
+          - 'null'
+          description: Number of units for the part number as listed on the commercial invoice.
+        commercialInvoicePackageType:
+          type:
+          - string
+          - 'null'
+          description: Package type as listed on the commercial invoice line.
+        commercialInvoiceGrossWeight:
+          type:
+          - number
+          - 'null'
+          description: Total gross weight amount of the invoice line.
+          format: double
+        commercialInvoiceGrossWeightUom:
+          type:
+          - string
+          - 'null'
+          description: Gross weight unit of measure of the invoice line.
+        commercialInvoiceNetWeight:
+          type:
+          - number
+          - 'null'
+          description: Net weight amount of the invoice line.
+          format: double
+        commercialInvoiceNetWeightUom:
+          type:
+          - string
+          - 'null'
+          description: Net weight unit of measure of the invoice line.
+        commercialInvoiceLinePrice:
+          type:
+          - number
+          - 'null'
+          description: Price of a single line on the invoice — unit price multiplied by quantity.
+          format: double
+        unitPriceOfCommercialInvoiceLineItem:
+          type:
+          - number
+          - 'null'
+          description: Unit price of an item being imported as stated on the commercial invoice.
+          format: double
+      description: Individual line item of a commercial invoice.
+    AdditionalDocumentLine:
+      type:
+      - object
+      - 'null'
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+          description: Type of document used related to the declaration line.
+        amount:
+          type:
+          - number
+          - 'null'
+          description: Value related to the document type.
+          format: double
+        reference:
+          type:
+          - string
+          - 'null'
+          description: Unique identifier or number assigned to an additional supporting document related to a specific item in a customs declaration.
+        issueDate:
+          type:
+          - string
+          - 'null'
+          description: Date on which the supplementary customs document (e.g., certificate of origin, inspection certificate, license, or permit) was officially issued by the relevant authority or issuer.
+        validityDate:
+          type:
+          - string
+          - 'null'
+          description: The last date on which the additional document remains effective and valid for customs use.
+      description: Extra document related to a specific line item that supports or clarifies the declaration.
     TaxLine:
       type:
       - object
@@ -4092,7 +4041,41 @@ components:
           - 'null'
           description: The way or mode by which duties, taxes, and fees are paid to customs authorities during the import or export process.
       description: Classification and amount details for a specific tax or duty applied at line level.
-    AdditionalDocumentLine:
+    AdditionsAndDeductionsLine:
+      type:
+      - object
+      - 'null'
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+          description: Standardized numerical or alphanumeric codes used to specify the type of adjustment made to the item value — whether it is an addition or deduction — to ensure clarity and uniformity in declarations.
+        value:
+          type:
+          - number
+          - 'null'
+          description: Monetary value that is either added to or subtracted from the declared value of an item to calculate the correct customs value.
+          format: double
+        currency:
+          type:
+          - string
+          - 'null'
+          description: Currency unit in which the amounts for additions or deductions are expressed.
+        exchangeRate:
+          type:
+          - number
+          - 'null'
+          description: Exchange rate for currency used for additions or deductions.
+          format: double
+        convertedValue:
+          type:
+          - number
+          - 'null'
+          description: Converted value that is either added to or subtracted from the declared value of an item.
+          format: double
+      description: Costs or amounts added to or subtracted from the value of the goods to calculate the total customs value at line level.
+    AdditionalInformation:
       type:
       - object
       - 'null'
@@ -4101,29 +4084,40 @@ components:
           type:
           - string
           - 'null'
-          description: Type of document used related to the declaration line.
-        amount:
-          type:
-          - number
-          - 'null'
-          description: Value related to the document type.
-          format: double
+          description: Code indicating the nature of the additional information.
         reference:
           type:
           - string
           - 'null'
-          description: Unique identifier or number assigned to an additional supporting document related to a specific item in a customs declaration.
-        issueDate:
+          description: Identifier or description of the information.
+      description: Supplementary data required for customs at header level.
+    Party:
+      type:
+      - object
+      - 'null'
+      properties:
+        registrationCode:
           type:
           - string
           - 'null'
-          description: Date on which the supplementary customs document (e.g., certificate of origin, inspection certificate, license, or permit) was officially issued by the relevant authority or issuer.
-        validityDate:
+          description: Party's legal reference number (e.g., EORI number, Importer ID, Exporter ID).
+        vatGst:
           type:
           - string
           - 'null'
-          description: The last date on which the additional document remains effective and valid for customs use.
-      description: Extra document related to a specific line item that supports or clarifies the declaration.
+          description: VAT / Tax Identifier of the party.
+        name:
+          type:
+          - string
+          - 'null'
+          description: Full legal name of the party.
+        address:
+          $ref: '#/components/schemas/Address'
+        representativeStatus:
+          type:
+          - string
+          - 'null'
+          description: Representational relationship type (e.g., direct or indirect representation).
   securitySchemes:
     apiKeyHeader:
       type: apiKey

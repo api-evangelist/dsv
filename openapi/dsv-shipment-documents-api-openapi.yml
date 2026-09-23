@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: DOWNLOAD (DEMO) - Air, Sea, Road (EU), Rail Shipment documents API
+  title: DOWNLOAD (DEMO) - Air, Sea, Road (EU), Rail Shipment…
   description: 'Download available documents for your bookings and shipments moved by DSV. Supported transport modes: Air, Sea, Road (EU), Rail and XPress.'
   version: v1
 servers:
@@ -16,13 +16,16 @@ paths:
       tags:
       - Shipment documents
       summary: Shipment documents by DSV Shipment ID
-      description: 'Retrieve shipment''s documents list by searching the DSV Shipment ID.<BR>
+      description: 'Retrieve shipment''s documents list by searching the DSV Shipment ID.
 
-        <BR>
 
-        DEMO ACCOUNT<BR><BR><I>(User email: api.demo@demo.dsv.com / Password: Demo12345)</I> <BR><BR>
+        DEMO ACCOUNT
 
-        Sample Shipment ID: SDFW0090209 '
+
+        (User email: api.demo@demo.dsv.com / Password: Demo12345)
+
+
+        Sample Shipment ID: SDFW0090209'
       operationId: get-shipments-tmsid-documents
       parameters:
       - name: tmsId
@@ -69,11 +72,14 @@ paths:
       tags:
       - Shipment documents
       summary: Shipment documents by DSV BookingId ID
-      description: 'Retrieve shipment''s documents list by searching the DSV Booking ID.<BR>
+      description: 'Retrieve shipment''s documents list by searching the DSV Booking ID.
 
-        <BR>
 
-        DEMO ACCOUNT<BR><BR><I>(User email: api.demo@demo.dsv.com / Password: Demo12345)</I> <BR><BR>
+        DEMO ACCOUNT
+
+
+        (User email: api.demo@demo.dsv.com / Password: Demo12345)
+
 
         Sample Booking ID: 40288888880000190646'
       operationId: get-shipments-bookingId-documents
@@ -122,11 +128,14 @@ paths:
       tags:
       - Shipment documents
       summary: Shipment documents by Customer reference
-      description: 'Retrieve shipment''s documents list by searching the DSV Booking ID.<BR>
+      description: 'Retrieve shipment''s documents list by searching the DSV Booking ID.
 
-        <BR>
 
-        DEMO ACCOUNT<BR><BR><I>(User email: api.demo@demo.dsv.com / Password: Demo12345)</I> <BR><BR>
+        DEMO ACCOUNT
+
+
+        (User email: api.demo@demo.dsv.com / Password: Demo12345)
+
 
         Sample Customer Reference: XXX'
       operationId: get-shipments-reference-documents

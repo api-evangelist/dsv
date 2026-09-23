@@ -17,7 +17,6 @@ paths:
       tags:
       - Status
       summary: Check if application is up and running
-      description: Check if application is up and running
       operationId: Status_Get
       parameters:
       - name: api-version
@@ -130,90 +129,6 @@ paths:
     - url: https://api.dsv.com/cl-demo/status/v1
 components:
   schemas:
-    DevelopmentDTO:
-      type: object
-      properties:
-        message:
-          type:
-          - string
-          - 'null'
-          description: Verbose, plain language description of the problem for the app developer with hints on how to fix it
-        exception:
-          type:
-          - string
-          - 'null'
-          description: Dump from exception
-    ErrorDTO:
-      required:
-      - code
-      - message
-      type: object
-      properties:
-        code:
-          minLength: 1
-          type: string
-          description: Unique error code
-          example: ERR12345
-        message:
-          minLength: 1
-          type: string
-          description: Error message passed to the user
-          example: 'Not found id : 4025988810785188'
-        fields:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/FieldDTO'
-        development:
-          $ref: '#/components/schemas/DevelopmentDTO'
-    OrderStatus:
-      enum:
-      - Hold
-      - Released
-      - InProgress
-      - PreReceived
-      - Complete
-      - Allocated
-      - Picked
-      - Packed
-      - ReadytoLoad
-      - Shipped
-      - Delivered
-      - Cancelled
-      - Awaiting
-      - DutyError
-      - InTransit
-      - Kitting
-      type: string
-      description: ''
-    NotificationType:
-      enum:
-      - Inbound
-      - Delivery
-      type: string
-      description: ''
-    FieldDTO:
-      type: object
-      properties:
-        name:
-          type:
-          - string
-          - 'null'
-          description: Error name
-          example: field_name
-        message:
-          type:
-          - string
-          - 'null'
-          description: Description of error
-          example: validation error
-        code:
-          type:
-          - string
-          - 'null'
-          description: Type of error
-          example: ERR12345
     NotificationStatusResponseDto:
       type: object
       properties:
@@ -238,6 +153,63 @@ components:
           description: 'Format: CCYY-MM-DDTHH:mm:ssZ'
           example: '2025-03-25T14:30:00Z'
       description: Notification Status Response
+    DevelopmentDTO:
+      type: object
+      properties:
+        message:
+          type:
+          - string
+          - 'null'
+          description: Verbose, plain language description of the problem for the app developer with hints on how to fix it
+        exception:
+          type:
+          - string
+          - 'null'
+          description: Dump from exception
+    OrderStatus:
+      enum:
+      - Hold
+      - Released
+      - InProgress
+      - PreReceived
+      - Complete
+      - Allocated
+      - Picked
+      - Packed
+      - ReadytoLoad
+      - Shipped
+      - Delivered
+      - Cancelled
+      - Awaiting
+      - DutyError
+      - InTransit
+      - Kitting
+      type: string
+      description: ''
+    ErrorDTO:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          minLength: 1
+          type: string
+          description: Unique error code
+          example: ERR12345
+        message:
+          minLength: 1
+          type: string
+          description: Error message passed to the user
+          example: 'Not found id : 4025988810785188'
+        fields:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/FieldDTO'
+        development:
+          $ref: '#/components/schemas/DevelopmentDTO'
     NotificationStatusRequestDto:
       required:
       - warehouseId
@@ -260,6 +232,33 @@ components:
           description: InboundNotification Id or DeliveryNotification Id
           example: IN001
       description: Notification Status Request
+    FieldDTO:
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+          description: Error name
+          example: field_name
+        message:
+          type:
+          - string
+          - 'null'
+          description: Description of error
+          example: validation error
+        code:
+          type:
+          - string
+          - 'null'
+          description: Type of error
+          example: ERR12345
+    NotificationType:
+      enum:
+      - Inbound
+      - Delivery
+      type: string
+      description: ''
   securitySchemes:
     apiKeyHeader:
       type: apiKey

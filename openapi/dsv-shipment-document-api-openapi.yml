@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: DOWNLOAD (DEMO) - Air, Sea, Road (EU), Rail Shipment document API
+  title: DOWNLOAD (DEMO) - Air, Sea, Road (EU), Rail Shipment…
   description: 'Download available documents for your bookings and shipments moved by DSV. Supported transport modes: Air, Sea, Road (EU), Rail and XPress.'
   version: v1
 servers:
