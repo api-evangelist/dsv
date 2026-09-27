@@ -37,6 +37,7 @@ tags:
 - Trade Compliance
 - Track and Trace
 - EDI
+- Freight
 deliveryModel:
   model: saas
   open_source: false

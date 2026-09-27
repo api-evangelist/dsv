@@ -159,43 +159,6 @@ paths:
                   exception: string
 components:
   schemas:
-    InventoryDto:
-      type: object
-      properties:
-        productId:
-          maxLength: 50
-          minLength: 0
-          type: string
-          description: Stock Keeping Unit identifier
-          example: PId123
-        details:
-          type: array
-          items:
-            $ref: '#/components/schemas/InventoryDetailsDto'
-          description: Inventory Details
-      description: Inventory
-    DevelopmentDTO:
-      type: object
-      properties:
-        message:
-          type: string
-          description: Verbose, plain language description of the problem for the app developer with hints on how to fix it
-        exception:
-          type: string
-          description: Dump from exception
-    InventoryByProductDto:
-      required:
-      - warehouseId
-      type: object
-      properties:
-        warehouseId:
-          maxLength: 20
-          minLength: 0
-          type: string
-          description: To be resolved in Token database
-          example: 36643f9b7c1c48ef
-        inventory:
-          $ref: '#/components/schemas/InventoryDto'
     TextFieldDto:
       required:
       - sequence
@@ -215,59 +178,6 @@ components:
           description: Max length 30 characters
           example: Value1
       description: User defined text fields
-    ConditionCode:
-      enum:
-      - OK1
-      - OK2
-      - DM1
-      - DM2
-      - HO1
-      - HO2
-      - QU1
-      - QU2
-      - RN1
-      - RN2
-      - SC1
-      - SC2
-      type: string
-      description: ''
-    ErrorDTO:
-      required:
-      - code
-      - message
-      type: object
-      properties:
-        code:
-          minLength: 1
-          type: string
-          description: Unique error code
-          example: ERR12345
-        message:
-          minLength: 1
-          type: string
-          description: Error message passed to the user
-          example: 'Not found id : 4025988810785188'
-        fields:
-          type: array
-          items:
-            $ref: '#/components/schemas/FieldDTO'
-        development:
-          $ref: '#/components/schemas/DevelopmentDTO'
-    FieldDTO:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Error name
-          example: field_name
-        message:
-          type: string
-          description: Description of error
-          example: validation error
-        code:
-          type: string
-          description: Type of error
-          example: ERR12345
     QuantityDto:
       type: object
       properties:
@@ -286,20 +196,6 @@ components:
           format: int32
           example: 10
       description: Quantity Dto
-    AdditionalInformationDto:
-      type: object
-      properties:
-        numericFields:
-          type: array
-          items:
-            $ref: '#/components/schemas/NumericFieldDto'
-          description: User defined numeric fields
-        textFields:
-          type: array
-          items:
-            $ref: '#/components/schemas/TextFieldDto'
-          description: User defined text fields
-      description: Additional Information
     NumericFieldDto:
       required:
       - sequence
@@ -319,6 +215,46 @@ components:
           description: 'min: 0, max: 999999999.999999 (9.6)'
           example: 999999999.999999
       description: User defined numeric fields
+    ConditionCode:
+      enum:
+      - OK1
+      - OK2
+      - DM1
+      - DM2
+      - HO1
+      - HO2
+      - QU1
+      - QU2
+      - RN1
+      - RN2
+      - SC1
+      - SC2
+      type: string
+      description: ''
+    DevelopmentDTO:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Verbose, plain language description of the problem for the app developer with hints on how to fix it
+        exception:
+          type: string
+          description: Dump from exception
+    FieldDTO:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Error name
+          example: field_name
+        message:
+          type: string
+          description: Description of error
+          example: validation error
+        code:
+          type: string
+          description: Type of error
+          example: ERR12345
     CountryCode:
       enum:
       - AF
@@ -570,6 +506,41 @@ components:
       - AX
       type: string
       description: ''
+    InventoryByProductDto:
+      required:
+      - warehouseId
+      type: object
+      properties:
+        warehouseId:
+          maxLength: 20
+          minLength: 0
+          type: string
+          description: To be resolved in Token database
+          example: 36643f9b7c1c48ef
+        inventory:
+          $ref: '#/components/schemas/InventoryDto'
+    ErrorDTO:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          minLength: 1
+          type: string
+          description: Unique error code
+          example: ERR12345
+        message:
+          minLength: 1
+          type: string
+          description: Error message passed to the user
+          example: 'Not found id : 4025988810785188'
+        fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/FieldDTO'
+        development:
+          $ref: '#/components/schemas/DevelopmentDTO'
     InventoryDetailsDto:
       type: object
       properties:
@@ -594,6 +565,35 @@ components:
         additionalInformation:
           $ref: '#/components/schemas/AdditionalInformationDto'
       description: InventoryDetailsDto
+    InventoryDto:
+      type: object
+      properties:
+        productId:
+          maxLength: 50
+          minLength: 0
+          type: string
+          description: Stock Keeping Unit identifier
+          example: PId123
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/InventoryDetailsDto'
+          description: Inventory Details
+      description: Inventory
+    AdditionalInformationDto:
+      type: object
+      properties:
+        numericFields:
+          type: array
+          items:
+            $ref: '#/components/schemas/NumericFieldDto'
+          description: User defined numeric fields
+        textFields:
+          type: array
+          items:
+            $ref: '#/components/schemas/TextFieldDto'
+          description: User defined text fields
+      description: Additional Information
   securitySchemes:
     apiKeyHeader:
       type: apiKey

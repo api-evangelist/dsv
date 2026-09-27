@@ -65,7 +65,7 @@
     "dsv-tracking-api-openapi.yml"
   ],
   "archived": [
-    "deleted 2 superseded output(s) from the previous generation"
+    "deleted 1 superseded output(s) from the previous generation"
   ],
   "errors": [],
   "warnings": [],
@@ -138,8 +138,8 @@
     "tag 'Status' spans 2 source specs (dsv-es-webhook-demo-v1-openapi.json, dsv-warehousing-status-demo-v1-openapi.json): per-path servers applied",
     "tag 'Booking' spans 2 source specs (dsv-generic-booking-demo-v2-openapi.json, dsv-xpress-booking-v2-openapi.json): per-path servers applied",
     "tag 'Shipment details' spans 2 source specs (dsv-generic-tracking-demo-v2-openapi.json, dsv-generic-visibilitydemo-v1-openapi.json): per-path servers applied",
-    "superseded outputs removed: dsv-e-docs-api-openapi.yml, dsv-product-data-api-openapi.yml",
-    "apis.yml register: written (+2 apis, 32 total)"
+    "superseded outputs removed: dsv-product-data-api-openapi.yml",
+    "apis.yml register: written (+1 apis, 32 total)"
   ],
   "skipped": [
     "_original/dsv-es-webhook-int-v1-openapi.json: archived document superseded by a larger archived document",
@@ -150,7 +150,7 @@
     "dsv-declarations-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "dsv-delivery-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "dsv-draft-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "dsv-e-docs-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "dsv-edocs-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "dsv-events-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "dsv-inbound-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "dsv-inventory-api-openapi.yml: previously refined output, superseded by openapi/_original/",

@@ -129,6 +129,12 @@ paths:
     - url: https://api.dsv.com/cl-demo/status/v1
 components:
   schemas:
+    NotificationType:
+      enum:
+      - Inbound
+      - Delivery
+      type: string
+      description: ''
     NotificationStatusResponseDto:
       type: object
       properties:
@@ -186,6 +192,49 @@ components:
       - Kitting
       type: string
       description: ''
+    FieldDTO:
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+          description: Error name
+          example: field_name
+        message:
+          type:
+          - string
+          - 'null'
+          description: Description of error
+          example: validation error
+        code:
+          type:
+          - string
+          - 'null'
+          description: Type of error
+          example: ERR12345
+    NotificationStatusRequestDto:
+      required:
+      - warehouseId
+      - notificationType
+      - notificationId
+      type: object
+      properties:
+        warehouseId:
+          maxLength: 20
+          minLength: 0
+          type: string
+          description: To be resolved in Token database
+          example: 36643f9b7c1c48ef
+        notificationType:
+          $ref: '#/components/schemas/NotificationType'
+        notificationId:
+          maxLength: 20
+          minLength: 0
+          type: string
+          description: InboundNotification Id or DeliveryNotification Id
+          example: IN001
+      description: Notification Status Request
     ErrorDTO:
       required:
       - code
@@ -210,55 +259,6 @@ components:
             $ref: '#/components/schemas/FieldDTO'
         development:
           $ref: '#/components/schemas/DevelopmentDTO'
-    NotificationStatusRequestDto:
-      required:
-      - warehouseId
-      - notificationType
-      - notificationId
-      type: object
-      properties:
-        warehouseId:
-          maxLength: 20
-          minLength: 0
-          type: string
-          description: To be resolved in Token database
-          example: 36643f9b7c1c48ef
-        notificationType:
-          $ref: '#/components/schemas/NotificationType'
-        notificationId:
-          maxLength: 20
-          minLength: 0
-          type: string
-          description: InboundNotification Id or DeliveryNotification Id
-          example: IN001
-      description: Notification Status Request
-    FieldDTO:
-      type: object
-      properties:
-        name:
-          type:
-          - string
-          - 'null'
-          description: Error name
-          example: field_name
-        message:
-          type:
-          - string
-          - 'null'
-          description: Description of error
-          example: validation error
-        code:
-          type:
-          - string
-          - 'null'
-          description: Type of error
-          example: ERR12345
-    NotificationType:
-      enum:
-      - Inbound
-      - Delivery
-      type: string
-      description: ''
   securitySchemes:
     apiKeyHeader:
       type: apiKey

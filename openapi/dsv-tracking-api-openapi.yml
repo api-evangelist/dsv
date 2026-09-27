@@ -421,56 +421,24 @@ paths:
           description: Shipment not found
 components:
   schemas:
-    TrackingEvent:
+    TrackingDelivery:
       type: object
       properties:
-        eventCode:
+        deliveryDate:
           type: string
-          description: Code of event
-        deviationCode:
-          type: string
-          description: Deviation Code
-        deviationDescription:
-          type: string
-          description: Deviation Description
-        eventDate:
-          type: string
-          description: Date of event
+          description: Date shipment was delivered.
           format: date-time
-        eventDescription:
-          type: string
-          description: Detailed description of the event
-        location:
-          type: string
-          description: Event location.
         deliverySignature:
           type: string
           description: Name of the person who signed.
         deliveryLocation:
           type: string
           description: Delivery location.
-        eventType:
-          type: string
-          description: Type of event. P for event related to package, S for event related to shipment.
-        carrierTrackingNumber:
-          type: string
-          description: Shipment carrier tracking number
-        awb:
-          type: string
-          description: Shipment AirWay Bill number
-        source:
-          type: string
-          description: Source of the event. DSV / carrier
+      description: Container for delivery details.
       example:
-        eventCode: KB
-        deviationCode: D
-        eventDate: '2020-02-26T09:38:06.0000000+00:00'
-        eventDescription: 'Delivered (Signed by : SMITH)'
-        location: NL-AMERSFOORT
+        deliveryDate: '2020-02-26T09:38:06.0000000+00:00'
         deliverySignature: SMITH
         deliveryLocation: Dock
-        eventType: P
-        carrierTrackingNumber: 1Z3E123412345678
     TrackingResponse:
       properties:
         errors:
@@ -614,24 +582,56 @@ components:
           type: string
         details:
           type: string
-    TrackingDelivery:
+    TrackingEvent:
       type: object
       properties:
-        deliveryDate:
+        eventCode:
           type: string
-          description: Date shipment was delivered.
+          description: Code of event
+        deviationCode:
+          type: string
+          description: Deviation Code
+        deviationDescription:
+          type: string
+          description: Deviation Description
+        eventDate:
+          type: string
+          description: Date of event
           format: date-time
+        eventDescription:
+          type: string
+          description: Detailed description of the event
+        location:
+          type: string
+          description: Event location.
         deliverySignature:
           type: string
           description: Name of the person who signed.
         deliveryLocation:
           type: string
           description: Delivery location.
-      description: Container for delivery details.
+        eventType:
+          type: string
+          description: Type of event. P for event related to package, S for event related to shipment.
+        carrierTrackingNumber:
+          type: string
+          description: Shipment carrier tracking number
+        awb:
+          type: string
+          description: Shipment AirWay Bill number
+        source:
+          type: string
+          description: Source of the event. DSV / carrier
       example:
-        deliveryDate: '2020-02-26T09:38:06.0000000+00:00'
+        eventCode: KB
+        deviationCode: D
+        eventDate: '2020-02-26T09:38:06.0000000+00:00'
+        eventDescription: 'Delivered (Signed by : SMITH)'
+        location: NL-AMERSFOORT
         deliverySignature: SMITH
         deliveryLocation: Dock
+        eventType: P
+        carrierTrackingNumber: 1Z3E123412345678
   securitySchemes:
     apiKeyHeader:
       type: apiKey

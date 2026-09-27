@@ -467,6 +467,23 @@ components:
         message:
           type: string
           description: verbose, plain language description of the problem for the app developer with hints on how to fix it
+    FieldDTO:
+      title: FieldDTO
+      type: object
+      properties:
+        name:
+          type: string
+          description: Error name
+          example: field_name
+        message:
+          type: string
+          description: Description of error
+          example: validation error
+        code:
+          type: string
+          description: Type of error
+          example: ERR12345
+      description: Field
     ErrorDTO:
       required:
       - code
@@ -489,23 +506,6 @@ components:
         development:
           $ref: '#/components/schemas/DevelopmentDTO'
       description: Error
-    FieldDTO:
-      title: FieldDTO
-      type: object
-      properties:
-        name:
-          type: string
-          description: Error name
-          example: field_name
-        message:
-          type: string
-          description: Description of error
-          example: validation error
-        code:
-          type: string
-          description: Type of error
-          example: ERR12345
-      description: Field
   securitySchemes:
     apiKeyHeader:
       type: apiKey

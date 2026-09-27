@@ -149,35 +149,24 @@ paths:
                 toDateEnd: string
 components:
   schemas:
-    Pickup:
+    Receiver:
       type: object
       properties:
         address:
           $ref: '#/components/schemas/Address'
         contact:
           $ref: '#/components/schemas/ContactPerson'
-      description: Name and address of the party shipment is picked up.
-    ContactPerson:
-      required:
-      - name
+      description: Name and address of the party receiving the shipment (consignee).
+    DatesFilter:
       type: object
       properties:
-        name:
-          maxLength: 34
-          type: string
-          description: Name of the contact person
-          example: Test Name
-        email:
-          maxLength: 34
-          type: string
-          description: Email address of the contact person
-          example: testemail@testcompany.com
-        telephone:
-          maxLength: 16
-          type: string
-          description: Phone number of the contact person.
-          example: '+4512345678'
-      description: All fields related to Contact Person e.g. Name, Phone, email
+        bookingDate:
+          $ref: '#/components/schemas/DateFilter'
+        pickupDate:
+          $ref: '#/components/schemas/DateFilter'
+        deliveryDate:
+          $ref: '#/components/schemas/DateFilter'
+      description: Allows for searching Bookings/Shipments where the Booking/Pickup/Delivery date matches custom date range
     ListParamsDTO:
       type: object
       properties:
@@ -332,43 +321,6 @@ components:
       default: ListParams
       xml:
         name: params
-    Sender:
-      type: object
-      properties:
-        address:
-          $ref: '#/components/schemas/Address'
-        contact:
-          $ref: '#/components/schemas/ContactPerson'
-      description: 'Name and address of the party sending the goods (shipper).
-
-        If address is not already available, it will be created from supplied address data.'
-    TypeValueDTO:
-      type: object
-      properties:
-        type:
-          type: string
-          description: 'Type of reference: <ul><li>INVOICING_REFERENCE</li><li>ORDER_NUMBER</li><li>CONSIGNEE_REFERENCE</li><li>SHIPPER_REFERENCE</li><li>CUSTOMS_REFERENCE</li><li>OTHER</li><li>ROUTING</li></ul>'
-        value:
-          type: string
-          description: Reference value
-      description: References that can be used to identify linked information. It is allowed to send several references of the same reference type.
-    GoodsSummaryDto:
-      type: object
-      properties:
-        totalColli:
-          type: number
-          description: Total number of collis in the shipment
-        totalWeight:
-          type: number
-          description: Total weight of the shipment
-        totalVolume:
-          type: number
-          description: Total volume of the shipment
-        totalLoadMeters:
-          type: number
-          description: 'Total loading meters of the shipment.
-
-            Only available for transport mode "ROAD"'
     Address:
       type: object
       properties:
@@ -1014,36 +966,52 @@ components:
 
             format: 2020-07-13T22:00:00'
           format: date-time
-    DatesFilter:
-      type: object
-      properties:
-        bookingDate:
-          $ref: '#/components/schemas/DateFilter'
-        pickupDate:
-          $ref: '#/components/schemas/DateFilter'
-        deliveryDate:
-          $ref: '#/components/schemas/DateFilter'
-      description: Allows for searching Bookings/Shipments where the Booking/Pickup/Delivery date matches custom date range
-    Receiver:
+    Pickup:
       type: object
       properties:
         address:
           $ref: '#/components/schemas/Address'
         contact:
           $ref: '#/components/schemas/ContactPerson'
-      description: Name and address of the party receiving the shipment (consignee).
-    ShipmentSummaryParties:
+      description: Name and address of the party shipment is picked up.
+    GoodsSummaryDto:
       type: object
       properties:
-        sender:
-          $ref: '#/components/schemas/Sender'
-        receiver:
-          $ref: '#/components/schemas/Receiver'
-        delivery:
-          $ref: '#/components/schemas/Delivery'
-        pickup:
-          $ref: '#/components/schemas/Pickup'
-      description: All parties of the shipment summary are mentioned in this structure. See party definition for details.
+        totalColli:
+          type: number
+          description: Total number of collis in the shipment
+        totalWeight:
+          type: number
+          description: Total weight of the shipment
+        totalVolume:
+          type: number
+          description: Total volume of the shipment
+        totalLoadMeters:
+          type: number
+          description: 'Total loading meters of the shipment.
+
+            Only available for transport mode "ROAD"'
+    ContactPerson:
+      required:
+      - name
+      type: object
+      properties:
+        name:
+          maxLength: 34
+          type: string
+          description: Name of the contact person
+          example: Test Name
+        email:
+          maxLength: 34
+          type: string
+          description: Email address of the contact person
+          example: testemail@testcompany.com
+        telephone:
+          maxLength: 16
+          type: string
+          description: Phone number of the contact person.
+          example: '+4512345678'
+      description: All fields related to Contact Person e.g. Name, Phone, email
     DateFilter:
       required:
       - option
@@ -1092,6 +1060,16 @@ components:
           type: string
           description: "End date of custom date range (inclusive).\n Format: 2024-07-15"
       description: Only include Bookings/Shipments where the Delivery date (actual/estimated/requested) matches selected filter
+    Sender:
+      type: object
+      properties:
+        address:
+          $ref: '#/components/schemas/Address'
+        contact:
+          $ref: '#/components/schemas/ContactPerson'
+      description: 'Name and address of the party sending the goods (shipper).
+
+        If address is not already available, it will be created from supplied address data.'
     Delivery:
       type: object
       properties:
@@ -1100,6 +1078,28 @@ components:
         contact:
           $ref: '#/components/schemas/ContactPerson'
       description: Name and address of the party where shipment is delivered
+    TypeValueDTO:
+      type: object
+      properties:
+        type:
+          type: string
+          description: 'Type of reference: <ul><li>INVOICING_REFERENCE</li><li>ORDER_NUMBER</li><li>CONSIGNEE_REFERENCE</li><li>SHIPPER_REFERENCE</li><li>CUSTOMS_REFERENCE</li><li>OTHER</li><li>ROUTING</li></ul>'
+        value:
+          type: string
+          description: Reference value
+      description: References that can be used to identify linked information. It is allowed to send several references of the same reference type.
+    ShipmentSummaryParties:
+      type: object
+      properties:
+        sender:
+          $ref: '#/components/schemas/Sender'
+        receiver:
+          $ref: '#/components/schemas/Receiver'
+        delivery:
+          $ref: '#/components/schemas/Delivery'
+        pickup:
+          $ref: '#/components/schemas/Pickup'
+      description: All parties of the shipment summary are mentioned in this structure. See party definition for details.
   securitySchemes:
     apiKeyHeader:
       type: apiKey

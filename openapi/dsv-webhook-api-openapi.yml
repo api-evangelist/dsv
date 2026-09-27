@@ -193,13 +193,18 @@ paths:
           description: If there is an internal server error
 components:
   schemas:
-    UnsubscriberDto:
+    KeyValueDto:
       type: object
       properties:
-        subscriptionEvent:
+        name:
           type: string
-        customerIds:
-          $ref: '#/components/schemas/CustomerIdsDto'
+          description: Name
+          example: client-key
+        value:
+          type: string
+          description: Value
+          example: client-key-value
+      description: Dto to store name value pair data (in headers, body)
     SubscriberDto:
       type: object
       properties:
@@ -222,41 +227,6 @@ components:
           description: Include any necessary headers. Make sure these headers match the requirements of the system receiving the data via webhook
           example: Headers
       description: Subscriber Dto
-    OAuthDto:
-      type: object
-      properties:
-        tokenGenerationUrl:
-          type: string
-          description: Token generation url
-          example: https://mytokensite.com
-        accessTokenRequest:
-          $ref: '#/components/schemas/TokenRequestDto'
-        refreshTokenRequest:
-          $ref: '#/components/schemas/TokenRequestDto'
-      description: Object to hold OAuth information
-    CustomerIdsDto:
-      type: object
-      properties:
-        type:
-          type: string
-          description: Type of customer identifier (MDM or WarehouseID)
-        values:
-          type: array
-          items:
-            type: string
-          description: List of customer identifier values
-    KeyValueDto:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Name
-          example: client-key
-        value:
-          type: string
-          description: Value
-          example: client-key-value
-      description: Dto to store name value pair data (in headers, body)
     BasicAuthDto:
       type: object
       properties:
@@ -269,18 +239,6 @@ components:
           description: Password
           example: test-password
       description: Object to hold basic auth information
-    AuthenticationDto:
-      type: object
-      properties:
-        type:
-          type: string
-          description: Authentication type
-          example: Basic
-        basic:
-          $ref: '#/components/schemas/BasicAuthDto'
-        oAuth:
-          $ref: '#/components/schemas/OAuthDto'
-      description: Authentication object
     TokenRequestDto:
       type: object
       properties:
@@ -293,6 +251,34 @@ components:
         body:
           $ref: '#/components/schemas/RequestBodyDto'
       description: TokenRequestDto to hold token request for access Token or refresh Token
+    CustomerIdsDto:
+      type: object
+      properties:
+        type:
+          type: string
+          description: Type of customer identifier (MDM or WarehouseID)
+        values:
+          type: array
+          items:
+            type: string
+          description: List of customer identifier values
+    RequestBodyDto:
+      type: object
+      properties:
+        formUrlEncodedValues:
+          type: array
+          items:
+            $ref: '#/components/schemas/KeyValueDto'
+          description: List of FormUrlEncodedValues values in name-value pair
+          example: FormUrlEncodedValues
+      description: Dto to hold request body parameters
+    UnsubscriberDto:
+      type: object
+      properties:
+        subscriptionEvent:
+          type: string
+        customerIds:
+          $ref: '#/components/schemas/CustomerIdsDto'
     SubscriberDetailsDto:
       allOf:
       - $ref: '#/components/schemas/SubscriberDto'
@@ -311,16 +297,30 @@ components:
             description: who subscribed to this event
         additionalProperties: false
         description: Subscriber Details Dto
-    RequestBodyDto:
+    AuthenticationDto:
       type: object
       properties:
-        formUrlEncodedValues:
-          type: array
-          items:
-            $ref: '#/components/schemas/KeyValueDto'
-          description: List of FormUrlEncodedValues values in name-value pair
-          example: FormUrlEncodedValues
-      description: Dto to hold request body parameters
+        type:
+          type: string
+          description: Authentication type
+          example: Basic
+        basic:
+          $ref: '#/components/schemas/BasicAuthDto'
+        oAuth:
+          $ref: '#/components/schemas/OAuthDto'
+      description: Authentication object
+    OAuthDto:
+      type: object
+      properties:
+        tokenGenerationUrl:
+          type: string
+          description: Token generation url
+          example: https://mytokensite.com
+        accessTokenRequest:
+          $ref: '#/components/schemas/TokenRequestDto'
+        refreshTokenRequest:
+          $ref: '#/components/schemas/TokenRequestDto'
+      description: Object to hold OAuth information
   securitySchemes:
     apiKeyHeader:
       type: apiKey

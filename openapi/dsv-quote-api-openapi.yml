@@ -122,86 +122,42 @@ paths:
           description: Unauthorized
 components:
   schemas:
-    ServiceComparatorResponse:
+    CurrencyMonetaryType:
+      required:
+      - currencyCode
+      - monetaryValue
       type: object
       properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/ErrorItem'
-        warnings:
-          type: array
-          items:
-            $ref: '#/components/schemas/ErrorItem'
-        services:
-          type: array
-          items:
-            $ref: '#/components/schemas/ServiceRates'
-      description: Container for DSV service and rates information response
+        currencyCode:
+          $ref: '#/components/schemas/CurrencyCodeList'
+        monetaryValue:
+          minimum: 0.0
+          type: number
+          description: Monetary value
+          format: double
+          example: 250
+    ServiceCharge:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Charge code
+          example: '30'
+        description:
+          type: string
+          description: Charge description
+          example: Insurance
+        monetaryValue:
+          maximum: 9999999.99
+          minimum: 0.0
+          type: number
+          description: Charge value amount. Amount is expressed exclusive tax.
+          format: double
+          example: 16
       example:
-        services:
-        - serviceCode: DSVAirExpress
-          serviceDescription: DSV XPress
-          etaMin: '2020-04-17'
-          etaMax: '2020-04-19'
-          rates:
-            currency: EUR
-            freight: 42.8
-            fuel: 6.8
-            total: 52.6
-            priceBreakdown:
-            - code: '24'
-              description: Courrier shipment
-              monetaryValue: 42.8
-            - code: '1'
-              description: Fuel surcharge
-              monetaryValue: 6.8
-            - code: '30'
-              description: Insurance
-              monetaryValue: 3
-            otherSurcharges:
-            - code: '10'
-              description: Proof of Delivery
-              monetaryValue: 3.4
-            - code: '11'
-              description: Additional Handling Charge
-              monetaryValue: 9
-            - code: '117'
-              description: DSV Protect
-              monetaryValue: 3
-            - code: '2'
-              description: DDP (Duty/Taxes Paid )
-              monetaryValue: 25
-            - code: '29'
-              description: Disbursement Fee
-              monetaryValue: 20
-            - code: '3'
-              description: Dangerous Goods
-              monetaryValue: 70
-            - code: '7'
-              description: Remote Area Delivery
-              monetaryValue: 25
-            - code: '8'
-              description: Address Correction
-              monetaryValue: 12
-            - code: '9'
-              description: Residential Delivery Service
-              monetaryValue: 2.9
-    PackageType:
-      enum:
-      - PARCELS
-      - DOCUMENT
-      - ENVELOPE
-      type: string
-      description: Package type. Could be PARCELS / DOCUMENT / ENVELOPE. PARCELS by default.
-      default: PARCELS
-    ErrorItem:
-      type: object
-      properties:
-        message:
-          type: string
-        details:
-          type: string
+        code: '10'
+        description: Proof of Delivery
+        monetaryValue: 3.4
     ServiceOptions:
       required:
       - packageType
@@ -322,6 +278,146 @@ components:
           height: 30
           grossWeight: 6.5
         collectDate: '2000-09-25'
+    CurrencyCodeList:
+      maxLength: 3
+      type: string
+      description: "Currency Code supported (EUR by default if not provided):\n * CAD -  Canadian Dollar\n * CNY  - Yuan Renminbi\n * DKK  - Danish Krone\n * EUR  - Euro\n * GBP  - British Pound\n * HKD  - Hong Kong Dollar\n * NOK  - Norwegian Krone\n * SEK  - Swedish krona\n * SGD  - Singapore Dollar\n * USD  - Dollar\n * ZAR  - Rand\n"
+      default: EUR
+      example: EUR
+    CountryCodeList:
+      maxLength: 2
+      type: string
+      description: ISO_3166_1 Country Code
+      example: DK
+    ServiceRates:
+      type: object
+      properties:
+        serviceCode:
+          type: string
+          description: DSV service code
+          example: DSVAirExpress
+        serviceDescription:
+          type: string
+          description: DSV service description
+          example: DSV XPress
+        etaMin:
+          type: string
+          description: Estimated Minimum Arrival Date
+          format: date
+        etaMax:
+          type: string
+          description: Estimated Maximum Arrival Date
+          format: date
+        rates:
+          $ref: '#/components/schemas/Rates'
+      description: Container for DSV service and rates information
+    PackageDetail:
+      required:
+      - grossWeight
+      type: object
+      properties:
+        length:
+          minimum: 0.0
+          type: number
+          description: Package length. Length must be the longest dimension of the container.
+          format: double
+          default: 0
+        width:
+          minimum: 0.0
+          type: number
+          description: Package width.
+          format: double
+          default: 0
+        height:
+          minimum: 0.0
+          type: number
+          description: Package height.
+          format: double
+          default: 0
+        grossWeight:
+          minimum: 0.0
+          type: number
+          description: Package gross weight
+          format: double
+          example: 6.5
+      description: Container for package
+      example:
+        length: 20
+        width: 30
+        height: 30
+        grossWeight: 8.5
+    ErrorItem:
+      type: object
+      properties:
+        message:
+          type: string
+        details:
+          type: string
+    ServiceComparatorResponse:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorItem'
+        warnings:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorItem'
+        services:
+          type: array
+          items:
+            $ref: '#/components/schemas/ServiceRates'
+      description: Container for DSV service and rates information response
+      example:
+        services:
+        - serviceCode: DSVAirExpress
+          serviceDescription: DSV XPress
+          etaMin: '2020-04-17'
+          etaMax: '2020-04-19'
+          rates:
+            currency: EUR
+            freight: 42.8
+            fuel: 6.8
+            total: 52.6
+            priceBreakdown:
+            - code: '24'
+              description: Courrier shipment
+              monetaryValue: 42.8
+            - code: '1'
+              description: Fuel surcharge
+              monetaryValue: 6.8
+            - code: '30'
+              description: Insurance
+              monetaryValue: 3
+            otherSurcharges:
+            - code: '10'
+              description: Proof of Delivery
+              monetaryValue: 3.4
+            - code: '11'
+              description: Additional Handling Charge
+              monetaryValue: 9
+            - code: '117'
+              description: DSV Protect
+              monetaryValue: 3
+            - code: '2'
+              description: DDP (Duty/Taxes Paid )
+              monetaryValue: 25
+            - code: '29'
+              description: Disbursement Fee
+              monetaryValue: 20
+            - code: '3'
+              description: Dangerous Goods
+              monetaryValue: 70
+            - code: '7'
+              description: Remote Area Delivery
+              monetaryValue: 25
+            - code: '8'
+              description: Address Correction
+              monetaryValue: 12
+            - code: '9'
+              description: Residential Delivery Service
+              monetaryValue: 2.9
     Rates:
       type: object
       properties:
@@ -397,110 +493,14 @@ components:
         - code: '9'
           description: Residential Delivery Service
           monetaryValue: 2.9
-    ServiceRates:
-      type: object
-      properties:
-        serviceCode:
-          type: string
-          description: DSV service code
-          example: DSVAirExpress
-        serviceDescription:
-          type: string
-          description: DSV service description
-          example: DSV XPress
-        etaMin:
-          type: string
-          description: Estimated Minimum Arrival Date
-          format: date
-        etaMax:
-          type: string
-          description: Estimated Maximum Arrival Date
-          format: date
-        rates:
-          $ref: '#/components/schemas/Rates'
-      description: Container for DSV service and rates information
-    CountryCodeList:
-      maxLength: 2
+    PackageType:
+      enum:
+      - PARCELS
+      - DOCUMENT
+      - ENVELOPE
       type: string
-      description: ISO_3166_1 Country Code
-      example: DK
-    CurrencyMonetaryType:
-      required:
-      - currencyCode
-      - monetaryValue
-      type: object
-      properties:
-        currencyCode:
-          $ref: '#/components/schemas/CurrencyCodeList'
-        monetaryValue:
-          minimum: 0.0
-          type: number
-          description: Monetary value
-          format: double
-          example: 250
-    PackageDetail:
-      required:
-      - grossWeight
-      type: object
-      properties:
-        length:
-          minimum: 0.0
-          type: number
-          description: Package length. Length must be the longest dimension of the container.
-          format: double
-          default: 0
-        width:
-          minimum: 0.0
-          type: number
-          description: Package width.
-          format: double
-          default: 0
-        height:
-          minimum: 0.0
-          type: number
-          description: Package height.
-          format: double
-          default: 0
-        grossWeight:
-          minimum: 0.0
-          type: number
-          description: Package gross weight
-          format: double
-          example: 6.5
-      description: Container for package
-      example:
-        length: 20
-        width: 30
-        height: 30
-        grossWeight: 8.5
-    CurrencyCodeList:
-      maxLength: 3
-      type: string
-      description: "Currency Code supported (EUR by default if not provided):\n * CAD -  Canadian Dollar\n * CNY  - Yuan Renminbi\n * DKK  - Danish Krone\n * EUR  - Euro\n * GBP  - British Pound\n * HKD  - Hong Kong Dollar\n * NOK  - Norwegian Krone\n * SEK  - Swedish krona\n * SGD  - Singapore Dollar\n * USD  - Dollar\n * ZAR  - Rand\n"
-      default: EUR
-      example: EUR
-    ServiceCharge:
-      type: object
-      properties:
-        code:
-          type: string
-          description: Charge code
-          example: '30'
-        description:
-          type: string
-          description: Charge description
-          example: Insurance
-        monetaryValue:
-          maximum: 9999999.99
-          minimum: 0.0
-          type: number
-          description: Charge value amount. Amount is expressed exclusive tax.
-          format: double
-          example: 16
-      example:
-        code: '10'
-        description: Proof of Delivery
-        monetaryValue: 3.4
+      description: Package type. Could be PARCELS / DOCUMENT / ENVELOPE. PARCELS by default.
+      default: PARCELS
   securitySchemes:
     apiKeyHeader:
       type: apiKey

@@ -35,24 +35,6 @@ paths:
       - TrackingWebServiceV3
 components:
   schemas:
-    StatusEvent:
-      type: object
-      properties:
-        Status:
-          type: string
-        Date:
-          type: string
-        Time:
-          type: string
-        StatusInfo:
-          type: string
-    Location:
-      type: object
-      properties:
-        LocationName:
-          type: string
-        type:
-          type: string
     GetShipmentDetailsResponse:
       type: object
       properties:
@@ -67,21 +49,13 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/Shipment'
-    SoapResponse:
+    SoapRequest:
       type: object
       properties:
         Body:
-          $ref: '#/components/schemas/GetShipmentDetailsResponse'
-    GetShipmentDetailsRequest:
-      type: object
-      properties:
-        AccessKey:
-          type: string
-          description: Authentication key
-        in:
-          $ref: '#/components/schemas/ShipmentDetailsRequest'
+          $ref: '#/components/schemas/GetShipmentDetailsRequest'
       xml:
-        name: getPublicServiceShipmentDetails
+        name: Envelope
     ShipmentDetailsRequest:
       type: object
       properties:
@@ -102,21 +76,27 @@ components:
         shipmentDateTo:
           type: string
           format: date
-    ApplicationArea:
+    StatusEvent:
       type: object
       properties:
-        requestId:
+        Status:
           type: string
-        CreationDateTime:
+        Date:
           type: string
-          format: date-time
-    SoapRequest:
+        Time:
+          type: string
+        StatusInfo:
+          type: string
+    GetShipmentDetailsRequest:
       type: object
       properties:
-        Body:
-          $ref: '#/components/schemas/GetShipmentDetailsRequest'
+        AccessKey:
+          type: string
+          description: Authentication key
+        in:
+          $ref: '#/components/schemas/ShipmentDetailsRequest'
       xml:
-        name: Envelope
+        name: getPublicServiceShipmentDetails
     Shipment:
       type: object
       properties:
@@ -142,6 +122,26 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/StatusEvent'
+    Location:
+      type: object
+      properties:
+        LocationName:
+          type: string
+        type:
+          type: string
+    ApplicationArea:
+      type: object
+      properties:
+        requestId:
+          type: string
+        CreationDateTime:
+          type: string
+          format: date-time
+    SoapResponse:
+      type: object
+      properties:
+        Body:
+          $ref: '#/components/schemas/GetShipmentDetailsResponse'
   securitySchemes:
     apiKeyHeader:
       type: apiKey
