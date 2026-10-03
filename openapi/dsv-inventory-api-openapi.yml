@@ -159,6 +159,21 @@ paths:
                   exception: string
 components:
   schemas:
+    InventoryDto:
+      type: object
+      properties:
+        productId:
+          maxLength: 50
+          minLength: 0
+          type: string
+          description: Stock Keeping Unit identifier
+          example: PId123
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/InventoryDetailsDto'
+          description: Inventory Details
+      description: Inventory
     TextFieldDto:
       required:
       - sequence
@@ -178,6 +193,21 @@ components:
           description: Max length 30 characters
           example: Value1
       description: User defined text fields
+    FieldDTO:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Error name
+          example: field_name
+        message:
+          type: string
+          description: Description of error
+          example: validation error
+        code:
+          type: string
+          description: Type of error
+          example: ERR12345
     QuantityDto:
       type: object
       properties:
@@ -196,6 +226,30 @@ components:
           format: int32
           example: 10
       description: Quantity Dto
+    InventoryDetailsDto:
+      type: object
+      properties:
+        expirationDate:
+          maxLength: 25
+          minLength: 0
+          type: string
+          description: 'Expiry date Format: CCYY-MM-DD'
+          example: '2025-03-25'
+        lotId:
+          maxLength: 20
+          minLength: 0
+          type: string
+          description: Batch identifier
+          example: '2025-03-25'
+        origin:
+          $ref: '#/components/schemas/CountryCode'
+        conditionOfProduct:
+          $ref: '#/components/schemas/ConditionCode'
+        quantities:
+          $ref: '#/components/schemas/QuantityDto'
+        additionalInformation:
+          $ref: '#/components/schemas/AdditionalInformationDto'
+      description: InventoryDetailsDto
     NumericFieldDto:
       required:
       - sequence
@@ -231,30 +285,6 @@ components:
       - SC2
       type: string
       description: ''
-    DevelopmentDTO:
-      type: object
-      properties:
-        message:
-          type: string
-          description: Verbose, plain language description of the problem for the app developer with hints on how to fix it
-        exception:
-          type: string
-          description: Dump from exception
-    FieldDTO:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Error name
-          example: field_name
-        message:
-          type: string
-          description: Description of error
-          example: validation error
-        code:
-          type: string
-          description: Type of error
-          example: ERR12345
     CountryCode:
       enum:
       - AF
@@ -541,45 +571,15 @@ components:
             $ref: '#/components/schemas/FieldDTO'
         development:
           $ref: '#/components/schemas/DevelopmentDTO'
-    InventoryDetailsDto:
+    DevelopmentDTO:
       type: object
       properties:
-        expirationDate:
-          maxLength: 25
-          minLength: 0
+        message:
           type: string
-          description: 'Expiry date Format: CCYY-MM-DD'
-          example: '2025-03-25'
-        lotId:
-          maxLength: 20
-          minLength: 0
+          description: Verbose, plain language description of the problem for the app developer with hints on how to fix it
+        exception:
           type: string
-          description: Batch identifier
-          example: '2025-03-25'
-        origin:
-          $ref: '#/components/schemas/CountryCode'
-        conditionOfProduct:
-          $ref: '#/components/schemas/ConditionCode'
-        quantities:
-          $ref: '#/components/schemas/QuantityDto'
-        additionalInformation:
-          $ref: '#/components/schemas/AdditionalInformationDto'
-      description: InventoryDetailsDto
-    InventoryDto:
-      type: object
-      properties:
-        productId:
-          maxLength: 50
-          minLength: 0
-          type: string
-          description: Stock Keeping Unit identifier
-          example: PId123
-        details:
-          type: array
-          items:
-            $ref: '#/components/schemas/InventoryDetailsDto'
-          description: Inventory Details
-      description: Inventory
+          description: Dump from exception
     AdditionalInformationDto:
       type: object
       properties:

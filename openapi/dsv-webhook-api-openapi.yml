@@ -193,92 +193,6 @@ paths:
           description: If there is an internal server error
 components:
   schemas:
-    KeyValueDto:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Name
-          example: client-key
-        value:
-          type: string
-          description: Value
-          example: client-key-value
-      description: Dto to store name value pair data (in headers, body)
-    SubscriberDto:
-      type: object
-      properties:
-        subscriptionEvent:
-          type: string
-          description: "Possible values are:\n\nGENERIC TRACKING \n- TrackingShipmentBookingSummary \n- TrackingShipmentEstimatedPickupChanged \n- TrackingShipmentEstimatedDeliveryChanged \n- TrackingShipmentEstimatedArrivalChanged \n- TrackingShipmentEstimatedDepartureChanged \n- TrackingShipmentActualArrivalChanged \n- TrackingShipmentActualDepartureChanged \n- TrackingShipmentPickedUp \n- TrackingShipmentDelivered \n- TrackingShipmentSupplierBooking \n- TrackingShipmentPodAvailable \n- TrackingShipmentExportCustomsCleared \n- TrackingShipmentImportCustomsCleared \n- TrackingShipmentGateIn \n- TrackingShipmentGateOut \n- TrackingShipmentFreightLoaded \n- TrackingShipmentFreightUnloaded \n- TrackingShipmentShipmentContainerAdded \n- TrackingShipmentShipmentStatusChanged\n\n INVOICE API \n- Invoice \n\n VISIBILITY API \n- ShipmentDeviceReading\n- ShipmentDeliveryReceipt \n\n QUOTE API \n- QuoteStatusChanged\n- QuoteRequestCreated\n- QuoteSubmitted\n- QuoteExpiringTomorrow \n\n CUSTOMS API \n- CustomsDeclarationStateUpdate \n\n WAREHOUSING APIs \n- WMSInboundNotificationStatusChange \n- WMSDeliveryConfirmation \n- WMSReceiptConfirmation \n- WMSInventoryChange \n- WMSOrderStatusChange \n- WMSInventoryFull\n\n DOWNTIME NOTIFICATION API \n- ApiDownTimeNotification"
-          example: ShipmentDeviceReading
-        pushUrl:
-          type: string
-          description: Provide the URL where you want the data to be delivered
-          example: http://mysite.com
-        customerIds:
-          $ref: '#/components/schemas/CustomerIdsDto'
-        authenticationData:
-          $ref: '#/components/schemas/AuthenticationDto'
-        headers:
-          type: array
-          items:
-            $ref: '#/components/schemas/KeyValueDto'
-          description: Include any necessary headers. Make sure these headers match the requirements of the system receiving the data via webhook
-          example: Headers
-      description: Subscriber Dto
-    BasicAuthDto:
-      type: object
-      properties:
-        username:
-          type: string
-          description: Username
-          example: test-user
-        password:
-          type: string
-          description: Password
-          example: test-password
-      description: Object to hold basic auth information
-    TokenRequestDto:
-      type: object
-      properties:
-        headers:
-          type: array
-          items:
-            $ref: '#/components/schemas/KeyValueDto'
-          description: Token request headers
-          example: Headers
-        body:
-          $ref: '#/components/schemas/RequestBodyDto'
-      description: TokenRequestDto to hold token request for access Token or refresh Token
-    CustomerIdsDto:
-      type: object
-      properties:
-        type:
-          type: string
-          description: Type of customer identifier (MDM or WarehouseID)
-        values:
-          type: array
-          items:
-            type: string
-          description: List of customer identifier values
-    RequestBodyDto:
-      type: object
-      properties:
-        formUrlEncodedValues:
-          type: array
-          items:
-            $ref: '#/components/schemas/KeyValueDto'
-          description: List of FormUrlEncodedValues values in name-value pair
-          example: FormUrlEncodedValues
-      description: Dto to hold request body parameters
-    UnsubscriberDto:
-      type: object
-      properties:
-        subscriptionEvent:
-          type: string
-        customerIds:
-          $ref: '#/components/schemas/CustomerIdsDto'
     SubscriberDetailsDto:
       allOf:
       - $ref: '#/components/schemas/SubscriberDto'
@@ -309,6 +223,81 @@ components:
         oAuth:
           $ref: '#/components/schemas/OAuthDto'
       description: Authentication object
+    TokenRequestDto:
+      type: object
+      properties:
+        headers:
+          type: array
+          items:
+            $ref: '#/components/schemas/KeyValueDto'
+          description: Token request headers
+          example: Headers
+        body:
+          $ref: '#/components/schemas/RequestBodyDto'
+      description: TokenRequestDto to hold token request for access Token or refresh Token
+    RequestBodyDto:
+      type: object
+      properties:
+        formUrlEncodedValues:
+          type: array
+          items:
+            $ref: '#/components/schemas/KeyValueDto'
+          description: List of FormUrlEncodedValues values in name-value pair
+          example: FormUrlEncodedValues
+      description: Dto to hold request body parameters
+    BasicAuthDto:
+      type: object
+      properties:
+        username:
+          type: string
+          description: Username
+          example: test-user
+        password:
+          type: string
+          description: Password
+          example: test-password
+      description: Object to hold basic auth information
+    SubscriberDto:
+      type: object
+      properties:
+        subscriptionEvent:
+          type: string
+          description: "Possible values are:\n\nGENERIC TRACKING \n- TrackingShipmentBookingSummary \n- TrackingShipmentEstimatedPickupChanged \n- TrackingShipmentEstimatedDeliveryChanged \n- TrackingShipmentEstimatedArrivalChanged \n- TrackingShipmentEstimatedDepartureChanged \n- TrackingShipmentActualArrivalChanged \n- TrackingShipmentActualDepartureChanged \n- TrackingShipmentPickedUp \n- TrackingShipmentDelivered \n- TrackingShipmentSupplierBooking \n- TrackingShipmentPodAvailable \n- TrackingShipmentExportCustomsCleared \n- TrackingShipmentImportCustomsCleared \n- TrackingShipmentGateIn \n- TrackingShipmentGateOut \n- TrackingShipmentFreightLoaded \n- TrackingShipmentFreightUnloaded \n- TrackingShipmentShipmentContainerAdded \n- TrackingShipmentShipmentStatusChanged\n\n INVOICE API \n- Invoice \n\n VISIBILITY API \n- ShipmentDeviceReading\n- ShipmentDeliveryReceipt \n\n QUOTE API \n- QuoteStatusChanged\n- QuoteRequestCreated\n- QuoteSubmitted\n- QuoteExpiringTomorrow \n\n CUSTOMS API \n- CustomsDeclarationStateUpdate \n\n WAREHOUSING APIs \n- WMSInboundNotificationStatusChange \n- WMSDeliveryConfirmation \n- WMSReceiptConfirmation \n- WMSInventoryChange \n- WMSOrderStatusChange \n- WMSInventoryFull\n\n DOWNTIME NOTIFICATION API \n- ApiDownTimeNotification"
+          example: ShipmentDeviceReading
+        pushUrl:
+          type: string
+          description: Provide the URL where you want the data to be delivered
+          example: http://mysite.com
+        customerIds:
+          $ref: '#/components/schemas/CustomerIdsDto'
+        authenticationData:
+          $ref: '#/components/schemas/AuthenticationDto'
+        headers:
+          type: array
+          items:
+            $ref: '#/components/schemas/KeyValueDto'
+          description: Include any necessary headers. Make sure these headers match the requirements of the system receiving the data via webhook
+          example: Headers
+      description: Subscriber Dto
+    UnsubscriberDto:
+      type: object
+      properties:
+        subscriptionEvent:
+          type: string
+        customerIds:
+          $ref: '#/components/schemas/CustomerIdsDto'
+    KeyValueDto:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name
+          example: client-key
+        value:
+          type: string
+          description: Value
+          example: client-key-value
+      description: Dto to store name value pair data (in headers, body)
     OAuthDto:
       type: object
       properties:
@@ -321,6 +310,17 @@ components:
         refreshTokenRequest:
           $ref: '#/components/schemas/TokenRequestDto'
       description: Object to hold OAuth information
+    CustomerIdsDto:
+      type: object
+      properties:
+        type:
+          type: string
+          description: Type of customer identifier (MDM or WarehouseID)
+        values:
+          type: array
+          items:
+            type: string
+          description: List of customer identifier values
   securitySchemes:
     apiKeyHeader:
       type: apiKey

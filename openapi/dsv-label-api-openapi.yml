@@ -455,18 +455,6 @@ paths:
                 message: 'Error: b410e2e1-2087-4618-8bca-981c51deda2e occurred. Please contact myDSV support.'
 components:
   schemas:
-    LabelsBookingIdGet200ApplicationPdf-jsonResponse:
-      type: string
-    DevelopmentDTO:
-      title: Development
-      type: object
-      properties:
-        exception:
-          type: string
-          description: dump from exception
-        message:
-          type: string
-          description: verbose, plain language description of the problem for the app developer with hints on how to fix it
     FieldDTO:
       title: FieldDTO
       type: object
@@ -484,6 +472,18 @@ components:
           description: Type of error
           example: ERR12345
       description: Field
+    DevelopmentDTO:
+      title: Development
+      type: object
+      properties:
+        exception:
+          type: string
+          description: dump from exception
+        message:
+          type: string
+          description: verbose, plain language description of the problem for the app developer with hints on how to fix it
+    LabelsBookingIdGet200ApplicationPdf-jsonResponse:
+      type: string
     ErrorDTO:
       required:
       - code

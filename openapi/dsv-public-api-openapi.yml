@@ -1366,25 +1366,110 @@ paths:
           description: Quote attachment not found
 components:
   schemas:
-    BaseUpload:
+    QuoteRequest:
+      required:
+      - requestedBy
+      - bookingParty
+      - from
+      - to
+      - cargoType
+      - pickupType
+      - deliveryType
+      - pickupDate
+      - deliveryDate
+      - totalWeight
+      - unitsOfMeasurement
+      - source
       type: object
       properties:
-        type:
-          $ref: '#/components/schemas/AttachmentType'
-        fileName:
+        requestedBy:
+          $ref: '#/components/schemas/Requestor'
+        bookingParty:
+          $ref: '#/components/schemas/BookingPartyAddress'
+        from:
+          $ref: '#/components/schemas/FromAddress'
+        to:
+          $ref: '#/components/schemas/ToAddress'
+        cargoType:
+          $ref: '#/components/schemas/CargoType'
+        pickupType:
+          $ref: '#/components/schemas/PickupType'
+        pickupDate:
+          type: string
+          description: Pickup date (YYYY-MM-DD)
+          format: date
+        deliveryType:
+          $ref: '#/components/schemas/DeliveryType'
+        deliveryDate:
+          type: string
+          description: Delivery date (YYYY-MM-DD)
+          format: date
+        references:
           type:
-          - string
+          - array
           - 'null'
-          description: Uploaded file name.
-          example: invoice-12345.pdf
-        file:
+          items:
+            $ref: '#/components/schemas/Reference'
+          description: Quote request references
+        insurance:
+          $ref: '#/components/schemas/Insurance'
+        packages:
           type:
-          - string
+          - array
           - 'null'
-          description: Base64-encoded file content.
-          format: byte
+          items:
+            $ref: '#/components/schemas/Package'
+          description: List of packages included in the shipment
+        containers:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Container'
+          description: List of containers in the shipment
+        totalWeight:
+          type: number
+          description: Shipment total weight
+          format: double
+        air:
+          $ref: '#/components/schemas/AirDetails'
+        sea:
+          $ref: '#/components/schemas/SeaDetails'
+        road:
+          $ref: '#/components/schemas/RoadDetails'
+        unitsOfMeasurement:
+          $ref: '#/components/schemas/SelectedUOM'
+        source:
+          $ref: '#/components/schemas/Source'
+        files:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/BaseUpload'
+          description: Optional attachments; supported for Air and Sea only.
       additionalProperties: false
-      description: Base file upload with metadata
+      description: Details of quote request
+    QuoteRequestStatus:
+      enum:
+      - Draft
+      - AwaitingForOptions
+      - CannotProvideQuotes
+      - AwaitingUserInformation
+      - AwaitingForQuotes
+      - Cancelled
+      - ReadyForBook
+      - NoLongerValid
+      - Accepted
+      - Close
+      type: string
+      description: Displays the processing status of a submitted quote request (e.g., Draft = Draft. AwaitingForOptions = Awaiting for options. CannotProvideQuotes = Cannot provide quotes. AwaitingUserInformation = Awaiting user information. AwaitingForQuotes = Awaiting for quotes. Cancelled = Cancelled. ReadyForBook = Ready for book. NoLongerValid = No longer valid. Accepted = Accepted. Closed = Closed.)
+    InsuranceType:
+      enum:
+      - DSVProtect
+      - CargoInsurance
+      type: string
+      description: Defines the selected insurance coverage option, DSVProtect = DSV Protect. CargoInsurance = DSV Cargo Insurance
     FinancialOwner:
       type: object
       properties:
@@ -1404,27 +1489,291 @@ components:
           description: Indicates whether the financial owner participates in the Revenue & Freight Workflow (RWF).
       additionalProperties: false
       description: Financial owner details by mode and country.
-    TemperatureControlledContainer:
+    QuoteRequestFilter:
+      type: object
+      properties:
+        pageNumber:
+          type: integer
+          description: Page number (1-based).
+          format: int32
+        pageSize:
+          type: integer
+          description: Items per page (pagination)
+          format: int32
+        sort:
+          allOf:
+          - $ref: '#/components/schemas/Sort'
+          description: Sort criteria (property and direction).
+        searchText:
+          type:
+          - string
+          - 'null'
+          description: Search text in quote requests
+        statuses:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/QuoteRequestStatus'
+          description: Filter by quote request statuses.
+          format: Accepted, AwaitingForOptions, AwaitingForQuotes, AwaitingUserInformation, Cancelled, CannotProvideQuotes, Closed, Draft, NoLongerValid, ReadyForBook
+        mots:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ModeOfTransport'
+          description: List of main transport mode the shipment
+          format: Air, Road, Sea
+        fromCountry:
+          pattern: ^[A-Z]{2}$
+          type:
+          - string
+          - 'null'
+          description: Origin country (ISO 3166-1 alpha-2).
+          example: DE
+        toCountry:
+          pattern: ^[A-Z]{2}$
+          type:
+          - string
+          - 'null'
+          description: Destination country (ISO 3166-1 alpha-2).
+          example: US
+        createdBy:
+          type:
+          - string
+          - 'null'
+          description: Identifier of the user who created the quote request (user ID or email).
+      additionalProperties: false
+      description: Search criteria for filtering and paging quote requests.
+      example:
+        pageNumber: 1
+        pageSize: 25
+        sort:
+          property: CREATED_DATE
+          direction: DESC
+        searchText: booking party acme
+        statuses:
+        - AwaitingForQuotes
+        - ReadyForBook
+        mots:
+        - Air - Air
+        - Sea - Sea
+        fromCountry: DK
+        toCountry: US
+        createdBy: XYZ@testsample.com
+    Requestor:
       required:
-      - genSet
+      - userId
+      - firstName
+      - lastName
+      - email
+      - language
+      - phone
+      type: object
+      properties:
+        userId:
+          type: string
+          description: Requestor unique ID
+        firstName:
+          type: string
+          description: Requestor first name
+        lastName:
+          type: string
+          description: Requestor last name
+        email:
+          type: string
+          description: Requestor email address
+          format: email
+        language:
+          type: string
+          description: Requestor preferred language
+        phone:
+          type: string
+          description: Requestor phone number
+      additionalProperties: false
+      description: Details of the user who initiated the quote request.
+    QuoteAttachment:
+      required:
+      - type
+      - fileName
+      - file
+      type: object
+      properties:
+        modeOfTransport:
+          allOf:
+          - $ref: '#/components/schemas/ModeOfTransport'
+          description: Mode of transport associated with the attachment (e.g. Air, Sea only).
+        attachmentId:
+          type:
+          - string
+          - 'null'
+          description: Unique identifier of the uploaded or generated attachment file.
+        type:
+          allOf:
+          - $ref: '#/components/schemas/AttachmentType'
+          description: Attachment type identifying the kind of file uploaded (e.g., INV - Invoice document, PKL - Packing list).
+        contentType:
+          type:
+          - string
+          - 'null'
+          description: MIME type of the file (e.g., application/pdf, image/png).
+        file:
+          type: string
+          description: File content encoded as a Base64 string.
+          format: byte
+          example: JVBERi0xLjQKJcTl8uXrp/Og0MTGCi4uLg==
+        fileName:
+          type: string
+          description: Original file name including extension.
+          example: test-invoice-0001.pdf
+      additionalProperties: false
+      description: Metadata and identification details of a quote-related file or document.
+      example:
+        type: INV - Invoice document
+        fileName: test-invoice-0001.pdf
+        file: JVBERi0xLjQKJcTl8uXrp/Og0MTGCi4uLg==
+    PickupType:
+      enum:
+      - DSV
+      - DropOff
+      type: string
+      description: Defines the pickup method. DSV = Pickup by DSV. DropOff = Cargo handover to DSV at warehouse or terminal.
+    DeliveryType:
+      enum:
+      - DDS
+      - CCX
+      type: string
+      description: Defines whether delivery is handled by DSV (DDS) or if cargo is handover by DSV at warehouse or terminal (CCX).
+    RoadDetails:
+      required:
+      - incoterms
+      - serviceLevel
+      type: object
+      properties:
+        incoterms:
+          allOf:
+          - $ref: '#/components/schemas/Incoterms'
+          description: Incoterms® 2020 rule and named place. Defines responsibilities, cost, and risk transfer between buyer and seller. For more information check https://www.dsv.com/en/insights/expert-opinions/what-are-incoterms
+        serviceAndSurchargeCodes:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          description: Service and surcharge codes for road shipment
+        serviceLevel:
+          type: string
+          description: Please enter the 3 letter/digit code of the requested service level. Please contact your local DSV contact for more information.
+        notes:
+          type:
+          - string
+          - 'null'
+          description: Additional notes or special instructions for the road shipment.
+      additionalProperties: false
+      description: Details of road transport shipment, including incoterms, service level, and applicable surcharge codes.
+    FromAddress:
+      allOf:
+      - $ref: '#/components/schemas/Address'
+      - required:
+        - country
+        - zipCode
+        - city
+        type: object
+        properties:
+          country:
+            type: string
+            description: ISO 3166-1 alpha-2 country code (e.g., DK, US).
+          zipCode:
+            type: string
+            description: Postal/ZIP code.
+          city:
+            type: string
+            description: City name.
+      description: Origin (shipper) address details from where the cargo will be picked up.
+    Stackable:
+      enum:
+      - NotStackable
+      - Stackable
+      - Stacked
+      type: string
+      description: Defines whether goods can be stacked during transport (e.g., NotStackable = Goods are not stackable. Stackable = Goods are capable of being stacked with other goods. Stacked = Goods are stacked prior to pickup.)
+    Incoterms:
+      required:
+      - code
+      - location
+      type: object
+      properties:
+        code:
+          $ref: '#/components/schemas/IncotermsCode'
+        location:
+          type: string
+          description: Named place for the selected Incoterms® 2020 rule.
+      additionalProperties: false
+      description: Details of Incoterms® 2020 rule and named place.
+    Amount:
+      required:
+      - value
+      - currency
+      type: object
+      properties:
+        value:
+          type: number
+          description: Amount value
+          format: double
+        currency:
+          type: string
+          description: ISO 4217 currency code. (e.g. USD, EUR)
+      additionalProperties: false
+      description: Monetary amount with currency
+    SelectedUOM:
+      required:
+      - dimension
+      - weight
+      - volume
       - temperature
       type: object
       properties:
-        genSet:
-          type: boolean
-          description: Indicates whether a generator set (GenSet) is required to maintain the container’s temperature during transit.
+        dimension:
+          allOf:
+          - $ref: '#/components/schemas/DimensionUOM'
+          description: Unit for length/width/height (applies to fields such as package length/width/height).
+        weight:
+          allOf:
+          - $ref: '#/components/schemas/WeightUOM'
+          description: Unit for weight values (e.g., package totalWeight, shipment totalWeight).
+        volume:
+          allOf:
+          - $ref: '#/components/schemas/VolumeUOM'
+          description: Unit for volume values (e.g., package totalVolume).
         temperature:
-          type: number
-          description: Target temperature setting for the container, as specified in the selected temperature unit (°C or °F)
-          format: double
+          allOf:
+          - $ref: '#/components/schemas/TemperatureUOM'
+          description: Unit for temperature values used in temperature-controlled goods/containers.
       additionalProperties: false
-      description: Details of a temperature-controlled container, including GenSet requirement and target temperature setting.
-    InsuranceType:
+      description: Units of measurement (UOM) used for all dimensional, weight, volume, and temperature fields. Provided by the requester in the quote request and echoed in the response to confirm the applied measurement units.
+    IncotermsCode:
       enum:
-      - DSVProtect
-      - CargoInsurance
+      - EXW
+      - FCA
+      - CPT
+      - CIP
+      - DAP
+      - DPU
+      - DDP
+      - FAS
+      - FOB
+      - CFR
+      - CIF
       type: string
-      description: Defines the selected insurance coverage option, DSVProtect = DSV Protect. CargoInsurance = DSV Cargo Insurance
+      description: Incoterms 2020 code. EXW = Ex works. FCA = Free carrier. CPT = Carriage paid to. CIP = Carriage and insurance paid to. DAP = Delivered at place. DPU = Delivered at place unloaded. DDP = Delivered duty paid. FAS = Free alongside ship. FOB = Free on board. CFR = Cost and freight. CIF = Cost insurance and freight.
+    BatteryType:
+      enum:
+      - None
+      - Lithium
+      - Dry
+      type: string
+      description: Battery type. None = No battery. Lithium = Lithium battery. Dry = Dry battery.
     Quote:
       type: object
       properties:
@@ -1582,255 +1931,131 @@ components:
           format: date-time
       additionalProperties: false
       description: Detailed quote information including pricing, transport mode, validity, and conditions.
-    ServiceAndSurchargeType:
-      enum:
-      - Undefined
-      - TransportServices
-      - Surcharges
-      type: string
-      description: Defines whether a charge relates to a service or a surcharge (e.g.,Undefined = Undefined type. TransportServices = Transport services. Surcharges = Surcharges)
-    Amount:
+    TemperatureControlledContainer:
       required:
-      - value
-      - currency
+      - genSet
+      - temperature
       type: object
       properties:
-        value:
+        genSet:
+          type: boolean
+          description: Indicates whether a generator set (GenSet) is required to maintain the container’s temperature during transit.
+        temperature:
           type: number
-          description: Amount value
+          description: Target temperature setting for the container, as specified in the selected temperature unit (°C or °F)
           format: double
-        currency:
-          type: string
-          description: ISO 4217 currency code. (e.g. USD, EUR)
       additionalProperties: false
-      description: Monetary amount with currency
-    Source:
-      enum:
-      - myDSV
-      - Road
-      - AirSea
-      - CRM
-      - Public
-      type: string
-      description: Indicates the originating source of the request, such as myDSV = myDSV. Road = Road. AirSea = A&S. CRM = CRM. Public = Request originated from Public API.
-    FromAddress:
-      allOf:
-      - $ref: '#/components/schemas/Address'
-      - required:
-        - country
-        - zipCode
-        - city
-        type: object
-        properties:
-          country:
-            type: string
-            description: ISO 3166-1 alpha-2 country code (e.g., DK, US).
-          zipCode:
-            type: string
-            description: Postal/ZIP code.
-          city:
-            type: string
-            description: City name.
-      description: Origin (shipper) address details from where the cargo will be picked up.
-    QuoteRequestFilter:
+      description: Details of a temperature-controlled container, including GenSet requirement and target temperature setting.
+    ServiceAndSurcharge:
       type: object
       properties:
-        pageNumber:
-          type: integer
-          description: Page number (1-based).
-          format: int32
-        pageSize:
-          type: integer
-          description: Items per page (pagination)
-          format: int32
-        sort:
+        name:
+          type:
+          - string
+          - 'null'
+          description: Name of the service or surcharge (e.g., Fuel Surcharge, Linehaul).
+        amount:
           allOf:
-          - $ref: '#/components/schemas/Sort'
-          description: Sort criteria (property and direction).
-        searchText:
+          - $ref: '#/components/schemas/Amount'
+          description: Price or charge amount with currency.
+        id:
           type:
           - string
           - 'null'
-          description: Search text in quote requests
-        statuses:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/QuoteRequestStatus'
-          description: Filter by quote request statuses.
-          format: Accepted, AwaitingForOptions, AwaitingForQuotes, AwaitingUserInformation, Cancelled, CannotProvideQuotes, Closed, Draft, NoLongerValid, ReadyForBook
-        mots:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/ModeOfTransport'
-          description: List of main transport mode the shipment
-          format: Air, Road, Sea
-        fromCountry:
-          pattern: ^[A-Z]{2}$
-          type:
-          - string
-          - 'null'
-          description: Origin country (ISO 3166-1 alpha-2).
-          example: DE
-        toCountry:
-          pattern: ^[A-Z]{2}$
-          type:
-          - string
-          - 'null'
-          description: Destination country (ISO 3166-1 alpha-2).
-          example: US
-        createdBy:
-          type:
-          - string
-          - 'null'
-          description: Identifier of the user who created the quote request (user ID or email).
-      additionalProperties: false
-      description: Search criteria for filtering and paging quote requests.
-      example:
-        pageNumber: 1
-        pageSize: 25
-        sort:
-          property: CREATED_DATE
-          direction: DESC
-        searchText: booking party acme
-        statuses:
-        - AwaitingForQuotes
-        - ReadyForBook
-        mots:
-        - Air - Air
-        - Sea - Sea
-        fromCountry: DK
-        toCountry: US
-        createdBy: XYZ@testsample.com
-    QuoteRequestResult:
-      type: object
-      properties:
-        pageNumber:
-          type: integer
-          description: Current page number (1-based).
-          format: int32
-        pageSize:
-          type: integer
-          description: Number of items per page.
-          format: int32
-        totalPages:
-          type: integer
-          description: Total number of pages available.
-          format: int32
-        totalResults:
-          type: integer
-          description: Total number of results matching the filter.
-          format: int32
-        results:
-          type: array
-          items:
-            allOf:
-            - $ref: '#/components/schemas/QuoteResponse'
-            description: Page of results. Returns an empty array when no data is found.
-      additionalProperties: false
-      description: Paged result set for quote requests.
-    Container:
-      required:
-      - description
-      type: object
-      properties:
+          description: Unique identifier for the service or surcharge.
         type:
-          $ref: '#/components/schemas/ContainerType'
-        totalWeight:
-          type:
-          - number
-          - 'null'
-          description: Total container weight in kilograms.
-          format: double
-        description:
-          type: string
-          description: Description of the container contents.
-        dangerousGoods:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/ContainerDangerousGoods'
-          description: Dangerous goods included in the container.
-        temperatureControlledGoods:
-          $ref: '#/components/schemas/TemperatureControlledGoods'
-        temperatureControlledContainer:
-          $ref: '#/components/schemas/TemperatureControlledContainer'
-      additionalProperties: false
-      description: Details of a shipping container
-    RoadDetails:
-      required:
-      - incoterms
-      - serviceLevel
-      type: object
-      properties:
-        incoterms:
           allOf:
-          - $ref: '#/components/schemas/Incoterms'
-          description: Incoterms® 2020 rule and named place. Defines responsibilities, cost, and risk transfer between buyer and seller. For more information check https://www.dsv.com/en/insights/expert-opinions/what-are-incoterms
-        serviceAndSurchargeCodes:
+          - $ref: '#/components/schemas/ServiceAndSurchargeType'
+          description: Indicates whether this is a transport service or surcharge.
+        selected:
           type:
-          - array
+          - boolean
           - 'null'
-          items:
-            type: string
-          description: Service and surcharge codes for road shipment
-        serviceLevel:
-          type: string
-          description: Please enter the 3 letter/digit code of the requested service level. Please contact your local DSV contact for more information.
-        notes:
+          description: Indicates whether this service or surcharge has been selected by the user.
+        productCode:
           type:
           - string
           - 'null'
-          description: Additional notes or special instructions for the road shipment.
+          description: Product code associated with the service or surcharge.
+        activityCode:
+          type:
+          - string
+          - 'null'
+          description: Service or surcharge activity code
+        serviceCode:
+          type:
+          - string
+          - 'null'
+          description: Service or surcharge code
+        myDSVServiceType:
+          type:
+          - string
+          - 'null'
+          description: myDSV-specific service type
       additionalProperties: false
-      description: Details of road transport shipment, including incoterms, service level, and applicable surcharge codes.
+      description: Details about individual services or surcharges applicable to the quote.
+    CommandResult:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indicates whether the request completed successfully.
+        errors:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Error'
+          description: List of validation or processing errors, if any.
+      additionalProperties: false
+      description: Standard result wrapper containing success status and errors.
+    SortProperty:
+      enum:
+      - CREATED_BY
+      - CREATED_DATE
+      type: string
+      description: Sort property. CREATED_BY = Sort by user who created quote request. CREATED_DATE = Sort by date when quote request was created.
     SortDirection:
       enum:
       - ASC
       - DESC
       type: string
       description: Defines the sorting order for query results — ascending (ASC) or descending (DESC).
-    QuoteStatus:
-      enum:
-      - AvailableForCalculation
-      - Expired
-      - Pending
-      - RejectedByDSV
-      - Cancelled
-      - ReadyForBook
-      - RevokedByDSV
-      - RejectedByUser
-      - Accepted
-      - Closed
-      type: string
-      description: Represents the current lifecycle status of a quote (e.g., AvailableForCalculation = Available for calculation. Expired = Expired. Pending = Pending. RejectedByDSV = Rejected by DSV. Cancelled = Cancelled. ReadyForBook = Ready for book. RevokedByDSV = Revoked by DSV. RejectedByUser = Rejected by user. Accepted = Accepted. Closed = Closed.)
-    BookingPartyAddress:
-      allOf:
-      - $ref: '#/components/schemas/Address'
-      - required:
-        - mdm
-        - country
-        - zipCode
-        - city
-        type: object
-        properties:
-          mdm:
-            type: string
-            description: DSV debtor number (MDM number) identifying the customer in DSV systems.
-          country:
-            type: string
-            description: ISO 3166-1 alpha-2 country code (e.g., DK, US).
-          zipCode:
-            type: string
-            description: Postal/ZIP code.
-          city:
-            type: string
-            description: City name.
-      description: Name and address of the party that created the booking.
+    PackageDangerousGoods:
+      required:
+      - unCode
+      - grossWeight
+      - packingGroup
+      - cargoAircraftOnly
+      - subRisk
+      - properShippingName
+      type: object
+      properties:
+        unCode:
+          type: string
+          description: UN number identifying the dangerous goods (e.g., 1203 for Gasoline).
+        grossWeight:
+          type: number
+          description: Gross weight of the dangerous goods in kilograms (kg).
+          format: double
+        subRisk:
+          type:
+          - string
+          - 'null'
+          description: Sub-risk classification, if applicable (e.g., Class 3 for flammable liquids).
+        packingGroup:
+          type: string
+          description: Packing group according to UN classification — I (high danger), II (medium danger), or III (low danger).
+        properShippingName:
+          type:
+          - string
+          - 'null'
+          description: Proper Shipping Name (PSN) as per UN dangerous goods list (e.g., Gasoline).
+        cargoAircraftOnly:
+          type: boolean
+          description: Indicates whether the dangerous goods shipment is restricted to cargo aircraft only (not permitted on passenger aircraft).
+      additionalProperties: false
+      description: Details about dangerous goods contained within a package, including UN number, packing group, and weight specifications.
     AirDetails:
       required:
       - originAirport
@@ -1864,15 +2089,203 @@ components:
           description: Additional notes or special instructions for the air shipment.
       additionalProperties: false
       description: Details of the air transport shipment, including airports, battery declaration, Incoterms®, and service level.
-    QuoteProvider:
+    CargoType:
       enum:
+      - LCL
+      - FCL
+      - LTL
+      type: string
+      description: Indicates the type of cargo handling mode — LCL (Loose Cargo), FCL (Full Container Load), or LTL (Less Truck Load).
+    Error:
+      type: object
+      properties:
+        source:
+          type:
+          - string
+          - 'null'
+          description: Error source
+        code:
+          type:
+          - string
+          - 'null'
+          description: Error code
+        field:
+          type:
+          - string
+          - 'null'
+          description: Field related to error
+        message:
+          type:
+          - string
+          - 'null'
+          description: Error message
+        arg:
+          description: Value of the field that the error concerns
+      additionalProperties: false
+      description: Error in reponse
+    Source:
+      enum:
+      - myDSV
+      - Road
+      - AirSea
+      - CRM
+      - Public
+      type: string
+      description: Indicates the originating source of the request, such as myDSV = myDSV. Road = Road. AirSea = A&S. CRM = CRM. Public = Request originated from Public API.
+    AttachmentType:
+      enum:
+      - INV
+      - GDS
+      - CUS
+      - HAZ
+      - PKL
+      - QUO
+      type: string
+      description: Attachment type. INV = Invoice document. GDS = Goods description. CUS = Customs document. HAZ = Hazardous materials document. PKL = Packing list. QUO = Quote with prices for customer.
+    Insurance:
+      required:
+      - insuranceType
+      - goodsType
+      - goodsValue
+      type: object
+      properties:
+        insuranceType:
+          allOf:
+          - $ref: '#/components/schemas/InsuranceType'
+          description: Selected insurance coverage option (e.g., DSV Protect or Cargo Insurance).
+        goodsType:
+          allOf:
+          - $ref: '#/components/schemas/InsuranceGoodsType'
+          description: Risk category of the shipped goods used for insurance rating (e.g., standard, fragile, used).
+        goodsValue:
+          allOf:
+          - $ref: '#/components/schemas/Amount'
+          description: Insured value of the goods including currency (ISO 4217).
+      additionalProperties: false
+      description: Insurance details for the quote, including coverage type, goods risk category, and insured value.
+    BookingPartyAddress:
+      allOf:
+      - $ref: '#/components/schemas/Address'
+      - required:
+        - mdm
+        - country
+        - zipCode
+        - city
+        type: object
+        properties:
+          mdm:
+            type: string
+            description: DSV debtor number (MDM number) identifying the customer in DSV systems.
+          country:
+            type: string
+            description: ISO 3166-1 alpha-2 country code (e.g., DK, US).
+          zipCode:
+            type: string
+            description: Postal/ZIP code.
+          city:
+            type: string
+            description: City name.
+      description: Name and address of the party that created the booking.
+    InsuranceGoodsType:
+      enum:
+      - STD
+      - MTR
+      - HHD
+      - FRAGILE
+      - UUG
+      type: string
+      description: Insurance goods type. STD = Standard goods. MTR = Motor vehicles, aircrafts, water- and pleasure crafts. HHD = Household goods. FRAGILE = Fragile goods, furniture, marble ceramics, art, antiques. UUG = Used and/or unpacked goods.
+    ToAddress:
+      allOf:
+      - $ref: '#/components/schemas/Address'
+      - required:
+        - mdm
+        - country
+        - zipCode
+        - city
+        type: object
+        properties:
+          mdm:
+            type: string
+            description: DSV debtor number (MDM number) identifying the customer in DSV systems.
+          country:
+            type: string
+            description: ISO 3166-1 alpha-2 country code (e.g., DK, US).
+          zipCode:
+            type: string
+            description: Postal/ZIP code.
+          city:
+            type: string
+            description: City name.
+      description: Destination address details where the cargo will be delivered.
+    BaseUpload:
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/AttachmentType'
+        fileName:
+          type:
+          - string
+          - 'null'
+          description: Uploaded file name.
+          example: invoice-12345.pdf
+        file:
+          type:
+          - string
+          - 'null'
+          description: Base64-encoded file content.
+          format: byte
+      additionalProperties: false
+      description: Base file upload with metadata
+    ContainerType:
+      enum:
+      - 20DC
+      - 40DC
+      - 40HC
+      - 45HC
+      - 20RE
+      - 40RE
+      - 40REHC
+      - 45REHC
+      - 20OT
+      - 40OT
+      - 20FR
+      - 20PL
+      - 40PL
+      - 20GOH
+      - 40GOH
+      - 20DC_HT
+      - 20GP_SO
+      - 20HC
+      - 20OT_SO
+      - 22T0
+      - 20TC_SO
+      - 40DC_HT
+      - 40HC_HT
+      - 40HC_SO
+      - 40OT_SO
+      - 40DC_PW
+      - 40HC_PW
+      - 45HC_SO
+      - 45GPHC
+      - 45CS
+      - 20GP
+      - 40GP
+      - 20GP_FG
+      - 40GP_FG
+      - 40HC_FG
+      - 40RT
+      type: string
+      description: 'Container type. Examples: 20DC = 20'' dry. 40HC = 40'' high cube. 20RE = 20'' reefer.'
+    ModeOfTransport:
+      enum:
+      - Road
       - Air
       - Sea
-      - Road
+      - Rail
       - Xpress
-      - AirSeaRoad
       type: string
-      description: Identifies the DSV system or service responsible for providing the quote (e.g., Air = Air. Sea = Sea. Road = Road. Xpress = Express. AirSeaRoad = A&S road.)
+      description: Indicates the primary mode of transportation — Road, Air, Sea, Rail, or Express.
     Address:
       required:
       - city
@@ -1928,232 +2341,113 @@ components:
           description: City/locality.
       additionalProperties: false
       description: Details of the address
-    IncotermsCode:
-      enum:
-      - EXW
-      - FCA
-      - CPT
-      - CIP
-      - DAP
-      - DPU
-      - DDP
-      - FAS
-      - FOB
-      - CFR
-      - CIF
-      type: string
-      description: Incoterms 2020 code. EXW = Ex works. FCA = Free carrier. CPT = Carriage paid to. CIP = Carriage and insurance paid to. DAP = Delivered at place. DPU = Delivered at place unloaded. DDP = Delivered duty paid. FAS = Free alongside ship. FOB = Free on board. CFR = Cost and freight. CIF = Cost insurance and freight.
-    ModeOfTransport:
-      enum:
-      - Road
-      - Air
-      - Sea
-      - Rail
-      - Xpress
-      type: string
-      description: Indicates the primary mode of transportation — Road, Air, Sea, Rail, or Express.
-    SortProperty:
-      enum:
-      - CREATED_BY
-      - CREATED_DATE
-      type: string
-      description: Sort property. CREATED_BY = Sort by user who created quote request. CREATED_DATE = Sort by date when quote request was created.
-    TemperatureUOM:
-      enum:
-      - C
-      - F
-      type: string
-      description: Unit of measurement for temperature — Celsius (C) or Fahrenheit (F).
-    QuoteRequestStatus:
-      enum:
-      - Draft
-      - AwaitingForOptions
-      - CannotProvideQuotes
-      - AwaitingUserInformation
-      - AwaitingForQuotes
-      - Cancelled
-      - ReadyForBook
-      - NoLongerValid
-      - Accepted
-      - Close
-      type: string
-      description: Displays the processing status of a submitted quote request (e.g., Draft = Draft. AwaitingForOptions = Awaiting for options. CannotProvideQuotes = Cannot provide quotes. AwaitingUserInformation = Awaiting user information. AwaitingForQuotes = Awaiting for quotes. Cancelled = Cancelled. ReadyForBook = Ready for book. NoLongerValid = No longer valid. Accepted = Accepted. Closed = Closed.)
-    ServiceAndSurcharge:
+    QuoteRequestResult:
       type: object
       properties:
-        name:
-          type:
-          - string
-          - 'null'
-          description: Name of the service or surcharge (e.g., Fuel Surcharge, Linehaul).
-        amount:
-          allOf:
-          - $ref: '#/components/schemas/Amount'
-          description: Price or charge amount with currency.
-        id:
-          type:
-          - string
-          - 'null'
-          description: Unique identifier for the service or surcharge.
-        type:
-          allOf:
-          - $ref: '#/components/schemas/ServiceAndSurchargeType'
-          description: Indicates whether this is a transport service or surcharge.
-        selected:
-          type:
-          - boolean
-          - 'null'
-          description: Indicates whether this service or surcharge has been selected by the user.
-        productCode:
-          type:
-          - string
-          - 'null'
-          description: Product code associated with the service or surcharge.
-        activityCode:
-          type:
-          - string
-          - 'null'
-          description: Service or surcharge activity code
-        serviceCode:
-          type:
-          - string
-          - 'null'
-          description: Service or surcharge code
-        myDSVServiceType:
-          type:
-          - string
-          - 'null'
-          description: myDSV-specific service type
-      additionalProperties: false
-      description: Details about individual services or surcharges applicable to the quote.
-    Error:
-      type: object
-      properties:
-        source:
-          type:
-          - string
-          - 'null'
-          description: Error source
-        code:
-          type:
-          - string
-          - 'null'
-          description: Error code
-        field:
-          type:
-          - string
-          - 'null'
-          description: Field related to error
-        message:
-          type:
-          - string
-          - 'null'
-          description: Error message
-        arg:
-          description: Value of the field that the error concerns
-      additionalProperties: false
-      description: Error in reponse
-    Package:
-      required:
-      - goodsDescription
-      - packageType
-      - quantity
-      - totalWeight
-      - length
-      - width
-      - height
-      - totalVolume
-      - stackable
-      type: object
-      properties:
-        id:
-          type:
-          - string
-          - 'null'
-          description: Package ID
-        goodsDescription:
-          type: string
-          description: Package contents description
-        packageType:
-          allOf:
-          - $ref: '#/components/schemas/PackageType'
-          description: Packaging unit (e.g., pallet, box, crate).
-        quantity:
+        pageNumber:
           type: integer
-          description: Item quantity in the package
+          description: Current page number (1-based).
           format: int32
-        totalWeight:
-          type: number
-          description: Package total weight in kilograms (kg) or as per SelectedUOM.weight.
-          format: double
-        length:
-          type: number
-          description: Package length
-          format: double
-        width:
-          type: number
-          description: Package width
-          format: double
-        height:
-          type: number
-          description: Package height
-          format: double
-        totalVolume:
-          type: number
-          description: Package total volume (typically L×W×H) in cubic units per SelectedUOM.volume.
-          format: double
-        stackable:
-          allOf:
-          - $ref: '#/components/schemas/Stackable'
-          description: Whether packages can be stacked.
-        palletSpace:
-          type:
-          - integer
-          - 'null'
-          description: Pallet space for package
+        pageSize:
+          type: integer
+          description: Number of items per page.
           format: int32
-        loadMeters:
-          type:
-          - number
-          - 'null'
-          description: Load meters for package
-          format: double
-        temperatureControlled:
-          $ref: '#/components/schemas/TemperatureControlledGoods'
-        dangerousGoods:
-          type:
-          - array
-          - 'null'
+        totalPages:
+          type: integer
+          description: Total number of pages available.
+          format: int32
+        totalResults:
+          type: integer
+          description: Total number of results matching the filter.
+          format: int32
+        results:
+          type: array
           items:
-            $ref: '#/components/schemas/PackageDangerousGoods'
-          description: Details about dangerous goods in package
-        shippingMark:
+            allOf:
+            - $ref: '#/components/schemas/QuoteResponse'
+            description: Page of results. Returns an empty array when no data is found.
+      additionalProperties: false
+      description: Paged result set for quote requests.
+    QuoteType:
+      enum:
+      - Tariff
+      - Spot
+      - Tender
+      type: string
+      description: Specifies the category of the quote — Tariff (contract rate), Spot (ad-hoc rate), or Tender.
+    VolumeUOM:
+      enum:
+      - M3
+      - F3
+      - FT3
+      type: string
+      description: Volume unit of measure. M3 = Cubic meter. F3 = Cubic feet. FT3 = Cubic feet.
+    PackageType:
+      enum:
+      - BAG
+      - CAN
+      - CAS
+      - CLL
+      - CON
+      - CRT
+      - CTN
+      - DRM
+      - EUR
+      - GIB
+      - HPL
+      - IBC
+      - IPL
+      - JCN
+      - LOT
+      - PKG
+      - PLL
+      - PLT
+      - PXL
+      - QPL
+      - UPL
+      - LOAD
+      - RLL
+      - LD
+      - PPL
+      type: string
+      description: Describes the physical packaging or load unit of the shipment. BAG = Bag. CAN = Can. CAS = Case. CLL = Colli. CON = Pallet container. CRT = Crate. CTN = Carton / box. DRM = Drum. EUR = Euro pallet. GIB = Gitterbox. HPL = Half pallet. IBC = IBC. IPL = Pallet 120x100. JCN = Jerry can. LOT = Lot. PKG = Package. PLL = Pallet 120x80. PLT = Pallet 110x110. PXL = Pallet 120x120. QPL = Quarter pallet. UPL = Pallet 120x110. LOAD = Load. RLL = Roll. LD = Load. PPL = Pallet 110x110.
+    ContainerDangerousGoods:
+      required:
+      - unCode
+      - grossWeight
+      - subRisk
+      - packingGroup
+      - properShippingName
+      - cargoAircraftOnly
+      type: object
+      properties:
+        unCode:
+          type: string
+          description: UN number identifying the dangerous goods (e.g., 1203 for Gasoline).
+        grossWeight:
+          type: number
+          description: Gross weight of the dangerous goods in kilograms (kg).
+          format: double
+        subRisk:
           type:
           - string
           - 'null'
-          description: Marks & numbers printed on the package.
+          description: Sub-risk classification, if applicable (e.g., Class 3 for flammable liquids).
+        packingGroup:
+          type:
+          - string
+          - 'null'
+          description: Packing group according to UN classification — I (high danger), II (medium danger), or III (low danger).
+        properShippingName:
+          type:
+          - string
+          - 'null'
+          description: Proper Shipping Name (PSN) as per the UN dangerous goods list (e.g., Gasoline).
+        cargoAircraftOnly:
+          type: boolean
+          description: Indicates whether the dangerous goods shipment is restricted to cargo aircraft only (not permitted on passenger aircraft).
       additionalProperties: false
-      description: Package details, dimensions, weight, and handling.
-      example:
-        goodsDescription: Printed brochures
-        packageType: PLL - Pallet - 120cm x 80cm
-        quantity: 10
-        totalWeight: 220.5
-        length: 120
-        width: 80
-        height: 150
-        totalVolume: 1.44
-        stackable: Stackable
-        palletSpace: 1
-        loadMeters: 0.4
-        shippingMark: PO#12345 / Box 1-10
-    CargoType:
-      enum:
-      - LCL
-      - FCL
-      - LTL
-      type: string
-      description: Indicates the type of cargo handling mode — LCL (Loose Cargo), FCL (Full Container Load), or LTL (Less Truck Load).
+      description: Details about dangerous goods loaded within a shipping container, including UN number, weight, and classification data.
     QuoteResponse:
       required:
       - bookingParty
@@ -2316,100 +2610,234 @@ components:
           description: List of errors
       additionalProperties: false
       description: Details of quote request
-    QuoteAttachment:
+    Reference:
       required:
       - type
-      - fileName
-      - file
+      - value
       type: object
       properties:
-        modeOfTransport:
-          allOf:
-          - $ref: '#/components/schemas/ModeOfTransport'
-          description: Mode of transport associated with the attachment (e.g. Air, Sea only).
-        attachmentId:
-          type:
-          - string
-          - 'null'
-          description: Unique identifier of the uploaded or generated attachment file.
+        name:
+          type: string
+          description: Reference name
         type:
-          allOf:
-          - $ref: '#/components/schemas/AttachmentType'
-          description: Attachment type identifying the kind of file uploaded (e.g., INV - Invoice document, PKL - Packing list).
-        contentType:
-          type:
-          - string
-          - 'null'
-          description: MIME type of the file (e.g., application/pdf, image/png).
-        file:
+          $ref: '#/components/schemas/ReferenceType'
+        value:
           type: string
-          description: File content encoded as a Base64 string.
-          format: byte
-          example: JVBERi0xLjQKJcTl8uXrp/Og0MTGCi4uLg==
-        fileName:
-          type: string
-          description: Original file name including extension.
-          example: test-invoice-0001.pdf
+          description: Reference value as provided by the customer or system.
       additionalProperties: false
-      description: Metadata and identification details of a quote-related file or document.
-      example:
-        type: INV - Invoice document
-        fileName: test-invoice-0001.pdf
-        file: JVBERi0xLjQKJcTl8uXrp/Og0MTGCi4uLg==
-    PackageDangerousGoods:
+      description: Typed reference attached to the quote/booking (e.g., CustomerReference, OrderNumber).
+    Package:
       required:
-      - unCode
-      - grossWeight
-      - packingGroup
-      - cargoAircraftOnly
-      - subRisk
-      - properShippingName
+      - goodsDescription
+      - packageType
+      - quantity
+      - totalWeight
+      - length
+      - width
+      - height
+      - totalVolume
+      - stackable
       type: object
       properties:
-        unCode:
+        id:
+          type:
+          - string
+          - 'null'
+          description: Package ID
+        goodsDescription:
           type: string
-          description: UN number identifying the dangerous goods (e.g., 1203 for Gasoline).
-        grossWeight:
+          description: Package contents description
+        packageType:
+          allOf:
+          - $ref: '#/components/schemas/PackageType'
+          description: Packaging unit (e.g., pallet, box, crate).
+        quantity:
+          type: integer
+          description: Item quantity in the package
+          format: int32
+        totalWeight:
           type: number
-          description: Gross weight of the dangerous goods in kilograms (kg).
+          description: Package total weight in kilograms (kg) or as per SelectedUOM.weight.
           format: double
-        subRisk:
+        length:
+          type: number
+          description: Package length
+          format: double
+        width:
+          type: number
+          description: Package width
+          format: double
+        height:
+          type: number
+          description: Package height
+          format: double
+        totalVolume:
+          type: number
+          description: Package total volume (typically L×W×H) in cubic units per SelectedUOM.volume.
+          format: double
+        stackable:
+          allOf:
+          - $ref: '#/components/schemas/Stackable'
+          description: Whether packages can be stacked.
+        palletSpace:
+          type:
+          - integer
+          - 'null'
+          description: Pallet space for package
+          format: int32
+        loadMeters:
+          type:
+          - number
+          - 'null'
+          description: Load meters for package
+          format: double
+        temperatureControlled:
+          $ref: '#/components/schemas/TemperatureControlledGoods'
+        dangerousGoods:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/PackageDangerousGoods'
+          description: Details about dangerous goods in package
+        shippingMark:
           type:
           - string
           - 'null'
-          description: Sub-risk classification, if applicable (e.g., Class 3 for flammable liquids).
-        packingGroup:
-          type: string
-          description: Packing group according to UN classification — I (high danger), II (medium danger), or III (low danger).
-        properShippingName:
-          type:
-          - string
-          - 'null'
-          description: Proper Shipping Name (PSN) as per UN dangerous goods list (e.g., Gasoline).
-        cargoAircraftOnly:
-          type: boolean
-          description: Indicates whether the dangerous goods shipment is restricted to cargo aircraft only (not permitted on passenger aircraft).
+          description: Marks & numbers printed on the package.
       additionalProperties: false
-      description: Details about dangerous goods contained within a package, including UN number, packing group, and weight specifications.
+      description: Package details, dimensions, weight, and handling.
+      example:
+        goodsDescription: Printed brochures
+        packageType: PLL - Pallet - 120cm x 80cm
+        quantity: 10
+        totalWeight: 220.5
+        length: 120
+        width: 80
+        height: 150
+        totalVolume: 1.44
+        stackable: Stackable
+        palletSpace: 1
+        loadMeters: 0.4
+        shippingMark: PO#12345 / Box 1-10
+    ServiceAndSurchargeType:
+      enum:
+      - Undefined
+      - TransportServices
+      - Surcharges
+      type: string
+      description: Defines whether a charge relates to a service or a surcharge (e.g.,Undefined = Undefined type. TransportServices = Transport services. Surcharges = Surcharges)
+    TemperatureControlledGoods:
+      required:
+      - maxTemperature
+      - minTemperature
+      type: object
+      properties:
+        minTemperature:
+          type: number
+          description: Minimum allowable temperature for the goods, expressed in the selected temperature unit (°C or °F).
+          format: double
+        maxTemperature:
+          type: number
+          description: Maximum allowable temperature for the goods, expressed in the selected temperature unit (°C or °F).
+          format: double
+      additionalProperties: false
+      description: Details of temperature-controlled goods, specifying the acceptable minimum and maximum temperature thresholds in the selected unit of measurement.
+    Container:
+      required:
+      - description
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/ContainerType'
+        totalWeight:
+          type:
+          - number
+          - 'null'
+          description: Total container weight in kilograms.
+          format: double
+        description:
+          type: string
+          description: Description of the container contents.
+        dangerousGoods:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ContainerDangerousGoods'
+          description: Dangerous goods included in the container.
+        temperatureControlledGoods:
+          $ref: '#/components/schemas/TemperatureControlledGoods'
+        temperatureControlledContainer:
+          $ref: '#/components/schemas/TemperatureControlledContainer'
+      additionalProperties: false
+      description: Details of a shipping container
+    QuoteStatus:
+      enum:
+      - AvailableForCalculation
+      - Expired
+      - Pending
+      - RejectedByDSV
+      - Cancelled
+      - ReadyForBook
+      - RevokedByDSV
+      - RejectedByUser
+      - Accepted
+      - Closed
+      type: string
+      description: Represents the current lifecycle status of a quote (e.g., AvailableForCalculation = Available for calculation. Expired = Expired. Pending = Pending. RejectedByDSV = Rejected by DSV. Cancelled = Cancelled. ReadyForBook = Ready for book. RevokedByDSV = Revoked by DSV. RejectedByUser = Rejected by user. Accepted = Accepted. Closed = Closed.)
+    QuoteProvider:
+      enum:
+      - Air
+      - Sea
+      - Road
+      - Xpress
+      - AirSeaRoad
+      type: string
+      description: Identifies the DSV system or service responsible for providing the quote (e.g., Air = Air. Sea = Sea. Road = Road. Xpress = Express. AirSeaRoad = A&S road.)
+    Sort:
+      required:
+      - property
+      - direction
+      type: object
+      properties:
+        property:
+          allOf:
+          - $ref: '#/components/schemas/SortProperty'
+          description: 'Field used for sorting the results. Common values: CREATED_BY, CREATED_DATE.'
+        direction:
+          allOf:
+          - $ref: '#/components/schemas/SortDirection'
+          description: 'Sorting order: ASC for ascending, DESC for descending.'
+      additionalProperties: false
+      description: Sorting criteria for query results (e.g., sort quote requests by creation date or creator).
+    ReferenceType:
+      enum:
+      - Shipper
+      - Consignee
+      - OrderNumber
+      - Other
+      - Invoice
+      type: string
+      description: Classifies reference numbers linked to the shipment, such as Shipper = Sender reference. Consignee = Receiver reference. OrderNumber = Order reference. Other = Other. Invoice = Invoicing reference.
+    TemperatureUOM:
+      enum:
+      - C
+      - F
+      type: string
+      description: Unit of measurement for temperature — Celsius (C) or Fahrenheit (F).
     DimensionUOM:
       enum:
       - CM
       - IN
       type: string
       description: Unit of measurement used for dimensions like length, width, and height (e.g., CM, IN).
-    Incoterms:
-      required:
-      - code
-      - location
-      type: object
-      properties:
-        code:
-          $ref: '#/components/schemas/IncotermsCode'
-        location:
-          type: string
-          description: Named place for the selected Incoterms® 2020 rule.
-      additionalProperties: false
-      description: Details of Incoterms® 2020 rule and named place.
+    WeightUOM:
+      enum:
+      - KG
+      - LB
+      type: string
+      description: Weight unit of measure. KG = Kilogram. LB = Pound.
     SeaDetails:
       required:
       - originPort
@@ -2438,434 +2866,6 @@ components:
           description: Additional notes or special instructions for the sea shipment.
       additionalProperties: false
       description: Details of the sea transport shipment, including UN/LOCODE ports, Incoterms®, and service level.
-    CommandResult:
-      type: object
-      properties:
-        success:
-          type: boolean
-          description: Indicates whether the request completed successfully.
-        errors:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Error'
-          description: List of validation or processing errors, if any.
-      additionalProperties: false
-      description: Standard result wrapper containing success status and errors.
-    InsuranceGoodsType:
-      enum:
-      - STD
-      - MTR
-      - HHD
-      - FRAGILE
-      - UUG
-      type: string
-      description: Insurance goods type. STD = Standard goods. MTR = Motor vehicles, aircrafts, water- and pleasure crafts. HHD = Household goods. FRAGILE = Fragile goods, furniture, marble ceramics, art, antiques. UUG = Used and/or unpacked goods.
-    BatteryType:
-      enum:
-      - None
-      - Lithium
-      - Dry
-      type: string
-      description: Battery type. None = No battery. Lithium = Lithium battery. Dry = Dry battery.
-    WeightUOM:
-      enum:
-      - KG
-      - LB
-      type: string
-      description: Weight unit of measure. KG = Kilogram. LB = Pound.
-    VolumeUOM:
-      enum:
-      - M3
-      - F3
-      - FT3
-      type: string
-      description: Volume unit of measure. M3 = Cubic meter. F3 = Cubic feet. FT3 = Cubic feet.
-    PackageType:
-      enum:
-      - BAG
-      - CAN
-      - CAS
-      - CLL
-      - CON
-      - CRT
-      - CTN
-      - DRM
-      - EUR
-      - GIB
-      - HPL
-      - IBC
-      - IPL
-      - JCN
-      - LOT
-      - PKG
-      - PLL
-      - PLT
-      - PXL
-      - QPL
-      - UPL
-      - LOAD
-      - RLL
-      - LD
-      - PPL
-      type: string
-      description: Describes the physical packaging or load unit of the shipment. BAG = Bag. CAN = Can. CAS = Case. CLL = Colli. CON = Pallet container. CRT = Crate. CTN = Carton / box. DRM = Drum. EUR = Euro pallet. GIB = Gitterbox. HPL = Half pallet. IBC = IBC. IPL = Pallet 120x100. JCN = Jerry can. LOT = Lot. PKG = Package. PLL = Pallet 120x80. PLT = Pallet 110x110. PXL = Pallet 120x120. QPL = Quarter pallet. UPL = Pallet 120x110. LOAD = Load. RLL = Roll. LD = Load. PPL = Pallet 110x110.
-    TemperatureControlledGoods:
-      required:
-      - maxTemperature
-      - minTemperature
-      type: object
-      properties:
-        minTemperature:
-          type: number
-          description: Minimum allowable temperature for the goods, expressed in the selected temperature unit (°C or °F).
-          format: double
-        maxTemperature:
-          type: number
-          description: Maximum allowable temperature for the goods, expressed in the selected temperature unit (°C or °F).
-          format: double
-      additionalProperties: false
-      description: Details of temperature-controlled goods, specifying the acceptable minimum and maximum temperature thresholds in the selected unit of measurement.
-    AttachmentType:
-      enum:
-      - INV
-      - GDS
-      - CUS
-      - HAZ
-      - PKL
-      - QUO
-      type: string
-      description: Attachment type. INV = Invoice document. GDS = Goods description. CUS = Customs document. HAZ = Hazardous materials document. PKL = Packing list. QUO = Quote with prices for customer.
-    Sort:
-      required:
-      - property
-      - direction
-      type: object
-      properties:
-        property:
-          allOf:
-          - $ref: '#/components/schemas/SortProperty'
-          description: 'Field used for sorting the results. Common values: CREATED_BY, CREATED_DATE.'
-        direction:
-          allOf:
-          - $ref: '#/components/schemas/SortDirection'
-          description: 'Sorting order: ASC for ascending, DESC for descending.'
-      additionalProperties: false
-      description: Sorting criteria for query results (e.g., sort quote requests by creation date or creator).
-    ToAddress:
-      allOf:
-      - $ref: '#/components/schemas/Address'
-      - required:
-        - mdm
-        - country
-        - zipCode
-        - city
-        type: object
-        properties:
-          mdm:
-            type: string
-            description: DSV debtor number (MDM number) identifying the customer in DSV systems.
-          country:
-            type: string
-            description: ISO 3166-1 alpha-2 country code (e.g., DK, US).
-          zipCode:
-            type: string
-            description: Postal/ZIP code.
-          city:
-            type: string
-            description: City name.
-      description: Destination address details where the cargo will be delivered.
-    DeliveryType:
-      enum:
-      - DDS
-      - CCX
-      type: string
-      description: Defines whether delivery is handled by DSV (DDS) or if cargo is handover by DSV at warehouse or terminal (CCX).
-    Stackable:
-      enum:
-      - NotStackable
-      - Stackable
-      - Stacked
-      type: string
-      description: Defines whether goods can be stacked during transport (e.g., NotStackable = Goods are not stackable. Stackable = Goods are capable of being stacked with other goods. Stacked = Goods are stacked prior to pickup.)
-    PickupType:
-      enum:
-      - DSV
-      - DropOff
-      type: string
-      description: Defines the pickup method. DSV = Pickup by DSV. DropOff = Cargo handover to DSV at warehouse or terminal.
-    Insurance:
-      required:
-      - insuranceType
-      - goodsType
-      - goodsValue
-      type: object
-      properties:
-        insuranceType:
-          allOf:
-          - $ref: '#/components/schemas/InsuranceType'
-          description: Selected insurance coverage option (e.g., DSV Protect or Cargo Insurance).
-        goodsType:
-          allOf:
-          - $ref: '#/components/schemas/InsuranceGoodsType'
-          description: Risk category of the shipped goods used for insurance rating (e.g., standard, fragile, used).
-        goodsValue:
-          allOf:
-          - $ref: '#/components/schemas/Amount'
-          description: Insured value of the goods including currency (ISO 4217).
-      additionalProperties: false
-      description: Insurance details for the quote, including coverage type, goods risk category, and insured value.
-    ContainerDangerousGoods:
-      required:
-      - unCode
-      - grossWeight
-      - subRisk
-      - packingGroup
-      - properShippingName
-      - cargoAircraftOnly
-      type: object
-      properties:
-        unCode:
-          type: string
-          description: UN number identifying the dangerous goods (e.g., 1203 for Gasoline).
-        grossWeight:
-          type: number
-          description: Gross weight of the dangerous goods in kilograms (kg).
-          format: double
-        subRisk:
-          type:
-          - string
-          - 'null'
-          description: Sub-risk classification, if applicable (e.g., Class 3 for flammable liquids).
-        packingGroup:
-          type:
-          - string
-          - 'null'
-          description: Packing group according to UN classification — I (high danger), II (medium danger), or III (low danger).
-        properShippingName:
-          type:
-          - string
-          - 'null'
-          description: Proper Shipping Name (PSN) as per the UN dangerous goods list (e.g., Gasoline).
-        cargoAircraftOnly:
-          type: boolean
-          description: Indicates whether the dangerous goods shipment is restricted to cargo aircraft only (not permitted on passenger aircraft).
-      additionalProperties: false
-      description: Details about dangerous goods loaded within a shipping container, including UN number, weight, and classification data.
-    Reference:
-      required:
-      - type
-      - value
-      type: object
-      properties:
-        name:
-          type: string
-          description: Reference name
-        type:
-          $ref: '#/components/schemas/ReferenceType'
-        value:
-          type: string
-          description: Reference value as provided by the customer or system.
-      additionalProperties: false
-      description: Typed reference attached to the quote/booking (e.g., CustomerReference, OrderNumber).
-    ReferenceType:
-      enum:
-      - Shipper
-      - Consignee
-      - OrderNumber
-      - Other
-      - Invoice
-      type: string
-      description: Classifies reference numbers linked to the shipment, such as Shipper = Sender reference. Consignee = Receiver reference. OrderNumber = Order reference. Other = Other. Invoice = Invoicing reference.
-    ContainerType:
-      enum:
-      - 20DC
-      - 40DC
-      - 40HC
-      - 45HC
-      - 20RE
-      - 40RE
-      - 40REHC
-      - 45REHC
-      - 20OT
-      - 40OT
-      - 20FR
-      - 20PL
-      - 40PL
-      - 20GOH
-      - 40GOH
-      - 20DC_HT
-      - 20GP_SO
-      - 20HC
-      - 20OT_SO
-      - 22T0
-      - 20TC_SO
-      - 40DC_HT
-      - 40HC_HT
-      - 40HC_SO
-      - 40OT_SO
-      - 40DC_PW
-      - 40HC_PW
-      - 45HC_SO
-      - 45GPHC
-      - 45CS
-      - 20GP
-      - 40GP
-      - 20GP_FG
-      - 40GP_FG
-      - 40HC_FG
-      - 40RT
-      type: string
-      description: 'Container type. Examples: 20DC = 20'' dry. 40HC = 40'' high cube. 20RE = 20'' reefer.'
-    QuoteType:
-      enum:
-      - Tariff
-      - Spot
-      - Tender
-      type: string
-      description: Specifies the category of the quote — Tariff (contract rate), Spot (ad-hoc rate), or Tender.
-    Requestor:
-      required:
-      - userId
-      - firstName
-      - lastName
-      - email
-      - language
-      - phone
-      type: object
-      properties:
-        userId:
-          type: string
-          description: Requestor unique ID
-        firstName:
-          type: string
-          description: Requestor first name
-        lastName:
-          type: string
-          description: Requestor last name
-        email:
-          type: string
-          description: Requestor email address
-          format: email
-        language:
-          type: string
-          description: Requestor preferred language
-        phone:
-          type: string
-          description: Requestor phone number
-      additionalProperties: false
-      description: Details of the user who initiated the quote request.
-    SelectedUOM:
-      required:
-      - dimension
-      - weight
-      - volume
-      - temperature
-      type: object
-      properties:
-        dimension:
-          allOf:
-          - $ref: '#/components/schemas/DimensionUOM'
-          description: Unit for length/width/height (applies to fields such as package length/width/height).
-        weight:
-          allOf:
-          - $ref: '#/components/schemas/WeightUOM'
-          description: Unit for weight values (e.g., package totalWeight, shipment totalWeight).
-        volume:
-          allOf:
-          - $ref: '#/components/schemas/VolumeUOM'
-          description: Unit for volume values (e.g., package totalVolume).
-        temperature:
-          allOf:
-          - $ref: '#/components/schemas/TemperatureUOM'
-          description: Unit for temperature values used in temperature-controlled goods/containers.
-      additionalProperties: false
-      description: Units of measurement (UOM) used for all dimensional, weight, volume, and temperature fields. Provided by the requester in the quote request and echoed in the response to confirm the applied measurement units.
-    QuoteRequest:
-      required:
-      - requestedBy
-      - bookingParty
-      - from
-      - to
-      - cargoType
-      - pickupType
-      - deliveryType
-      - pickupDate
-      - deliveryDate
-      - totalWeight
-      - unitsOfMeasurement
-      - source
-      type: object
-      properties:
-        requestedBy:
-          $ref: '#/components/schemas/Requestor'
-        bookingParty:
-          $ref: '#/components/schemas/BookingPartyAddress'
-        from:
-          $ref: '#/components/schemas/FromAddress'
-        to:
-          $ref: '#/components/schemas/ToAddress'
-        cargoType:
-          $ref: '#/components/schemas/CargoType'
-        pickupType:
-          $ref: '#/components/schemas/PickupType'
-        pickupDate:
-          type: string
-          description: Pickup date (YYYY-MM-DD)
-          format: date
-        deliveryType:
-          $ref: '#/components/schemas/DeliveryType'
-        deliveryDate:
-          type: string
-          description: Delivery date (YYYY-MM-DD)
-          format: date
-        references:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Reference'
-          description: Quote request references
-        insurance:
-          $ref: '#/components/schemas/Insurance'
-        packages:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Package'
-          description: List of packages included in the shipment
-        containers:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Container'
-          description: List of containers in the shipment
-        totalWeight:
-          type: number
-          description: Shipment total weight
-          format: double
-        air:
-          $ref: '#/components/schemas/AirDetails'
-        sea:
-          $ref: '#/components/schemas/SeaDetails'
-        road:
-          $ref: '#/components/schemas/RoadDetails'
-        unitsOfMeasurement:
-          $ref: '#/components/schemas/SelectedUOM'
-        source:
-          $ref: '#/components/schemas/Source'
-        files:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/BaseUpload'
-          description: Optional attachments; supported for Air and Sea only.
-      additionalProperties: false
-      description: Details of quote request
   securitySchemes:
     apiKeyHeader:
       type: apiKey
