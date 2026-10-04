@@ -193,6 +193,35 @@ paths:
           description: If there is an internal server error
 components:
   schemas:
+    RequestBodyDto:
+      type: object
+      properties:
+        formUrlEncodedValues:
+          type: array
+          items:
+            $ref: '#/components/schemas/KeyValueDto'
+          description: List of FormUrlEncodedValues values in name-value pair
+          example: FormUrlEncodedValues
+      description: Dto to hold request body parameters
+    UnsubscriberDto:
+      type: object
+      properties:
+        subscriptionEvent:
+          type: string
+        customerIds:
+          $ref: '#/components/schemas/CustomerIdsDto'
+    OAuthDto:
+      type: object
+      properties:
+        tokenGenerationUrl:
+          type: string
+          description: Token generation url
+          example: https://mytokensite.com
+        accessTokenRequest:
+          $ref: '#/components/schemas/TokenRequestDto'
+        refreshTokenRequest:
+          $ref: '#/components/schemas/TokenRequestDto'
+      description: Object to hold OAuth information
     SubscriberDetailsDto:
       allOf:
       - $ref: '#/components/schemas/SubscriberDto'
@@ -223,28 +252,6 @@ components:
         oAuth:
           $ref: '#/components/schemas/OAuthDto'
       description: Authentication object
-    TokenRequestDto:
-      type: object
-      properties:
-        headers:
-          type: array
-          items:
-            $ref: '#/components/schemas/KeyValueDto'
-          description: Token request headers
-          example: Headers
-        body:
-          $ref: '#/components/schemas/RequestBodyDto'
-      description: TokenRequestDto to hold token request for access Token or refresh Token
-    RequestBodyDto:
-      type: object
-      properties:
-        formUrlEncodedValues:
-          type: array
-          items:
-            $ref: '#/components/schemas/KeyValueDto'
-          description: List of FormUrlEncodedValues values in name-value pair
-          example: FormUrlEncodedValues
-      description: Dto to hold request body parameters
     BasicAuthDto:
       type: object
       properties:
@@ -257,6 +264,30 @@ components:
           description: Password
           example: test-password
       description: Object to hold basic auth information
+    KeyValueDto:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name
+          example: client-key
+        value:
+          type: string
+          description: Value
+          example: client-key-value
+      description: Dto to store name value pair data (in headers, body)
+    TokenRequestDto:
+      type: object
+      properties:
+        headers:
+          type: array
+          items:
+            $ref: '#/components/schemas/KeyValueDto'
+          description: Token request headers
+          example: Headers
+        body:
+          $ref: '#/components/schemas/RequestBodyDto'
+      description: TokenRequestDto to hold token request for access Token or refresh Token
     SubscriberDto:
       type: object
       properties:
@@ -279,37 +310,6 @@ components:
           description: Include any necessary headers. Make sure these headers match the requirements of the system receiving the data via webhook
           example: Headers
       description: Subscriber Dto
-    UnsubscriberDto:
-      type: object
-      properties:
-        subscriptionEvent:
-          type: string
-        customerIds:
-          $ref: '#/components/schemas/CustomerIdsDto'
-    KeyValueDto:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Name
-          example: client-key
-        value:
-          type: string
-          description: Value
-          example: client-key-value
-      description: Dto to store name value pair data (in headers, body)
-    OAuthDto:
-      type: object
-      properties:
-        tokenGenerationUrl:
-          type: string
-          description: Token generation url
-          example: https://mytokensite.com
-        accessTokenRequest:
-          $ref: '#/components/schemas/TokenRequestDto'
-        refreshTokenRequest:
-          $ref: '#/components/schemas/TokenRequestDto'
-      description: Object to hold OAuth information
     CustomerIdsDto:
       type: object
       properties:

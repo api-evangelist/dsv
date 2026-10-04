@@ -296,143 +296,6 @@ paths:
                   exception: string
 components:
   schemas:
-    TextFieldDto:
-      required:
-      - sequence
-      type: object
-      properties:
-        sequence:
-          maximum: 8.0
-          minimum: 1.0
-          type: integer
-          description: User Def Type 1-8
-          format: int32
-          example: 1
-        value:
-          maxLength: 30
-          minLength: 0
-          type: string
-          description: Max length 30 characters
-          example: Value1
-      description: User defined text fields
-    LineDetailDto:
-      required:
-      - lineId
-      - productId
-      - quantity
-      type: object
-      properties:
-        lineId:
-          maximum: 999999.0
-          minimum: 0.0
-          type: integer
-          description: Line identifier
-          format: int32
-          example: 1
-        productId:
-          maxLength: 50
-          minLength: 0
-          type: string
-          description: Stock Keeping Unit identifier
-          example: PId123456
-        quantity:
-          maximum: 999999999.0
-          minimum: 0.0
-          type: integer
-          description: Quantity expected
-          format: int32
-          example: 1
-        sscc:
-          maxLength: 20
-          minLength: 0
-          type: string
-          description: SSCC (Serial Shipping Container Code) Max 20 characters.
-          example: '123456789012345678'
-        conditionOfProduct:
-          $ref: '#/components/schemas/ConditionCode'
-        origin:
-          $ref: '#/components/schemas/CountryCode'
-        expirationDate:
-          type: string
-          description: 'Field can only be used if flag on ProductData productExpirationDateControlled is set Format: YYYY-MM-DD'
-          example: '2025-03-25'
-        lotId:
-          maxLength: 15
-          minLength: 0
-          type: string
-          description: Field can only be used if flag on ProductData productLotControlled is set
-          example: LId123456789
-        productValue:
-          $ref: '#/components/schemas/ProductValueDto'
-        additionalInformations:
-          $ref: '#/components/schemas/AdditionalInformationDto'
-        inboundNotes:
-          type: array
-          items:
-            $ref: '#/components/schemas/InboundNoteDto'
-          description: Inbound notes related to the line.
-        serialNumbers:
-          type: array
-          items:
-            type: string
-          description: Segment can only be used if flag on ProductData productHoldsSerialNumber is set
-          example:
-          - SN1234567890
-          - SN1234567891
-      description: LineDetailDto
-    NumericFieldDto:
-      required:
-      - sequence
-      type: object
-      properties:
-        sequence:
-          maximum: 4.0
-          minimum: 1.0
-          type: integer
-          description: User Def Num 1-4
-          format: int32
-          example: 1
-        value:
-          maximum: 999999999.999999
-          minimum: 0.0
-          type: number
-          description: 'min: 0, max: 999999999.999999 (9.6)'
-          example: 999999999.999999
-      description: User defined numeric fields
-    ProductValueDto:
-      type: object
-      properties:
-        valueOfProduct:
-          maximum: 999999999.999999
-          minimum: 0.0
-          type: number
-          description: Selling price of the lowest track level of the product
-          example: 999
-        currency:
-          $ref: '#/components/schemas/CurrencyCode'
-      description: Product Value
-    ErrorDTO:
-      required:
-      - code
-      - message
-      type: object
-      properties:
-        code:
-          minLength: 1
-          type: string
-          description: Unique error code
-          example: ERR12345
-        message:
-          minLength: 1
-          type: string
-          description: Error message passed to the user
-          example: 'Not found id : 4025988810785188'
-        fields:
-          type: array
-          items:
-            $ref: '#/components/schemas/FieldDTO'
-        development:
-          $ref: '#/components/schemas/DevelopmentDTO'
     DevelopmentDTO:
       type: object
       properties:
@@ -442,32 +305,12 @@ components:
         exception:
           type: string
           description: Dump from exception
-    AdditionalInformationDto:
-      type: object
-      properties:
-        numericFields:
-          type: array
-          items:
-            $ref: '#/components/schemas/NumericFieldDto'
-          description: User defined numeric fields
-        textFields:
-          type: array
-          items:
-            $ref: '#/components/schemas/TextFieldDto'
-          description: User defined text fields
-      description: Additional Information
-    SupplierDto:
-      type: object
-      properties:
-        reference:
-          maxLength: 20
-          minLength: 0
-          type: string
-          description: Supplier reference
-          example: ABC
-        address:
-          $ref: '#/components/schemas/AddressDto'
-      description: SupplierDto
+    InboundOrderType:
+      enum:
+      - NORMAL
+      - RETURN
+      type: string
+      description: ''
     IncotermsEnum:
       enum:
       - EXW
@@ -484,148 +327,6 @@ components:
       - DDU
       type: string
       description: ''
-    InboundNotificationDto:
-      type: object
-      properties:
-        inboundNotifications:
-          type: array
-          items:
-            $ref: '#/components/schemas/InboundNotificationItemDto'
-          description: Array of inbound notifications.
-      description: InboundNotificationDto
-    FieldDTO:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Error name
-          example: field_name
-        message:
-          type: string
-          description: Description of error
-          example: validation error
-        code:
-          type: string
-          description: Type of error
-          example: ERR12345
-    ContainerType:
-      enum:
-      - 20FT
-      - 40FT
-      - 20HC
-      - 40HC
-      - TRCK
-      - VAN
-      - CAR
-      type: string
-      description: ''
-    ModeOfTransport:
-      enum:
-      - Road
-      - Air
-      - Sea
-      - Rail
-      type: string
-      description: ''
-    ConditionCode:
-      enum:
-      - OK1
-      - OK2
-      - DM1
-      - DM2
-      - HO1
-      - HO2
-      - QU1
-      - QU2
-      - RN1
-      - RN2
-      - SC1
-      - SC2
-      type: string
-      description: ''
-    InboundNotificationItemDto:
-      required:
-      - warehouseId
-      - inboundId
-      - inboundType
-      - lineDetails
-      type: object
-      properties:
-        warehouseId:
-          maxLength: 20
-          minLength: 0
-          type: string
-          description: To be resolved in Token database
-          example: wid1234567
-        inboundId:
-          maxLength: 20
-          minLength: 0
-          type: string
-          description: Unique reference identifier of the expected receipt
-          example: iid123456
-        inboundType:
-          $ref: '#/components/schemas/InboundOrderType'
-        expectedArrivalDate:
-          maxLength: 25
-          minLength: 0
-          type: string
-          description: 'Expected date/time of arrival Format: CCYY-MM-DDTHH:mm:ssZ'
-          example: '2025-03-25T12:30:00Z'
-        incoterms:
-          $ref: '#/components/schemas/IncotermsDto'
-        transportDetails:
-          $ref: '#/components/schemas/TransportDetailsDto'
-        supplier:
-          $ref: '#/components/schemas/SupplierDto'
-        additionalInformations:
-          $ref: '#/components/schemas/AdditionalInformationDto'
-        inboundNotes:
-          type: array
-          items:
-            $ref: '#/components/schemas/InboundNoteDto'
-          description: The InboundNotes  for the warehouse.
-        lineDetails:
-          type: array
-          items:
-            $ref: '#/components/schemas/LineDetailDto'
-          description: The LineDetails  for the warehouse.
-      description: InboundNotificationItemDto
-    InboundOrderType:
-      enum:
-      - NORMAL
-      - RETURN
-      type: string
-      description: ''
-    InboundNoteDto:
-      required:
-      - code
-      type: object
-      properties:
-        code:
-          maxLength: 20
-          minLength: 0
-          type: string
-          description: Code of the inbound note.
-          example: '#123456'
-        text:
-          maxLength: 180
-          minLength: 0
-          type: string
-          description: Text of the inbound note.
-          example: This is Test
-      description: InboundNoteDto
-    IncotermsDto:
-      type: object
-      properties:
-        code:
-          $ref: '#/components/schemas/IncotermsEnum'
-        location:
-          maxLength: 60
-          minLength: 0
-          type: string
-          description: Place related to Terms of Delivery (Incoterms)
-          example: Denmark
-      description: Incoterms
     AddressDto:
       type: object
       properties:
@@ -705,6 +406,170 @@ components:
           description: Mobile number
           example: '+1123456789'
       description: Address
+    SupplierDto:
+      type: object
+      properties:
+        reference:
+          maxLength: 20
+          minLength: 0
+          type: string
+          description: Supplier reference
+          example: ABC
+        address:
+          $ref: '#/components/schemas/AddressDto'
+      description: SupplierDto
+    InboundNoteDto:
+      required:
+      - code
+      type: object
+      properties:
+        code:
+          maxLength: 20
+          minLength: 0
+          type: string
+          description: Code of the inbound note.
+          example: '#123456'
+        text:
+          maxLength: 180
+          minLength: 0
+          type: string
+          description: Text of the inbound note.
+          example: This is Test
+      description: InboundNoteDto
+    AdditionalInformationDto:
+      type: object
+      properties:
+        numericFields:
+          type: array
+          items:
+            $ref: '#/components/schemas/NumericFieldDto'
+          description: User defined numeric fields
+        textFields:
+          type: array
+          items:
+            $ref: '#/components/schemas/TextFieldDto'
+          description: User defined text fields
+      description: Additional Information
+    ModeOfTransport:
+      enum:
+      - Road
+      - Air
+      - Sea
+      - Rail
+      type: string
+      description: ''
+    TextFieldDto:
+      required:
+      - sequence
+      type: object
+      properties:
+        sequence:
+          maximum: 8.0
+          minimum: 1.0
+          type: integer
+          description: User Def Type 1-8
+          format: int32
+          example: 1
+        value:
+          maxLength: 30
+          minLength: 0
+          type: string
+          description: Max length 30 characters
+          example: Value1
+      description: User defined text fields
+    ProductValueDto:
+      type: object
+      properties:
+        valueOfProduct:
+          maximum: 999999999.999999
+          minimum: 0.0
+          type: number
+          description: Selling price of the lowest track level of the product
+          example: 999
+        currency:
+          $ref: '#/components/schemas/CurrencyCode'
+      description: Product Value
+    LineDetailDto:
+      required:
+      - lineId
+      - productId
+      - quantity
+      type: object
+      properties:
+        lineId:
+          maximum: 999999.0
+          minimum: 0.0
+          type: integer
+          description: Line identifier
+          format: int32
+          example: 1
+        productId:
+          maxLength: 50
+          minLength: 0
+          type: string
+          description: Stock Keeping Unit identifier
+          example: PId123456
+        quantity:
+          maximum: 999999999.0
+          minimum: 0.0
+          type: integer
+          description: Quantity expected
+          format: int32
+          example: 1
+        sscc:
+          maxLength: 20
+          minLength: 0
+          type: string
+          description: SSCC (Serial Shipping Container Code) Max 20 characters.
+          example: '123456789012345678'
+        conditionOfProduct:
+          $ref: '#/components/schemas/ConditionCode'
+        origin:
+          $ref: '#/components/schemas/CountryCode'
+        expirationDate:
+          type: string
+          description: 'Field can only be used if flag on ProductData productExpirationDateControlled is set Format: YYYY-MM-DD'
+          example: '2025-03-25'
+        lotId:
+          maxLength: 15
+          minLength: 0
+          type: string
+          description: Field can only be used if flag on ProductData productLotControlled is set
+          example: LId123456789
+        productValue:
+          $ref: '#/components/schemas/ProductValueDto'
+        additionalInformations:
+          $ref: '#/components/schemas/AdditionalInformationDto'
+        inboundNotes:
+          type: array
+          items:
+            $ref: '#/components/schemas/InboundNoteDto'
+          description: Inbound notes related to the line.
+        serialNumbers:
+          type: array
+          items:
+            type: string
+          description: Segment can only be used if flag on ProductData productHoldsSerialNumber is set
+          example:
+          - SN1234567890
+          - SN1234567891
+      description: LineDetailDto
+    ConditionCode:
+      enum:
+      - OK1
+      - OK2
+      - DM1
+      - DM2
+      - HO1
+      - HO2
+      - QU1
+      - QU2
+      - RN1
+      - RN2
+      - SC1
+      - SC2
+      type: string
+      description: ''
     TransportDetailsDto:
       type: object
       properties:
@@ -731,6 +596,84 @@ components:
           description: Container number
           example: '#123456'
       description: TransportDetailsDto
+    NumericFieldDto:
+      required:
+      - sequence
+      type: object
+      properties:
+        sequence:
+          maximum: 4.0
+          minimum: 1.0
+          type: integer
+          description: User Def Num 1-4
+          format: int32
+          example: 1
+        value:
+          maximum: 999999999.999999
+          minimum: 0.0
+          type: number
+          description: 'min: 0, max: 999999999.999999 (9.6)'
+          example: 999999999.999999
+      description: User defined numeric fields
+    IncotermsDto:
+      type: object
+      properties:
+        code:
+          $ref: '#/components/schemas/IncotermsEnum'
+        location:
+          maxLength: 60
+          minLength: 0
+          type: string
+          description: Place related to Terms of Delivery (Incoterms)
+          example: Denmark
+      description: Incoterms
+    InboundNotificationItemDto:
+      required:
+      - warehouseId
+      - inboundId
+      - inboundType
+      - lineDetails
+      type: object
+      properties:
+        warehouseId:
+          maxLength: 20
+          minLength: 0
+          type: string
+          description: To be resolved in Token database
+          example: wid1234567
+        inboundId:
+          maxLength: 20
+          minLength: 0
+          type: string
+          description: Unique reference identifier of the expected receipt
+          example: iid123456
+        inboundType:
+          $ref: '#/components/schemas/InboundOrderType'
+        expectedArrivalDate:
+          maxLength: 25
+          minLength: 0
+          type: string
+          description: 'Expected date/time of arrival Format: CCYY-MM-DDTHH:mm:ssZ'
+          example: '2025-03-25T12:30:00Z'
+        incoterms:
+          $ref: '#/components/schemas/IncotermsDto'
+        transportDetails:
+          $ref: '#/components/schemas/TransportDetailsDto'
+        supplier:
+          $ref: '#/components/schemas/SupplierDto'
+        additionalInformations:
+          $ref: '#/components/schemas/AdditionalInformationDto'
+        inboundNotes:
+          type: array
+          items:
+            $ref: '#/components/schemas/InboundNoteDto'
+          description: The InboundNotes  for the warehouse.
+        lineDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/LineDetailDto'
+          description: The LineDetails  for the warehouse.
+      description: InboundNotificationItemDto
     CurrencyCode:
       enum:
       - AED
@@ -903,6 +846,63 @@ components:
       - ZWL
       type: string
       description: 3-digit currency code (ISO 4217-3) <br>If valueOfProduct is provided, currency becomes mandatory
+    FieldDTO:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Error name
+          example: field_name
+        message:
+          type: string
+          description: Description of error
+          example: validation error
+        code:
+          type: string
+          description: Type of error
+          example: ERR12345
+    InboundNotificationDto:
+      type: object
+      properties:
+        inboundNotifications:
+          type: array
+          items:
+            $ref: '#/components/schemas/InboundNotificationItemDto'
+          description: Array of inbound notifications.
+      description: InboundNotificationDto
+    ContainerType:
+      enum:
+      - 20FT
+      - 40FT
+      - 20HC
+      - 40HC
+      - TRCK
+      - VAN
+      - CAR
+      type: string
+      description: ''
+    ErrorDTO:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          minLength: 1
+          type: string
+          description: Unique error code
+          example: ERR12345
+        message:
+          minLength: 1
+          type: string
+          description: Error message passed to the user
+          example: 'Not found id : 4025988810785188'
+        fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/FieldDTO'
+        development:
+          $ref: '#/components/schemas/DevelopmentDTO'
     CountryCode:
       enum:
       - AF

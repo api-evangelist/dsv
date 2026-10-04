@@ -1396,209 +1396,179 @@ paths:
     - url: https://api.dsv.com/om/neom/v2
 components:
   schemas:
-    eDC.Web.Api.v2.Models.Entities.TransportSummary:
+    eDC.Web.Api.v2.Models.Entities.DangerousGoods:
       type: object
       properties:
-        firstPortETD:
+        regulation:
           type:
           - string
           - 'null'
-          description: First Port Estimated Time of Departure
-          format: date-time
-        firstPortATD:
+        hazardClass:
           type:
           - string
           - 'null'
-          description: First Port Actual Time of Departure
-          format: date-time
-        lastPortETA:
+        additionalHazardClass:
           type:
           - string
           - 'null'
-          description: Last Port Estimated Time of Departure
-          format: date-time
-        lastPortATA:
+        classificationCode:
           type:
           - string
           - 'null'
-          description: Last Port Actual Time of Departure
-          format: date-time
-        firstPort:
+        undgNumber:
           type:
           - string
           - 'null'
-          description: First Port
-        lastPort:
+        variant:
           type:
           - string
           - 'null'
-          description: Last Port
-        firstPortDescription:
+        psn:
           type:
           - string
           - 'null'
-          description: First Port Description
-        lastPortDescription:
+        technicalName:
           type:
           - string
           - 'null'
-          description: Last Port Description
-        vessel:
+        labels:
           type:
           - string
           - 'null'
-          description: Vessel Name
-        voyageFlight:
+        packingGroup:
           type:
           - string
           - 'null'
-          description: Voyage Number / Flight Number
-      additionalProperties: false
-    eDC.Web.Api.v2.Models.Entities.Company:
-      type: object
-      properties:
-        type:
+        upperPlate:
           type:
           - string
           - 'null'
-          description: Type
-        code:
+        lowerPlate:
           type:
           - string
           - 'null'
-          description: Code
-        externalCode:
+        numberOfPackages:
           type:
           - string
           - 'null'
-          description: External Code
-        isActive:
+        packageType:
+          type:
+          - string
+          - 'null'
+        packagingInstruction:
+          type:
+          - string
+          - 'null'
+        transportMeansCategory:
+          type:
+          - string
+          - 'null'
+        grossWeight:
+          type: number
+          format: double
+        netWeight:
+          type: number
+          format: double
+        explosiveWeight:
+          type: number
+          format: double
+        unitOfWeight:
+          type:
+          - string
+          - 'null'
+        flashPointTemperature:
+          type:
+          - string
+          - 'null'
+        flashPointTemperatureUnit:
+          type:
+          - string
+          - 'null'
+        flashPointDescription:
+          type:
+          - string
+          - 'null'
+        tremCardNumber:
+          type:
+          - string
+          - 'null'
+        emsNumber:
+          type:
+          - string
+          - 'null'
+        mfagNumber:
+          type:
+          - string
+          - 'null'
+        marinePollutant:
+          type:
+          - string
+          - 'null'
+        limitedQuantity:
           type: boolean
-          description: Active
-        fullName:
+        tunnelCode:
           type:
           - string
           - 'null'
-          description: Full Name
-        closestPort:
+        remarks:
           type:
           - string
           - 'null'
-          description: Closest Port
-        currency:
+        contactName:
           type:
           - string
           - 'null'
-          description: Currency
-        phoneNumber:
+        contactEmail:
           type:
           - string
           - 'null'
-          description: Phone Number
-        email:
-          type:
-          - string
-          - 'null'
-          description: Email
-        vatNumber:
-          type:
-          - string
-          - 'null'
-        registeredNumber:
-          type:
-          - string
-          - 'null'
-          description: Registered Number
-        ediCode:
-          type:
-          - string
-          - 'null'
-        address:
-          $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.Address'
-        contact:
-          $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.Contact'
-        additionalReferences:
+      additionalProperties: false
+    eDC.Web.Api.v2.Models.Search.SearchRequest:
+      type: object
+      properties:
+        page:
+          type: integer
+          format: int32
+        pageSize:
+          type: integer
+          format: int32
+        sorts:
           type:
           - array
           - 'null'
           items:
-            $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.AdditionalReference'
-        dateModified:
+            $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Search.SortDescriptor'
+        skip:
+          type: integer
+          format: int32
+        take:
+          type: integer
+          format: int32
+        criteria:
           type:
           - string
           - 'null'
-          description: Date Modified
-          format: date-time
-        userModified:
-          type:
-          - string
-          - 'null'
-          description: User Modified
-        dateCreated:
-          type:
-          - string
-          - 'null'
-          description: Date Created
-          format: date-time
-        userCreated:
-          type:
-          - string
-          - 'null'
-          description: User Created
       additionalProperties: false
-    eDC.Web.Api.v2.Controllers.ReduceStateRequest:
+    eDC.Web.Api.v2.Controllers.ChangeStateRequest:
       type: object
       properties:
         bookingNumber:
           type:
           - string
           - 'null'
+          description: Booking Number
         state:
           $ref: '#/components/schemas/eDC.Domain.Enums.BookingState'
-      additionalProperties: false
-    eDC.Web.Api.v2.Models.Entities.TemperatureControl:
-      type: object
-      properties:
-        instructions:
+        note:
           type:
           - string
           - 'null'
-        type:
+          description: Notes
+        intendedParty:
           type:
           - string
           - 'null'
-        unitOfTemperature:
-          type:
-          - string
-          - 'null'
-        minValue:
-          type:
-          - number
-          - 'null'
-          format: double
-        maxValue:
-          type:
-          - number
-          - 'null'
-          format: double
-        setPoint:
-          type:
-          - number
-          - 'null'
-          format: double
-        humidity:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        rangeValue:
-          type:
-          - string
-          - 'null'
-        humidityValue:
-          type:
-          - string
-          - 'null'
+          description: Intended Party
       additionalProperties: false
     eDC.Web.Api.v2.Models.Entities.Measurement:
       type: object
@@ -1615,1135 +1585,140 @@ components:
           - 'null'
           description: Unit
       additionalProperties: false
-    eDC.Web.Api.v2.Models.Entities.JobContainer:
+    eDC.Web.Api.v2.Models.Entities.Event:
       type: object
       properties:
-        containerNumber:
+        eventCode:
           type:
           - string
           - 'null'
-        interimContainerNumber:
+          description: The unique event code - usually 3 chars, but can be 2 or more.
+        description:
           type:
           - string
           - 'null'
-        state:
-          $ref: '#/components/schemas/eDC.Domain.Enums.ContainerState'
-        isShipperOwned:
-          type: boolean
-        containerMode:
+          description: A description of the event code.
+        eventDate:
           type:
           - string
           - 'null'
-        containerStatus:
+          description: The date in which the event happened
+          format: date-time
+        reasonCodes:
           type:
           - string
           - 'null'
-        sealNumber:
+          description: Legacy, do not use.
+        eventPlace:
           type:
           - string
           - 'null'
-        additionalSealNumber:
+          description: The place in which the event happened.
+        eventSource:
           type:
           - string
           - 'null'
-        additional2SealNumber:
+          description: The source system that input the event.
+        qaIssueCode:
           type:
           - string
           - 'null'
-        containerCount:
-          type: integer
-          format: int32
-        dunnageWeight:
-          type: number
-          format: double
-        grossWeight:
-          type: number
-          format: double
-        unitOfweight:
+        qaResponsibleParty:
           type:
           - string
           - 'null'
-        tareWeight:
-          type: number
-          format: double
-        containerCommodityCode:
+        stage:
           type:
           - string
           - 'null'
-        movementType:
+        qaIssueNotes:
           type:
           - string
           - 'null'
-        equipmentType:
-          type:
-          - string
-          - 'null'
-        fclAvailableDate:
+        qaIssueResolvedDate:
           type:
           - string
           - 'null'
           format: date-time
-        fclStorageDate:
+        vehicleRegistration:
           type:
           - string
           - 'null'
-          format: date-time
-        emptyRequiredBy:
+        driverName:
           type:
           - string
           - 'null'
-          format: date-time
-        estimatedFCLPickupDate:
+        secondDriver:
           type:
           - string
           - 'null'
-          format: date-time
-        lclAvailableDate:
+        locationType:
           type:
           - string
           - 'null'
-          format: date-time
-        lclStorageDate:
+          description: Options - Intermediate / Transit Customs / Destination Customs
+        qaIssueCodeDescription:
           type:
           - string
           - 'null'
-          format: date-time
-        bookedDeliveryDate:
+        externalTrackingLink:
           type:
           - string
           - 'null'
-          format: date-time
-        requestedDeliveryDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        estimatedDeliveryDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        actualFullDeliveryDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        deliveryTransportAdvisedDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        requestedCollectionDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        estimatedCollectionDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        actualFullPickupDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        portTransportBookedDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        fullLoadPortFreeTime:
-          type: integer
-          format: int32
-        fullLoadDestinationDetentionFreeTime:
-          type: integer
-          format: int32
-        fullLoadOriginDetentionFreeTime:
-          type: integer
-          format: int32
-        demurrageStartDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        shipperDetentionStartDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        importerDetentionStartDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        bookingCreatedDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        bookingModifiedDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        bookingCreatedUser:
-          type:
-          - string
-          - 'null'
-        bookingModifiedUser:
-          type:
-          - string
-          - 'null'
-        volume:
-          type: number
-          format: double
-        temperatureControlled:
-          type: boolean
-        refrigerationType:
-          type:
-          - string
-          - 'null'
-        tempSetPoint:
-          type: number
-          format: double
-        tempSetPointUnit:
-          type:
-          - string
-          - 'null'
-        goodsDescription:
-          type:
-          - string
-          - 'null'
-        isoType:
-          type:
-          - string
-          - 'null'
-        emptyPickupNumber:
-          type:
-          - string
-          - 'null'
-        exportPortTransportReference:
-          type:
-          - string
-          - 'null'
-        exportSlotBookingReference:
-          type:
-          - string
-          - 'null'
-        importReleaseNumber:
-          type:
-          - string
-          - 'null'
-        importPortTransportReference:
-          type:
-          - string
-          - 'null'
-        importSlotBookingReference:
-          type:
-          - string
-          - 'null'
-        emptyReturnReference:
-          type:
-          - string
-          - 'null'
-        emptyReleasedFromCY:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        emptyReadyForReturn:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        emptyReturnedOn:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        emptyReturnRequiredBy:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        fclWharfGateIn:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        fclWharfGateOut:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        fclLoadedDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        fclUnloadedDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        tempSetPointDisplay:
-          type:
-          - string
-          - 'null'
-        orderNumbers:
-          type:
-          - string
-          - 'null'
-        demurrageBegins:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        teu:
-          type: number
-          format: double
-        estimatedPickupDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        arrivalPickupDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        arrivalDeliveryDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        departureDeliveryDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
         dateModified:
           type:
           - string
           - 'null'
+          description: Date the event was modified - in general events cannot be modified but QA issues can be resolved.
           format: date-time
         userModified:
           type:
           - string
           - 'null'
+          description: User who modified the event - in general events cannot be modified but QA issues can be resolved.
         dateCreated:
           type:
           - string
           - 'null'
+          description: Date the event was input
           format: date-time
         userCreated:
           type:
           - string
           - 'null'
-        requestedEmptyReturnDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        parties:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.Company'
-        customFields:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.GenCustomAddOnValue'
-        events:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.Event'
+          description: User who input the event
       additionalProperties: false
-    eDC.Web.Api.v2.Models.Entities.JobConsol:
-      type: object
-      properties:
-        transportMode:
-          type:
-          - string
-          - 'null'
-          description: Mode of Transport eg. Air, Sea, Road
-        consolMode:
-          type:
-          - string
-          - 'null'
-          description: Mode of Consol
-        consolNumber:
-          type:
-          - string
-          - 'null'
-        masterBill:
-          type:
-          - string
-          - 'null'
-          description: Master Bill of Lading (MBL)
-        bookingReference:
-          type:
-          - string
-          - 'null'
-          description: Booking Reference
-        agentsReference:
-          type:
-          - string
-          - 'null'
-          description: Agent Reference
-        customsReference:
-          type:
-          - string
-          - 'null'
-          description: Customs Reference
-        prepaidCollect:
-          type:
-          - string
-          - 'null'
-          description: Prepaid or Collection
-        loadPort:
-          type:
-          - string
-          - 'null'
-          description: Port of Loading,  UNLOCO (e.g. DEHAM)
-        dischargePort:
-          type:
-          - string
-          - 'null'
-          description: Port of Discharge, UNLOCO (e.g. DEHAM)
-        portOfFirstArrival:
-          type:
-          - string
-          - 'null'
-          description: Port of first arrival
-        eta:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        etd:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        ata:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        atd:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        vessel:
-          type:
-          - string
-          - 'null'
-          description: Vessel name
-        voyageFlight:
-          type:
-          - string
-          - 'null'
-          description: Voyage (MoT Sea) or Flight No (MoT Air)
-        fullLoadPortFreeTime:
-          type: integer
-          description: Full Load Port Free Time
-          format: int32
-        fullLoadDestinationDetentionFreeTime:
-          type: integer
-          format: int32
-        fullLoadOriginDetentionFreeTime:
-          type: integer
-          format: int32
-        oceanCarrier:
-          type:
-          - string
-          - 'null'
-          description: Ocean Carrier
-        airCarrier:
-          type:
-          - string
-          - 'null'
-          description: Air Carrier
-        weight:
-          $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.Measurement'
-        volume:
-          $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.Measurement'
-        chargeable:
-          $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.Measurement'
-        releaseType:
-          type:
-          - string
-          - 'null'
-          description: Type of Release
-        teuCount:
-          type: number
-          format: double
-        countOfTEU:
-          type: number
-          description: Count of TEU
-          format: double
-        countOf20FT:
-          type: integer
-          description: Count of 20ft Container
-          format: int32
-        countOf40FT:
-          type: integer
-          description: Count of 40ft Container
-          format: int32
-        countOf45FT:
-          type: integer
-          description: Count of 45ft Container
-          format: int32
-        stageNumber:
-          type:
-          - string
-          - 'null'
-          description: Stage Number
-        sta:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        std:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        consolContainerMode:
-          type:
-          - string
-          - 'null'
-        consolServiceLevel:
-          type:
-          - string
-          - 'null'
-        qualifier:
-          type:
-          - string
-          - 'null'
-          description: Qualifier
-        legOrder:
-          type: integer
-          description: Leg Order
-          format: int32
-        legType:
-          type:
-          - string
-          - 'null'
-          description: Leg Type (e.g. Main)
-        carrierCode:
-          type:
-          - string
-          - 'null'
-          description: Carrier Code
-        carrierSCAC:
-          type:
-          - string
-          - 'null'
-          description: Carrier SCAC Code
-        carrierDakoskyCode:
-          type:
-          - string
-          - 'null'
-          description: Carrier Dakosy Code
-        carrierNationality:
-          type:
-          - string
-          - 'null'
-          description: Carrier Nationality
-        localCarrierCode:
-          type:
-          - string
-          - 'null'
-          description: Local Carrier Code
-        serviceLevel:
-          type:
-          - string
-          - 'null'
-          description: Service Level
-        legNotes:
-          type:
-          - string
-          - 'null'
-          description: Leg Notes
-        imoNumber:
-          type:
-          - string
-          - 'null'
-        status:
-          type:
-          - string
-          - 'null'
-          description: Status
-        definedBy:
-          type:
-          - string
-          - 'null'
-          description: Defined by
-        charterRoute:
-          type:
-          - string
-          - 'null'
-          description: Charter Route
-        isCharter:
-          type: boolean
-          description: Boolean if charter
-        isLinked:
-          type: boolean
-          description: Boolean is linked
-        isMainCarriage:
-          type: boolean
-          description: Boolean if leg is main leg
-        isPlannedLeg:
-          type: boolean
-          description: Boolean if leg is planned
-        numberOfShipments:
-          type: integer
-          description: Number of Shipments
-          format: int32
-        numberOfPackages:
-          type: integer
-          description: Number of Packages
-          format: int32
-        numberOfOriginalBills:
-          type: integer
-          description: Number of Original Bill of Ladings
-          format: int32
-        numberOfCopyBills:
-          type: integer
-          description: Number of Copy Bill of Lading
-          format: int32
-        linkReference:
-          type:
-          - string
-          - 'null'
-          description: Link Reference
-        ownerCodeInternal:
-          type:
-          - string
-          - 'null'
-          description: Internal Owner Code
-        ownerCodeExternal:
-          type:
-          - string
-          - 'null'
-          description: External Owner Code
-        source:
-          type:
-          - string
-          - 'null'
-          description: Source
-        sendingAgent:
-          $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.Company'
-        receivingAgent:
-          $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.Company'
-        carrier:
-          $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.Company'
-        parties:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.Company'
-          description: Parties
-        dateModified:
-          type:
-          - string
-          - 'null'
-          description: Date Modified
-          format: date-time
-        userModified:
-          type:
-          - string
-          - 'null'
-          description: User Modified
-        dateCreated:
-          type:
-          - string
-          - 'null'
-          description: Date Created
-          format: date-time
-        userCreated:
-          type:
-          - string
-          - 'null'
-          description: User Created
-      additionalProperties: false
-    eDC.Web.Api.v2.Models.Entities.Booking:
-      type: object
-      properties:
-        bookingNumber:
-          type:
-          - string
-          - 'null'
-          description: Booking Number
-        externalBookingNumber:
-          type:
-          - string
-          - 'null'
-          description: External Booking Number
-        externalBookingSender:
-          type:
-          - string
-          - 'null'
-          description: External Booking Sender
-        state:
-          $ref: '#/components/schemas/eDC.Domain.Enums.BookingState'
-        origin:
-          type:
-          - string
-          - 'null'
-          description: Origin of the Booking
-        destination:
-          type:
-          - string
-          - 'null'
-          description: Destination of the Booking
-        incoterm:
-          type:
-          - string
-          - 'null'
-          description: Incoterm of the Booking
-        additionalTerms:
-          type:
-          - string
-          - 'null'
-          description: Additional Terms of the Booking
-        additionalTermsUNLOCO:
-          type:
-          - string
-          - 'null'
-          description: UN Location Code
-        freightTerm:
-          type:
-          - string
-          - 'null'
-          description: Freight Terms
-        orderNumbers:
-          type:
-          - string
-          - 'null'
-          description: Order Numbers
-        unitOfWeight:
-          type:
-          - string
-          - 'null'
-          description: Unit of Measure for Weight
-        weight:
-          type: number
-          description: Weight
-          format: double
-        unitOfVolume:
-          type:
-          - string
-          - 'null'
-          description: Unit of Measure for Volume
-        volume:
-          type: number
-          description: Volume
-          format: double
-        noOfPieces:
-          type: integer
-          description: Number of Pieces
-          format: int32
-        orderCurrency:
-          type:
-          - string
-          - 'null'
-          description: Currency for the Order
-        totalValue:
-          type: number
-          description: Total Value of the Order
-          format: double
-        packingWeight:
-          type: number
-          description: Packing Weight
-          format: double
-        packingVolume:
-          type: number
-          description: Packing Volume
-          format: double
-        transitWarehouse:
-          type:
-          - string
-          - 'null'
-          description: Transit Warehouse
-        onHandDate:
-          type:
-          - string
-          - 'null'
-          description: On Hand Date
-          format: date-time
-        preBooked:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        bookedDate:
-          type:
-          - string
-          - 'null'
-          description: Date of Booking
-          format: date-time
-        rejectedDate:
-          type:
-          - string
-          - 'null'
-          description: Date of Booking Rejection
-          format: date-time
-        approvedDate:
-          type:
-          - string
-          - 'null'
-          description: Date of Booking Approval
-          format: date-time
-        confirmedDate:
-          type:
-          - string
-          - 'null'
-          description: Date of Booking Confirmation
-          format: date-time
-        cancelledDate:
-          type:
-          - string
-          - 'null'
-          description: Date of Booking Cancellation
-          format: date-time
-        countOfTEU:
-          type: number
-          description: TEU count
-          format: double
-        countOf20FT:
-          type: integer
-          description: Count of 20ft Container
-          format: int32
-        countOf40FT:
-          type: integer
-          description: Count of 40ft Container
-          format: int32
-        countOf45FT:
-          type: integer
-          description: Count of 45ft Container
-          format: int32
-        source:
-          type:
-          - string
-          - 'null'
-          description: Source
-        systemID:
-          type:
-          - string
-          - 'null'
-          description: System ID
-          format: uuid
-        isApprovalRequired:
-          type: boolean
-          description: Boolean if Approval is required
-        transitWarehouseDescription:
-          type:
-          - string
-          - 'null'
-          description: Transit Warehouse Description
-        estimatedDeliveryDate:
-          type:
-          - string
-          - 'null'
-          description: Estimated Delivery Date
-          format: date-time
-        collectionRequiredDate:
-          type:
-          - string
-          - 'null'
-          description: Collection Required Date
-          format: date-time
-        collectionRequiredDateBy:
-          type:
-          - string
-          - 'null'
-          description: Collection Required Date By
-          format: date-time
-        deliveryRequiredDate:
-          type:
-          - string
-          - 'null'
-          description: Delivery Required Date
-          format: date-time
-        deliveryRequiredDateBy:
-          type:
-          - string
-          - 'null'
-          description: Delivery Required Date By
-          format: date-time
-        isCancelled:
-          type: boolean
-          description: Boolean if cancelled
-        shipmentNumbers:
-          type:
-          - string
-          - 'null'
-          description: Shipment Number
-        noOfContainers:
-          type: integer
-          description: Number of Containers
-          format: int32
-        ownership:
-          type:
-          - string
-          - 'null'
-          description: Ownership
-        bookingDeliveryInstructions:
-          type:
-          - string
-          - 'null'
-          description: Booking Delivery Instruction
-        requiredDepartureWeekNumber:
-          type:
-          - integer
-          - 'null'
-          description: Required Departure Week Number
-          format: int32
-        requiredArrivalWeekNumber:
-          type:
-          - integer
-          - 'null'
-          description: Required Arrival Week Number
-          format: int32
-        cargoReadyDateWeekNumber:
-          type:
-          - integer
-          - 'null'
-          description: Cargo Ready Date Week Number
-          format: int32
-        deliveryDateWeekNumber:
-          type:
-          - integer
-          - 'null'
-          description: Delivery Date Week Number
-          format: int32
-        estimatedDeliveryToOriginCFSWeekNumber:
-          type:
-          - integer
-          - 'null'
-          description: Estimated Delivery To Origin CFS Week Number
-          format: int32
-        supplierRef:
-          type:
-          - string
-          - 'null'
-          description: Supplier Reference
-        requiredExFactory:
-          type:
-          - string
-          - 'null'
-          description: Required Ex Works Date
-          format: date-time
-        requiredInStore:
-          type:
-          - string
-          - 'null'
-          description: Required in Store Date
-          format: date-time
-        requestedDepartureDate:
-          type:
-          - string
-          - 'null'
-          description: Requested Departure Date
-          format: date-time
-        requestedArrivalDate:
-          type:
-          - string
-          - 'null'
-          description: Requested Arrival Date
-          format: date-time
-        transportMode:
-          type:
-          - string
-          - 'null'
-          description: Mode of Transport
-        containerMode:
-          type:
-          - string
-          - 'null'
-          description: Container Mode
-        goodsDescription:
-          type:
-          - string
-          - 'null'
-          description: Description of Goods
-        marksAndNumbers:
-          type:
-          - string
-          - 'null'
-          description: Marks and Numbers
-        bookingInstructions:
-          type:
-          - string
-          - 'null'
-          description: Booking Instructions
-        loadingMeters:
-          type: number
-          description: Loading Meters
-          format: double
-        commodityCode:
-          type:
-          - string
-          - 'null'
-          description: Commodity Code
-        plannerCode:
-          type:
-          - string
-          - 'null'
-          description: Planner Code
-        plannerEmail:
-          type:
-          - string
-          - 'null'
-          description: Planner Email
-        loadPort:
-          type:
-          - string
-          - 'null'
-          description: Port  of loading
-        dischargePort:
-          type:
-          - string
-          - 'null'
-          description: Port of discharge
-        sdocComplete:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        estimatedDeliveryToOriginCFS:
-          type:
-          - string
-          - 'null'
-          description: Estimated Delivery To Origin CFS Date
-          format: date-time
-        isPickupRequired:
-          type: boolean
-          description: Boolean for Pickup required
-        shippingInstructions:
-          type:
-          - string
-          - 'null'
-          description: Shipment Instructions
-        customerDivision:
-          type:
-          - string
-          - 'null'
-        carrierSpaceReservation:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        followUpDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        dateModified:
-          type:
-          - string
-          - 'null'
-          description: Date Modified
-          format: date-time
-        userModified:
-          type:
-          - string
-          - 'null'
-          description: User Modified
-        dateCreated:
-          type:
-          - string
-          - 'null'
-          description: Date Created
-          format: date-time
-        userCreated:
-          type:
-          - string
-          - 'null'
-          description: User Created
-        isSuspended:
-          type: boolean
-        suspendedDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        loadPlanNumber:
-          type:
-          - string
-          - 'null'
-        shipmentNumber:
-          type:
-          - string
-          - 'null'
-        temperatureControl:
-          $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.TemperatureControl'
-        customFields:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.GenCustomAddOnValue'
-          description: Custom Fields
-        additionalReferences:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.AdditionalReference'
-        parties:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.Company'
-          description: Parties
-        packLines:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.JobPackLine'
-          description: Pack Lines
-        equipmentTypes:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.EquipmentType'
-          description: Equipment Types
-        notes:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.Note'
-          description: Notes
-        events:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.Event'
-          description: Events
-        shipments:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.Shipment'
-      additionalProperties: false
+    eDC.Domain.Enums.BookingState:
+      enum:
+      - Provisional
+      - PreBooked
+      - Rejected
+      - Booked
+      - Approved
+      - Confirmed
+      - Parked
+      - Transmitted
+      - PendingConsolidation
+      - Planning
+      - Planned
+      - Consolidated
+      - PendingCollection
+      - Collected
+      - OnHand
+      - DepartedOriginCFS
+      - Shipped
+      - Arrived
+      - CustomsCommenced
+      - CustomsCleared
+      - AvailableDestinationCFS
+      - PendingDelivery
+      - DepartedDestinationCFS
+      - Handover
+      - Delivered
+      - Suspended
+      - Cancelled
+      type: string
+      format: int32
     eDC.Web.Api.v2.Models.Entities.Shipment:
       type: object
       properties:
@@ -3698,303 +2673,46 @@ components:
           - string
           - 'null'
       additionalProperties: false
-    eDC.Domain.Enums.ShipmentState:
-      enum:
-      - Booked
-      - PendingConsolidation
-      - Planning
-      - Planned
-      - Consolidated
-      - Accepted
-      - PendingCollection
-      - Collected
-      - OnHand
-      - DepartedOriginCFS
-      - Shipped
-      - Arrived
-      - CustomsCommenced
-      - CustomsCleared
-      - AvailableDestinationCFS
-      - PendingDelivery
-      - DepartedDestinationCFS
-      - Handover
-      - Delivered
-      - Declined
-      - Suspended
-      - Cancelled
-      type: string
-      format: int32
-    eDC.Web.Api.v2.Models.Entities.AdditionalReference:
+    eDC.Web.Api.v2.Models.Entities.GenCustomAddOnValue:
       type: object
       properties:
+        name:
+          type:
+          - string
+          - 'null'
+          description: Name
         type:
           type:
           - string
           - 'null'
-        description:
-          type:
-          - string
-          - 'null'
+          description: Type
         value:
           type:
           - string
           - 'null'
-      additionalProperties: false
-    eDC.Web.Api.v2.Models.Entities.Event:
-      type: object
-      properties:
-        eventCode:
-          type:
-          - string
-          - 'null'
-          description: The unique event code - usually 3 chars, but can be 2 or more.
-        description:
-          type:
-          - string
-          - 'null'
-          description: A description of the event code.
-        eventDate:
-          type:
-          - string
-          - 'null'
-          description: The date in which the event happened
-          format: date-time
-        reasonCodes:
-          type:
-          - string
-          - 'null'
-          description: Legacy, do not use.
-        eventPlace:
-          type:
-          - string
-          - 'null'
-          description: The place in which the event happened.
-        eventSource:
-          type:
-          - string
-          - 'null'
-          description: The source system that input the event.
-        qaIssueCode:
-          type:
-          - string
-          - 'null'
-        qaResponsibleParty:
-          type:
-          - string
-          - 'null'
-        stage:
-          type:
-          - string
-          - 'null'
-        qaIssueNotes:
-          type:
-          - string
-          - 'null'
-        qaIssueResolvedDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        vehicleRegistration:
-          type:
-          - string
-          - 'null'
-        driverName:
-          type:
-          - string
-          - 'null'
-        secondDriver:
-          type:
-          - string
-          - 'null'
-        locationType:
-          type:
-          - string
-          - 'null'
-          description: Options - Intermediate / Transit Customs / Destination Customs
-        qaIssueCodeDescription:
-          type:
-          - string
-          - 'null'
-        externalTrackingLink:
-          type:
-          - string
-          - 'null'
+          description: Value
         dateModified:
           type:
           - string
           - 'null'
-          description: Date the event was modified - in general events cannot be modified but QA issues can be resolved.
+          description: Date Modiefied
           format: date-time
         userModified:
           type:
           - string
           - 'null'
-          description: User who modified the event - in general events cannot be modified but QA issues can be resolved.
+          description: User Modified
         dateCreated:
           type:
           - string
           - 'null'
-          description: Date the event was input
+          description: Date Created
           format: date-time
         userCreated:
           type:
           - string
           - 'null'
-          description: User who input the event
-      additionalProperties: false
-    eDC.Web.Api.v2.Models.Search.SearchRequest:
-      type: object
-      properties:
-        page:
-          type: integer
-          format: int32
-        pageSize:
-          type: integer
-          format: int32
-        sorts:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Search.SortDescriptor'
-        skip:
-          type: integer
-          format: int32
-        take:
-          type: integer
-          format: int32
-        criteria:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    eDC.Web.Api.v2.Models.Entities.DangerousGoods:
-      type: object
-      properties:
-        regulation:
-          type:
-          - string
-          - 'null'
-        hazardClass:
-          type:
-          - string
-          - 'null'
-        additionalHazardClass:
-          type:
-          - string
-          - 'null'
-        classificationCode:
-          type:
-          - string
-          - 'null'
-        undgNumber:
-          type:
-          - string
-          - 'null'
-        variant:
-          type:
-          - string
-          - 'null'
-        psn:
-          type:
-          - string
-          - 'null'
-        technicalName:
-          type:
-          - string
-          - 'null'
-        labels:
-          type:
-          - string
-          - 'null'
-        packingGroup:
-          type:
-          - string
-          - 'null'
-        upperPlate:
-          type:
-          - string
-          - 'null'
-        lowerPlate:
-          type:
-          - string
-          - 'null'
-        numberOfPackages:
-          type:
-          - string
-          - 'null'
-        packageType:
-          type:
-          - string
-          - 'null'
-        packagingInstruction:
-          type:
-          - string
-          - 'null'
-        transportMeansCategory:
-          type:
-          - string
-          - 'null'
-        grossWeight:
-          type: number
-          format: double
-        netWeight:
-          type: number
-          format: double
-        explosiveWeight:
-          type: number
-          format: double
-        unitOfWeight:
-          type:
-          - string
-          - 'null'
-        flashPointTemperature:
-          type:
-          - string
-          - 'null'
-        flashPointTemperatureUnit:
-          type:
-          - string
-          - 'null'
-        flashPointDescription:
-          type:
-          - string
-          - 'null'
-        tremCardNumber:
-          type:
-          - string
-          - 'null'
-        emsNumber:
-          type:
-          - string
-          - 'null'
-        mfagNumber:
-          type:
-          - string
-          - 'null'
-        marinePollutant:
-          type:
-          - string
-          - 'null'
-        limitedQuantity:
-          type: boolean
-        tunnelCode:
-          type:
-          - string
-          - 'null'
-        remarks:
-          type:
-          - string
-          - 'null'
-        contactName:
-          type:
-          - string
-          - 'null'
-        contactEmail:
-          type:
-          - string
-          - 'null'
+          description: User Created
       additionalProperties: false
     eDC.Web.Api.v2.Models.Entities.Contact:
       type: object
@@ -4028,20 +2746,352 @@ components:
           - string
           - 'null'
       additionalProperties: false
-    eDC.Domain.Enums.BookingState:
+    eDC.Web.Api.v2.Models.Entities.AdditionalReference:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+        description:
+          type:
+          - string
+          - 'null'
+        value:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    eDC.Web.Api.v2.Models.Entities.JobConsol:
+      type: object
+      properties:
+        transportMode:
+          type:
+          - string
+          - 'null'
+          description: Mode of Transport eg. Air, Sea, Road
+        consolMode:
+          type:
+          - string
+          - 'null'
+          description: Mode of Consol
+        consolNumber:
+          type:
+          - string
+          - 'null'
+        masterBill:
+          type:
+          - string
+          - 'null'
+          description: Master Bill of Lading (MBL)
+        bookingReference:
+          type:
+          - string
+          - 'null'
+          description: Booking Reference
+        agentsReference:
+          type:
+          - string
+          - 'null'
+          description: Agent Reference
+        customsReference:
+          type:
+          - string
+          - 'null'
+          description: Customs Reference
+        prepaidCollect:
+          type:
+          - string
+          - 'null'
+          description: Prepaid or Collection
+        loadPort:
+          type:
+          - string
+          - 'null'
+          description: Port of Loading,  UNLOCO (e.g. DEHAM)
+        dischargePort:
+          type:
+          - string
+          - 'null'
+          description: Port of Discharge, UNLOCO (e.g. DEHAM)
+        portOfFirstArrival:
+          type:
+          - string
+          - 'null'
+          description: Port of first arrival
+        eta:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        etd:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        ata:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        atd:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        vessel:
+          type:
+          - string
+          - 'null'
+          description: Vessel name
+        voyageFlight:
+          type:
+          - string
+          - 'null'
+          description: Voyage (MoT Sea) or Flight No (MoT Air)
+        fullLoadPortFreeTime:
+          type: integer
+          description: Full Load Port Free Time
+          format: int32
+        fullLoadDestinationDetentionFreeTime:
+          type: integer
+          format: int32
+        fullLoadOriginDetentionFreeTime:
+          type: integer
+          format: int32
+        oceanCarrier:
+          type:
+          - string
+          - 'null'
+          description: Ocean Carrier
+        airCarrier:
+          type:
+          - string
+          - 'null'
+          description: Air Carrier
+        weight:
+          $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.Measurement'
+        volume:
+          $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.Measurement'
+        chargeable:
+          $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.Measurement'
+        releaseType:
+          type:
+          - string
+          - 'null'
+          description: Type of Release
+        teuCount:
+          type: number
+          format: double
+        countOfTEU:
+          type: number
+          description: Count of TEU
+          format: double
+        countOf20FT:
+          type: integer
+          description: Count of 20ft Container
+          format: int32
+        countOf40FT:
+          type: integer
+          description: Count of 40ft Container
+          format: int32
+        countOf45FT:
+          type: integer
+          description: Count of 45ft Container
+          format: int32
+        stageNumber:
+          type:
+          - string
+          - 'null'
+          description: Stage Number
+        sta:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        std:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        consolContainerMode:
+          type:
+          - string
+          - 'null'
+        consolServiceLevel:
+          type:
+          - string
+          - 'null'
+        qualifier:
+          type:
+          - string
+          - 'null'
+          description: Qualifier
+        legOrder:
+          type: integer
+          description: Leg Order
+          format: int32
+        legType:
+          type:
+          - string
+          - 'null'
+          description: Leg Type (e.g. Main)
+        carrierCode:
+          type:
+          - string
+          - 'null'
+          description: Carrier Code
+        carrierSCAC:
+          type:
+          - string
+          - 'null'
+          description: Carrier SCAC Code
+        carrierDakoskyCode:
+          type:
+          - string
+          - 'null'
+          description: Carrier Dakosy Code
+        carrierNationality:
+          type:
+          - string
+          - 'null'
+          description: Carrier Nationality
+        localCarrierCode:
+          type:
+          - string
+          - 'null'
+          description: Local Carrier Code
+        serviceLevel:
+          type:
+          - string
+          - 'null'
+          description: Service Level
+        legNotes:
+          type:
+          - string
+          - 'null'
+          description: Leg Notes
+        imoNumber:
+          type:
+          - string
+          - 'null'
+        status:
+          type:
+          - string
+          - 'null'
+          description: Status
+        definedBy:
+          type:
+          - string
+          - 'null'
+          description: Defined by
+        charterRoute:
+          type:
+          - string
+          - 'null'
+          description: Charter Route
+        isCharter:
+          type: boolean
+          description: Boolean if charter
+        isLinked:
+          type: boolean
+          description: Boolean is linked
+        isMainCarriage:
+          type: boolean
+          description: Boolean if leg is main leg
+        isPlannedLeg:
+          type: boolean
+          description: Boolean if leg is planned
+        numberOfShipments:
+          type: integer
+          description: Number of Shipments
+          format: int32
+        numberOfPackages:
+          type: integer
+          description: Number of Packages
+          format: int32
+        numberOfOriginalBills:
+          type: integer
+          description: Number of Original Bill of Ladings
+          format: int32
+        numberOfCopyBills:
+          type: integer
+          description: Number of Copy Bill of Lading
+          format: int32
+        linkReference:
+          type:
+          - string
+          - 'null'
+          description: Link Reference
+        ownerCodeInternal:
+          type:
+          - string
+          - 'null'
+          description: Internal Owner Code
+        ownerCodeExternal:
+          type:
+          - string
+          - 'null'
+          description: External Owner Code
+        source:
+          type:
+          - string
+          - 'null'
+          description: Source
+        sendingAgent:
+          $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.Company'
+        receivingAgent:
+          $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.Company'
+        carrier:
+          $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.Company'
+        parties:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.Company'
+          description: Parties
+        dateModified:
+          type:
+          - string
+          - 'null'
+          description: Date Modified
+          format: date-time
+        userModified:
+          type:
+          - string
+          - 'null'
+          description: User Modified
+        dateCreated:
+          type:
+          - string
+          - 'null'
+          description: Date Created
+          format: date-time
+        userCreated:
+          type:
+          - string
+          - 'null'
+          description: User Created
+      additionalProperties: false
+    eDC.Web.Api.v2.Controllers.ReduceStateRequest:
+      type: object
+      properties:
+        bookingNumber:
+          type:
+          - string
+          - 'null'
+        state:
+          $ref: '#/components/schemas/eDC.Domain.Enums.BookingState'
+      additionalProperties: false
+    eDC.Domain.Enums.ShipmentState:
       enum:
-      - Provisional
-      - PreBooked
-      - Rejected
       - Booked
-      - Approved
-      - Confirmed
-      - Parked
-      - Transmitted
       - PendingConsolidation
       - Planning
       - Planned
       - Consolidated
+      - Accepted
       - PendingCollection
       - Collected
       - OnHand
@@ -4055,10 +3105,137 @@ components:
       - DepartedDestinationCFS
       - Handover
       - Delivered
+      - Declined
       - Suspended
       - Cancelled
       type: string
       format: int32
+    eDC.Web.Api.v2.Models.Search.ListSortDirection:
+      enum:
+      - Ascending
+      - Descending
+      type: string
+      format: int32
+    eDC.Domain.Enums.ContainerState:
+      enum:
+      - Provisional
+      - ReleasedCY
+      - PickupBooked
+      - PickedUp
+      - GateIn
+      - Loaded
+      - Shipped
+      - Arrived
+      - Unloaded
+      - DeliveryBooked
+      - GateOut
+      - Delivered
+      - EmptyReadyForReturn
+      - EmptyReturned
+      type: string
+      format: int32
+    eDC.Web.Api.v2.Models.Search.SortDescriptor:
+      type: object
+      properties:
+        member:
+          type:
+          - string
+          - 'null'
+        sortDirection:
+          $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Search.ListSortDirection'
+      additionalProperties: false
+    eDC.Web.Api.v2.Models.Entities.Company:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+          description: Type
+        code:
+          type:
+          - string
+          - 'null'
+          description: Code
+        externalCode:
+          type:
+          - string
+          - 'null'
+          description: External Code
+        isActive:
+          type: boolean
+          description: Active
+        fullName:
+          type:
+          - string
+          - 'null'
+          description: Full Name
+        closestPort:
+          type:
+          - string
+          - 'null'
+          description: Closest Port
+        currency:
+          type:
+          - string
+          - 'null'
+          description: Currency
+        phoneNumber:
+          type:
+          - string
+          - 'null'
+          description: Phone Number
+        email:
+          type:
+          - string
+          - 'null'
+          description: Email
+        vatNumber:
+          type:
+          - string
+          - 'null'
+        registeredNumber:
+          type:
+          - string
+          - 'null'
+          description: Registered Number
+        ediCode:
+          type:
+          - string
+          - 'null'
+        address:
+          $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.Address'
+        contact:
+          $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.Contact'
+        additionalReferences:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.AdditionalReference'
+        dateModified:
+          type:
+          - string
+          - 'null'
+          description: Date Modified
+          format: date-time
+        userModified:
+          type:
+          - string
+          - 'null'
+          description: User Modified
+        dateCreated:
+          type:
+          - string
+          - 'null'
+          description: Date Created
+          format: date-time
+        userCreated:
+          type:
+          - string
+          - 'null'
+          description: User Created
+      additionalProperties: false
     eDC.Web.Api.v2.Models.Entities.JobPackLine:
       type: object
       properties:
@@ -4275,722 +3452,7 @@ components:
           - 'null'
           description: Status Description
       additionalProperties: false
-    eDC.Domain.Enums.ContainerState:
-      enum:
-      - Provisional
-      - ReleasedCY
-      - PickupBooked
-      - PickedUp
-      - GateIn
-      - Loaded
-      - Shipped
-      - Arrived
-      - Unloaded
-      - DeliveryBooked
-      - GateOut
-      - Delivered
-      - EmptyReadyForReturn
-      - EmptyReturned
-      type: string
-      format: int32
-    eDC.Web.Api.v2.Models.Entities.Address:
-      type: object
-      properties:
-        name:
-          type:
-          - string
-          - 'null'
-          description: Name
-        address1:
-          type:
-          - string
-          - 'null'
-          description: Address line 1
-        address2:
-          type:
-          - string
-          - 'null'
-          description: Address line 2
-        address3:
-          type:
-          - string
-          - 'null'
-          description: Address line 3
-        unloco:
-          type:
-          - string
-          - 'null'
-        nearestPort:
-          type:
-          - string
-          - 'null'
-        city:
-          type:
-          - string
-          - 'null'
-          description: City
-        state:
-          type:
-          - string
-          - 'null'
-          description: State
-        postCode:
-          type:
-          - string
-          - 'null'
-          description: Postal code
-        countryCode:
-          type:
-          - string
-          - 'null'
-          description: 2-Letter Country Code
-        country:
-          type:
-          - string
-          - 'null'
-          description: Country
-        addressCode:
-          type:
-          - string
-          - 'null'
-          description: Address Code
-        lockUNLOCO:
-          type: boolean
-        longitude:
-          type:
-          - number
-          - 'null'
-          description: Longitude
-          format: double
-        latitude:
-          type:
-          - number
-          - 'null'
-          description: Latitude
-          format: double
-        dateModified:
-          type:
-          - string
-          - 'null'
-          description: Date Modified
-          format: date-time
-        userModified:
-          type:
-          - string
-          - 'null'
-          description: User Modified
-        dateCreated:
-          type:
-          - string
-          - 'null'
-          description: Creation Date
-          format: date-time
-        userCreated:
-          type:
-          - string
-          - 'null'
-          description: User creating the address
-      additionalProperties: false
-    eDC.Web.Api.v2.Models.Search.ListSortDirection:
-      enum:
-      - Ascending
-      - Descending
-      type: string
-      format: int32
-    eDC.Web.Api.v2.Models.Search.SortDescriptor:
-      type: object
-      properties:
-        member:
-          type:
-          - string
-          - 'null'
-        sortDirection:
-          $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Search.ListSortDirection'
-      additionalProperties: false
-    eDC.Web.Api.v2.Controllers.ChangeStateRequest:
-      type: object
-      properties:
-        bookingNumber:
-          type:
-          - string
-          - 'null'
-          description: Booking Number
-        state:
-          $ref: '#/components/schemas/eDC.Domain.Enums.BookingState'
-        note:
-          type:
-          - string
-          - 'null'
-          description: Notes
-        intendedParty:
-          type:
-          - string
-          - 'null'
-          description: Intended Party
-      additionalProperties: false
-    eDC.Web.Api.v2.Models.Entities.Note:
-      type: object
-      properties:
-        description:
-          type:
-          - string
-          - 'null'
-          description: Description
-        noteText:
-          type:
-          - string
-          - 'null'
-          description: Note Text
-        noteType:
-          type:
-          - string
-          - 'null'
-          description: Note Type
-        noteContext:
-          type:
-          - string
-          - 'null'
-          description: Note Context
-        intendedParty:
-          type:
-          - string
-          - 'null'
-          description: Intended Party
-        read:
-          type: boolean
-          description: Read
-        source:
-          type:
-          - string
-          - 'null'
-          description: Source
-        isPublished:
-          type: boolean
-          description: Boolean if published
-        resolvedDate:
-          type:
-          - string
-          - 'null'
-          description: Resolved Date
-          format: date-time
-        assignedUser:
-          type:
-          - string
-          - 'null'
-          description: Assigned User
-        dateModified:
-          type:
-          - string
-          - 'null'
-          description: Date Modified
-          format: date-time
-        userModified:
-          type:
-          - string
-          - 'null'
-          description: User Modified
-        dateCreated:
-          type:
-          - string
-          - 'null'
-          description: Date Created
-          format: date-time
-        userCreated:
-          type:
-          - string
-          - 'null'
-          description: User Created
-      additionalProperties: false
-    eDC.Web.Api.v2.Models.Entities.GenCustomAddOnValue:
-      type: object
-      properties:
-        name:
-          type:
-          - string
-          - 'null'
-          description: Name
-        type:
-          type:
-          - string
-          - 'null'
-          description: Type
-        value:
-          type:
-          - string
-          - 'null'
-          description: Value
-        dateModified:
-          type:
-          - string
-          - 'null'
-          description: Date Modiefied
-          format: date-time
-        userModified:
-          type:
-          - string
-          - 'null'
-          description: User Modified
-        dateCreated:
-          type:
-          - string
-          - 'null'
-          description: Date Created
-          format: date-time
-        userCreated:
-          type:
-          - string
-          - 'null'
-          description: User Created
-      additionalProperties: false
-    eDC.Web.Api.v2.Models.Entities.EquipmentType:
-      type: object
-      properties:
-        type:
-          type:
-          - string
-          - 'null'
-          description: Type
-        noOfUnits:
-          type: integer
-          description: Number of Units
-          format: int32
-        containerNumber:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    eDC.Web.Api.v2.Models.Entities.GeoLocationData:
-      type: object
-      properties:
-        latitude:
-          type: number
-          description: Latitude
-          format: double
-        longitude:
-          type: number
-          description: Longitude
-          format: double
-      additionalProperties: false
-    eDC.Web.Api.v2.Models.Entities.OrderItem:
-      type: object
-      properties:
-        lineStatus:
-          type:
-          - string
-          - 'null'
-          description: 'Line Status: PLC for Placed, DLV for Delivered.'
-        lineNo:
-          type: integer
-          description: Order Line Number.  Must be an integer, unique to the respective Order.
-          format: int32
-        partno:
-          type:
-          - string
-          - 'null'
-          description: Part No, Product Code or SKU Number.
-        description:
-          type:
-          - string
-          - 'null'
-          description: Description of the part.
-        unitOfQuantity:
-          type:
-          - string
-          - 'null'
-          description: 'The unit, such as: EA equals Each.'
-        quantity:
-          type:
-          - number
-          - 'null'
-          description: Quantity Ordered.
-          format: double
-        qtyInvoiced:
-          type:
-          - number
-          - 'null'
-          description: Quantity Invoiced / Booked by the Supplier.
-          format: double
-        qtyBooked:
-          type:
-          - number
-          - 'null'
-          description: Quantity Invoiced / Booked by the Supplier.
-          format: double
-        qtyReceived:
-          type:
-          - number
-          - 'null'
-          description: Quantity Received at the destination warehouse.
-          format: double
-        qtyShipped:
-          type:
-          - number
-          - 'null'
-          description: Quantity checked by the Control Tower to actually be Booked.
-          format: double
-        quantityRemaining:
-          type:
-          - number
-          - 'null'
-          description: Only applicable for Blanket Purchase Orders.
-          format: double
-        volume:
-          type: number
-          description: The total volume of the Order.
-          format: double
-        unitOfVolume:
-          type:
-          - string
-          - 'null'
-          description: The unit of volume.
-        weight:
-          type: number
-          description: The total weight of the Order.
-          format: double
-        unitOfWeight:
-          type:
-          - string
-          - 'null'
-          description: Unit of weight
-        itemPrice:
-          type: number
-          description: Price of the individual item
-          format: double
-        linePrice:
-          type: number
-          description: Price of the line, which is the the individual item, times the number of pieces
-          format: double
-        length:
-          type: number
-          description: Length of the item.
-          format: double
-        width:
-          type: number
-          description: Width of the item.
-          format: double
-        height:
-          type: number
-          description: Height of the item.
-          format: double
-        dimUnit:
-          type:
-          - string
-          - 'null'
-          description: Unit of Dimension, applicable to the Length, Width and Height
-        dangerousGoodsRef:
-          type:
-          - string
-          - 'null'
-          description: Reference of Dangerous Goods
-        containerNumber:
-          type:
-          - string
-          - 'null'
-          description: Container Number
-        harmonisedCode:
-          type:
-          - string
-          - 'null'
-          description: Harmonised Code for customs purposes
-        packLineId:
-          type:
-          - string
-          - 'null'
-          description: ID of the PackLine to which the item is allocated
-        invoiceNumber:
-          type:
-          - string
-          - 'null'
-          description: Invoice Number
-        confirmationNumber:
-          type:
-          - string
-          - 'null'
-          description: Confirmation Number
-        partAttrib1:
-          type:
-          - string
-          - 'null'
-          description: PartAttrib1
-        partAttrib2:
-          type:
-          - string
-          - 'null'
-          description: PartAttrib2
-        partAttrib3:
-          type:
-          - string
-          - 'null'
-          description: PartAttrib3
-        specialInstructions:
-          type:
-          - string
-          - 'null'
-          description: Special Instructions such as Handling Information
-        additionalInformation:
-          type:
-          - string
-          - 'null'
-          description: Additional Information
-        lineFreightCost:
-          type: number
-          description: Freight Cost for Line
-          format: double
-        lineLandedCost:
-          type: number
-          description: Landed Cost for Line
-          format: double
-        itemFreightCost:
-          type: number
-          description: Freight Cost for Item
-          format: double
-        itemLandedCost:
-          type: number
-          description: Landed Cost for Item
-          format: double
-        lineWeight:
-          type: number
-          description: Line Weight
-          format: double
-        lineVolume:
-          type: number
-          description: Line Volume
-          format: double
-        contractNumber:
-          type:
-          - string
-          - 'null'
-          description: Contract Number
-        isContainerAllocated:
-          type: boolean
-          description: Boolean if Container is allocated
-        originCountry:
-          type:
-          - string
-          - 'null'
-          description: Country of Origin
-        decimalPlaces:
-          type: integer
-          description: Decimal Places
-          format: int32
-        quantityPerUnit:
-          type: number
-          description: Quantity per Unit
-          format: double
-        netWeight:
-          type: number
-          description: Net Weight
-          format: double
-        transportMode:
-          type:
-          - string
-          - 'null'
-          description: Mode of Transport; for example SEA
-        earliestShipDate:
-          type:
-          - string
-          - 'null'
-          description: Earliest Shipping Date
-          format: date-time
-        latestShipDate:
-          type:
-          - string
-          - 'null'
-          description: Latest Shipping Date
-          format: date-time
-        freightClass:
-          type:
-          - string
-          - 'null'
-          description: Freight Class
-        serviceLevel:
-          type:
-          - string
-          - 'null'
-          description: Service Level, for example STDequalsStandard
-        ediSequence:
-          type: integer
-          description: EDI sequence
-          format: int32
-        inners:
-          $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.Measurement'
-        outers:
-          $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.Measurement'
-        qtyRemaining:
-          type: number
-          description: QTY remaning
-          format: double
-        qtyShippedRemaining:
-          type: number
-          description: QTY Shipped Remaining
-          format: double
-        qtyInvoicedRemaining:
-          type: number
-          description: QTY Invoiced Remaining
-          format: double
-        qtyNotInvoiced:
-          type: number
-          description: QTY Not Invoiced
-          format: double
-        parties:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.Company'
-          description: Parties
-        isCancelled:
-          type: boolean
-          description: Boolean if Cancelled
-        estimatedExWorksDate:
-          type:
-          - string
-          - 'null'
-          description: Estimated Ex Works Date
-          format: date-time
-        requiredExWorks:
-          type:
-          - string
-          - 'null'
-          description: Required Ex Works Date
-          format: date-time
-        requiredInStore:
-          type:
-          - string
-          - 'null'
-          description: Required in Store Date
-          format: date-time
-        notAuthorisedToShip:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        customFields:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.GenCustomAddOnValue'
-          description: Custom Fields
-        events:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.Event_2'
-          description: Events
-        dateModified:
-          type:
-          - string
-          - 'null'
-          description: Date Modified
-          format: date-time
-        userModified:
-          type:
-          - string
-          - 'null'
-          description: User who modified
-        dateCreated:
-          type:
-          - string
-          - 'null'
-          description: Date created
-          format: date-time
-        userCreated:
-          type:
-          - string
-          - 'null'
-          description: User who created
-      additionalProperties: false
-    eDC.Web.Api.v2.Models.Entities.StorageDoc:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-        data:
-          type:
-          - string
-          - 'null'
-          description: Data
-        parentTableCode:
-          type:
-          - string
-          - 'null'
-          description: Parent Table Code
-        parentNumber:
-          type:
-          - string
-          - 'null'
-          description: Parent Number
-        secondaryParentNumber:
-          type:
-          - string
-          - 'null'
-          description: Secondary Parent Number
-        extension:
-          type:
-          - string
-          - 'null'
-          description: File Extension
-        docType:
-          type:
-          - string
-          - 'null'
-          description: Doc Type
-        description:
-          type:
-          - string
-          - 'null'
-          description: Description
-        fileName:
-          type:
-          - string
-          - 'null'
-          description: File Name
-        isPublished:
-          type: boolean
-          description: Boolean if published
-        intendedParties:
-          type:
-          - string
-          - 'null'
-          description: Intended Parties
-        size:
-          type: integer
-          description: File Size
-          format: int64
-        actualUpload:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        dateModified:
-          type:
-          - string
-          - 'null'
-          description: Date Modified
-          format: date-time
-        userModified:
-          type:
-          - string
-          - 'null'
-          description: User Modified
-        dateCreated:
-          type:
-          - string
-          - 'null'
-          description: Date Created
-          format: date-time
-        userCreated:
-          type:
-          - string
-          - 'null'
-          description: User Created
-        uniqueFileName:
-          type: boolean
-      additionalProperties: false
-    eDC.Web.Api.v2.Models.Entities.JobContainer_2:
+    eDC.Web.Api.v2.Models.Entities.JobContainer:
       type: object
       properties:
         containerNumber:
@@ -5131,6 +3593,27 @@ components:
         fullLoadPortFreeTime:
           type: integer
           format: int32
+        fullLoadDestinationDetentionFreeTime:
+          type: integer
+          format: int32
+        fullLoadOriginDetentionFreeTime:
+          type: integer
+          format: int32
+        demurrageStartDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        shipperDetentionStartDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        importerDetentionStartDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
         bookingCreatedDate:
           type:
           - string
@@ -5206,7 +3689,17 @@ components:
           - string
           - 'null'
           format: date-time
+        emptyReadyForReturn:
+          type:
+          - string
+          - 'null'
+          format: date-time
         emptyReturnedOn:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        emptyReturnRequiredBy:
           type:
           - string
           - 'null'
@@ -5252,6 +3745,21 @@ components:
           - string
           - 'null'
           format: date-time
+        arrivalPickupDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        arrivalDeliveryDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        departureDeliveryDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
         dateModified:
           type:
           - string
@@ -5270,6 +3778,11 @@ components:
           type:
           - string
           - 'null'
+        requestedEmptyReturnDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
         parties:
           type:
           - array
@@ -5287,283 +3800,83 @@ components:
           - array
           - 'null'
           items:
-            $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.Event_2'
+            $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.Event'
       additionalProperties: false
-    eDC.Web.Api.v2.Models.Entities.JobConsol_2:
+    eDC.Web.Api.v2.Models.Entities.Address:
       type: object
       properties:
-        transportMode:
+        name:
           type:
           - string
           - 'null'
-          description: Mode of Transport eg. Air, Sea, Road
-        consolMode:
+          description: Name
+        address1:
           type:
           - string
           - 'null'
-          description: Mode of Consol
-        consolNumber:
+          description: Address line 1
+        address2:
           type:
           - string
           - 'null'
-        masterBill:
+          description: Address line 2
+        address3:
           type:
           - string
           - 'null'
-          description: Master Bill of Lading (MBL)
-        bookingReference:
+          description: Address line 3
+        unloco:
           type:
           - string
           - 'null'
-          description: Booking Reference
-        agentsReference:
+        nearestPort:
           type:
           - string
           - 'null'
-          description: Agent Reference
-        customsReference:
+        city:
           type:
           - string
           - 'null'
-          description: Customs Reference
-        prepaidCollect:
+          description: City
+        state:
           type:
           - string
           - 'null'
-          description: Prepaid or Collection
-        loadPort:
+          description: State
+        postCode:
           type:
           - string
           - 'null'
-          description: Port of Loading,  UNLOCO (e.g. DEHAM)
-        dischargePort:
+          description: Postal code
+        countryCode:
           type:
           - string
           - 'null'
-          description: Port of Discharge, UNLOCO (e.g. DEHAM)
-        portOfFirstArrival:
+          description: 2-Letter Country Code
+        country:
           type:
           - string
           - 'null'
-          description: Port of first arrival
-        eta:
+          description: Country
+        addressCode:
           type:
           - string
           - 'null'
-          format: date-time
-        etd:
+          description: Address Code
+        lockUNLOCO:
+          type: boolean
+        longitude:
           type:
-          - string
+          - number
           - 'null'
-          format: date-time
-        ata:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        atd:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        vessel:
-          type:
-          - string
-          - 'null'
-          description: Vessel name
-        voyageFlight:
-          type:
-          - string
-          - 'null'
-          description: Voyage (MoT Sea) or Flight No (MoT Air)
-        fullLoadPortFreeTime:
-          type: integer
-          description: Full Load Port Free Time
-          format: int32
-        oceanCarrier:
-          type:
-          - string
-          - 'null'
-          description: Ocean Carrier
-        airCarrier:
-          type:
-          - string
-          - 'null'
-          description: Air Carrier
-        weight:
-          $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.Measurement'
-        volume:
-          $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.Measurement'
-        chargeable:
-          $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.Measurement'
-        releaseType:
-          type:
-          - string
-          - 'null'
-          description: Type of Release
-        teuCount:
-          type: number
+          description: Longitude
           format: double
-        countOfTEU:
-          type: number
-          description: Count of TEU
+        latitude:
+          type:
+          - number
+          - 'null'
+          description: Latitude
           format: double
-        countOf20FT:
-          type: integer
-          description: Count of 20ft Container
-          format: int32
-        countOf40FT:
-          type: integer
-          description: Count of 40ft Container
-          format: int32
-        countOf45FT:
-          type: integer
-          description: Count of 45ft Container
-          format: int32
-        stageNumber:
-          type:
-          - string
-          - 'null'
-          description: Stage Number
-        sta:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        std:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        qualifier:
-          type:
-          - string
-          - 'null'
-          description: Qualifier
-        legOrder:
-          type: integer
-          description: Leg Order
-          format: int32
-        legType:
-          type:
-          - string
-          - 'null'
-          description: Leg Type (e.g. Main)
-        carrierCode:
-          type:
-          - string
-          - 'null'
-          description: Carrier Code
-        carrierSCAC:
-          type:
-          - string
-          - 'null'
-          description: Carrier SCAC Code
-        carrierDakoskyCode:
-          type:
-          - string
-          - 'null'
-          description: Carrier Dakosy Code
-        carrierNationality:
-          type:
-          - string
-          - 'null'
-          description: Carrier Nationality
-        localCarrierCode:
-          type:
-          - string
-          - 'null'
-          description: Local Carrier Code
-        serviceLevel:
-          type:
-          - string
-          - 'null'
-          description: Service Level
-        legNotes:
-          type:
-          - string
-          - 'null'
-          description: Leg Notes
-        imoNumber:
-          type:
-          - string
-          - 'null'
-        status:
-          type:
-          - string
-          - 'null'
-          description: Status
-        definedBy:
-          type:
-          - string
-          - 'null'
-          description: Defined by
-        charterRoute:
-          type:
-          - string
-          - 'null'
-          description: Charter Route
-        isCharter:
-          type: boolean
-          description: Boolean if charter
-        isLinked:
-          type: boolean
-          description: Boolean is linked
-        isMainCarriage:
-          type: boolean
-          description: Boolean if leg is main leg
-        isPlannedLeg:
-          type: boolean
-          description: Boolean if leg is planned
-        numberOfShipments:
-          type: integer
-          description: Number of Shipments
-          format: int32
-        numberOfPackages:
-          type: integer
-          description: Number of Packages
-          format: int32
-        numberOfOriginalBills:
-          type: integer
-          description: Number of Original Bill of Ladings
-          format: int32
-        numberOfCopyBills:
-          type: integer
-          description: Number of Copy Bill of Lading
-          format: int32
-        linkReference:
-          type:
-          - string
-          - 'null'
-          description: Link Reference
-        ownerCodeInternal:
-          type:
-          - string
-          - 'null'
-          description: Internal Owner Code
-        ownerCodeExternal:
-          type:
-          - string
-          - 'null'
-          description: External Owner Code
-        source:
-          type:
-          - string
-          - 'null'
-          description: Source
-        sendingAgent:
-          $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.Company'
-        receivingAgent:
-          $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.Company'
-        carrier:
-          $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.Company'
-        parties:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.Company'
-          description: Parties
         dateModified:
           type:
           - string
@@ -5579,15 +3892,44 @@ components:
           type:
           - string
           - 'null'
-          description: Date Created
+          description: Creation Date
           format: date-time
         userCreated:
           type:
           - string
           - 'null'
-          description: User Created
+          description: User creating the address
       additionalProperties: false
-    eDC.Web.Api.v2.Models.Entities.Booking_2:
+    eDC.Web.Api.v2.Models.Entities.EquipmentType:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+          description: Type
+        noOfUnits:
+          type: integer
+          description: Number of Units
+          format: int32
+        containerNumber:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    eDC.Web.Api.v2.Models.Entities.GeoLocationData:
+      type: object
+      properties:
+        latitude:
+          type: number
+          description: Latitude
+          format: double
+        longitude:
+          type: number
+          description: Longitude
+          format: double
+      additionalProperties: false
+    eDC.Web.Api.v2.Models.Entities.Booking:
       type: object
       properties:
         bookingNumber:
@@ -6024,7 +4366,7 @@ components:
           - array
           - 'null'
           items:
-            $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.JobPackLine_2'
+            $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.JobPackLine'
           description: Pack Lines
         equipmentTypes:
           type:
@@ -6045,21 +4387,771 @@ components:
           - array
           - 'null'
           items:
-            $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.Event_2'
+            $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.Event'
           description: Events
-        order:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.Order'
-          description: Order
         shipments:
           type:
           - array
           - 'null'
           items:
-            $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.Shipment_2'
+            $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.Shipment'
+      additionalProperties: false
+    eDC.Web.Api.v2.Models.Entities.Note:
+      type: object
+      properties:
+        description:
+          type:
+          - string
+          - 'null'
+          description: Description
+        noteText:
+          type:
+          - string
+          - 'null'
+          description: Note Text
+        noteType:
+          type:
+          - string
+          - 'null'
+          description: Note Type
+        noteContext:
+          type:
+          - string
+          - 'null'
+          description: Note Context
+        intendedParty:
+          type:
+          - string
+          - 'null'
+          description: Intended Party
+        read:
+          type: boolean
+          description: Read
+        source:
+          type:
+          - string
+          - 'null'
+          description: Source
+        isPublished:
+          type: boolean
+          description: Boolean if published
+        resolvedDate:
+          type:
+          - string
+          - 'null'
+          description: Resolved Date
+          format: date-time
+        assignedUser:
+          type:
+          - string
+          - 'null'
+          description: Assigned User
+        dateModified:
+          type:
+          - string
+          - 'null'
+          description: Date Modified
+          format: date-time
+        userModified:
+          type:
+          - string
+          - 'null'
+          description: User Modified
+        dateCreated:
+          type:
+          - string
+          - 'null'
+          description: Date Created
+          format: date-time
+        userCreated:
+          type:
+          - string
+          - 'null'
+          description: User Created
+      additionalProperties: false
+    eDC.Web.Api.v2.Models.Entities.TransportSummary:
+      type: object
+      properties:
+        firstPortETD:
+          type:
+          - string
+          - 'null'
+          description: First Port Estimated Time of Departure
+          format: date-time
+        firstPortATD:
+          type:
+          - string
+          - 'null'
+          description: First Port Actual Time of Departure
+          format: date-time
+        lastPortETA:
+          type:
+          - string
+          - 'null'
+          description: Last Port Estimated Time of Departure
+          format: date-time
+        lastPortATA:
+          type:
+          - string
+          - 'null'
+          description: Last Port Actual Time of Departure
+          format: date-time
+        firstPort:
+          type:
+          - string
+          - 'null'
+          description: First Port
+        lastPort:
+          type:
+          - string
+          - 'null'
+          description: Last Port
+        firstPortDescription:
+          type:
+          - string
+          - 'null'
+          description: First Port Description
+        lastPortDescription:
+          type:
+          - string
+          - 'null'
+          description: Last Port Description
+        vessel:
+          type:
+          - string
+          - 'null'
+          description: Vessel Name
+        voyageFlight:
+          type:
+          - string
+          - 'null'
+          description: Voyage Number / Flight Number
+      additionalProperties: false
+    eDC.Web.Api.v2.Models.Entities.TemperatureControl:
+      type: object
+      properties:
+        instructions:
+          type:
+          - string
+          - 'null'
+        type:
+          type:
+          - string
+          - 'null'
+        unitOfTemperature:
+          type:
+          - string
+          - 'null'
+        minValue:
+          type:
+          - number
+          - 'null'
+          format: double
+        maxValue:
+          type:
+          - number
+          - 'null'
+          format: double
+        setPoint:
+          type:
+          - number
+          - 'null'
+          format: double
+        humidity:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        rangeValue:
+          type:
+          - string
+          - 'null'
+        humidityValue:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    eDC.Web.Api.v2.Models.CustomField:
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+        type:
+          type:
+          - string
+          - 'null'
+        value:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    eDC.Web.Api.v2.Models.EventRequest:
+      type: object
+      properties:
+        module:
+          type:
+          - string
+          - 'null'
+        entityNumber:
+          type:
+          - string
+          - 'null'
+        secondaryNumber:
+          type:
+          - string
+          - 'null'
+        eventCode:
+          type:
+          - string
+          - 'null'
+        description:
+          type:
+          - string
+          - 'null'
+        eventDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        reasonCodes:
+          type:
+          - string
+          - 'null'
+        eventPlace:
+          type:
+          - string
+          - 'null'
+        eventSource:
+          type:
+          - string
+          - 'null'
+        qaIssueCode:
+          type:
+          - string
+          - 'null'
+        qaIssueNotes:
+          type:
+          - string
+          - 'null'
+        qaIssueResolvedDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        vehicleRegistration:
+          type:
+          - string
+          - 'null'
+        driverName:
+          type:
+          - string
+          - 'null'
+        secondDriver:
+          type:
+          - string
+          - 'null'
+        note:
+          type:
+          - string
+          - 'null'
+        locationCode:
+          type:
+          - string
+          - 'null'
+        reference:
+          type:
+          - string
+          - 'null'
+        intendedParties:
+          type:
+          - string
+          - 'null'
+        externalTrackingLink:
+          type:
+          - string
+          - 'null'
+        customFields:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/eDC.Web.Api.v2.Models.CustomField'
+        references:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/eDC.Web.Api.v2.Models.EventReference'
+        transportLegs:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.JobConsol_2'
+        containers:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.JobContainer_2'
+      additionalProperties: false
+    eDC.Domain.Enums.OrderState:
+      enum:
+      - Provisional
+      - Open
+      - Confirmed
+      - OnHand
+      - BookingProvisional
+      - BookingPreBooked
+      - BookingBooked
+      - BookingRejected
+      - BookingApproved
+      - BookingConfirmed
+      - BookingParked
+      - PendingConsolidation
+      - Planning
+      - Planned
+      - Consolidated
+      - PendingCollection
+      - Collected
+      - BookingOnHand
+      - DepartedOriginCFS
+      - Shipped
+      - Arrived
+      - CustomsCommenced
+      - CustomsCleared
+      - AvailableDestinationCFS
+      - PendingDelivery
+      - DepartedDestinationCFS
+      - Handover
+      - Delivered
+      - Fulfilled
+      - Suspended
+      - Cancelled
+      type: string
+      format: int32
+    eDC.Web.Api.v2.Models.Entities.Event_2:
+      type: object
+      properties:
+        eventCode:
+          type:
+          - string
+          - 'null'
+          description: "The unique event code - usually 3 chars, but can be 2 or more. \n Use code BCR for cancellation"
+        description:
+          type:
+          - string
+          - 'null'
+          description: A description of the event code.
+        eventDate:
+          type:
+          - string
+          - 'null'
+          description: The date in which the event happened
+          format: date-time
+        reasonCodes:
+          type:
+          - string
+          - 'null'
+          description: Legacy, do not use.
+        eventPlace:
+          type:
+          - string
+          - 'null'
+          description: The place in which the event happened.
+        eventSource:
+          type:
+          - string
+          - 'null'
+          description: The source system that input the event.
+        qaIssueCode:
+          type:
+          - string
+          - 'null'
+        qaIssueNotes:
+          type:
+          - string
+          - 'null'
+        qaIssueResolvedDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        vehicleRegistration:
+          type:
+          - string
+          - 'null'
+        driverName:
+          type:
+          - string
+          - 'null'
+        secondDriver:
+          type:
+          - string
+          - 'null'
+        qaIssueCodeDescription:
+          type:
+          - string
+          - 'null'
+        externalTrackingLink:
+          type:
+          - string
+          - 'null'
+        dateModified:
+          type:
+          - string
+          - 'null'
+          description: Date the event was modified - in general events cannot be modified but QA issues can be resolved.
+          format: date-time
+        userModified:
+          type:
+          - string
+          - 'null'
+          description: User who modified the event - in general events cannot be modified but QA issues can be resolved.
+        dateCreated:
+          type:
+          - string
+          - 'null'
+          description: Date the event was input
+          format: date-time
+        userCreated:
+          type:
+          - string
+          - 'null'
+          description: User who input the event
+      additionalProperties: false
+    eDC.Web.Api.v2.Models.Entities.OrderItem:
+      type: object
+      properties:
+        lineStatus:
+          type:
+          - string
+          - 'null'
+          description: 'Line Status: PLC for Placed, DLV for Delivered.'
+        lineNo:
+          type: integer
+          description: Order Line Number.  Must be an integer, unique to the respective Order.
+          format: int32
+        partno:
+          type:
+          - string
+          - 'null'
+          description: Part No, Product Code or SKU Number.
+        description:
+          type:
+          - string
+          - 'null'
+          description: Description of the part.
+        unitOfQuantity:
+          type:
+          - string
+          - 'null'
+          description: 'The unit, such as: EA equals Each.'
+        quantity:
+          type:
+          - number
+          - 'null'
+          description: Quantity Ordered.
+          format: double
+        qtyInvoiced:
+          type:
+          - number
+          - 'null'
+          description: Quantity Invoiced / Booked by the Supplier.
+          format: double
+        qtyBooked:
+          type:
+          - number
+          - 'null'
+          description: Quantity Invoiced / Booked by the Supplier.
+          format: double
+        qtyReceived:
+          type:
+          - number
+          - 'null'
+          description: Quantity Received at the destination warehouse.
+          format: double
+        qtyShipped:
+          type:
+          - number
+          - 'null'
+          description: Quantity checked by the Control Tower to actually be Booked.
+          format: double
+        quantityRemaining:
+          type:
+          - number
+          - 'null'
+          description: Only applicable for Blanket Purchase Orders.
+          format: double
+        volume:
+          type: number
+          description: The total volume of the Order.
+          format: double
+        unitOfVolume:
+          type:
+          - string
+          - 'null'
+          description: The unit of volume.
+        weight:
+          type: number
+          description: The total weight of the Order.
+          format: double
+        unitOfWeight:
+          type:
+          - string
+          - 'null'
+          description: Unit of weight
+        itemPrice:
+          type: number
+          description: Price of the individual item
+          format: double
+        linePrice:
+          type: number
+          description: Price of the line, which is the the individual item, times the number of pieces
+          format: double
+        length:
+          type: number
+          description: Length of the item.
+          format: double
+        width:
+          type: number
+          description: Width of the item.
+          format: double
+        height:
+          type: number
+          description: Height of the item.
+          format: double
+        dimUnit:
+          type:
+          - string
+          - 'null'
+          description: Unit of Dimension, applicable to the Length, Width and Height
+        dangerousGoodsRef:
+          type:
+          - string
+          - 'null'
+          description: Reference of Dangerous Goods
+        containerNumber:
+          type:
+          - string
+          - 'null'
+          description: Container Number
+        harmonisedCode:
+          type:
+          - string
+          - 'null'
+          description: Harmonised Code for customs purposes
+        packLineId:
+          type:
+          - string
+          - 'null'
+          description: ID of the PackLine to which the item is allocated
+        invoiceNumber:
+          type:
+          - string
+          - 'null'
+          description: Invoice Number
+        confirmationNumber:
+          type:
+          - string
+          - 'null'
+          description: Confirmation Number
+        partAttrib1:
+          type:
+          - string
+          - 'null'
+          description: PartAttrib1
+        partAttrib2:
+          type:
+          - string
+          - 'null'
+          description: PartAttrib2
+        partAttrib3:
+          type:
+          - string
+          - 'null'
+          description: PartAttrib3
+        specialInstructions:
+          type:
+          - string
+          - 'null'
+          description: Special Instructions such as Handling Information
+        additionalInformation:
+          type:
+          - string
+          - 'null'
+          description: Additional Information
+        lineFreightCost:
+          type: number
+          description: Freight Cost for Line
+          format: double
+        lineLandedCost:
+          type: number
+          description: Landed Cost for Line
+          format: double
+        itemFreightCost:
+          type: number
+          description: Freight Cost for Item
+          format: double
+        itemLandedCost:
+          type: number
+          description: Landed Cost for Item
+          format: double
+        lineWeight:
+          type: number
+          description: Line Weight
+          format: double
+        lineVolume:
+          type: number
+          description: Line Volume
+          format: double
+        contractNumber:
+          type:
+          - string
+          - 'null'
+          description: Contract Number
+        isContainerAllocated:
+          type: boolean
+          description: Boolean if Container is allocated
+        originCountry:
+          type:
+          - string
+          - 'null'
+          description: Country of Origin
+        decimalPlaces:
+          type: integer
+          description: Decimal Places
+          format: int32
+        quantityPerUnit:
+          type: number
+          description: Quantity per Unit
+          format: double
+        netWeight:
+          type: number
+          description: Net Weight
+          format: double
+        transportMode:
+          type:
+          - string
+          - 'null'
+          description: Mode of Transport; for example SEA
+        earliestShipDate:
+          type:
+          - string
+          - 'null'
+          description: Earliest Shipping Date
+          format: date-time
+        latestShipDate:
+          type:
+          - string
+          - 'null'
+          description: Latest Shipping Date
+          format: date-time
+        freightClass:
+          type:
+          - string
+          - 'null'
+          description: Freight Class
+        serviceLevel:
+          type:
+          - string
+          - 'null'
+          description: Service Level, for example STDequalsStandard
+        ediSequence:
+          type: integer
+          description: EDI sequence
+          format: int32
+        inners:
+          $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.Measurement'
+        outers:
+          $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.Measurement'
+        qtyRemaining:
+          type: number
+          description: QTY remaning
+          format: double
+        qtyShippedRemaining:
+          type: number
+          description: QTY Shipped Remaining
+          format: double
+        qtyInvoicedRemaining:
+          type: number
+          description: QTY Invoiced Remaining
+          format: double
+        qtyNotInvoiced:
+          type: number
+          description: QTY Not Invoiced
+          format: double
+        parties:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.Company'
+          description: Parties
+        isCancelled:
+          type: boolean
+          description: Boolean if Cancelled
+        estimatedExWorksDate:
+          type:
+          - string
+          - 'null'
+          description: Estimated Ex Works Date
+          format: date-time
+        requiredExWorks:
+          type:
+          - string
+          - 'null'
+          description: Required Ex Works Date
+          format: date-time
+        requiredInStore:
+          type:
+          - string
+          - 'null'
+          description: Required in Store Date
+          format: date-time
+        notAuthorisedToShip:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        customFields:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.GenCustomAddOnValue'
+          description: Custom Fields
+        events:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.Event_2'
+          description: Events
+        dateModified:
+          type:
+          - string
+          - 'null'
+          description: Date Modified
+          format: date-time
+        userModified:
+          type:
+          - string
+          - 'null'
+          description: User who modified
+        dateCreated:
+          type:
+          - string
+          - 'null'
+          description: Date created
+          format: date-time
+        userCreated:
+          type:
+          - string
+          - 'null'
+          description: User who created
       additionalProperties: false
     eDC.Web.Api.v2.Models.Entities.Shipment_2:
       type: object
@@ -6814,115 +5906,409 @@ components:
           items:
             $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.JobContainer_2'
       additionalProperties: false
-    eDC.Web.Api.v2.Models.EventRequest:
+    eDC.Web.Api.v2.Models.Entities.JobConsol_2:
       type: object
       properties:
-        module:
+        transportMode:
           type:
           - string
           - 'null'
-        entityNumber:
+          description: Mode of Transport eg. Air, Sea, Road
+        consolMode:
           type:
           - string
           - 'null'
-        secondaryNumber:
+          description: Mode of Consol
+        consolNumber:
           type:
           - string
           - 'null'
-        eventCode:
+        masterBill:
           type:
           - string
           - 'null'
+          description: Master Bill of Lading (MBL)
+        bookingReference:
+          type:
+          - string
+          - 'null'
+          description: Booking Reference
+        agentsReference:
+          type:
+          - string
+          - 'null'
+          description: Agent Reference
+        customsReference:
+          type:
+          - string
+          - 'null'
+          description: Customs Reference
+        prepaidCollect:
+          type:
+          - string
+          - 'null'
+          description: Prepaid or Collection
+        loadPort:
+          type:
+          - string
+          - 'null'
+          description: Port of Loading,  UNLOCO (e.g. DEHAM)
+        dischargePort:
+          type:
+          - string
+          - 'null'
+          description: Port of Discharge, UNLOCO (e.g. DEHAM)
+        portOfFirstArrival:
+          type:
+          - string
+          - 'null'
+          description: Port of first arrival
+        eta:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        etd:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        ata:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        atd:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        vessel:
+          type:
+          - string
+          - 'null'
+          description: Vessel name
+        voyageFlight:
+          type:
+          - string
+          - 'null'
+          description: Voyage (MoT Sea) or Flight No (MoT Air)
+        fullLoadPortFreeTime:
+          type: integer
+          description: Full Load Port Free Time
+          format: int32
+        oceanCarrier:
+          type:
+          - string
+          - 'null'
+          description: Ocean Carrier
+        airCarrier:
+          type:
+          - string
+          - 'null'
+          description: Air Carrier
+        weight:
+          $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.Measurement'
+        volume:
+          $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.Measurement'
+        chargeable:
+          $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.Measurement'
+        releaseType:
+          type:
+          - string
+          - 'null'
+          description: Type of Release
+        teuCount:
+          type: number
+          format: double
+        countOfTEU:
+          type: number
+          description: Count of TEU
+          format: double
+        countOf20FT:
+          type: integer
+          description: Count of 20ft Container
+          format: int32
+        countOf40FT:
+          type: integer
+          description: Count of 40ft Container
+          format: int32
+        countOf45FT:
+          type: integer
+          description: Count of 45ft Container
+          format: int32
+        stageNumber:
+          type:
+          - string
+          - 'null'
+          description: Stage Number
+        sta:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        std:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        qualifier:
+          type:
+          - string
+          - 'null'
+          description: Qualifier
+        legOrder:
+          type: integer
+          description: Leg Order
+          format: int32
+        legType:
+          type:
+          - string
+          - 'null'
+          description: Leg Type (e.g. Main)
+        carrierCode:
+          type:
+          - string
+          - 'null'
+          description: Carrier Code
+        carrierSCAC:
+          type:
+          - string
+          - 'null'
+          description: Carrier SCAC Code
+        carrierDakoskyCode:
+          type:
+          - string
+          - 'null'
+          description: Carrier Dakosy Code
+        carrierNationality:
+          type:
+          - string
+          - 'null'
+          description: Carrier Nationality
+        localCarrierCode:
+          type:
+          - string
+          - 'null'
+          description: Local Carrier Code
+        serviceLevel:
+          type:
+          - string
+          - 'null'
+          description: Service Level
+        legNotes:
+          type:
+          - string
+          - 'null'
+          description: Leg Notes
+        imoNumber:
+          type:
+          - string
+          - 'null'
+        status:
+          type:
+          - string
+          - 'null'
+          description: Status
+        definedBy:
+          type:
+          - string
+          - 'null'
+          description: Defined by
+        charterRoute:
+          type:
+          - string
+          - 'null'
+          description: Charter Route
+        isCharter:
+          type: boolean
+          description: Boolean if charter
+        isLinked:
+          type: boolean
+          description: Boolean is linked
+        isMainCarriage:
+          type: boolean
+          description: Boolean if leg is main leg
+        isPlannedLeg:
+          type: boolean
+          description: Boolean if leg is planned
+        numberOfShipments:
+          type: integer
+          description: Number of Shipments
+          format: int32
+        numberOfPackages:
+          type: integer
+          description: Number of Packages
+          format: int32
+        numberOfOriginalBills:
+          type: integer
+          description: Number of Original Bill of Ladings
+          format: int32
+        numberOfCopyBills:
+          type: integer
+          description: Number of Copy Bill of Lading
+          format: int32
+        linkReference:
+          type:
+          - string
+          - 'null'
+          description: Link Reference
+        ownerCodeInternal:
+          type:
+          - string
+          - 'null'
+          description: Internal Owner Code
+        ownerCodeExternal:
+          type:
+          - string
+          - 'null'
+          description: External Owner Code
+        source:
+          type:
+          - string
+          - 'null'
+          description: Source
+        sendingAgent:
+          $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.Company'
+        receivingAgent:
+          $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.Company'
+        carrier:
+          $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.Company'
+        parties:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.Company'
+          description: Parties
+        dateModified:
+          type:
+          - string
+          - 'null'
+          description: Date Modified
+          format: date-time
+        userModified:
+          type:
+          - string
+          - 'null'
+          description: User Modified
+        dateCreated:
+          type:
+          - string
+          - 'null'
+          description: Date Created
+          format: date-time
+        userCreated:
+          type:
+          - string
+          - 'null'
+          description: User Created
+      additionalProperties: false
+    eDC.Web.Api.v2.Models.EventReference:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+        value:
+          type:
+          - string
+          - 'null'
+        customField:
+          type: boolean
+        customFieldType:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    eDC.Web.Api.v2.Models.Entities.StorageDoc:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        data:
+          type:
+          - string
+          - 'null'
+          description: Data
+        parentTableCode:
+          type:
+          - string
+          - 'null'
+          description: Parent Table Code
+        parentNumber:
+          type:
+          - string
+          - 'null'
+          description: Parent Number
+        secondaryParentNumber:
+          type:
+          - string
+          - 'null'
+          description: Secondary Parent Number
+        extension:
+          type:
+          - string
+          - 'null'
+          description: File Extension
+        docType:
+          type:
+          - string
+          - 'null'
+          description: Doc Type
         description:
           type:
           - string
           - 'null'
-        eventDate:
+          description: Description
+        fileName:
           type:
           - string
           - 'null'
-          format: date-time
-        reasonCodes:
-          type:
-          - string
-          - 'null'
-        eventPlace:
-          type:
-          - string
-          - 'null'
-        eventSource:
-          type:
-          - string
-          - 'null'
-        qaIssueCode:
-          type:
-          - string
-          - 'null'
-        qaIssueNotes:
-          type:
-          - string
-          - 'null'
-        qaIssueResolvedDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        vehicleRegistration:
-          type:
-          - string
-          - 'null'
-        driverName:
-          type:
-          - string
-          - 'null'
-        secondDriver:
-          type:
-          - string
-          - 'null'
-        note:
-          type:
-          - string
-          - 'null'
-        locationCode:
-          type:
-          - string
-          - 'null'
-        reference:
-          type:
-          - string
-          - 'null'
+          description: File Name
+        isPublished:
+          type: boolean
+          description: Boolean if published
         intendedParties:
           type:
           - string
           - 'null'
-        externalTrackingLink:
+          description: Intended Parties
+        size:
+          type: integer
+          description: File Size
+          format: int64
+        actualUpload:
           type:
           - string
           - 'null'
-        customFields:
+          format: date-time
+        dateModified:
           type:
-          - array
+          - string
           - 'null'
-          items:
-            $ref: '#/components/schemas/eDC.Web.Api.v2.Models.CustomField'
-        references:
+          description: Date Modified
+          format: date-time
+        userModified:
           type:
-          - array
+          - string
           - 'null'
-          items:
-            $ref: '#/components/schemas/eDC.Web.Api.v2.Models.EventReference'
-        transportLegs:
+          description: User Modified
+        dateCreated:
           type:
-          - array
+          - string
           - 'null'
-          items:
-            $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.JobConsol_2'
-        containers:
+          description: Date Created
+          format: date-time
+        userCreated:
           type:
-          - array
+          - string
           - 'null'
-          items:
-            $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.JobContainer_2'
+          description: User Created
+        uniqueFileName:
+          type: boolean
       additionalProperties: false
     eDC.Web.Api.v2.Models.Entities.Order:
       type: object
@@ -7399,96 +6785,6 @@ components:
           - 'null'
           description: The user or service that created the order
       additionalProperties: false
-    eDC.Web.Api.v2.Models.Entities.Event_2:
-      type: object
-      properties:
-        eventCode:
-          type:
-          - string
-          - 'null'
-          description: "The unique event code - usually 3 chars, but can be 2 or more. \n Use code BCR for cancellation"
-        description:
-          type:
-          - string
-          - 'null'
-          description: A description of the event code.
-        eventDate:
-          type:
-          - string
-          - 'null'
-          description: The date in which the event happened
-          format: date-time
-        reasonCodes:
-          type:
-          - string
-          - 'null'
-          description: Legacy, do not use.
-        eventPlace:
-          type:
-          - string
-          - 'null'
-          description: The place in which the event happened.
-        eventSource:
-          type:
-          - string
-          - 'null'
-          description: The source system that input the event.
-        qaIssueCode:
-          type:
-          - string
-          - 'null'
-        qaIssueNotes:
-          type:
-          - string
-          - 'null'
-        qaIssueResolvedDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        vehicleRegistration:
-          type:
-          - string
-          - 'null'
-        driverName:
-          type:
-          - string
-          - 'null'
-        secondDriver:
-          type:
-          - string
-          - 'null'
-        qaIssueCodeDescription:
-          type:
-          - string
-          - 'null'
-        externalTrackingLink:
-          type:
-          - string
-          - 'null'
-        dateModified:
-          type:
-          - string
-          - 'null'
-          description: Date the event was modified - in general events cannot be modified but QA issues can be resolved.
-          format: date-time
-        userModified:
-          type:
-          - string
-          - 'null'
-          description: User who modified the event - in general events cannot be modified but QA issues can be resolved.
-        dateCreated:
-          type:
-          - string
-          - 'null'
-          description: Date the event was input
-          format: date-time
-        userCreated:
-          type:
-          - string
-          - 'null'
-          description: User who input the event
-      additionalProperties: false
     eDC.Web.Api.v2.Models.Entities.JobPackLine_2:
       type: object
       properties:
@@ -7700,41 +6996,305 @@ components:
           - 'null'
           description: Status Description
       additionalProperties: false
-    eDC.Domain.Enums.OrderState:
-      enum:
-      - Provisional
-      - Open
-      - Confirmed
-      - OnHand
-      - BookingProvisional
-      - BookingPreBooked
-      - BookingBooked
-      - BookingRejected
-      - BookingApproved
-      - BookingConfirmed
-      - BookingParked
-      - PendingConsolidation
-      - Planning
-      - Planned
-      - Consolidated
-      - PendingCollection
-      - Collected
-      - BookingOnHand
-      - DepartedOriginCFS
-      - Shipped
-      - Arrived
-      - CustomsCommenced
-      - CustomsCleared
-      - AvailableDestinationCFS
-      - PendingDelivery
-      - DepartedDestinationCFS
-      - Handover
-      - Delivered
-      - Fulfilled
-      - Suspended
-      - Cancelled
-      type: string
-      format: int32
+    eDC.Web.Api.v2.Models.Entities.JobContainer_2:
+      type: object
+      properties:
+        containerNumber:
+          type:
+          - string
+          - 'null'
+        interimContainerNumber:
+          type:
+          - string
+          - 'null'
+        state:
+          $ref: '#/components/schemas/eDC.Domain.Enums.ContainerState'
+        isShipperOwned:
+          type: boolean
+        containerMode:
+          type:
+          - string
+          - 'null'
+        containerStatus:
+          type:
+          - string
+          - 'null'
+        sealNumber:
+          type:
+          - string
+          - 'null'
+        additionalSealNumber:
+          type:
+          - string
+          - 'null'
+        additional2SealNumber:
+          type:
+          - string
+          - 'null'
+        containerCount:
+          type: integer
+          format: int32
+        dunnageWeight:
+          type: number
+          format: double
+        grossWeight:
+          type: number
+          format: double
+        unitOfweight:
+          type:
+          - string
+          - 'null'
+        tareWeight:
+          type: number
+          format: double
+        containerCommodityCode:
+          type:
+          - string
+          - 'null'
+        movementType:
+          type:
+          - string
+          - 'null'
+        equipmentType:
+          type:
+          - string
+          - 'null'
+        fclAvailableDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        fclStorageDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        emptyRequiredBy:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        estimatedFCLPickupDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        lclAvailableDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        lclStorageDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        bookedDeliveryDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        requestedDeliveryDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        estimatedDeliveryDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        actualFullDeliveryDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        deliveryTransportAdvisedDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        requestedCollectionDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        estimatedCollectionDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        actualFullPickupDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        portTransportBookedDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        fullLoadPortFreeTime:
+          type: integer
+          format: int32
+        bookingCreatedDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        bookingModifiedDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        bookingCreatedUser:
+          type:
+          - string
+          - 'null'
+        bookingModifiedUser:
+          type:
+          - string
+          - 'null'
+        volume:
+          type: number
+          format: double
+        temperatureControlled:
+          type: boolean
+        refrigerationType:
+          type:
+          - string
+          - 'null'
+        tempSetPoint:
+          type: number
+          format: double
+        tempSetPointUnit:
+          type:
+          - string
+          - 'null'
+        goodsDescription:
+          type:
+          - string
+          - 'null'
+        isoType:
+          type:
+          - string
+          - 'null'
+        emptyPickupNumber:
+          type:
+          - string
+          - 'null'
+        exportPortTransportReference:
+          type:
+          - string
+          - 'null'
+        exportSlotBookingReference:
+          type:
+          - string
+          - 'null'
+        importReleaseNumber:
+          type:
+          - string
+          - 'null'
+        importPortTransportReference:
+          type:
+          - string
+          - 'null'
+        importSlotBookingReference:
+          type:
+          - string
+          - 'null'
+        emptyReturnReference:
+          type:
+          - string
+          - 'null'
+        emptyReleasedFromCY:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        emptyReturnedOn:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        fclWharfGateIn:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        fclWharfGateOut:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        fclLoadedDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        fclUnloadedDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        tempSetPointDisplay:
+          type:
+          - string
+          - 'null'
+        orderNumbers:
+          type:
+          - string
+          - 'null'
+        demurrageBegins:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        teu:
+          type: number
+          format: double
+        estimatedPickupDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        dateModified:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        userModified:
+          type:
+          - string
+          - 'null'
+        dateCreated:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        userCreated:
+          type:
+          - string
+          - 'null'
+        parties:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.Company'
+        customFields:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.GenCustomAddOnValue'
+        events:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.Event_2'
+      additionalProperties: false
     eDC.Web.Api.v2.Models.Entities.Address_2:
       type: object
       properties:
@@ -7829,39 +7389,479 @@ components:
           - 'null'
           description: User creating the address
       additionalProperties: false
-    eDC.Web.Api.v2.Models.EventReference:
+    eDC.Web.Api.v2.Models.Entities.Booking_2:
       type: object
       properties:
-        type:
+        bookingNumber:
           type:
           - string
           - 'null'
-        value:
+          description: Booking Number
+        externalBookingNumber:
           type:
           - string
           - 'null'
-        customField:
+          description: External Booking Number
+        externalBookingSender:
+          type:
+          - string
+          - 'null'
+          description: External Booking Sender
+        state:
+          $ref: '#/components/schemas/eDC.Domain.Enums.BookingState'
+        origin:
+          type:
+          - string
+          - 'null'
+          description: Origin of the Booking
+        destination:
+          type:
+          - string
+          - 'null'
+          description: Destination of the Booking
+        incoterm:
+          type:
+          - string
+          - 'null'
+          description: Incoterm of the Booking
+        additionalTerms:
+          type:
+          - string
+          - 'null'
+          description: Additional Terms of the Booking
+        additionalTermsUNLOCO:
+          type:
+          - string
+          - 'null'
+          description: UN Location Code
+        freightTerm:
+          type:
+          - string
+          - 'null'
+          description: Freight Terms
+        orderNumbers:
+          type:
+          - string
+          - 'null'
+          description: Order Numbers
+        unitOfWeight:
+          type:
+          - string
+          - 'null'
+          description: Unit of Measure for Weight
+        weight:
+          type: number
+          description: Weight
+          format: double
+        unitOfVolume:
+          type:
+          - string
+          - 'null'
+          description: Unit of Measure for Volume
+        volume:
+          type: number
+          description: Volume
+          format: double
+        noOfPieces:
+          type: integer
+          description: Number of Pieces
+          format: int32
+        orderCurrency:
+          type:
+          - string
+          - 'null'
+          description: Currency for the Order
+        totalValue:
+          type: number
+          description: Total Value of the Order
+          format: double
+        packingWeight:
+          type: number
+          description: Packing Weight
+          format: double
+        packingVolume:
+          type: number
+          description: Packing Volume
+          format: double
+        transitWarehouse:
+          type:
+          - string
+          - 'null'
+          description: Transit Warehouse
+        onHandDate:
+          type:
+          - string
+          - 'null'
+          description: On Hand Date
+          format: date-time
+        preBooked:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        bookedDate:
+          type:
+          - string
+          - 'null'
+          description: Date of Booking
+          format: date-time
+        rejectedDate:
+          type:
+          - string
+          - 'null'
+          description: Date of Booking Rejection
+          format: date-time
+        approvedDate:
+          type:
+          - string
+          - 'null'
+          description: Date of Booking Approval
+          format: date-time
+        confirmedDate:
+          type:
+          - string
+          - 'null'
+          description: Date of Booking Confirmation
+          format: date-time
+        cancelledDate:
+          type:
+          - string
+          - 'null'
+          description: Date of Booking Cancellation
+          format: date-time
+        countOfTEU:
+          type: number
+          description: TEU count
+          format: double
+        countOf20FT:
+          type: integer
+          description: Count of 20ft Container
+          format: int32
+        countOf40FT:
+          type: integer
+          description: Count of 40ft Container
+          format: int32
+        countOf45FT:
+          type: integer
+          description: Count of 45ft Container
+          format: int32
+        source:
+          type:
+          - string
+          - 'null'
+          description: Source
+        systemID:
+          type:
+          - string
+          - 'null'
+          description: System ID
+          format: uuid
+        isApprovalRequired:
           type: boolean
-        customFieldType:
+          description: Boolean if Approval is required
+        transitWarehouseDescription:
           type:
           - string
           - 'null'
-      additionalProperties: false
-    eDC.Web.Api.v2.Models.CustomField:
-      type: object
-      properties:
-        name:
+          description: Transit Warehouse Description
+        estimatedDeliveryDate:
           type:
           - string
           - 'null'
-        type:
+          description: Estimated Delivery Date
+          format: date-time
+        collectionRequiredDate:
           type:
           - string
           - 'null'
-        value:
+          description: Collection Required Date
+          format: date-time
+        collectionRequiredDateBy:
           type:
           - string
           - 'null'
+          description: Collection Required Date By
+          format: date-time
+        deliveryRequiredDate:
+          type:
+          - string
+          - 'null'
+          description: Delivery Required Date
+          format: date-time
+        deliveryRequiredDateBy:
+          type:
+          - string
+          - 'null'
+          description: Delivery Required Date By
+          format: date-time
+        isCancelled:
+          type: boolean
+          description: Boolean if cancelled
+        shipmentNumbers:
+          type:
+          - string
+          - 'null'
+          description: Shipment Number
+        noOfContainers:
+          type: integer
+          description: Number of Containers
+          format: int32
+        ownership:
+          type:
+          - string
+          - 'null'
+          description: Ownership
+        bookingDeliveryInstructions:
+          type:
+          - string
+          - 'null'
+          description: Booking Delivery Instruction
+        requiredDepartureWeekNumber:
+          type:
+          - integer
+          - 'null'
+          description: Required Departure Week Number
+          format: int32
+        requiredArrivalWeekNumber:
+          type:
+          - integer
+          - 'null'
+          description: Required Arrival Week Number
+          format: int32
+        cargoReadyDateWeekNumber:
+          type:
+          - integer
+          - 'null'
+          description: Cargo Ready Date Week Number
+          format: int32
+        deliveryDateWeekNumber:
+          type:
+          - integer
+          - 'null'
+          description: Delivery Date Week Number
+          format: int32
+        estimatedDeliveryToOriginCFSWeekNumber:
+          type:
+          - integer
+          - 'null'
+          description: Estimated Delivery To Origin CFS Week Number
+          format: int32
+        supplierRef:
+          type:
+          - string
+          - 'null'
+          description: Supplier Reference
+        requiredExFactory:
+          type:
+          - string
+          - 'null'
+          description: Required Ex Works Date
+          format: date-time
+        requiredInStore:
+          type:
+          - string
+          - 'null'
+          description: Required in Store Date
+          format: date-time
+        requestedDepartureDate:
+          type:
+          - string
+          - 'null'
+          description: Requested Departure Date
+          format: date-time
+        requestedArrivalDate:
+          type:
+          - string
+          - 'null'
+          description: Requested Arrival Date
+          format: date-time
+        transportMode:
+          type:
+          - string
+          - 'null'
+          description: Mode of Transport
+        containerMode:
+          type:
+          - string
+          - 'null'
+          description: Container Mode
+        goodsDescription:
+          type:
+          - string
+          - 'null'
+          description: Description of Goods
+        marksAndNumbers:
+          type:
+          - string
+          - 'null'
+          description: Marks and Numbers
+        bookingInstructions:
+          type:
+          - string
+          - 'null'
+          description: Booking Instructions
+        loadingMeters:
+          type: number
+          description: Loading Meters
+          format: double
+        commodityCode:
+          type:
+          - string
+          - 'null'
+          description: Commodity Code
+        plannerCode:
+          type:
+          - string
+          - 'null'
+          description: Planner Code
+        plannerEmail:
+          type:
+          - string
+          - 'null'
+          description: Planner Email
+        loadPort:
+          type:
+          - string
+          - 'null'
+          description: Port  of loading
+        dischargePort:
+          type:
+          - string
+          - 'null'
+          description: Port of discharge
+        sdocComplete:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        estimatedDeliveryToOriginCFS:
+          type:
+          - string
+          - 'null'
+          description: Estimated Delivery To Origin CFS Date
+          format: date-time
+        isPickupRequired:
+          type: boolean
+          description: Boolean for Pickup required
+        shippingInstructions:
+          type:
+          - string
+          - 'null'
+          description: Shipment Instructions
+        customerDivision:
+          type:
+          - string
+          - 'null'
+        carrierSpaceReservation:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        followUpDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        dateModified:
+          type:
+          - string
+          - 'null'
+          description: Date Modified
+          format: date-time
+        userModified:
+          type:
+          - string
+          - 'null'
+          description: User Modified
+        dateCreated:
+          type:
+          - string
+          - 'null'
+          description: Date Created
+          format: date-time
+        userCreated:
+          type:
+          - string
+          - 'null'
+          description: User Created
+        isSuspended:
+          type: boolean
+        suspendedDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        loadPlanNumber:
+          type:
+          - string
+          - 'null'
+        shipmentNumber:
+          type:
+          - string
+          - 'null'
+        temperatureControl:
+          $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.TemperatureControl'
+        customFields:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.GenCustomAddOnValue'
+          description: Custom Fields
+        additionalReferences:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.AdditionalReference'
+        parties:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.Company'
+          description: Parties
+        packLines:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.JobPackLine_2'
+          description: Pack Lines
+        equipmentTypes:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.EquipmentType'
+          description: Equipment Types
+        notes:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.Note'
+          description: Notes
+        events:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.Event_2'
+          description: Events
+        order:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.Order'
+          description: Order
+        shipments:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/eDC.Web.Api.v2.Models.Entities.Shipment_2'
       additionalProperties: false
   securitySchemes:
     apiKeyHeader:

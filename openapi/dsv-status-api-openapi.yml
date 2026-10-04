@@ -129,47 +129,12 @@ paths:
     - url: https://api.dsv.com/cl-demo/status/v1
 components:
   schemas:
-    OrderStatus:
+    NotificationType:
       enum:
-      - Hold
-      - Released
-      - InProgress
-      - PreReceived
-      - Complete
-      - Allocated
-      - Picked
-      - Packed
-      - ReadytoLoad
-      - Shipped
-      - Delivered
-      - Cancelled
-      - Awaiting
-      - DutyError
-      - InTransit
-      - Kitting
+      - Inbound
+      - Delivery
       type: string
       description: ''
-    FieldDTO:
-      type: object
-      properties:
-        name:
-          type:
-          - string
-          - 'null'
-          description: Error name
-          example: field_name
-        message:
-          type:
-          - string
-          - 'null'
-          description: Description of error
-          example: validation error
-        code:
-          type:
-          - string
-          - 'null'
-          description: Type of error
-          example: ERR12345
     NotificationStatusRequestDto:
       required:
       - warehouseId
@@ -192,6 +157,40 @@ components:
           description: InboundNotification Id or DeliveryNotification Id
           example: IN001
       description: Notification Status Request
+    DevelopmentDTO:
+      type: object
+      properties:
+        message:
+          type:
+          - string
+          - 'null'
+          description: Verbose, plain language description of the problem for the app developer with hints on how to fix it
+        exception:
+          type:
+          - string
+          - 'null'
+          description: Dump from exception
+    FieldDTO:
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+          description: Error name
+          example: field_name
+        message:
+          type:
+          - string
+          - 'null'
+          description: Description of error
+          example: validation error
+        code:
+          type:
+          - string
+          - 'null'
+          description: Type of error
+          example: ERR12345
     NotificationStatusResponseDto:
       type: object
       properties:
@@ -240,25 +239,26 @@ components:
             $ref: '#/components/schemas/FieldDTO'
         development:
           $ref: '#/components/schemas/DevelopmentDTO'
-    NotificationType:
+    OrderStatus:
       enum:
-      - Inbound
-      - Delivery
+      - Hold
+      - Released
+      - InProgress
+      - PreReceived
+      - Complete
+      - Allocated
+      - Picked
+      - Packed
+      - ReadytoLoad
+      - Shipped
+      - Delivered
+      - Cancelled
+      - Awaiting
+      - DutyError
+      - InTransit
+      - Kitting
       type: string
       description: ''
-    DevelopmentDTO:
-      type: object
-      properties:
-        message:
-          type:
-          - string
-          - 'null'
-          description: Verbose, plain language description of the problem for the app developer with hints on how to fix it
-        exception:
-          type:
-          - string
-          - 'null'
-          description: Dump from exception
   securitySchemes:
     apiKeyHeader:
       type: apiKey

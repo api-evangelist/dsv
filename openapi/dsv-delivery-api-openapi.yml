@@ -507,6 +507,149 @@ paths:
                   exception: string
 components:
   schemas:
+    DevelopmentDTO:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Verbose, plain language description of the problem for the app developer with hints on how to fix it
+        exception:
+          type: string
+          description: Dump from exception
+    OutboundNoteDto:
+      type: object
+      properties:
+        code:
+          maxLength: 20
+          minLength: 0
+          type: string
+          description: Code
+          example: C12-055
+        text:
+          maxLength: 180
+          minLength: 0
+          type: string
+          description: Text
+          example: txt-055-999438
+      description: Outbound Note
+    DeliveryNotificationDto:
+      type: object
+      properties:
+        deliveryNotification:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeliveryNotificationItemDto'
+          description: Delivery Notification
+      description: Delivery Notification
+    IncotermsEnum:
+      enum:
+      - EXW
+      - FCA
+      - CPT
+      - CIP
+      - DAP
+      - DPU
+      - DDP
+      - FAS
+      - FOB
+      - CFR
+      - CIF
+      - DDU
+      type: string
+      description: ''
+    AddressDto:
+      type: object
+      properties:
+        partyId:
+          maxLength: 15
+          minLength: 0
+          type: string
+          description: Unique code identifying the address
+          example: PId123456
+        companyName:
+          maxLength: 50
+          minLength: 0
+          type: string
+          description: Company name
+          example: DSV
+        addressLine1:
+          maxLength: 60
+          minLength: 0
+          type: string
+          description: Address line 1.
+          example: AddressLine1
+        addressLine2:
+          maxLength: 60
+          minLength: 0
+          type: string
+          description: Address line 2.
+          example: AddressLine2
+        city:
+          maxLength: 60
+          minLength: 0
+          type: string
+          description: Address town
+          example: Copenhagen
+        state:
+          maxLength: 60
+          minLength: 0
+          type: string
+          description: Address county or state
+          example: Capital Region of Denmark
+        zipCode:
+          maxLength: 20
+          minLength: 0
+          type: string
+          description: Postal Code
+          example: '1000'
+        countryCode:
+          $ref: '#/components/schemas/CountryCode'
+        vatNumber:
+          maxLength: 20
+          minLength: 0
+          type: string
+          description: Supplier VAT number
+          example: '#123456'
+        contactName:
+          maxLength: 25
+          minLength: 0
+          type: string
+          description: Contact name
+          example: Test
+        contactPhone:
+          maxLength: 25
+          minLength: 0
+          type: string
+          description: Phone number
+          example: '+1123456789'
+        contactEmail:
+          maxLength: 70
+          minLength: 0
+          type: string
+          description: Email
+          format: email
+          example: test@gmail.com
+        contactMobile:
+          maxLength: 15
+          minLength: 0
+          type: string
+          description: Mobile number
+          example: '+1123456789'
+      description: Address
+    AdditionalInformationDto:
+      type: object
+      properties:
+        numericFields:
+          type: array
+          items:
+            $ref: '#/components/schemas/NumericFieldDto'
+          description: User defined numeric fields
+        textFields:
+          type: array
+          items:
+            $ref: '#/components/schemas/TextFieldDto'
+          description: User defined text fields
+      description: Additional Information
     TextFieldDto:
       required:
       - sequence
@@ -526,82 +669,40 @@ components:
           description: Max length 30 characters
           example: Value1
       description: User defined text fields
-    NumericFieldDto:
-      required:
-      - sequence
+    DeliveryDetailsDto:
       type: object
       properties:
-        sequence:
-          maximum: 4.0
-          minimum: 1.0
-          type: integer
-          description: User Def Num 1-4
-          format: int32
-          example: 1
-        value:
-          maximum: 999999999.999999
-          minimum: 0.0
-          type: number
-          description: 'min: 0, max: 999999999.999999 (9.6)'
-          example: 999999999.999999
-      description: User defined numeric fields
-    ProductValueDto:
-      type: object
-      properties:
-        valueOfProduct:
-          maximum: 999999999.999999
-          minimum: 0.0
-          type: number
-          description: Selling price of the lowest track level of the product
-          example: 999
-        currency:
-          $ref: '#/components/schemas/CurrencyCode'
-      description: Product Value
-    ErrorDTO:
-      required:
-      - code
-      - message
-      type: object
-      properties:
-        code:
-          minLength: 1
+        invoiceNumber:
+          maxLength: 35
+          minLength: 0
           type: string
-          description: Unique error code
-          example: ERR12345
-        message:
-          minLength: 1
+          description: Invoice Number
+          example: Inv-0155
+        paymentTerms:
+          maxLength: 35
+          minLength: 0
           type: string
-          description: Error message passed to the user
-          example: 'Not found id : 4025988810785188'
-        fields:
-          type: array
-          items:
-            $ref: '#/components/schemas/FieldDTO'
-        development:
-          $ref: '#/components/schemas/DevelopmentDTO'
-    DevelopmentDTO:
-      type: object
-      properties:
-        message:
+          description: Payment Terms
+          example: EOM
+        textOnDocumentsHeader:
+          maxLength: 80
+          minLength: 0
           type: string
-          description: Verbose, plain language description of the problem for the app developer with hints on how to fix it
-        exception:
+          description: Documentation_Text_1
+          example: DocumentsHeader
+        textOnDocumentsFooter1:
+          maxLength: 80
+          minLength: 0
           type: string
-          description: Dump from exception
-    AdditionalInformationDto:
-      type: object
-      properties:
-        numericFields:
-          type: array
-          items:
-            $ref: '#/components/schemas/NumericFieldDto'
-          description: User defined numeric fields
-        textFields:
-          type: array
-          items:
-            $ref: '#/components/schemas/TextFieldDto'
-          description: User defined text fields
-      description: Additional Information
+          description: Documentation_Text_2
+          example: DocumentsFooter1
+        textOnDocumentsFooter2:
+          maxLength: 80
+          minLength: 0
+          type: string
+          description: Documentation_Text_3
+          example: DocumentsFooter2
+      description: Delivery Details
     TransportDetailsDeliveryNotificationDto:
       type: object
       properties:
@@ -624,22 +725,6 @@ components:
           description: Drop point at place of delivery
           example: D35A-Noida
       description: Transport Details
-    IncotermsEnum:
-      enum:
-      - EXW
-      - FCA
-      - CPT
-      - CIP
-      - DAP
-      - DPU
-      - DDP
-      - FAS
-      - FOB
-      - CFR
-      - CIF
-      - DDU
-      type: string
-      description: ''
     DeliveryItemDto:
       required:
       - lineId
@@ -724,21 +809,18 @@ components:
             $ref: '#/components/schemas/OutboundNoteDto'
           description: Outbound Notes
       description: Delivery Item
-    FieldDTO:
+    ProductValueDto:
       type: object
       properties:
-        name:
-          type: string
-          description: Error name
-          example: field_name
-        message:
-          type: string
-          description: Description of error
-          example: validation error
-        code:
-          type: string
-          description: Type of error
-          example: ERR12345
+        valueOfProduct:
+          maximum: 999999999.999999
+          minimum: 0.0
+          type: number
+          description: Selling price of the lowest track level of the product
+          example: 999
+        currency:
+          $ref: '#/components/schemas/CurrencyCode'
+      description: Product Value
     ConditionCode:
       enum:
       - OK1
@@ -755,150 +837,6 @@ components:
       - SC2
       type: string
       description: ''
-    OutboundNoteDto:
-      type: object
-      properties:
-        code:
-          maxLength: 20
-          minLength: 0
-          type: string
-          description: Code
-          example: C12-055
-        text:
-          maxLength: 180
-          minLength: 0
-          type: string
-          description: Text
-          example: txt-055-999438
-      description: Outbound Note
-    DeliveryDetailsDto:
-      type: object
-      properties:
-        invoiceNumber:
-          maxLength: 35
-          minLength: 0
-          type: string
-          description: Invoice Number
-          example: Inv-0155
-        paymentTerms:
-          maxLength: 35
-          minLength: 0
-          type: string
-          description: Payment Terms
-          example: EOM
-        textOnDocumentsHeader:
-          maxLength: 80
-          minLength: 0
-          type: string
-          description: Documentation_Text_1
-          example: DocumentsHeader
-        textOnDocumentsFooter1:
-          maxLength: 80
-          minLength: 0
-          type: string
-          description: Documentation_Text_2
-          example: DocumentsFooter1
-        textOnDocumentsFooter2:
-          maxLength: 80
-          minLength: 0
-          type: string
-          description: Documentation_Text_3
-          example: DocumentsFooter2
-      description: Delivery Details
-    IncotermsDto:
-      required:
-      - code
-      - location
-      type: object
-      properties:
-        code:
-          $ref: '#/components/schemas/IncotermsEnum'
-        location:
-          maxLength: 60
-          minLength: 0
-          type: string
-          description: Place related to Terms of Delivery (Incoterms)
-          example: Denmark
-      description: Incoterms
-    AddressDto:
-      type: object
-      properties:
-        partyId:
-          maxLength: 15
-          minLength: 0
-          type: string
-          description: Unique code identifying the address
-          example: PId123456
-        companyName:
-          maxLength: 50
-          minLength: 0
-          type: string
-          description: Company name
-          example: DSV
-        addressLine1:
-          maxLength: 60
-          minLength: 0
-          type: string
-          description: Address line 1.
-          example: AddressLine1
-        addressLine2:
-          maxLength: 60
-          minLength: 0
-          type: string
-          description: Address line 2.
-          example: AddressLine2
-        city:
-          maxLength: 60
-          minLength: 0
-          type: string
-          description: Address town
-          example: Copenhagen
-        state:
-          maxLength: 60
-          minLength: 0
-          type: string
-          description: Address county or state
-          example: Capital Region of Denmark
-        zipCode:
-          maxLength: 20
-          minLength: 0
-          type: string
-          description: Postal Code
-          example: '1000'
-        countryCode:
-          $ref: '#/components/schemas/CountryCode'
-        vatNumber:
-          maxLength: 20
-          minLength: 0
-          type: string
-          description: Supplier VAT number
-          example: '#123456'
-        contactName:
-          maxLength: 25
-          minLength: 0
-          type: string
-          description: Contact name
-          example: Test
-        contactPhone:
-          maxLength: 25
-          minLength: 0
-          type: string
-          description: Phone number
-          example: '+1123456789'
-        contactEmail:
-          maxLength: 70
-          minLength: 0
-          type: string
-          description: Email
-          format: email
-          example: test@gmail.com
-        contactMobile:
-          maxLength: 15
-          minLength: 0
-          type: string
-          description: Mobile number
-          example: '+1123456789'
-      description: Address
     DeliveryNotificationItemDto:
       required:
       - warehouseId
@@ -959,6 +897,78 @@ components:
             $ref: '#/components/schemas/DeliveryItemDto'
           description: Delivery Items
       description: Delivery Notification Item
+    NumericFieldDto:
+      required:
+      - sequence
+      type: object
+      properties:
+        sequence:
+          maximum: 4.0
+          minimum: 1.0
+          type: integer
+          description: User Def Num 1-4
+          format: int32
+          example: 1
+        value:
+          maximum: 999999999.999999
+          minimum: 0.0
+          type: number
+          description: 'min: 0, max: 999999999.999999 (9.6)'
+          example: 999999999.999999
+      description: User defined numeric fields
+    IncotermsDto:
+      required:
+      - code
+      - location
+      type: object
+      properties:
+        code:
+          $ref: '#/components/schemas/IncotermsEnum'
+        location:
+          maxLength: 60
+          minLength: 0
+          type: string
+          description: Place related to Terms of Delivery (Incoterms)
+          example: Denmark
+      description: Incoterms
+    OutboundOrderType:
+      enum:
+      - NORMAL
+      - RUSH
+      - SAMPLE
+      type: string
+      description: ''
+    ShipmentDatesDto:
+      type: object
+      properties:
+        orderDate:
+          type: string
+          description: 'The date/time the order was created as supplied by the customer Format: CCYY-MM-DDTHH:mm:ssZ'
+          example: '2025-03-25T14:30:00Z'
+        requestedShipDate:
+          type: string
+          description: 'The date-time the order is due to be shipped to the buyer Format: CCYY-MM-DDTHH:mm:ssZ'
+          example: '2025-03-25T14:30:00Z'
+        requestedDeliveryDate:
+          type: string
+          description: 'The date-time the order is due to be delivered to the buyer Format: CCYY-MM-DDTHH:mm:ssZ'
+          example: '2025-03-25T14:30:00Z'
+      description: Shipment Dates
+    FieldDTO:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Error name
+          example: field_name
+        message:
+          type: string
+          description: Description of error
+          example: validation error
+        code:
+          type: string
+          description: Type of error
+          example: ERR12345
     CurrencyCode:
       enum:
       - AED
@@ -1131,6 +1141,28 @@ components:
       - ZWL
       type: string
       description: 3-digit currency code (ISO 4217-3) <br>If valueOfProduct is provided, currency becomes mandatory
+    ErrorDTO:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          minLength: 1
+          type: string
+          description: Unique error code
+          example: ERR12345
+        message:
+          minLength: 1
+          type: string
+          description: Error message passed to the user
+          example: 'Not found id : 4025988810785188'
+        fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/FieldDTO'
+        development:
+          $ref: '#/components/schemas/DevelopmentDTO'
     CountryCode:
       enum:
       - AF
@@ -1382,38 +1414,6 @@ components:
       - AX
       type: string
       description: ''
-    OutboundOrderType:
-      enum:
-      - NORMAL
-      - RUSH
-      - SAMPLE
-      type: string
-      description: ''
-    DeliveryNotificationDto:
-      type: object
-      properties:
-        deliveryNotification:
-          type: array
-          items:
-            $ref: '#/components/schemas/DeliveryNotificationItemDto'
-          description: Delivery Notification
-      description: Delivery Notification
-    ShipmentDatesDto:
-      type: object
-      properties:
-        orderDate:
-          type: string
-          description: 'The date/time the order was created as supplied by the customer Format: CCYY-MM-DDTHH:mm:ssZ'
-          example: '2025-03-25T14:30:00Z'
-        requestedShipDate:
-          type: string
-          description: 'The date-time the order is due to be shipped to the buyer Format: CCYY-MM-DDTHH:mm:ssZ'
-          example: '2025-03-25T14:30:00Z'
-        requestedDeliveryDate:
-          type: string
-          description: 'The date-time the order is due to be delivered to the buyer Format: CCYY-MM-DDTHH:mm:ssZ'
-          example: '2025-03-25T14:30:00Z'
-      description: Shipment Dates
   securitySchemes:
     apiKeyHeader:
       type: apiKey

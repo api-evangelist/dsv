@@ -747,28 +747,22 @@ paths:
                   exception: string
 components:
   schemas:
-    Pickup:
-      type: object
-      properties:
-        address:
-          $ref: '#/components/schemas/Address'
-        contact:
-          $ref: '#/components/schemas/ContactPerson'
-      description: Name and address of the party shipment is picked up.
-    SingleResponseEntityObject:
-      type: object
-    PalletExchangeService:
+    Package:
       required:
+      - description
+      - packageType
       - quantity
-      - type
+      - totalWeight
       type: object
       properties:
         quantity:
+          enum:
+          - null
           type: integer
-          description: Number of pallets requested to be exchanged
+          description: Quantity of packages in this package line.
           format: int64
           example: 2
-        type:
+        packageType:
           enum:
           - BAG
           - CAN
@@ -798,31 +792,294 @@ components:
           - RLL
           - PPL
           type: string
-          description: 'Currently only supported for Euro pallets. Must be present if quantity is posted: EUR'
+          description: "Package type to be used for this package line. Note that some Package types have default dimensions and therefore can only be used if units of measure are centimetres. \n- BAG = Bag \n- CAS = Case \n- CLL = Colli\n- CRT = Crate\n- CTN = Carton / box\n- RLL = Roll\n- CAN = Can\n- PPL = Pallet - 110cm x 110cm\n- PLL = Pallet - 120cm x 80cm\n- EUR = Euro pallet - 120cm x 80cm\n- GIB = Gitterbox - 120cm x 80cm\n- HPL = Half pallet - 80cm x 60cm\n- IBC = IBC - 120cm x 100cm\n- IPL = Pallet - 120cm x 100cm\n- JCN = Jerry can\n- QPL = Quarter pallet - 60cm x 40cm\n- LOAD = Load - is used when Mode of transport is Road. It is used when the number of packages is unknown at the moment during booking but the space a load requires is known\n- PLT = Pallet - unspecified\n- CON = Pallet container\n- PXL = Pallet - 120cm x 120cm\n- PKG = Package \n- LOT = Lot - is used when Mode of transport is Air&Sea\n- UPL = Pallet - 120cm x 110cm\n- RLL = Roll \n- PPL = Pallet - 110cm x 110cm (Only available for MoT Air, Sea, Rail)"
           example: EUR
-      description: Instruct DSV to exchange EUR pallets at the collection/delivery location. This service can only be selected for bookings with mode of transport “Road” in some countries. Please contact your local DSV office for more information.
-    ErrorDTO:
-      required:
-      - code
-      - message
-      type: object
-      properties:
-        code:
+        totalWeight:
+          enum:
+          - null
+          type: number
+          description: Total weight for this package line. For product "ROAD" the minimum weight allowed is 1 KG and no decimal is allowed after the decimal point.
+          example: 1900
+        netWeight:
+          enum:
+          - null
+          type: number
+          description: Net weight for this package line. Net weight cannot exceed total Weight. For product "ROAD" the minimum weight allowed is 1 KG and no decimal is allowed after the decimal point.
+          example: 1500
+        length:
+          enum:
+          - null
+          type: number
+          description: 'Dimension of single package in UOM : length. It becomes mandatory if dimensions are not present in packageType or if the packageType is not LOAD.'
+          example: 120
+        height:
+          enum:
+          - null
+          type: number
+          description: 'Dimension of single package in UOM : height.'
+          example: 110
+        width:
+          enum:
+          - null
+          type: number
+          description: 'Dimension of single package in UOM : width. It becomes mandatory if dimensions are not present in packageType or if the packageType is not LOAD.'
+          example: 80
+        stackable:
+          enum:
+          - STACKABLE
+          - STACKED
+          - 'NO'
+          - Stackable, Stacked, No
           type: string
-          description: Unique error code
-          example: ERR12345
-        message:
+          description: 'STACKABLE = the goods are capable of being stacked with other goods.
+
+            STACKED = the goods are stacked prior to pickup. By using this value on a ""Road"" booking you must also provide ""palletSpace""
+
+            NO = the goods are not stackable. (default)
+
+            For transport mode ""ROAD"" above enumeration is used as-is in the goods line. For transport modes ""AIR"", ""SEA"" and ""RAIL"" both ""STACKABLE"" and ""STACKED"" will flag the goods line as ""STACKABLE"".'
+          example: 'No'
+        totalVolume:
+          enum:
+          - null
+          type: number
+          description: "Total volume of this package line.\n If package dimensions are present the volume can be auto calculated and this element omitted"
+          example: 2.112
+        palletSpace:
+          enum:
+          - null
+          type: integer
+          description: Number of pallets on the ground floor (e.g. if 6 pallets are stacked 2 by 2, palletSpace will be equal to 3). This is only available for product "Road"
+          format: int64
+          example: 1
+        loadingMeters:
+          enum:
+          - null
+          type: number
+          description: Loading meter of this package line (one meter of length of goods on a trailer). This is only available for product "Road"
+          example: 0.8
+        description:
+          enum:
+          - range[-infinity, 30]
           type: string
-          description: Error message passed to the user
-          example: 'Not found booking: 40257145990010785188'
-        fields:
+          description: Cargo description at package level.
+          example: Test Goods 1
+        shippingMarks:
+          enum:
+          - range[-infinity, 30]
+          type: string
+          description: Marks and numbers at package level. This is only available for product "Road".
+          example: Test Shipping Marks 1
+        shippingMarksList:
           type: array
           items:
-            $ref: '#/components/schemas/FieldDTO'
-          description: List of fields that didn't pass validation
-        development:
-          $ref: '#/components/schemas/DevelopmentDTO'
-      description: Error
+            type: string
+            description: Package level Marks and Numbers. Available for transport modes "Air", "Sea" and "Rail"
+            xml:
+              name: shippingMark
+          description: Package level Marks and Numbers. Available for transport modes "Air", "Sea" and "Rail"
+          xml:
+            wrapped: true
+        harmonizedCode:
+          type: array
+          items:
+            type: string
+            description: The HS code short for Harmonized Commodity Description and Coding System. List of numbers used by customs to classify a product. Consists of 6 to 15 digits.  Available for transport modes "Air", "Sea" and "Rail"
+            xml:
+              name: hsc
+          description: The HS code short for Harmonized Commodity Description and Coding System. List of numbers used by customs to classify a product. Consists of 6 to 15 digits.  Available for transport modes "Air", "Sea" and "Rail"
+          xml:
+            wrapped: true
+        temperatureMin:
+          enum:
+          - null
+          type: number
+          description: Minimum level temperature requirement for temperature controlled cargo. This is mandatory if "temperatureControlled" is TRUE.
+          example: -22
+        temperatureMax:
+          enum:
+          - null
+          type: number
+          description: Maximum level temperature requirement for temperature controlled cargo. This is mandatory if "temperatureControlled" is TRUE.
+          example: -18
+        containerNo:
+          enum:
+          - null
+          type: integer
+          description: "Reference to an FCL container line (see container section above).\n This is only to be used for products \"RAIL\" and \"SEA\".\n Use the running number of the container, not the value of the \"Ref\" tag of the container line."
+          format: int64
+          example: 0
+        battery:
+          $ref: '#/components/schemas/Battery'
+        isDangerous:
+          type: boolean
+          description: Set to "true" if the contents of your shipment are classified as dangerous goods. For product "Road" it is mandatory to send the dangerousGoods element. For products "Air", "Sea" and "Rail" the booking needs to be accompanied by shipper’s declaration for dangerous goods by document upload, email or other means.
+          example: true
+        trackingNumbers:
+          type: array
+          items:
+            type: string
+            description: 'SSCC tracking number for the package element. The attribute must repeat as many times as stated in package/quantity. The format has to be conform with the specifications outlined on the GS1 web site: https://www.gs1.org/standards/id-keys/sscc'
+            xml:
+              name: trackingNumber
+            example: '[”00157145990039103076”,”00157145990039103083”]'
+          description: 'SSCC tracking number for the package element. The attribute must repeat as many times as stated in package/quantity. The format has to be conform with the specifications outlined on the GS1 web site: https://www.gs1.org/standards/id-keys/sscc'
+          xml:
+            wrapped: true
+          example: '[”00157145990039103076”,”00157145990039103083”]'
+        dangerousGoods:
+          type: array
+          items:
+            $ref: '#/components/schemas/DangerousGoods'
+          description: "This section contains the details of the dangerous goods that need to be provided to DSV to execute a booking that contains dangerous goods. \nThis section can only be used for product \"ROAD\".\nFor products \"AIR\", \"SEA\" and \"RAIL\" the booking needs to be accompanied by shipper’s declaration for dangerous goods by document upload, email or other means.\n\nPlease consult the white paper for Dangerous Goods here: https://www.dsv.com/en/insights/expert-opinions/dangerous-goods for details what needs to be submitted in this section."
+          xml:
+            wrapped: true
+        grossWeight:
+          enum:
+          - null
+          type: number
+          description: Total gross weight for this package line. Gross weight cannot exceed Total weight. For product "ROAD" the minimum weight allowed is 1 KG and no decimal is allowed after the decimal point.
+          example: 1900
+          deprecated: true
+        cargoAircraftOnly:
+          type: boolean
+          description: Only used for dangerous goods packages, only used for product "AIR"
+          example: false
+        temperatureControlled:
+          type: boolean
+          description: Set to "true" if the package require a certain temperature (or temperature range) during transport. "temperatureMin" and "temperatureMax" attributes are required in case this is flagged as "true"
+          example: true
+      description: Contains a single package line with all associated attributes like type, quantity, weight, etc.
+    Container:
+      type: object
+      properties:
+        ref:
+          type: string
+          description: A reference identifying the container
+          example: TestContainerNumber1
+        type:
+          enum:
+          - 20DC
+          - 20GP
+          - 40DC
+          - 40GP
+          - 40HC
+          - 45HC
+          - 20RE
+          - 40RE
+          - 40REHC
+          - 45REHC
+          - 20OT
+          - 40OT
+          - 20FR
+          - 40FR
+          - 20PL
+          - 40PL
+          - 20GOH
+          - 40GOH
+          - 20DC_HT
+          - 20GP_SO
+          - 20HC
+          - 20OT_SO
+          - 22T0
+          - 20TC_SO
+          - 40DC_HT
+          - 40HC_HT
+          - 40HC_SO
+          - 40OT_SO
+          - 40DC_PW
+          - 40HC_PW
+          - 45HC_SO
+          - 45GPHC
+          - 45CS
+          - 20GP_FG
+          - 40GP_FG
+          - 40HC_FG
+          - UNDEFINED
+          type: string
+          description: "A container type is selected on the basis of the type and size of goods. \n- 20DC = 20' dry container\n- 20GP = 20' dry container\n- 40DC = 40' dry container\n- 40GP = 40' dry container\n- 20GP_SO = 20' dry - Shipper's Own container\n- 20HC = 20' high cube dry container\n- 40HC = 40' high cube dry container\n- 45HC = 45' high cube dry container\n- 20RE = 20' reefer container\n- 40RE = 40' reefer container\n- 40REHC = 40' high cube reefer container\n- 45REHC = 45' reefer container\n- 20OT = 20' open top container\n- 40OT = 40' open top container\n- 20OT_SO = 20' open top - Shipper's Own container\n- 40OT_SO = 40' open top - Shipper's Own container\n- 20DC_HT = 20' dry - Hard Top container\n- 40DC_HT = 40' Hard Top container\n- 40HC_HT = 40' high cube - Hard Top container\n- 40HC_SO = 40' high cube dry - Shipper's Own container\n- 45HC_SO = 45' high cube dry - Shipper's Own container\n- 40DC_PW = 40' dry pallet wide container\n- 40HC_PW = 40' high cube pallet wide container\n- 45GPHC = 45' high cube pallet wide container\n- 45CS = 45' cassette\n- 20FR = 20' flat rack container\n- 40FR = 40' flat rack container\n- 20PL = 20' platform container\n- 40PL = 40' platform container\n- 20GOH = 20' GOH container\n- 40GOH = 40' GOH container\n- 22T0 = 20' Tank container\n- 20TC_SO = 20' Tank - Shipper's Own container\n- 20GP_FG = 20' Food Grade Container\n- 40GP_FG = 40' Food Grade Container\n- 40HC_FG = 40' High cube dry (food grade) container\n- UNDEFINED = Other container type"
+          example: 20RE
+        genset:
+          type: boolean
+          description: A genset (generator set) is used to power the reefer container when normal power source is not available. E.g. when trucking over long distances or when chilled or sensitive cargo is being moved. Only available for reefer container types.
+          example: true
+        temp:
+          type: number
+          description: Maximum temperature allowed for moving the content in this container.Only available for reefer container types. UOM as specified in section “unitOfMeasure”. Accepted format decimal(3.1)
+          example: -20
+      description: Specify the required containers of a certain type. Additional attributes can be submitted for certain container types. More details on container types can be found at https://www.dsv.com/en/our-solutions/modes-of-transport/sea-freight/shipping-container-dimensions
+    B2CService:
+      type: object
+      properties:
+        phone:
+          enum:
+          - range[-infinity, 32]
+          type: string
+          example: '+4512345678'
+        email:
+          enum:
+          - range[-infinity, 32]
+          type: string
+          example: B2CService@companyname.com
+    Parties:
+      required:
+      - bookingParty
+      - receiver
+      - sender
+      type: object
+      properties:
+        sender:
+          $ref: '#/components/schemas/Sender'
+        receiver:
+          $ref: '#/components/schemas/Receiver'
+        delivery:
+          $ref: '#/components/schemas/Delivery'
+        pickup:
+          $ref: '#/components/schemas/Pickup'
+        notify:
+          $ref: '#/components/schemas/Notify'
+        freightPayer:
+          $ref: '#/components/schemas/FreightPayer'
+        bookingParty:
+          $ref: '#/components/schemas/BookingParty'
+        carrier:
+          $ref: '#/components/schemas/Carrier'
+        party:
+          type: array
+          items:
+            $ref: '#/components/schemas/Party'
+          description: reserved for future use
+      description: Contains all parties involved in the booking. See the party definition section for more details.
+    FreightPayer:
+      type: object
+      properties:
+        address:
+          $ref: '#/components/schemas/Address'
+        contact:
+          $ref: '#/components/schemas/ContactPerson'
+      description: Name and address of the party that receives the freight invoice.<BR>This address type is only available for product "Road".<BR>If provided for product "Air", "Sea", or "Rail" it will be ignored.
+    Pickup:
+      type: object
+      properties:
+        address:
+          $ref: '#/components/schemas/Address'
+        contact:
+          $ref: '#/components/schemas/ContactPerson'
+      description: Name and address of the party shipment is picked up.
+    PreAdviceService:
+      type: object
+      properties:
+        phone:
+          enum:
+          - range[-infinity, 32]
+          type: string
+          example: '+4512345678'
+        email:
+          enum:
+          - range[-infinity, 32]
+          type: string
+          example: PreAdvice@companyname.com
+      description: "This service will be deprecated.\n Please use \"preAdviceMailPickUp\" or \"preAdviceMailDelivery\""
     DevelopmentDTO:
       type: object
       properties:
@@ -834,86 +1091,568 @@ components:
           description: dump from exception
       description: Development
       deprecated: true
-    CustomsClearance:
-      type: object
-      properties:
-        customsClearance:
-          enum:
-          - 'NO'
-          - BY_DSV
-          - BY_3RD
-          - BY_OWN
-          type: string
-          example: BY_DSV
-        customsExportDeclaration:
-          enum:
-          - 'NO'
-          - BY_DSV
-          - BY_3RD
-          - BY_OWN
-          type: string
-          example: BY_OWN
-    Incoterms:
+    Party:
       required:
-      - code
-      - location
+      - role
       type: object
       properties:
-        code:
-          enum:
-          - EXW
-          - FCA
-          - FAS
-          - FOB
-          - DDP
-          - CPT
-          - CIP
-          - DAF
-          - DES
-          - DEQ
-          - DDU
-          - DAT
-          - DAP
-          - CFR
-          - CIF
-          - DPU
+        address:
+          $ref: '#/components/schemas/Address'
+        contact:
+          $ref: '#/components/schemas/ContactPerson'
+        role:
           type: string
-          description: 'Incoterms® Code according to Incoterms® 2020
+          description: Business role of the party
+      description: Reserved for future use.
+    Carrier:
+      type: object
+      properties:
+        address:
+          $ref: '#/components/schemas/Address'
+        contact:
+          $ref: '#/components/schemas/ContactPerson'
+      description: Name and address of the carrier
+    Battery:
+      type: object
+      properties:
+        batteryType:
+          enum:
+          - DRY
+          - LITHIUM
+          type: string
+          description: Battery type
+        batteryPackageType:
+          enum:
+          - IN_EQUIPMENT
+          - SEPARATE
+          - WITH_EQUIPMENT
+          type: string
+          description: Battery Package type
+      description: Battery information
+    FixTimeDeliveryService:
+      type: object
+    Units:
+      type: object
+      properties:
+        dimension:
+          enum:
+          - KG
+          - M3
+          - DM3
+          - CM
+          - M
+          - LM
+          - LTR
+          - C
+          - LB
+          - FT3
+          - IN
+          - FT
+          - F
+          type: string
+          description: 'Dimension UOM:
 
 
-            Ex Works (EXW)
+            CM = Centimeter
 
-            Free Carrier (FCA)
+            M = Meter (only for Air, Sea and Rail)
 
-            Carriage Paid to (CPT)
+            IN = Inch
 
-            Carriage and Insurance paid to (CIP)
+            FT = Feet (only for Air, Sea and Rail)'
+          default: CM
+        weight:
+          enum:
+          - KG
+          - M3
+          - DM3
+          - CM
+          - M
+          - LM
+          - LTR
+          - C
+          - LB
+          - FT3
+          - IN
+          - FT
+          - F
+          type: string
+          description: 'Weight UOM:
 
-            Delivered at Place (DAP)
+            - KG = Kilo
 
-            Delivered at Place Unloaded (DPU) NEW
+            - LB = Pound'
+          default: KG
+        volume:
+          enum:
+          - KG
+          - M3
+          - DM3
+          - CM
+          - M
+          - LM
+          - LTR
+          - C
+          - LB
+          - FT3
+          - IN
+          - FT
+          - F
+          type: string
+          description: 'Volume UOM:
 
-            Delivered Duty Paid (DDP)
+
+            M3 = Cubic meter
+
+            DM3 = Cubic decimetre (only for Air, Sea and Rail)
+
+            LTR = Litre
+
+            FT3 = Cubic feet'
+          default: M3
+        loadingSpace:
+          enum:
+          - KG
+          - M3
+          - DM3
+          - CM
+          - M
+          - LM
+          - LTR
+          - C
+          - LB
+          - FT3
+          - IN
+          - FT
+          - F
+          type: string
+          description: 'Loading Meters UOM:
 
 
-            The rules for sea and inland waterway transport also include:
+            LM = Load Meter (only for Road)'
+          default: LM
+        temperature:
+          enum:
+          - KG
+          - M3
+          - DM3
+          - CM
+          - M
+          - LM
+          - LTR
+          - C
+          - LB
+          - FT3
+          - IN
+          - FT
+          - F
+          type: string
+          description: 'Temperature UOM:
+
+            - C = Celsius
+
+            - F = Fahrenheit'
+          default: C
+      description: Defines the units of measurement (UOM) used for all measurements within the package section. It is recommended to use either all metric or all imperial UOM.
+    DateTimeRange:
+      required:
+      - date
+      type: object
+      properties:
+        date:
+          type: string
+          description: The requested pickup/delivery date using the format YYYY-MM-DD
+          format: date
+          example: '2020-08-30'
+        start:
+          $ref: '#/components/schemas/LocalTime'
+        end:
+          $ref: '#/components/schemas/LocalTime'
+      description: Date with time range. Used e.g., for Pickup Date and Time.
+    RailPortSelectionService:
+      type: object
+      properties:
+        portOfLoading:
+          $ref: '#/components/schemas/PortType'
+        portOfDischarge:
+          $ref: '#/components/schemas/PortType'
+      description: The service allows to request the departure/arrival of the cargo on a specified port of loading/discharge. The UN location code is mandatory, the name is optional. This service can only be selected for bookings with mode of transport "Rail".
+    Order:
+      required:
+      - bookingReferenceCode
+      - packages
+      - parties
+      - product
+      type: object
+      properties:
+        autobook:
+          type: boolean
+          description: 'This option provides two ways to submit a booking to DSV, either by as a final booking to DSV without the need for further involvement by the customer (flag set to: True) or sending the booking to DSV’s myDSV customer portal as a draft booking (flag set to: False). In case autobook is true, several fields become business mandatory even if technically they are optional.'
+          default: false
+          example: true
+        labelRequest:
+          type: boolean
+          description: 'This option provides two ways to process a booking to DSV, either by requesting the generation of a label and returning the label information (Base64) in the booking response (flag set to: True), or by processing the booking without generating a label (flag set to: False).'
+          default: false
+          example: true
+        bookingReferenceCode:
+          type: string
+          description: Booking Reference Code
+          example: '123'
+        spotQuoteNumber:
+          type: string
+          description: Spot Quote Number
+          example: 2f6192e1-f29c-ad1c-96c2-3501a361bdc1
+        templateName:
+          enum:
+          - range[-infinity, 64]
+          type: string
+          description: Name of a previously created template in myDSV customer portal. The template must be accessible in the current upload context. Values present in the template do not need to be included in the booking, even if they are marked as mandatory.
+        parties:
+          $ref: '#/components/schemas/Parties'
+        product:
+          $ref: '#/components/schemas/Product'
+        services:
+          $ref: '#/components/schemas/Services'
+        incoterms:
+          $ref: '#/components/schemas/Incoterms'
+        detailedGoodsDescription:
+          type: array
+          items:
+            type: string
+            description: A description of the cargo commodity.
+            xml:
+              name: line
+          description: A description of the cargo commodity.
+          xml:
+            wrapped: true
+        packages:
+          type: array
+          items:
+            $ref: '#/components/schemas/Package'
+          description: Contains all package lines included in the booking.
+          xml:
+            wrapped: true
+        references:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderReference'
+          description: A section to include references that can later be used to identify linked information. Multiple references of the same type are allowed. See the reference list for details.
+          xml:
+            wrapped: true
+        pickupInstructions:
+          type: array
+          items:
+            type: string
+            description: Additional pickup instructions for the booking.
+            xml:
+              name: line
+            example: Test Pickup Instruction
+          description: Additional pickup instructions for the booking.
+          xml:
+            wrapped: true
+          example: Test Pickup Instruction
+        deliveryInstructions:
+          type: array
+          items:
+            type: string
+            description: Additional delivery instructions for the booking.
+            xml:
+              name: line
+            example: Test Delivery Instruction
+          description: Additional delivery instructions for the booking.
+          xml:
+            wrapped: true
+          example: Test Delivery Instruction
+        additionalInstructions:
+          type: array
+          items:
+            type: string
+            description: 'Additional instructions for the booking. Available options: Pickup, Delivery, Additional. Additional instructions are only available for transport modes: Air, Sea and Rail.'
+            xml:
+              name: line
+          description: 'Additional instructions for the booking. Available options: Pickup, Delivery, Additional. Additional instructions are only available for transport modes: Air, Sea and Rail.'
+          xml:
+            wrapped: true
+        pickupTime:
+          $ref: '#/components/schemas/DateTimeRange'
+        deliveryTime:
+          $ref: '#/components/schemas/DateTimeRange'
+        units:
+          $ref: '#/components/schemas/Units'
+        controllingCountry:
+          type: string
+          description: Specifies the controlling country.
+        productCode:
+          type: string
+          description: Specifies the product code.
+      description: Main structure, represents the booking
+    SeaPortSelectionService:
+      type: object
+      properties:
+        portOfLoading:
+          $ref: '#/components/schemas/PortType'
+        portOfDischarge:
+          $ref: '#/components/schemas/PortType'
+      description: The service allows to request the departure/arrival of the cargo on a specified port of loading/discharge. This service can only be selected for bookings with mode of transport "Sea". The port UN location code is mandatory, the port name is optional.
+    CashOnDeliveryService:
+      required:
+      - amount
+      type: object
+      properties:
+        amount:
+          $ref: '#/components/schemas/Amount'
+      description: Request DSV to collect payment for the goods you are sending. This service can only be selected for bookings with mode of transport "Road" in some countries. Please contact your local DSV office for more information.
+    InsuranceService:
+      required:
+      - amount
+      - category
+      type: object
+      properties:
+        amount:
+          $ref: '#/components/schemas/Amount'
+        category:
+          enum:
+          - STD
+          - MTR
+          - HHD
+          - FRA
+          - UUG
+          type: string
+          description: 'Insurance category. Must be present if an amount is posted.
+
+            STD = Standard Goods
+
+            MTR = Motor vehicles, aircrafts, water- and pleasure crafts
+
+            HHD = Household goods
+
+            FRA = Fragile goods, furniture, marble ceramics, art, antiques, etc.
+
+            UUG = used and/or unpacked goods
+
+            Must be present if an amount is posted.'
+          example: STD
+      description: Insure your goods at DSV’s own insurance company. More information about this service can be found at https://www.dsv.com/en/our-solutions/modes-of-transport/value-added-services/cargo-insurance
+    OrderReference:
+      required:
+      - type
+      - value
+      type: object
+      properties:
+        value:
+          enum:
+          - range[-infinity, 30]
+          type: string
+          description: Reference value
+          example: Test Reference
+        type:
+          enum:
+          - SHIPPER_REFERENCE
+          - CONSIGNEE_REFERENCE
+          - INVOICING_REFERENCE
+          - CUSTOMS_REFERENCE
+          - ORDER_NUMBER
+          - OTHER
+          type: string
+          description: 'The reference type for the associated reference.
+
+            This must be present if the reference is posted.'
+          xml:
+            attribute: true
+          example: SHIPPER_REFERENCE
+      description: References to be send along booking that can be later on used to identify linked information.
+    PlaceBookingResponse:
+      required:
+      - bookingId
+      type: object
+      properties:
+        bookingId:
+          type: string
+          description: Unique identifier of the DSV booking
+          example: '40257145990010780000'
+      description: Contains information about submitted booking
+    DangerousGoods:
+      required:
+      - className
+      - grossWeight
+      - packagesCount
+      - packingGroup
+      - packingKind
+      - type
+      - unCode
+      type: object
+      properties:
+        className:
+          type: string
+          description: "The UN className can be derived from the mandatory unCode.\n If this value is supplied, it needs to match the UN className that is stored for the provided unCode."
+          example: '''9'''
+        subRisk:
+          type: string
+          description: "The UN subRisk can be derived from the mandatory unCode.\n If this value is supplied, it needs to match the UN subRisk that is stored for the provided unCode."
+          example: 9A
+        flashPoint:
+          type: number
+          description: "The flashPoint must be provided in the \"Unit of Measure\" selected for temperature in the units object.\nThis can only be used for dangerous goods type = \"IMDG\". \nThis value can be mandatory depending on the UN code."
+        limitedQuantity:
+          type: boolean
+          description: This value can be mandatory depending on the UN code.
+          example: true
+        marinePollutant:
+          type: boolean
+          description: This value can be mandatory depending on the UN code.
+          example: true
+        packingGroup:
+          type: string
+          description: This value can be mandatory depending on the UN code.
+          example: II
+        properShippingName:
+          type: string
+          description: "The UN properShippingName can be derived from the mandatory unCode.\n If this value is supplied, it needs to match the UN properShippingName that is stored for the provided unCode."
+          example: LITHIUM ION BATTERIES CONTAINED IN EQUIPMENT
+        technicalName:
+          type: string
+          description: This value can be mandatory depending on the UN code.
+        technicalNameNational:
+          type: string
+          description: This value can be mandatory depending on the UN code.
+        temperatureMin:
+          type: number
+          description: This value can be mandatory depending on the UN code.
+        temperatureMax:
+          type: number
+          description: This value can be mandatory depending on the UN code.
+        type:
+          enum:
+          - ADR
+          - IMDG
+          - IATA
+          - DGR
+          - RID
+          type: string
+          description: 'Classification type used for the declaration.
+
+            ADR = according to “Agreement concerning the International Carriage of Dangerous Goods by Road”
+
+            IMDG = according to “International Maritime Dangerous Goods Code” '
+          example: ADR
+        unCode:
+          type: string
+          description: The UN code identifying the Dangerous Goods.
+          example: '3481'
+        tunnelCode:
+          type: string
+          description: This value can be mandatory depending on the UN code.
+          example: E
+        packagesCount:
+          type: integer
+          description: Number of Packages containing these dangerous goods
+          format: int64
+          example: 2
+        packingKind:
+          enum:
+          - BAG
+          - BOX
+          - DRUM
+          - IBC
+          - JERRY
+          - CP
+          - LGM
+          - BOB
+          - PD
+          - SB
+          - DRM
+          - JCN
+          type: string
+          description: '"Package type containing these dangerous goods. Possible values are:
 
 
-            Free Alongside Ship (FAS)
+            BAG - Bag
 
-            Free On Board (FOB)
+            BOX - Carton / Box
 
-            Cost and Freight (CFR)
+            IBC - Intermediate Bulk Container
 
-            Cost Insurance and Freight (CIF)"
+            CP - Composite Packaging
+
+            LGM - Light Gauge Metal Packaging
+
+            BOB - Bundle of Bottles
+
+            PD - Pressure Drum
+
+            SB - Steel Bottle
+
+            DRM - Drum
+
+            JCN - Jerry Can"
 
             '
-          example: EXW
-        location:
+          example: BOX
+        netWeight:
+          type: number
+          description: Net weight of the dangerous goods
+          example: 800
+        grossWeight:
+          type: number
+          description: Gross weight of the dangerous goods
+          example: 1000
+        netWeightUnit:
+          enum:
+          - KG
+          - M3
+          - DM3
+          - CM
+          - M
+          - LM
+          - LTR
+          - C
+          - LB
+          - FT3
+          - IN
+          - FT
+          - F
           type: string
-          description: The place should always be specified as precisely as possible, and not just be a city name.
-          example: TestCityPickup1
-      description: Incoterms® describe the rights and obligations applicable between the buyer and seller of the goods being transported. They set out when transfer of liability and control take place, who pays for what and who is liable in the event of any damage or loss of goods in transit. The place should always be specified as precisely as possible, and not just be a city name. For more information check the Incoterms® Information on https://www.dsv.com/en/insights/expert-opinions/what-are-incoterms
+          description: "Net Weight UOM: \nKG = Kilo \nLB = Pound\nLTR = Liter"
+        grossWeightUnit:
+          enum:
+          - KG
+          - M3
+          - DM3
+          - CM
+          - M
+          - LM
+          - LTR
+          - C
+          - LB
+          - FT3
+          - IN
+          - FT
+          - F
+          type: string
+          description: 'Gross Weight UOM:
+
+            - KG = Kilo
+
+            - LB = Pound'
+      description: 'This section contains the details of the dangerous goods that need to be provided to DSV to execute a booking that contains dangerous goods.
+
+        This section can only be used for product “Road”.
+
+        For products “Air”, “Sea” and “Rail” the booking needs to be accompanied by shipper’s declaration for dangerous goods by document upload, email or other means.
+
+
+        Please consult the white paper for Dangerous Goods here:  https://www.dsv.com/en/insights/expert-opinions/dangerous-goods for details what needs to be submitted in this section.'
+    Receiver:
+      type: object
+      properties:
+        address:
+          $ref: '#/components/schemas/Address'
+        contact:
+          $ref: '#/components/schemas/ContactPerson'
+      description: Name and address of the party receiving the shipment (consignee).
+    SingleResponseEntityObject:
+      type: object
     Amount:
       required:
       - currency
@@ -1102,30 +1841,128 @@ components:
             attribute: true
           example: DKK
       description: Represents the insurance amount
-    CashOnDeliveryService:
+    Product:
       required:
-      - amount
+      - name
       type: object
       properties:
-        amount:
-          $ref: '#/components/schemas/Amount'
-      description: Request DSV to collect payment for the goods you are sending. This service can only be selected for bookings with mode of transport "Road" in some countries. Please contact your local DSV office for more information.
-    RailPortSelectionService:
+        name:
+          enum:
+          - Road
+          - Air
+          - Sea
+          - Rail
+          - Xpress
+          type: string
+          description: 'Main transport mode selection:
+
+            - Road
+
+            - Air
+
+            - Sea
+
+            - Rail'
+          example: Sea
+        billOfLading:
+          enum:
+          - Express
+          - Original
+          type: string
+          description: 'Select the Bill of Lading type.
+
+            Mandatory when product.name = "Sea".
+
+            - Original = physical Bill of Lading
+
+            - Express = electronic Bill of Lading
+
+            Not required for Air, Road, or Rail.'
+          example: Original
+        containerMode:
+          enum:
+          - LCL
+          - FCL
+          type: string
+          description: 'Select the Container mode.
+
+            Mandatory when product.name = "Sea".
+
+            Optional when product.name = "Rail".
+
+            - FCL = full container load
+
+            - LCL = less than container load
+
+            Not available for Air or Road.'
+          example: FCL
+        containers:
+          type: array
+          items:
+            $ref: '#/components/schemas/Container'
+          description: "This section is only available for the products \"Sea\" and \"Rail\" while the Container mode is \"FCL\". \n\nIt is used to specify the required containers of a certain type. Additional attributes can be submitted for certain container types.\n\nMore details on container types can be found at https://www.dsv.com/en/our-solutions/modes-of-transport/sea-freight/shipping-container-dimensions"
+          xml:
+            wrapped: true
+        dropOff:
+          type: boolean
+          description: "\"Select the Pickup mode\n\n- false = Pickup by DSV, \n- true = Cargo handover to DSV at Warehouse or Terminal \n\"Drop Off\" service is available in Shippers country and product mode is either \"Air\", \"Sea\" or \"Rail\""
+          example: false
+        handover:
+          type: boolean
+          description: 'Select the Delivery mode:
+
+
+            - false = Delivery by DSV
+
+            - true = Cargo handover by DSV
+
+            (dropOff becomes mandatory when "Handover" service is available in Shippers country and product is either "AIR", "SEA" or "RAIL")'
+          example: false
+      description: 'Dependency rules:
+
+        - If product.name = "Sea": billOfLading and containerMode are mandatory.
+
+        - If product.name = "Rail": containerMode is optional; billOfLading is not required.
+
+        - If product.name is "Air" or "Road": billOfLading and containerMode are not applicable.
+
+        - If product.name is "Rail" or "Sea" and containerMode = "FCL": the containers section becomes available.
+
+        - dropOff and handover may become mandatory depending on country/service availability.'
+    SimpleService:
+      required:
+      - name
       type: object
       properties:
-        portOfLoading:
-          $ref: '#/components/schemas/PortType'
-        portOfDischarge:
-          $ref: '#/components/schemas/PortType'
-      description: The service allows to request the departure/arrival of the cargo on a specified port of loading/discharge. The UN location code is mandatory, the name is optional. This service can only be selected for bookings with mode of transport "Rail".
-    AirportSelectionService:
+        name:
+          type: string
+          description: "This is a subcategory used for additional services of local agreements.\n Please contact your local DSV contact for more information."
+      description: This is a subcategory used for additional services of local agreements. Please contact your local DSV contact for more information.
+    OrderUpdates:
+      required:
+      - packages
       type: object
       properties:
-        airportOfDeparture:
-          $ref: '#/components/schemas/PortType'
-        airportOfDestination:
-          $ref: '#/components/schemas/PortType'
-      description: The service allows to request the departure/arrival of the cargo on a specified airport. The airport UN location code is mandatory, the airport name is optional. This service can only be selected for bookings with mode of transport "Air".
+        packages:
+          type: array
+          items:
+            $ref: '#/components/schemas/Package'
+          description: The packages section contains all package lines that shall be included in the booking
+        units:
+          $ref: '#/components/schemas/Units'
+      description: This structure contains the parameters for updating packages in draft bookings
+      default: OrderUpdates
+      xml:
+        name: orderUpdates
+        namespace: http://www.mydsv.com/Order
+    Delivery:
+      type: object
+      properties:
+        address:
+          $ref: '#/components/schemas/Address'
+        contact:
+          $ref: '#/components/schemas/ContactPerson'
+      description: Name and address of the party where shipment is delivered
     SpotQuoteNumberService:
       required:
       - number
@@ -1135,6 +1972,85 @@ components:
           type: string
           description: This field carries the quotation number as received on the spot quotation
       description: You can fill in the reference received from DSV in a spot quotation to be used for invoicing this booking.
+    Notify:
+      type: object
+      properties:
+        address:
+          $ref: '#/components/schemas/Address'
+        contact:
+          $ref: '#/components/schemas/ContactPerson'
+      description: Name and address of the party who will be notified
+    Sender:
+      type: object
+      properties:
+        address:
+          $ref: '#/components/schemas/Address'
+        contact:
+          $ref: '#/components/schemas/ContactPerson'
+      description: 'Name and address of the party sending the goods (shipper).
+
+        If address is not already available, it will be created from supplied address data.'
+    Incoterms:
+      required:
+      - code
+      - location
+      type: object
+      properties:
+        code:
+          enum:
+          - EXW
+          - FCA
+          - FAS
+          - FOB
+          - DDP
+          - CPT
+          - CIP
+          - DAF
+          - DES
+          - DEQ
+          - DDU
+          - DAT
+          - DAP
+          - CFR
+          - CIF
+          - DPU
+          type: string
+          description: 'Incoterms® Code according to Incoterms® 2020
+
+
+            Ex Works (EXW)
+
+            Free Carrier (FCA)
+
+            Carriage Paid to (CPT)
+
+            Carriage and Insurance paid to (CIP)
+
+            Delivered at Place (DAP)
+
+            Delivered at Place Unloaded (DPU) NEW
+
+            Delivered Duty Paid (DDP)
+
+
+            The rules for sea and inland waterway transport also include:
+
+
+            Free Alongside Ship (FAS)
+
+            Free On Board (FOB)
+
+            Cost and Freight (CFR)
+
+            Cost Insurance and Freight (CIF)"
+
+            '
+          example: EXW
+        location:
+          type: string
+          description: The place should always be specified as precisely as possible, and not just be a city name.
+          example: TestCityPickup1
+      description: Incoterms® describe the rights and obligations applicable between the buyer and seller of the goods being transported. They set out when transfer of liability and control take place, who pays for what and who is liable in the event of any damage or loss of goods in transit. The place should always be specified as precisely as possible, and not just be a city name. For more information check the Incoterms® Information on https://www.dsv.com/en/insights/expert-opinions/what-are-incoterms
     Services:
       type: object
       properties:
@@ -1790,251 +2706,57 @@ components:
           type: boolean
           description: Airline Express service. Only available for transport modes "Air"
       description: Specifies additional services that can be selected for a booking. Service availability depends on factors such as transport mode, route, and country. Some services may incur additional costs. Contact your local DSV representative for more details.
-    Order:
-      required:
-      - bookingReferenceCode
-      - packages
-      - parties
-      - product
-      type: object
-      properties:
-        autobook:
-          type: boolean
-          description: 'This option provides two ways to submit a booking to DSV, either by as a final booking to DSV without the need for further involvement by the customer (flag set to: True) or sending the booking to DSV’s myDSV customer portal as a draft booking (flag set to: False). In case autobook is true, several fields become business mandatory even if technically they are optional.'
-          default: false
-          example: true
-        labelRequest:
-          type: boolean
-          description: 'This option provides two ways to process a booking to DSV, either by requesting the generation of a label and returning the label information (Base64) in the booking response (flag set to: True), or by processing the booking without generating a label (flag set to: False).'
-          default: false
-          example: true
-        bookingReferenceCode:
-          type: string
-          description: Booking Reference Code
-          example: '123'
-        spotQuoteNumber:
-          type: string
-          description: Spot Quote Number
-          example: 2f6192e1-f29c-ad1c-96c2-3501a361bdc1
-        templateName:
-          enum:
-          - range[-infinity, 64]
-          type: string
-          description: Name of a previously created template in myDSV customer portal. The template must be accessible in the current upload context. Values present in the template do not need to be included in the booking, even if they are marked as mandatory.
-        parties:
-          $ref: '#/components/schemas/Parties'
-        product:
-          $ref: '#/components/schemas/Product'
-        services:
-          $ref: '#/components/schemas/Services'
-        incoterms:
-          $ref: '#/components/schemas/Incoterms'
-        detailedGoodsDescription:
-          type: array
-          items:
-            type: string
-            description: A description of the cargo commodity.
-            xml:
-              name: line
-          description: A description of the cargo commodity.
-          xml:
-            wrapped: true
-        packages:
-          type: array
-          items:
-            $ref: '#/components/schemas/Package'
-          description: Contains all package lines included in the booking.
-          xml:
-            wrapped: true
-        references:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrderReference'
-          description: A section to include references that can later be used to identify linked information. Multiple references of the same type are allowed. See the reference list for details.
-          xml:
-            wrapped: true
-        pickupInstructions:
-          type: array
-          items:
-            type: string
-            description: Additional pickup instructions for the booking.
-            xml:
-              name: line
-            example: Test Pickup Instruction
-          description: Additional pickup instructions for the booking.
-          xml:
-            wrapped: true
-          example: Test Pickup Instruction
-        deliveryInstructions:
-          type: array
-          items:
-            type: string
-            description: Additional delivery instructions for the booking.
-            xml:
-              name: line
-            example: Test Delivery Instruction
-          description: Additional delivery instructions for the booking.
-          xml:
-            wrapped: true
-          example: Test Delivery Instruction
-        additionalInstructions:
-          type: array
-          items:
-            type: string
-            description: 'Additional instructions for the booking. Available options: Pickup, Delivery, Additional. Additional instructions are only available for transport modes: Air, Sea and Rail.'
-            xml:
-              name: line
-          description: 'Additional instructions for the booking. Available options: Pickup, Delivery, Additional. Additional instructions are only available for transport modes: Air, Sea and Rail.'
-          xml:
-            wrapped: true
-        pickupTime:
-          $ref: '#/components/schemas/DateTimeRange'
-        deliveryTime:
-          $ref: '#/components/schemas/DateTimeRange'
-        units:
-          $ref: '#/components/schemas/Units'
-        controllingCountry:
-          type: string
-          description: Specifies the controlling country.
-        productCode:
-          type: string
-          description: Specifies the product code.
-      description: Main structure, represents the booking
-    Receiver:
+    BookingParty:
       type: object
       properties:
         address:
           $ref: '#/components/schemas/Address'
         contact:
           $ref: '#/components/schemas/ContactPerson'
-      description: Name and address of the party receiving the shipment (consignee).
-    InsuranceService:
+      description: Name and address of the party that created the booking.
+    PortType:
       required:
-      - amount
-      - category
+      - code
       type: object
       properties:
-        amount:
-          $ref: '#/components/schemas/Amount'
-        category:
-          enum:
-          - STD
-          - MTR
-          - HHD
-          - FRA
-          - UUG
-          type: string
-          description: 'Insurance category. Must be present if an amount is posted.
-
-            STD = Standard Goods
-
-            MTR = Motor vehicles, aircrafts, water- and pleasure crafts
-
-            HHD = Household goods
-
-            FRA = Fragile goods, furniture, marble ceramics, art, antiques, etc.
-
-            UUG = used and/or unpacked goods
-
-            Must be present if an amount is posted.'
-          example: STD
-      description: Insure your goods at DSV’s own insurance company. More information about this service can be found at https://www.dsv.com/en/our-solutions/modes-of-transport/value-added-services/cargo-insurance
-    OrderUpdates:
-      required:
-      - packages
-      type: object
-      properties:
-        packages:
-          type: array
-          items:
-            $ref: '#/components/schemas/Package'
-          description: The packages section contains all package lines that shall be included in the booking
-        units:
-          $ref: '#/components/schemas/Units'
-      description: This structure contains the parameters for updating packages in draft bookings
-      default: OrderUpdates
-      xml:
-        name: orderUpdates
-        namespace: http://www.mydsv.com/Order
-    SimpleService:
-      required:
-      - name
-      type: object
-      properties:
-        name:
-          type: string
-          description: "This is a subcategory used for additional services of local agreements.\n Please contact your local DSV contact for more information."
-      description: This is a subcategory used for additional services of local agreements. Please contact your local DSV contact for more information.
-    Party:
-      required:
-      - role
-      type: object
-      properties:
-        address:
-          $ref: '#/components/schemas/Address'
-        contact:
-          $ref: '#/components/schemas/ContactPerson'
-        role:
-          type: string
-          description: Business role of the party
-      description: Reserved for future use.
-    DateTimeRange:
-      required:
-      - date
-      type: object
-      properties:
-        date:
-          type: string
-          description: The requested pickup/delivery date using the format YYYY-MM-DD
-          format: date
-          example: '2020-08-30'
-        start:
-          $ref: '#/components/schemas/LocalTime'
-        end:
-          $ref: '#/components/schemas/LocalTime'
-      description: Date with time range. Used e.g., for Pickup Date and Time.
-    FreightPayer:
-      type: object
-      properties:
-        address:
-          $ref: '#/components/schemas/Address'
-        contact:
-          $ref: '#/components/schemas/ContactPerson'
-      description: Name and address of the party that receives the freight invoice.<BR>This address type is only available for product "Road".<BR>If provided for product "Air", "Sea", or "Rail" it will be ignored.
-    FieldDTO:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Error name
-          example: field_name
-        message:
-          type: string
-          description: Description of error
-          example: validation error
         code:
+          enum:
+          - range[-infinity, 32]
           type: string
-          description: Type of error
-          example: ERR12345
-      description: Field
-    PlaceBookingResponse:
-      required:
-      - bookingId
+          description: A valid UN location code with an seaport / airport / rail terminal
+          example: DK FDH
+        name:
+          type: string
+          description: The associated location name
+          example: Frederikshavn
+      description: UN Location code and Name of the departure rail terminal
+    AirportSelectionService:
       type: object
       properties:
-        bookingId:
-          type: string
-          description: Unique identifier of the DSV booking
-          example: '40257145990010780000'
-      description: Contains information about submitted booking
-    Delivery:
+        airportOfDeparture:
+          $ref: '#/components/schemas/PortType'
+        airportOfDestination:
+          $ref: '#/components/schemas/PortType'
+      description: The service allows to request the departure/arrival of the cargo on a specified airport. The airport UN location code is mandatory, the airport name is optional. This service can only be selected for bookings with mode of transport "Air".
+    CustomsClearance:
       type: object
       properties:
-        address:
-          $ref: '#/components/schemas/Address'
-        contact:
-          $ref: '#/components/schemas/ContactPerson'
-      description: Name and address of the party where shipment is delivered
+        customsClearance:
+          enum:
+          - 'NO'
+          - BY_DSV
+          - BY_3RD
+          - BY_OWN
+          type: string
+          example: BY_DSV
+        customsExportDeclaration:
+          enum:
+          - 'NO'
+          - BY_DSV
+          - BY_3RD
+          - BY_OWN
+          type: string
+          example: BY_OWN
     Address:
       type: object
       properties:
@@ -2358,96 +3080,51 @@ components:
           type: string
           description: Information about the sender/pickup being an approved shipper. Only available for transport modes "Air".
       description: All fields related to the address of the business partner.
-    ContactPerson:
-      required:
-      - name
+    FieldDTO:
       type: object
       properties:
         name:
           type: string
-          description: Name of the contact person
-          example: Test Name
-        email:
+          description: Error name
+          example: field_name
+        message:
           type: string
-          description: Email address of the contact person
-          example: testemail@testcompany.com
-        telephone:
-          enum:
-          - range[-infinity, 16]
+          description: Description of error
+          example: validation error
+        code:
           type: string
-          description: Phone number of the contact person.
-          example: '+4512345678'
-      description: All fields related to Contact Person e.g. Name, Phone, email
-    Battery:
+          description: Type of error
+          example: ERR12345
+      description: Field
+    LocalTime:
       type: object
       properties:
-        batteryType:
-          enum:
-          - DRY
-          - LITHIUM
-          type: string
-          description: Battery type
-        batteryPackageType:
-          enum:
-          - IN_EQUIPMENT
-          - SEPARATE
-          - WITH_EQUIPMENT
-          type: string
-          description: Battery Package type
-      description: Battery information
-    Parties:
+        hour:
+          type: integer
+          format: int32
+        minute:
+          type: integer
+          format: int32
+        second:
+          type: integer
+          format: int32
+        nano:
+          type: integer
+          format: int32
+      description: The requested pickup/delivery time (end of time window) using the 24 hours format hh:mm:ss
+      example: '14:15:00'
+    PalletExchangeService:
       required:
-      - bookingParty
-      - receiver
-      - sender
-      type: object
-      properties:
-        sender:
-          $ref: '#/components/schemas/Sender'
-        receiver:
-          $ref: '#/components/schemas/Receiver'
-        delivery:
-          $ref: '#/components/schemas/Delivery'
-        pickup:
-          $ref: '#/components/schemas/Pickup'
-        notify:
-          $ref: '#/components/schemas/Notify'
-        freightPayer:
-          $ref: '#/components/schemas/FreightPayer'
-        bookingParty:
-          $ref: '#/components/schemas/BookingParty'
-        carrier:
-          $ref: '#/components/schemas/Carrier'
-        party:
-          type: array
-          items:
-            $ref: '#/components/schemas/Party'
-          description: reserved for future use
-      description: Contains all parties involved in the booking. See the party definition section for more details.
-    Carrier:
-      type: object
-      properties:
-        address:
-          $ref: '#/components/schemas/Address'
-        contact:
-          $ref: '#/components/schemas/ContactPerson'
-      description: Name and address of the carrier
-    Package:
-      required:
-      - description
-      - packageType
       - quantity
-      - totalWeight
+      - type
       type: object
       properties:
         quantity:
-          enum:
-          - null
           type: integer
-          description: Quantity of packages in this package line.
+          description: Number of pallets requested to be exchanged
           format: int64
           example: 2
-        packageType:
+        type:
           enum:
           - BAG
           - CAN
@@ -2477,728 +3154,51 @@ components:
           - RLL
           - PPL
           type: string
-          description: "Package type to be used for this package line. Note that some Package types have default dimensions and therefore can only be used if units of measure are centimetres. \n- BAG = Bag \n- CAS = Case \n- CLL = Colli\n- CRT = Crate\n- CTN = Carton / box\n- RLL = Roll\n- CAN = Can\n- PPL = Pallet - 110cm x 110cm\n- PLL = Pallet - 120cm x 80cm\n- EUR = Euro pallet - 120cm x 80cm\n- GIB = Gitterbox - 120cm x 80cm\n- HPL = Half pallet - 80cm x 60cm\n- IBC = IBC - 120cm x 100cm\n- IPL = Pallet - 120cm x 100cm\n- JCN = Jerry can\n- QPL = Quarter pallet - 60cm x 40cm\n- LOAD = Load - is used when Mode of transport is Road. It is used when the number of packages is unknown at the moment during booking but the space a load requires is known\n- PLT = Pallet - unspecified\n- CON = Pallet container\n- PXL = Pallet - 120cm x 120cm\n- PKG = Package \n- LOT = Lot - is used when Mode of transport is Air&Sea\n- UPL = Pallet - 120cm x 110cm\n- RLL = Roll \n- PPL = Pallet - 110cm x 110cm (Only available for MoT Air, Sea, Rail)"
+          description: 'Currently only supported for Euro pallets. Must be present if quantity is posted: EUR'
           example: EUR
-        totalWeight:
-          enum:
-          - null
-          type: number
-          description: Total weight for this package line. For product "ROAD" the minimum weight allowed is 1 KG and no decimal is allowed after the decimal point.
-          example: 1900
-        netWeight:
-          enum:
-          - null
-          type: number
-          description: Net weight for this package line. Net weight cannot exceed total Weight. For product "ROAD" the minimum weight allowed is 1 KG and no decimal is allowed after the decimal point.
-          example: 1500
-        length:
-          enum:
-          - null
-          type: number
-          description: 'Dimension of single package in UOM : length. It becomes mandatory if dimensions are not present in packageType or if the packageType is not LOAD.'
-          example: 120
-        height:
-          enum:
-          - null
-          type: number
-          description: 'Dimension of single package in UOM : height.'
-          example: 110
-        width:
-          enum:
-          - null
-          type: number
-          description: 'Dimension of single package in UOM : width. It becomes mandatory if dimensions are not present in packageType or if the packageType is not LOAD.'
-          example: 80
-        stackable:
-          enum:
-          - STACKABLE
-          - STACKED
-          - 'NO'
-          - Stackable, Stacked, No
-          type: string
-          description: 'STACKABLE = the goods are capable of being stacked with other goods.
-
-            STACKED = the goods are stacked prior to pickup. By using this value on a ""Road"" booking you must also provide ""palletSpace""
-
-            NO = the goods are not stackable. (default)
-
-            For transport mode ""ROAD"" above enumeration is used as-is in the goods line. For transport modes ""AIR"", ""SEA"" and ""RAIL"" both ""STACKABLE"" and ""STACKED"" will flag the goods line as ""STACKABLE"".'
-          example: 'No'
-        totalVolume:
-          enum:
-          - null
-          type: number
-          description: "Total volume of this package line.\n If package dimensions are present the volume can be auto calculated and this element omitted"
-          example: 2.112
-        palletSpace:
-          enum:
-          - null
-          type: integer
-          description: Number of pallets on the ground floor (e.g. if 6 pallets are stacked 2 by 2, palletSpace will be equal to 3). This is only available for product "Road"
-          format: int64
-          example: 1
-        loadingMeters:
-          enum:
-          - null
-          type: number
-          description: Loading meter of this package line (one meter of length of goods on a trailer). This is only available for product "Road"
-          example: 0.8
-        description:
-          enum:
-          - range[-infinity, 30]
-          type: string
-          description: Cargo description at package level.
-          example: Test Goods 1
-        shippingMarks:
-          enum:
-          - range[-infinity, 30]
-          type: string
-          description: Marks and numbers at package level. This is only available for product "Road".
-          example: Test Shipping Marks 1
-        shippingMarksList:
-          type: array
-          items:
-            type: string
-            description: Package level Marks and Numbers. Available for transport modes "Air", "Sea" and "Rail"
-            xml:
-              name: shippingMark
-          description: Package level Marks and Numbers. Available for transport modes "Air", "Sea" and "Rail"
-          xml:
-            wrapped: true
-        harmonizedCode:
-          type: array
-          items:
-            type: string
-            description: The HS code short for Harmonized Commodity Description and Coding System. List of numbers used by customs to classify a product. Consists of 6 to 15 digits.  Available for transport modes "Air", "Sea" and "Rail"
-            xml:
-              name: hsc
-          description: The HS code short for Harmonized Commodity Description and Coding System. List of numbers used by customs to classify a product. Consists of 6 to 15 digits.  Available for transport modes "Air", "Sea" and "Rail"
-          xml:
-            wrapped: true
-        temperatureMin:
-          enum:
-          - null
-          type: number
-          description: Minimum level temperature requirement for temperature controlled cargo. This is mandatory if "temperatureControlled" is TRUE.
-          example: -22
-        temperatureMax:
-          enum:
-          - null
-          type: number
-          description: Maximum level temperature requirement for temperature controlled cargo. This is mandatory if "temperatureControlled" is TRUE.
-          example: -18
-        containerNo:
-          enum:
-          - null
-          type: integer
-          description: "Reference to an FCL container line (see container section above).\n This is only to be used for products \"RAIL\" and \"SEA\".\n Use the running number of the container, not the value of the \"Ref\" tag of the container line."
-          format: int64
-          example: 0
-        battery:
-          $ref: '#/components/schemas/Battery'
-        isDangerous:
-          type: boolean
-          description: Set to "true" if the contents of your shipment are classified as dangerous goods. For product "Road" it is mandatory to send the dangerousGoods element. For products "Air", "Sea" and "Rail" the booking needs to be accompanied by shipper’s declaration for dangerous goods by document upload, email or other means.
-          example: true
-        trackingNumbers:
-          type: array
-          items:
-            type: string
-            description: 'SSCC tracking number for the package element. The attribute must repeat as many times as stated in package/quantity. The format has to be conform with the specifications outlined on the GS1 web site: https://www.gs1.org/standards/id-keys/sscc'
-            xml:
-              name: trackingNumber
-            example: '[”00157145990039103076”,”00157145990039103083”]'
-          description: 'SSCC tracking number for the package element. The attribute must repeat as many times as stated in package/quantity. The format has to be conform with the specifications outlined on the GS1 web site: https://www.gs1.org/standards/id-keys/sscc'
-          xml:
-            wrapped: true
-          example: '[”00157145990039103076”,”00157145990039103083”]'
-        dangerousGoods:
-          type: array
-          items:
-            $ref: '#/components/schemas/DangerousGoods'
-          description: "This section contains the details of the dangerous goods that need to be provided to DSV to execute a booking that contains dangerous goods. \nThis section can only be used for product \"ROAD\".\nFor products \"AIR\", \"SEA\" and \"RAIL\" the booking needs to be accompanied by shipper’s declaration for dangerous goods by document upload, email or other means.\n\nPlease consult the white paper for Dangerous Goods here: https://www.dsv.com/en/insights/expert-opinions/dangerous-goods for details what needs to be submitted in this section."
-          xml:
-            wrapped: true
-        grossWeight:
-          enum:
-          - null
-          type: number
-          description: Total gross weight for this package line. Gross weight cannot exceed Total weight. For product "ROAD" the minimum weight allowed is 1 KG and no decimal is allowed after the decimal point.
-          example: 1900
-          deprecated: true
-        cargoAircraftOnly:
-          type: boolean
-          description: Only used for dangerous goods packages, only used for product "AIR"
-          example: false
-        temperatureControlled:
-          type: boolean
-          description: Set to "true" if the package require a certain temperature (or temperature range) during transport. "temperatureMin" and "temperatureMax" attributes are required in case this is flagged as "true"
-          example: true
-      description: Contains a single package line with all associated attributes like type, quantity, weight, etc.
-    PortType:
+      description: Instruct DSV to exchange EUR pallets at the collection/delivery location. This service can only be selected for bookings with mode of transport “Road” in some countries. Please contact your local DSV office for more information.
+    ErrorDTO:
       required:
       - code
+      - message
       type: object
       properties:
         code:
-          enum:
-          - range[-infinity, 32]
           type: string
-          description: A valid UN location code with an seaport / airport / rail terminal
-          example: DK FDH
-        name:
+          description: Unique error code
+          example: ERR12345
+        message:
           type: string
-          description: The associated location name
-          example: Frederikshavn
-      description: UN Location code and Name of the departure rail terminal
-    Product:
+          description: Error message passed to the user
+          example: 'Not found booking: 40257145990010785188'
+        fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/FieldDTO'
+          description: List of fields that didn't pass validation
+        development:
+          $ref: '#/components/schemas/DevelopmentDTO'
+      description: Error
+    ContactPerson:
       required:
       - name
       type: object
       properties:
         name:
-          enum:
-          - Road
-          - Air
-          - Sea
-          - Rail
-          - Xpress
           type: string
-          description: 'Main transport mode selection:
-
-            - Road
-
-            - Air
-
-            - Sea
-
-            - Rail'
-          example: Sea
-        billOfLading:
-          enum:
-          - Express
-          - Original
-          type: string
-          description: 'Select the Bill of Lading type.
-
-            Mandatory when product.name = "Sea".
-
-            - Original = physical Bill of Lading
-
-            - Express = electronic Bill of Lading
-
-            Not required for Air, Road, or Rail.'
-          example: Original
-        containerMode:
-          enum:
-          - LCL
-          - FCL
-          type: string
-          description: 'Select the Container mode.
-
-            Mandatory when product.name = "Sea".
-
-            Optional when product.name = "Rail".
-
-            - FCL = full container load
-
-            - LCL = less than container load
-
-            Not available for Air or Road.'
-          example: FCL
-        containers:
-          type: array
-          items:
-            $ref: '#/components/schemas/Container'
-          description: "This section is only available for the products \"Sea\" and \"Rail\" while the Container mode is \"FCL\". \n\nIt is used to specify the required containers of a certain type. Additional attributes can be submitted for certain container types.\n\nMore details on container types can be found at https://www.dsv.com/en/our-solutions/modes-of-transport/sea-freight/shipping-container-dimensions"
-          xml:
-            wrapped: true
-        dropOff:
-          type: boolean
-          description: "\"Select the Pickup mode\n\n- false = Pickup by DSV, \n- true = Cargo handover to DSV at Warehouse or Terminal \n\"Drop Off\" service is available in Shippers country and product mode is either \"Air\", \"Sea\" or \"Rail\""
-          example: false
-        handover:
-          type: boolean
-          description: 'Select the Delivery mode:
-
-
-            - false = Delivery by DSV
-
-            - true = Cargo handover by DSV
-
-            (dropOff becomes mandatory when "Handover" service is available in Shippers country and product is either "AIR", "SEA" or "RAIL")'
-          example: false
-      description: 'Dependency rules:
-
-        - If product.name = "Sea": billOfLading and containerMode are mandatory.
-
-        - If product.name = "Rail": containerMode is optional; billOfLading is not required.
-
-        - If product.name is "Air" or "Road": billOfLading and containerMode are not applicable.
-
-        - If product.name is "Rail" or "Sea" and containerMode = "FCL": the containers section becomes available.
-
-        - dropOff and handover may become mandatory depending on country/service availability.'
-    FixTimeDeliveryService:
-      type: object
-    SeaPortSelectionService:
-      type: object
-      properties:
-        portOfLoading:
-          $ref: '#/components/schemas/PortType'
-        portOfDischarge:
-          $ref: '#/components/schemas/PortType'
-      description: The service allows to request the departure/arrival of the cargo on a specified port of loading/discharge. This service can only be selected for bookings with mode of transport "Sea". The port UN location code is mandatory, the port name is optional.
-    Container:
-      type: object
-      properties:
-        ref:
-          type: string
-          description: A reference identifying the container
-          example: TestContainerNumber1
-        type:
-          enum:
-          - 20DC
-          - 20GP
-          - 40DC
-          - 40GP
-          - 40HC
-          - 45HC
-          - 20RE
-          - 40RE
-          - 40REHC
-          - 45REHC
-          - 20OT
-          - 40OT
-          - 20FR
-          - 40FR
-          - 20PL
-          - 40PL
-          - 20GOH
-          - 40GOH
-          - 20DC_HT
-          - 20GP_SO
-          - 20HC
-          - 20OT_SO
-          - 22T0
-          - 20TC_SO
-          - 40DC_HT
-          - 40HC_HT
-          - 40HC_SO
-          - 40OT_SO
-          - 40DC_PW
-          - 40HC_PW
-          - 45HC_SO
-          - 45GPHC
-          - 45CS
-          - 20GP_FG
-          - 40GP_FG
-          - 40HC_FG
-          - UNDEFINED
-          type: string
-          description: "A container type is selected on the basis of the type and size of goods. \n- 20DC = 20' dry container\n- 20GP = 20' dry container\n- 40DC = 40' dry container\n- 40GP = 40' dry container\n- 20GP_SO = 20' dry - Shipper's Own container\n- 20HC = 20' high cube dry container\n- 40HC = 40' high cube dry container\n- 45HC = 45' high cube dry container\n- 20RE = 20' reefer container\n- 40RE = 40' reefer container\n- 40REHC = 40' high cube reefer container\n- 45REHC = 45' reefer container\n- 20OT = 20' open top container\n- 40OT = 40' open top container\n- 20OT_SO = 20' open top - Shipper's Own container\n- 40OT_SO = 40' open top - Shipper's Own container\n- 20DC_HT = 20' dry - Hard Top container\n- 40DC_HT = 40' Hard Top container\n- 40HC_HT = 40' high cube - Hard Top container\n- 40HC_SO = 40' high cube dry - Shipper's Own container\n- 45HC_SO = 45' high cube dry - Shipper's Own container\n- 40DC_PW = 40' dry pallet wide container\n- 40HC_PW = 40' high cube pallet wide container\n- 45GPHC = 45' high cube pallet wide container\n- 45CS = 45' cassette\n- 20FR = 20' flat rack container\n- 40FR = 40' flat rack container\n- 20PL = 20' platform container\n- 40PL = 40' platform container\n- 20GOH = 20' GOH container\n- 40GOH = 40' GOH container\n- 22T0 = 20' Tank container\n- 20TC_SO = 20' Tank - Shipper's Own container\n- 20GP_FG = 20' Food Grade Container\n- 40GP_FG = 40' Food Grade Container\n- 40HC_FG = 40' High cube dry (food grade) container\n- UNDEFINED = Other container type"
-          example: 20RE
-        genset:
-          type: boolean
-          description: A genset (generator set) is used to power the reefer container when normal power source is not available. E.g. when trucking over long distances or when chilled or sensitive cargo is being moved. Only available for reefer container types.
-          example: true
-        temp:
-          type: number
-          description: Maximum temperature allowed for moving the content in this container.Only available for reefer container types. UOM as specified in section “unitOfMeasure”. Accepted format decimal(3.1)
-          example: -20
-      description: Specify the required containers of a certain type. Additional attributes can be submitted for certain container types. More details on container types can be found at https://www.dsv.com/en/our-solutions/modes-of-transport/sea-freight/shipping-container-dimensions
-    DangerousGoods:
-      required:
-      - className
-      - grossWeight
-      - packagesCount
-      - packingGroup
-      - packingKind
-      - type
-      - unCode
-      type: object
-      properties:
-        className:
-          type: string
-          description: "The UN className can be derived from the mandatory unCode.\n If this value is supplied, it needs to match the UN className that is stored for the provided unCode."
-          example: '''9'''
-        subRisk:
-          type: string
-          description: "The UN subRisk can be derived from the mandatory unCode.\n If this value is supplied, it needs to match the UN subRisk that is stored for the provided unCode."
-          example: 9A
-        flashPoint:
-          type: number
-          description: "The flashPoint must be provided in the \"Unit of Measure\" selected for temperature in the units object.\nThis can only be used for dangerous goods type = \"IMDG\". \nThis value can be mandatory depending on the UN code."
-        limitedQuantity:
-          type: boolean
-          description: This value can be mandatory depending on the UN code.
-          example: true
-        marinePollutant:
-          type: boolean
-          description: This value can be mandatory depending on the UN code.
-          example: true
-        packingGroup:
-          type: string
-          description: This value can be mandatory depending on the UN code.
-          example: II
-        properShippingName:
-          type: string
-          description: "The UN properShippingName can be derived from the mandatory unCode.\n If this value is supplied, it needs to match the UN properShippingName that is stored for the provided unCode."
-          example: LITHIUM ION BATTERIES CONTAINED IN EQUIPMENT
-        technicalName:
-          type: string
-          description: This value can be mandatory depending on the UN code.
-        technicalNameNational:
-          type: string
-          description: This value can be mandatory depending on the UN code.
-        temperatureMin:
-          type: number
-          description: This value can be mandatory depending on the UN code.
-        temperatureMax:
-          type: number
-          description: This value can be mandatory depending on the UN code.
-        type:
-          enum:
-          - ADR
-          - IMDG
-          - IATA
-          - DGR
-          - RID
-          type: string
-          description: 'Classification type used for the declaration.
-
-            ADR = according to “Agreement concerning the International Carriage of Dangerous Goods by Road”
-
-            IMDG = according to “International Maritime Dangerous Goods Code” '
-          example: ADR
-        unCode:
-          type: string
-          description: The UN code identifying the Dangerous Goods.
-          example: '3481'
-        tunnelCode:
-          type: string
-          description: This value can be mandatory depending on the UN code.
-          example: E
-        packagesCount:
-          type: integer
-          description: Number of Packages containing these dangerous goods
-          format: int64
-          example: 2
-        packingKind:
-          enum:
-          - BAG
-          - BOX
-          - DRUM
-          - IBC
-          - JERRY
-          - CP
-          - LGM
-          - BOB
-          - PD
-          - SB
-          - DRM
-          - JCN
-          type: string
-          description: '"Package type containing these dangerous goods. Possible values are:
-
-
-            BAG - Bag
-
-            BOX - Carton / Box
-
-            IBC - Intermediate Bulk Container
-
-            CP - Composite Packaging
-
-            LGM - Light Gauge Metal Packaging
-
-            BOB - Bundle of Bottles
-
-            PD - Pressure Drum
-
-            SB - Steel Bottle
-
-            DRM - Drum
-
-            JCN - Jerry Can"
-
-            '
-          example: BOX
-        netWeight:
-          type: number
-          description: Net weight of the dangerous goods
-          example: 800
-        grossWeight:
-          type: number
-          description: Gross weight of the dangerous goods
-          example: 1000
-        netWeightUnit:
-          enum:
-          - KG
-          - M3
-          - DM3
-          - CM
-          - M
-          - LM
-          - LTR
-          - C
-          - LB
-          - FT3
-          - IN
-          - FT
-          - F
-          type: string
-          description: "Net Weight UOM: \nKG = Kilo \nLB = Pound\nLTR = Liter"
-        grossWeightUnit:
-          enum:
-          - KG
-          - M3
-          - DM3
-          - CM
-          - M
-          - LM
-          - LTR
-          - C
-          - LB
-          - FT3
-          - IN
-          - FT
-          - F
-          type: string
-          description: 'Gross Weight UOM:
-
-            - KG = Kilo
-
-            - LB = Pound'
-      description: 'This section contains the details of the dangerous goods that need to be provided to DSV to execute a booking that contains dangerous goods.
-
-        This section can only be used for product “Road”.
-
-        For products “Air”, “Sea” and “Rail” the booking needs to be accompanied by shipper’s declaration for dangerous goods by document upload, email or other means.
-
-
-        Please consult the white paper for Dangerous Goods here:  https://www.dsv.com/en/insights/expert-opinions/dangerous-goods for details what needs to be submitted in this section.'
-    Sender:
-      type: object
-      properties:
-        address:
-          $ref: '#/components/schemas/Address'
-        contact:
-          $ref: '#/components/schemas/ContactPerson'
-      description: 'Name and address of the party sending the goods (shipper).
-
-        If address is not already available, it will be created from supplied address data.'
-    OrderReference:
-      required:
-      - type
-      - value
-      type: object
-      properties:
-        value:
-          enum:
-          - range[-infinity, 30]
-          type: string
-          description: Reference value
-          example: Test Reference
-        type:
-          enum:
-          - SHIPPER_REFERENCE
-          - CONSIGNEE_REFERENCE
-          - INVOICING_REFERENCE
-          - CUSTOMS_REFERENCE
-          - ORDER_NUMBER
-          - OTHER
-          type: string
-          description: 'The reference type for the associated reference.
-
-            This must be present if the reference is posted.'
-          xml:
-            attribute: true
-          example: SHIPPER_REFERENCE
-      description: References to be send along booking that can be later on used to identify linked information.
-    Notify:
-      type: object
-      properties:
-        address:
-          $ref: '#/components/schemas/Address'
-        contact:
-          $ref: '#/components/schemas/ContactPerson'
-      description: Name and address of the party who will be notified
-    BookingParty:
-      type: object
-      properties:
-        address:
-          $ref: '#/components/schemas/Address'
-        contact:
-          $ref: '#/components/schemas/ContactPerson'
-      description: Name and address of the party that created the booking.
-    LocalTime:
-      type: object
-      properties:
-        hour:
-          type: integer
-          format: int32
-        minute:
-          type: integer
-          format: int32
-        second:
-          type: integer
-          format: int32
-        nano:
-          type: integer
-          format: int32
-      description: The requested pickup/delivery time (end of time window) using the 24 hours format hh:mm:ss
-      example: '14:15:00'
-    Units:
-      type: object
-      properties:
-        dimension:
-          enum:
-          - KG
-          - M3
-          - DM3
-          - CM
-          - M
-          - LM
-          - LTR
-          - C
-          - LB
-          - FT3
-          - IN
-          - FT
-          - F
-          type: string
-          description: 'Dimension UOM:
-
-
-            CM = Centimeter
-
-            M = Meter (only for Air, Sea and Rail)
-
-            IN = Inch
-
-            FT = Feet (only for Air, Sea and Rail)'
-          default: CM
-        weight:
-          enum:
-          - KG
-          - M3
-          - DM3
-          - CM
-          - M
-          - LM
-          - LTR
-          - C
-          - LB
-          - FT3
-          - IN
-          - FT
-          - F
-          type: string
-          description: 'Weight UOM:
-
-            - KG = Kilo
-
-            - LB = Pound'
-          default: KG
-        volume:
-          enum:
-          - KG
-          - M3
-          - DM3
-          - CM
-          - M
-          - LM
-          - LTR
-          - C
-          - LB
-          - FT3
-          - IN
-          - FT
-          - F
-          type: string
-          description: 'Volume UOM:
-
-
-            M3 = Cubic meter
-
-            DM3 = Cubic decimetre (only for Air, Sea and Rail)
-
-            LTR = Litre
-
-            FT3 = Cubic feet'
-          default: M3
-        loadingSpace:
-          enum:
-          - KG
-          - M3
-          - DM3
-          - CM
-          - M
-          - LM
-          - LTR
-          - C
-          - LB
-          - FT3
-          - IN
-          - FT
-          - F
-          type: string
-          description: 'Loading Meters UOM:
-
-
-            LM = Load Meter (only for Road)'
-          default: LM
-        temperature:
-          enum:
-          - KG
-          - M3
-          - DM3
-          - CM
-          - M
-          - LM
-          - LTR
-          - C
-          - LB
-          - FT3
-          - IN
-          - FT
-          - F
-          type: string
-          description: 'Temperature UOM:
-
-            - C = Celsius
-
-            - F = Fahrenheit'
-          default: C
-      description: Defines the units of measurement (UOM) used for all measurements within the package section. It is recommended to use either all metric or all imperial UOM.
-    B2CService:
-      type: object
-      properties:
-        phone:
-          enum:
-          - range[-infinity, 32]
-          type: string
-          example: '+4512345678'
+          description: Name of the contact person
+          example: Test Name
         email:
-          enum:
-          - range[-infinity, 32]
           type: string
-          example: B2CService@companyname.com
-    PreAdviceService:
-      type: object
-      properties:
-        phone:
+          description: Email address of the contact person
+          example: testemail@testcompany.com
+        telephone:
           enum:
-          - range[-infinity, 32]
+          - range[-infinity, 16]
           type: string
+          description: Phone number of the contact person.
           example: '+4512345678'
-        email:
-          enum:
-          - range[-infinity, 32]
-          type: string
-          example: PreAdvice@companyname.com
-      description: "This service will be deprecated.\n Please use \"preAdviceMailPickUp\" or \"preAdviceMailDelivery\""
+      description: All fields related to Contact Person e.g. Name, Phone, email
   securitySchemes:
     apiKeyHeader:
       type: apiKey

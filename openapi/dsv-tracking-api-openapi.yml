@@ -421,6 +421,24 @@ paths:
           description: Shipment not found
 components:
   schemas:
+    TrackingDelivery:
+      type: object
+      properties:
+        deliveryDate:
+          type: string
+          description: Date shipment was delivered.
+          format: date-time
+        deliverySignature:
+          type: string
+          description: Name of the person who signed.
+        deliveryLocation:
+          type: string
+          description: Delivery location.
+      description: Container for delivery details.
+      example:
+        deliveryDate: '2020-02-26T09:38:06.0000000+00:00'
+        deliverySignature: SMITH
+        deliveryLocation: Dock
     TrackingEvent:
       type: object
       properties:
@@ -478,24 +496,6 @@ components:
           type: string
         details:
           type: string
-    TrackingDelivery:
-      type: object
-      properties:
-        deliveryDate:
-          type: string
-          description: Date shipment was delivered.
-          format: date-time
-        deliverySignature:
-          type: string
-          description: Name of the person who signed.
-        deliveryLocation:
-          type: string
-          description: Delivery location.
-      description: Container for delivery details.
-      example:
-        deliveryDate: '2020-02-26T09:38:06.0000000+00:00'
-        deliverySignature: SMITH
-        deliveryLocation: Dock
     TrackingResponse:
       properties:
         errors:
