@@ -122,43 +122,6 @@ paths:
           description: Unauthorized
 components:
   schemas:
-    ErrorItem:
-      type: object
-      properties:
-        message:
-          type: string
-        details:
-          type: string
-    PackageType:
-      enum:
-      - PARCELS
-      - DOCUMENT
-      - ENVELOPE
-      type: string
-      description: Package type. Could be PARCELS / DOCUMENT / ENVELOPE. PARCELS by default.
-      default: PARCELS
-    ServiceCharge:
-      type: object
-      properties:
-        code:
-          type: string
-          description: Charge code
-          example: '30'
-        description:
-          type: string
-          description: Charge description
-          example: Insurance
-        monetaryValue:
-          maximum: 9999999.99
-          minimum: 0.0
-          type: number
-          description: Charge value amount. Amount is expressed exclusive tax.
-          format: double
-          example: 16
-      example:
-        code: '10'
-        description: Proof of Delivery
-        monetaryValue: 3.4
     ServiceComparatorResponse:
       type: object
       properties:
@@ -224,39 +187,26 @@ components:
             - code: '9'
               description: Residential Delivery Service
               monetaryValue: 2.9
+    CurrencyMonetaryType:
+      required:
+      - currencyCode
+      - monetaryValue
+      type: object
+      properties:
+        currencyCode:
+          $ref: '#/components/schemas/CurrencyCodeList'
+        monetaryValue:
+          minimum: 0.0
+          type: number
+          description: Monetary value
+          format: double
+          example: 250
     CurrencyCodeList:
       maxLength: 3
       type: string
       description: "Currency Code supported (EUR by default if not provided):\n * CAD -  Canadian Dollar\n * CNY  - Yuan Renminbi\n * DKK  - Danish Krone\n * EUR  - Euro\n * GBP  - British Pound\n * HKD  - Hong Kong Dollar\n * NOK  - Norwegian Krone\n * SEK  - Swedish krona\n * SGD  - Singapore Dollar\n * USD  - Dollar\n * ZAR  - Rand\n"
       default: EUR
       example: EUR
-    ServiceRates:
-      type: object
-      properties:
-        serviceCode:
-          type: string
-          description: DSV service code
-          example: DSVAirExpress
-        serviceDescription:
-          type: string
-          description: DSV service description
-          example: DSV XPress
-        etaMin:
-          type: string
-          description: Estimated Minimum Arrival Date
-          format: date
-        etaMax:
-          type: string
-          description: Estimated Maximum Arrival Date
-          format: date
-        rates:
-          $ref: '#/components/schemas/Rates'
-      description: Container for DSV service and rates information
-    CountryCodeList:
-      maxLength: 2
-      type: string
-      description: ISO_3166_1 Country Code
-      example: DK
     ServiceComparatorRequest:
       required:
       - dsvAccount
@@ -352,20 +302,73 @@ components:
           height: 30
           grossWeight: 6.5
         collectDate: '2000-09-25'
-    CurrencyMonetaryType:
-      required:
-      - currencyCode
-      - monetaryValue
+    CountryCodeList:
+      maxLength: 2
+      type: string
+      description: ISO_3166_1 Country Code
+      example: DK
+    ErrorItem:
       type: object
       properties:
-        currencyCode:
-          $ref: '#/components/schemas/CurrencyCodeList'
-        monetaryValue:
-          minimum: 0.0
-          type: number
-          description: Monetary value
-          format: double
-          example: 250
+        message:
+          type: string
+        details:
+          type: string
+    PackageType:
+      enum:
+      - PARCELS
+      - DOCUMENT
+      - ENVELOPE
+      type: string
+      description: Package type. Could be PARCELS / DOCUMENT / ENVELOPE. PARCELS by default.
+      default: PARCELS
+    ServiceRates:
+      type: object
+      properties:
+        serviceCode:
+          type: string
+          description: DSV service code
+          example: DSVAirExpress
+        serviceDescription:
+          type: string
+          description: DSV service description
+          example: DSV XPress
+        etaMin:
+          type: string
+          description: Estimated Minimum Arrival Date
+          format: date
+        etaMax:
+          type: string
+          description: Estimated Maximum Arrival Date
+          format: date
+        rates:
+          $ref: '#/components/schemas/Rates'
+      description: Container for DSV service and rates information
+    ServiceOptions:
+      required:
+      - packageType
+      type: object
+      properties:
+        timeOption:
+          maxLength: 80
+          type: string
+          description: Delivery Time Option, could be 9AM, 1030AM or 12PM
+        saturdayDelivery:
+          type: boolean
+          description: Saturday delivery. `false` by default. If `true`, saturday delivery is requested.
+          default: false
+        packageType:
+          $ref: '#/components/schemas/PackageType'
+        insurance:
+          $ref: '#/components/schemas/CurrencyMonetaryType'
+      description: Container for shipment service options
+      example:
+        timeOption: 9AM
+        saturdayDelivery: false
+        packageType: PARCELS
+        insurance:
+          currencyCode: DKK
+          monetaryValue: 2000
     Rates:
       type: object
       properties:
@@ -441,31 +444,6 @@ components:
         - code: '9'
           description: Residential Delivery Service
           monetaryValue: 2.9
-    ServiceOptions:
-      required:
-      - packageType
-      type: object
-      properties:
-        timeOption:
-          maxLength: 80
-          type: string
-          description: Delivery Time Option, could be 9AM, 1030AM or 12PM
-        saturdayDelivery:
-          type: boolean
-          description: Saturday delivery. `false` by default. If `true`, saturday delivery is requested.
-          default: false
-        packageType:
-          $ref: '#/components/schemas/PackageType'
-        insurance:
-          $ref: '#/components/schemas/CurrencyMonetaryType'
-      description: Container for shipment service options
-      example:
-        timeOption: 9AM
-        saturdayDelivery: false
-        packageType: PARCELS
-        insurance:
-          currencyCode: DKK
-          monetaryValue: 2000
     PackageDetail:
       required:
       - grossWeight
@@ -501,6 +479,28 @@ components:
         width: 30
         height: 30
         grossWeight: 8.5
+    ServiceCharge:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Charge code
+          example: '30'
+        description:
+          type: string
+          description: Charge description
+          example: Insurance
+        monetaryValue:
+          maximum: 9999999.99
+          minimum: 0.0
+          type: number
+          description: Charge value amount. Amount is expressed exclusive tax.
+          format: double
+          example: 16
+      example:
+        code: '10'
+        description: Proof of Delivery
+        monetaryValue: 3.4
   securitySchemes:
     apiKeyHeader:
       type: apiKey

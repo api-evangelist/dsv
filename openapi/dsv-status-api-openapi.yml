@@ -129,12 +129,27 @@ paths:
     - url: https://api.dsv.com/cl-demo/status/v1
 components:
   schemas:
-    NotificationType:
-      enum:
-      - Inbound
-      - Delivery
-      type: string
-      description: ''
+    FieldDTO:
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+          description: Error name
+          example: field_name
+        message:
+          type:
+          - string
+          - 'null'
+          description: Description of error
+          example: validation error
+        code:
+          type:
+          - string
+          - 'null'
+          description: Type of error
+          example: ERR12345
     NotificationStatusRequestDto:
       required:
       - warehouseId
@@ -157,64 +172,12 @@ components:
           description: InboundNotification Id or DeliveryNotification Id
           example: IN001
       description: Notification Status Request
-    DevelopmentDTO:
-      type: object
-      properties:
-        message:
-          type:
-          - string
-          - 'null'
-          description: Verbose, plain language description of the problem for the app developer with hints on how to fix it
-        exception:
-          type:
-          - string
-          - 'null'
-          description: Dump from exception
-    FieldDTO:
-      type: object
-      properties:
-        name:
-          type:
-          - string
-          - 'null'
-          description: Error name
-          example: field_name
-        message:
-          type:
-          - string
-          - 'null'
-          description: Description of error
-          example: validation error
-        code:
-          type:
-          - string
-          - 'null'
-          description: Type of error
-          example: ERR12345
-    NotificationStatusResponseDto:
-      type: object
-      properties:
-        warehouseId:
-          maxLength: 20
-          minLength: 0
-          type: string
-          description: To be resolved in Token database
-          example: 36643f9b7c1c48ef
-        status:
-          $ref: '#/components/schemas/OrderStatus'
-        notificationType:
-          $ref: '#/components/schemas/NotificationType'
-        notificationId:
-          maxLength: 20
-          minLength: 0
-          type: string
-          description: DeliveryNotification Id or InboundNotification Id
-          example: IN001
-        dateAndTimeOfChange:
-          type: string
-          description: 'Format: CCYY-MM-DDTHH:mm:ssZ'
-          example: '2025-03-25T14:30:00Z'
-      description: Notification Status Response
+    NotificationType:
+      enum:
+      - Inbound
+      - Delivery
+      type: string
+      description: ''
     ErrorDTO:
       required:
       - code
@@ -239,6 +202,30 @@ components:
             $ref: '#/components/schemas/FieldDTO'
         development:
           $ref: '#/components/schemas/DevelopmentDTO'
+    NotificationStatusResponseDto:
+      type: object
+      properties:
+        warehouseId:
+          maxLength: 20
+          minLength: 0
+          type: string
+          description: To be resolved in Token database
+          example: 36643f9b7c1c48ef
+        status:
+          $ref: '#/components/schemas/OrderStatus'
+        notificationType:
+          $ref: '#/components/schemas/NotificationType'
+        notificationId:
+          maxLength: 20
+          minLength: 0
+          type: string
+          description: DeliveryNotification Id or InboundNotification Id
+          example: IN001
+        dateAndTimeOfChange:
+          type: string
+          description: 'Format: CCYY-MM-DDTHH:mm:ssZ'
+          example: '2025-03-25T14:30:00Z'
+      description: Notification Status Response
     OrderStatus:
       enum:
       - Hold
@@ -259,6 +246,19 @@ components:
       - Kitting
       type: string
       description: ''
+    DevelopmentDTO:
+      type: object
+      properties:
+        message:
+          type:
+          - string
+          - 'null'
+          description: Verbose, plain language description of the problem for the app developer with hints on how to fix it
+        exception:
+          type:
+          - string
+          - 'null'
+          description: Dump from exception
   securitySchemes:
     apiKeyHeader:
       type: apiKey

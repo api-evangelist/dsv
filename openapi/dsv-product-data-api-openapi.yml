@@ -270,89 +270,21 @@ paths:
                   exception: string
 components:
   schemas:
-    WeightUOM:
+    ProductUOM:
       enum:
-      - GRM
+      - EACH
+      - INNERBOX
+      - BOX
+      - OUTERBOX
+      - LAYER
+      - PALLET
+      - METERS
+      - ROLLS
+      - LITER
+      - DRUMS
+      - CRATE
+      - BOTTLE
       - KGM
-      - ONZ
-      - LBR
-      - MLT
-      - LTR
-      - PTI
-      - GLI
-      type: string
-      description: ''
-    ProductDimensionsDto:
-      type: object
-      properties:
-        weight:
-          maximum: 9999999.999999
-          minimum: 0.0
-          type: number
-          description: 'Weight of the lowest track level of the product - default Uom is kilograms. [min: 0, max: 9999999.999999 (7.6)]'
-          example: 9999999.999999
-        weightUOM:
-          $ref: '#/components/schemas/WeightUOM'
-        volume:
-          maximum: 9999999.999999
-          minimum: 0.0
-          type: number
-          description: 'Volume of the lowest track level of the product - default Uom is cubic meter. min: 0, max: 9999999.999999 (7.6)'
-          example: 9999999.999999
-        volumeUOM:
-          $ref: '#/components/schemas/VolumeUOM'
-        height:
-          maximum: 9999.999
-          minimum: 0.0
-          type: number
-          description: 'Height of the lowest track level of the product - default Uom is meters. [min: 0, max: 9999.999 (4.3)]'
-          example: 9999.999
-        width:
-          maximum: 9999.999
-          minimum: 0.0
-          type: number
-          description: 'Width of the lowest track level of the product - default Uom is meters. [min: 0, max: 9999.999 (4.3)]'
-          example: 9999.999
-        depth:
-          maximum: 9999.999
-          minimum: 0.0
-          type: number
-          description: Depth (length) of the lowest track level of the product - default Uom is meters
-          example: 9999.999
-        dimensionUOM:
-          $ref: '#/components/schemas/DimensionUOM'
-      description: Product Dimensions
-    DevelopmentDTO:
-      type: object
-      properties:
-        message:
-          type: string
-          description: Verbose, plain language description of the problem for the app developer with hints on how to fix it
-        exception:
-          type: string
-          description: Dump from exception
-    ProductDescriptionDto:
-      required:
-      - description
-      type: object
-      properties:
-        language:
-          $ref: '#/components/schemas/CombinedLanguageCode'
-        description:
-          maxLength: 80
-          minLength: 0
-          type: string
-          description: Product description
-          example: Product description
-      description: ' Product Description'
-    DimensionUOM:
-      enum:
-      - MMT
-      - CMT
-      - DMT
-      - MTR
-      - INH
-      - FOT
       type: string
       description: ''
     ProductDto:
@@ -408,20 +340,25 @@ components:
             $ref: '#/components/schemas/ProductStackConfigurationDto'
           description: Product Stack Configuration
       description: Product
-    AdditionalInformationDto:
+    VolumeUOM:
+      enum:
+      - MMQ
+      - CMQ
+      - DMQ
+      - MTQ
+      - INQ
+      - FTQ
+      type: string
+      description: ''
+    DevelopmentDTO:
       type: object
       properties:
-        numericFields:
-          type: array
-          items:
-            $ref: '#/components/schemas/NumericFieldDto'
-          description: User defined numeric fields
-        textFields:
-          type: array
-          items:
-            $ref: '#/components/schemas/TextFieldDto'
-          description: User defined text fields
-      description: Additional Information
+        message:
+          type: string
+          description: Verbose, plain language description of the problem for the app developer with hints on how to fix it
+        exception:
+          type: string
+          description: Dump from exception
     TextFieldDto:
       required:
       - sequence
@@ -441,60 +378,227 @@ components:
           description: Max length 30 characters
           example: Value1
       description: User defined text fields
-    Gender:
+    CurrencyCode:
       enum:
-      - F
-      - M
+      - AED
+      - AFN
+      - ALL
+      - AMD
+      - ANG
+      - AOA
+      - ARS
+      - AUD
+      - AWG
+      - AZN
+      - BAM
+      - BBD
+      - BDT
+      - BGN
+      - BHD
+      - BIF
+      - BMD
+      - BND
+      - BOB
+      - BOV
+      - BRL
+      - BSD
+      - BTN
+      - BWP
+      - BYN
+      - BZD
+      - CAD
+      - CDF
+      - CHE
+      - CHF
+      - CHW
+      - CLF
+      - CLP
+      - CNY
+      - COP
+      - COU
+      - CRC
+      - CUC
+      - CUP
+      - CVE
+      - CZK
+      - DJF
+      - DKK
+      - DOP
+      - DZD
+      - EGP
+      - ERN
+      - ETB
+      - EUR
+      - FJD
+      - FKP
+      - GBP
+      - GEL
+      - GHS
+      - GIP
+      - GMD
+      - GNF
+      - GTQ
+      - GYD
+      - HKD
+      - HNL
+      - HTG
+      - HUF
+      - IDR
+      - ILS
+      - INR
+      - IQD
+      - IRR
+      - ISK
+      - JMD
+      - JOD
+      - JPY
+      - KES
+      - KGS
+      - KHR
+      - KMF
+      - KPW
+      - KRW
+      - KWD
+      - KYD
+      - KZT
+      - LAK
+      - LBP
+      - LKR
+      - LRD
+      - LSL
+      - LYD
+      - MAD
+      - MDL
+      - MGA
+      - MKD
+      - MMK
+      - MNT
+      - MOP
+      - MRU
+      - MUR
+      - MVR
+      - MWK
+      - MXN
+      - MXV
+      - MYR
+      - MZN
+      - NAD
+      - NGN
+      - NIO
+      - NOK
+      - NPR
+      - NZD
+      - OMR
+      - PAB
+      - PEN
+      - PGK
+      - PHP
+      - PKR
+      - PLN
+      - PYG
+      - QAR
+      - RON
+      - RSD
+      - RUB
+      - RWF
+      - SAR
+      - SBD
+      - SCR
+      - SDG
+      - SEK
+      - SGD
+      - SHP
+      - SLE
+      - SOS
+      - SRD
+      - SSP
+      - STN
+      - SVC
+      - SYP
+      - SZL
+      - THB
+      - TJS
+      - TMT
+      - TND
+      - TOP
+      - TRY
+      - TTD
+      - TWD
+      - TZS
+      - UAH
+      - UGX
+      - USD
+      - USN
+      - UYI
+      - UYU
+      - UZS
+      - VED
+      - VEF
+      - VND
+      - VUV
+      - WST
+      - XAF
+      - XCD
+      - XDR
+      - XOF
+      - XPF
+      - XSU
+      - XUA
+      - YER
+      - ZAR
+      - ZMW
+      - ZWL
+      type: string
+      description: 3-digit currency code (ISO 4217-3) <br>If valueOfProduct is provided, currency becomes mandatory
+    WeightUOM:
+      enum:
+      - GRM
+      - KGM
+      - ONZ
+      - LBR
+      - MLT
+      - LTR
+      - PTI
+      - GLI
       type: string
       description: ''
-    ProductValueDto:
+    ErrorDTO:
+      required:
+      - code
+      - message
       type: object
       properties:
-        valueOfProduct:
-          maximum: 999999999.999999
-          minimum: 0.0
-          type: number
-          description: Selling price of the lowest track level of the product
-          example: 999
-        currency:
-          $ref: '#/components/schemas/CurrencyCode'
-      description: Product Value
-    ProductDataDto:
-      type: object
-      properties:
-        products:
+        code:
+          minLength: 1
+          type: string
+          description: Unique error code
+          example: ERR12345
+        message:
+          minLength: 1
+          type: string
+          description: Error message passed to the user
+          example: 'Not found id : 4025988810785188'
+        fields:
           type: array
           items:
-            $ref: '#/components/schemas/ProductDto'
-          description: Products Details
-      description: ' Product Data'
-    ProductUOM:
-      enum:
-      - EACH
-      - INNERBOX
-      - BOX
-      - OUTERBOX
-      - LAYER
-      - PALLET
-      - METERS
-      - ROLLS
-      - LITER
-      - DRUMS
-      - CRATE
-      - BOTTLE
-      - KGM
-      type: string
-      description: ''
-    VolumeUOM:
-      enum:
-      - MMQ
-      - CMQ
-      - DMQ
-      - MTQ
-      - INQ
-      - FTQ
-      type: string
-      description: ''
+            $ref: '#/components/schemas/FieldDTO'
+        development:
+          $ref: '#/components/schemas/DevelopmentDTO'
+    FieldDTO:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Error name
+          example: field_name
+        message:
+          type: string
+          description: Description of error
+          example: validation error
+        code:
+          type: string
+          description: Type of error
+          example: ERR12345
     ProductAttributesDto:
       type: object
       properties:
@@ -543,25 +647,20 @@ components:
           description: Universal Product Code of the lowest track level of the product
           example: '12345678901234'
       description: Product Attributes
-    NumericFieldDto:
+    ProductDescriptionDto:
       required:
-      - sequence
+      - description
       type: object
       properties:
-        sequence:
-          maximum: 4.0
-          minimum: 1.0
-          type: integer
-          description: User Def Num 1-4
-          format: int32
-          example: 1
-        value:
-          maximum: 999999999.999999
-          minimum: 0.0
-          type: number
-          description: 'min: 0, max: 999999999.999999 (9.6)'
-          example: 999999999.999999
-      description: User defined numeric fields
+        language:
+          $ref: '#/components/schemas/CombinedLanguageCode'
+        description:
+          maxLength: 80
+          minLength: 0
+          type: string
+          description: Product description
+          example: Product description
+      description: ' Product Description'
     CombinedLanguageCode:
       enum:
       - AF_ZA
@@ -765,221 +864,12 @@ components:
       - ZU_ZA
       type: string
       description: ''
-    AdditionalProductAttributesDto:
-      type: object
-      properties:
-        productLotControlled:
-          type: boolean
-          description: Batch controlled Product "true - Yes / false - No"
-          example: true
-        productExpirationDateControlled:
-          type: boolean
-          description: Expiry Date controlled Product "true - Yes / false - No"
-          example: false
-        productHoldsSerialNumber:
-          type: boolean
-          description: Serial number captured required for Product "true - Yes / false - No"
-          example: true
-        additionalProductId:
-          maxLength: 50
-          minLength: 0
-          type: string
-          description: Additional Product Id
-          example: PRD12345678
-        additionalProductDescription:
-          maxLength: 250
-          minLength: 0
-          type: string
-          description: Additional Product Description
-          example: AdditionalProductDescription
-      description: Additional Product Attributes
-    CurrencyCode:
+    Gender:
       enum:
-      - AED
-      - AFN
-      - ALL
-      - AMD
-      - ANG
-      - AOA
-      - ARS
-      - AUD
-      - AWG
-      - AZN
-      - BAM
-      - BBD
-      - BDT
-      - BGN
-      - BHD
-      - BIF
-      - BMD
-      - BND
-      - BOB
-      - BOV
-      - BRL
-      - BSD
-      - BTN
-      - BWP
-      - BYN
-      - BZD
-      - CAD
-      - CDF
-      - CHE
-      - CHF
-      - CHW
-      - CLF
-      - CLP
-      - CNY
-      - COP
-      - COU
-      - CRC
-      - CUC
-      - CUP
-      - CVE
-      - CZK
-      - DJF
-      - DKK
-      - DOP
-      - DZD
-      - EGP
-      - ERN
-      - ETB
-      - EUR
-      - FJD
-      - FKP
-      - GBP
-      - GEL
-      - GHS
-      - GIP
-      - GMD
-      - GNF
-      - GTQ
-      - GYD
-      - HKD
-      - HNL
-      - HTG
-      - HUF
-      - IDR
-      - ILS
-      - INR
-      - IQD
-      - IRR
-      - ISK
-      - JMD
-      - JOD
-      - JPY
-      - KES
-      - KGS
-      - KHR
-      - KMF
-      - KPW
-      - KRW
-      - KWD
-      - KYD
-      - KZT
-      - LAK
-      - LBP
-      - LKR
-      - LRD
-      - LSL
-      - LYD
-      - MAD
-      - MDL
-      - MGA
-      - MKD
-      - MMK
-      - MNT
-      - MOP
-      - MRU
-      - MUR
-      - MVR
-      - MWK
-      - MXN
-      - MXV
-      - MYR
-      - MZN
-      - NAD
-      - NGN
-      - NIO
-      - NOK
-      - NPR
-      - NZD
-      - OMR
-      - PAB
-      - PEN
-      - PGK
-      - PHP
-      - PKR
-      - PLN
-      - PYG
-      - QAR
-      - RON
-      - RSD
-      - RUB
-      - RWF
-      - SAR
-      - SBD
-      - SCR
-      - SDG
-      - SEK
-      - SGD
-      - SHP
-      - SLE
-      - SOS
-      - SRD
-      - SSP
-      - STN
-      - SVC
-      - SYP
-      - SZL
-      - THB
-      - TJS
-      - TMT
-      - TND
-      - TOP
-      - TRY
-      - TTD
-      - TWD
-      - TZS
-      - UAH
-      - UGX
-      - USD
-      - USN
-      - UYI
-      - UYU
-      - UZS
-      - VED
-      - VEF
-      - VND
-      - VUV
-      - WST
-      - XAF
-      - XCD
-      - XDR
-      - XOF
-      - XPF
-      - XSU
-      - XUA
-      - YER
-      - ZAR
-      - ZMW
-      - ZWL
+      - F
+      - M
       type: string
-      description: 3-digit currency code (ISO 4217-3) <br>If valueOfProduct is provided, currency becomes mandatory
-    FieldDTO:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Error name
-          example: field_name
-        message:
-          type: string
-          description: Description of error
-          example: validation error
-        code:
-          type: string
-          description: Type of error
-          example: ERR12345
+      description: ''
     ProductStackConfigurationDto:
       type: object
       properties:
@@ -1029,28 +919,138 @@ components:
         dimensionUOM:
           $ref: '#/components/schemas/DimensionUOM'
       description: Product Stack Configuration
-    ErrorDTO:
+    NumericFieldDto:
       required:
-      - code
-      - message
+      - sequence
       type: object
       properties:
-        code:
-          minLength: 1
+        sequence:
+          maximum: 4.0
+          minimum: 1.0
+          type: integer
+          description: User Def Num 1-4
+          format: int32
+          example: 1
+        value:
+          maximum: 999999999.999999
+          minimum: 0.0
+          type: number
+          description: 'min: 0, max: 999999999.999999 (9.6)'
+          example: 999999999.999999
+      description: User defined numeric fields
+    ProductValueDto:
+      type: object
+      properties:
+        valueOfProduct:
+          maximum: 999999999.999999
+          minimum: 0.0
+          type: number
+          description: Selling price of the lowest track level of the product
+          example: 999
+        currency:
+          $ref: '#/components/schemas/CurrencyCode'
+      description: Product Value
+    AdditionalProductAttributesDto:
+      type: object
+      properties:
+        productLotControlled:
+          type: boolean
+          description: Batch controlled Product "true - Yes / false - No"
+          example: true
+        productExpirationDateControlled:
+          type: boolean
+          description: Expiry Date controlled Product "true - Yes / false - No"
+          example: false
+        productHoldsSerialNumber:
+          type: boolean
+          description: Serial number captured required for Product "true - Yes / false - No"
+          example: true
+        additionalProductId:
+          maxLength: 50
+          minLength: 0
           type: string
-          description: Unique error code
-          example: ERR12345
-        message:
-          minLength: 1
+          description: Additional Product Id
+          example: PRD12345678
+        additionalProductDescription:
+          maxLength: 250
+          minLength: 0
           type: string
-          description: Error message passed to the user
-          example: 'Not found id : 4025988810785188'
-        fields:
+          description: Additional Product Description
+          example: AdditionalProductDescription
+      description: Additional Product Attributes
+    ProductDimensionsDto:
+      type: object
+      properties:
+        weight:
+          maximum: 9999999.999999
+          minimum: 0.0
+          type: number
+          description: 'Weight of the lowest track level of the product - default Uom is kilograms. [min: 0, max: 9999999.999999 (7.6)]'
+          example: 9999999.999999
+        weightUOM:
+          $ref: '#/components/schemas/WeightUOM'
+        volume:
+          maximum: 9999999.999999
+          minimum: 0.0
+          type: number
+          description: 'Volume of the lowest track level of the product - default Uom is cubic meter. min: 0, max: 9999999.999999 (7.6)'
+          example: 9999999.999999
+        volumeUOM:
+          $ref: '#/components/schemas/VolumeUOM'
+        height:
+          maximum: 9999.999
+          minimum: 0.0
+          type: number
+          description: 'Height of the lowest track level of the product - default Uom is meters. [min: 0, max: 9999.999 (4.3)]'
+          example: 9999.999
+        width:
+          maximum: 9999.999
+          minimum: 0.0
+          type: number
+          description: 'Width of the lowest track level of the product - default Uom is meters. [min: 0, max: 9999.999 (4.3)]'
+          example: 9999.999
+        depth:
+          maximum: 9999.999
+          minimum: 0.0
+          type: number
+          description: Depth (length) of the lowest track level of the product - default Uom is meters
+          example: 9999.999
+        dimensionUOM:
+          $ref: '#/components/schemas/DimensionUOM'
+      description: Product Dimensions
+    AdditionalInformationDto:
+      type: object
+      properties:
+        numericFields:
           type: array
           items:
-            $ref: '#/components/schemas/FieldDTO'
-        development:
-          $ref: '#/components/schemas/DevelopmentDTO'
+            $ref: '#/components/schemas/NumericFieldDto'
+          description: User defined numeric fields
+        textFields:
+          type: array
+          items:
+            $ref: '#/components/schemas/TextFieldDto'
+          description: User defined text fields
+      description: Additional Information
+    ProductDataDto:
+      type: object
+      properties:
+        products:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductDto'
+          description: Products Details
+      description: ' Product Data'
+    DimensionUOM:
+      enum:
+      - MMT
+      - CMT
+      - DMT
+      - MTR
+      - INH
+      - FOT
+      type: string
+      description: ''
   securitySchemes:
     apiKeyHeader:
       type: apiKey

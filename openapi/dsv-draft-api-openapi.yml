@@ -747,6 +747,1010 @@ paths:
                   exception: string
 components:
   schemas:
+    Incoterms:
+      required:
+      - code
+      - location
+      type: object
+      properties:
+        code:
+          enum:
+          - EXW
+          - FCA
+          - FAS
+          - FOB
+          - DDP
+          - CPT
+          - CIP
+          - DAF
+          - DES
+          - DEQ
+          - DDU
+          - DAT
+          - DAP
+          - CFR
+          - CIF
+          - DPU
+          type: string
+          description: 'Incoterms® Code according to Incoterms® 2020
+
+
+            Ex Works (EXW)
+
+            Free Carrier (FCA)
+
+            Carriage Paid to (CPT)
+
+            Carriage and Insurance paid to (CIP)
+
+            Delivered at Place (DAP)
+
+            Delivered at Place Unloaded (DPU) NEW
+
+            Delivered Duty Paid (DDP)
+
+
+            The rules for sea and inland waterway transport also include:
+
+
+            Free Alongside Ship (FAS)
+
+            Free On Board (FOB)
+
+            Cost and Freight (CFR)
+
+            Cost Insurance and Freight (CIF)"
+
+            '
+          example: EXW
+        location:
+          type: string
+          description: The place should always be specified as precisely as possible, and not just be a city name.
+          example: TestCityPickup1
+      description: Incoterms® describe the rights and obligations applicable between the buyer and seller of the goods being transported. They set out when transfer of liability and control take place, who pays for what and who is liable in the event of any damage or loss of goods in transit. The place should always be specified as precisely as possible, and not just be a city name. For more information check the Incoterms® Information on https://www.dsv.com/en/insights/expert-opinions/what-are-incoterms
+    Address:
+      type: object
+      properties:
+        companyName:
+          enum:
+          - range[-infinity, 36]
+          type: string
+          description: Company Name is mandatory if the address is not provided via "mdm", "addressId" or based on a myDSV template. (length 36)
+          example: Test Company Name Inc.
+        addressId:
+          enum:
+          - range[-infinity, 40]
+          type: string
+          description: 'Customer addressId refers to an entry in the address book within DSV’s myDSV customer portal. If a unique match is found, that address will be used and all other address fields will be ignored. This validation has lower priority than the "mdm" field. If the addressId is not unique, full address details must be provided. When the provided address matches an existing one, it will be used; otherwise, a new entry will be created in the myDSV address book. (Length: 40)'
+          example: AddressID123
+        addressLine1:
+          enum:
+          - range[-infinity, 36]
+          type: string
+          description: Address line 1
+          example: Test Address Line 1
+        addressLine2:
+          enum:
+          - range[-infinity, 36]
+          type: string
+          example: Test Address Line 2
+        addressLine3:
+          type: string
+          readOnly: true
+        city:
+          enum:
+          - range[-infinity, 40]
+          type: string
+          description: City name  is mandatory if the address is not provided via "mdm", "addressId" or based on a myDSV template.
+          example: Test Address City
+        countryCode:
+          enum:
+          - AF
+          - AL
+          - DZ
+          - AS
+          - AD
+          - AO
+          - AI
+          - AQ
+          - AG
+          - AR
+          - AM
+          - AW
+          - AU
+          - AT
+          - AZ
+          - BS
+          - BH
+          - BD
+          - BB
+          - BY
+          - BE
+          - BZ
+          - BJ
+          - BM
+          - BT
+          - BO
+          - BQ
+          - BA
+          - BW
+          - BR
+          - IO
+          - BN
+          - BG
+          - BF
+          - BI
+          - KH
+          - CM
+          - CA
+          - CV
+          - KY
+          - CF
+          - TD
+          - CL
+          - CN
+          - CX
+          - CC
+          - CO
+          - KM
+          - CG
+          - CD
+          - CK
+          - CR
+          - CI
+          - HR
+          - CU
+          - CW
+          - CY
+          - CZ
+          - DK
+          - DJ
+          - DM
+          - DO
+          - EC
+          - EG
+          - SV
+          - GQ
+          - ER
+          - EE
+          - ET
+          - FK
+          - FO
+          - FJ
+          - FI
+          - FR
+          - GF
+          - PF
+          - TF
+          - GA
+          - GM
+          - GE
+          - DE
+          - GH
+          - GI
+          - GR
+          - GL
+          - GD
+          - GP
+          - GU
+          - GT
+          - GG
+          - GN
+          - GW
+          - GY
+          - HT
+          - HM
+          - VA
+          - HN
+          - HK
+          - HU
+          - IS
+          - IN
+          - ID
+          - IR
+          - IQ
+          - IE
+          - IM
+          - IL
+          - IT
+          - JM
+          - JP
+          - JE
+          - JO
+          - KZ
+          - KE
+          - KI
+          - KP
+          - KR
+          - KW
+          - KG
+          - LA
+          - LV
+          - LB
+          - LS
+          - LR
+          - LY
+          - LI
+          - LT
+          - LU
+          - MO
+          - MK
+          - MG
+          - MW
+          - MY
+          - MV
+          - ML
+          - MT
+          - MH
+          - MQ
+          - MR
+          - MU
+          - YT
+          - MX
+          - FM
+          - MD
+          - MC
+          - MN
+          - ME
+          - MS
+          - MA
+          - MZ
+          - MM
+          - NA
+          - NR
+          - NP
+          - NL
+          - NC
+          - NZ
+          - NI
+          - NE
+          - NG
+          - NU
+          - NF
+          - MP
+          - 'NO'
+          - OM
+          - PK
+          - PW
+          - PS
+          - PA
+          - PG
+          - PY
+          - PE
+          - PH
+          - PN
+          - PL
+          - PT
+          - PR
+          - QA
+          - RE
+          - RO
+          - RU
+          - RW
+          - BL
+          - SH
+          - KN
+          - LC
+          - MF
+          - PM
+          - VC
+          - WS
+          - SM
+          - ST
+          - SA
+          - SN
+          - RS
+          - SC
+          - SL
+          - SG
+          - SX
+          - SK
+          - SI
+          - SB
+          - SO
+          - ZA
+          - GS
+          - SS
+          - ES
+          - LK
+          - SD
+          - SR
+          - SJ
+          - SZ
+          - SE
+          - CH
+          - SY
+          - TW
+          - TJ
+          - TZ
+          - TH
+          - TL
+          - TG
+          - TK
+          - TO
+          - TT
+          - TN
+          - TR
+          - TM
+          - TC
+          - TV
+          - UG
+          - UA
+          - AE
+          - GB
+          - US
+          - UM
+          - UY
+          - UZ
+          - VU
+          - VE
+          - VN
+          - VG
+          - VI
+          - WF
+          - EH
+          - YE
+          - ZM
+          - ZW
+          - AX
+          - XK
+          type: string
+          description: 2 letter ISO country code (e.g. US)  is mandatory if the address is not provided via "mdm", "addressId" or based on a myDSV template.
+          example: DK
+        state:
+          enum:
+          - range[-infinity, 40]
+          type: string
+          description: State name or state code.
+        zipCode:
+          enum:
+          - range[-infinity, 10]
+          type: string
+          description: Postal code  is mandatory if the address is not provided via "mdm", "addressId" or based on a myDSV template.
+          example: '1234'
+        instructions:
+          enum:
+          - range[-infinity, 36]
+          type: string
+          description: Instructions related to this party on the booking (e.g. pickup instructions for the pickup address)
+          example: Specific Address Party Instrution
+          deprecated: true
+        mdm:
+          enum:
+          - range[-infinity, 10]
+          type: string
+          description: DSV debitor number ( MDM number)
+          example: '6412345678'
+        eori:
+          enum:
+          - EU Member State ISO 3166-1 alpha-2 Country Code + up to 15 alphanumeric uppercased characters
+          type: string
+          description: Economic Operators Registration and Identification number (EORI number).
+          example: DE123456789012AZ
+        approvedShipper:
+          type: string
+          description: Information about the sender/pickup being an approved shipper. Only available for transport modes "Air".
+      description: All fields related to the address of the business partner.
+    CustomsClearance:
+      type: object
+      properties:
+        customsClearance:
+          enum:
+          - 'NO'
+          - BY_DSV
+          - BY_3RD
+          - BY_OWN
+          type: string
+          example: BY_DSV
+        customsExportDeclaration:
+          enum:
+          - 'NO'
+          - BY_DSV
+          - BY_3RD
+          - BY_OWN
+          type: string
+          example: BY_OWN
+    RailPortSelectionService:
+      type: object
+      properties:
+        portOfLoading:
+          $ref: '#/components/schemas/PortType'
+        portOfDischarge:
+          $ref: '#/components/schemas/PortType'
+      description: The service allows to request the departure/arrival of the cargo on a specified port of loading/discharge. The UN location code is mandatory, the name is optional. This service can only be selected for bookings with mode of transport "Rail".
+    DateTimeRange:
+      required:
+      - date
+      type: object
+      properties:
+        date:
+          type: string
+          description: The requested pickup/delivery date using the format YYYY-MM-DD
+          format: date
+          example: '2020-08-30'
+        start:
+          $ref: '#/components/schemas/LocalTime'
+        end:
+          $ref: '#/components/schemas/LocalTime'
+      description: Date with time range. Used e.g., for Pickup Date and Time.
+    Amount:
+      required:
+      - currency
+      - value
+      type: object
+      properties:
+        value:
+          type: number
+          description: Cash amount requested
+          example: 123.45
+        currency:
+          enum:
+          - AED
+          - AFN
+          - ALL
+          - AMD
+          - ANG
+          - AOA
+          - ARS
+          - AUD
+          - AWG
+          - AZM
+          - BAM
+          - BBD
+          - BDT
+          - BGN
+          - BHD
+          - BIF
+          - BMD
+          - BND
+          - BOB
+          - BRL
+          - BSD
+          - BTN
+          - BWP
+          - BYR
+          - BZD
+          - CAD
+          - CDF
+          - CHF
+          - CLP
+          - CNY
+          - COP
+          - CRC
+          - CUP
+          - CVE
+          - CYP
+          - CZK
+          - DJF
+          - DKK
+          - DOP
+          - DZD
+          - EEK
+          - EGP
+          - ERN
+          - ETB
+          - EUR
+          - FJD
+          - FKP
+          - GBP
+          - GEL
+          - GHC
+          - GIP
+          - GMD
+          - GNF
+          - GTQ
+          - GYD
+          - HKD
+          - HNL
+          - HRK
+          - HTG
+          - HUF
+          - IDR
+          - ILS
+          - INR
+          - IQD
+          - IRR
+          - ISK
+          - JMD
+          - JOD
+          - JPY
+          - KES
+          - KGS
+          - KHR
+          - KMF
+          - KPW
+          - KRW
+          - KWD
+          - KYD
+          - KZT
+          - LAK
+          - LBP
+          - LKR
+          - LRD
+          - LSL
+          - LTL
+          - LVL
+          - LYD
+          - MAD
+          - MDL
+          - MGF
+          - MKD
+          - MMK
+          - MNT
+          - MOP
+          - MRO
+          - MTL
+          - MUR
+          - MVR
+          - MWK
+          - MXN
+          - MYR
+          - MZM
+          - NAD
+          - NGN
+          - NIO
+          - NOK
+          - NPR
+          - NZD
+          - OMR
+          - PAB
+          - PEN
+          - PGK
+          - PHP
+          - PKR
+          - PLN
+          - PYG
+          - QAR
+          - ROL
+          - RON
+          - RUB
+          - RWF
+          - SAR
+          - SBD
+          - SCR
+          - SDD
+          - SEK
+          - SGD
+          - SHP
+          - SIT
+          - SKK
+          - SLL
+          - SOS
+          - SRG
+          - STD
+          - SVC
+          - SYP
+          - SZL
+          - THB
+          - TJS
+          - TMM
+          - TND
+          - TOP
+          - TRL
+          - TRY
+          - TTD
+          - TWD
+          - TZS
+          - UAH
+          - UGX
+          - USD
+          - UYU
+          - UZS
+          - VEB
+          - VEF
+          - VND
+          - VUV
+          - WST
+          - XAF
+          - XAG
+          - XAU
+          - XCD
+          - XDR
+          - XOF
+          - XPD
+          - XPF
+          - XPT
+          - YER
+          - YUM
+          - ZAR
+          - ZMK
+          - ZWD
+          type: string
+          description: 3 letter ISO 4217 currency code of the cash amount Must be present if an amount is posted. (e.g. USD)
+          xml:
+            attribute: true
+          example: DKK
+      description: Represents the insurance amount
+    OrderUpdates:
+      required:
+      - packages
+      type: object
+      properties:
+        packages:
+          type: array
+          items:
+            $ref: '#/components/schemas/Package'
+          description: The packages section contains all package lines that shall be included in the booking
+        units:
+          $ref: '#/components/schemas/Units'
+      description: This structure contains the parameters for updating packages in draft bookings
+      default: OrderUpdates
+      xml:
+        name: orderUpdates
+        namespace: http://www.mydsv.com/Order
+    Battery:
+      type: object
+      properties:
+        batteryType:
+          enum:
+          - DRY
+          - LITHIUM
+          type: string
+          description: Battery type
+        batteryPackageType:
+          enum:
+          - IN_EQUIPMENT
+          - SEPARATE
+          - WITH_EQUIPMENT
+          type: string
+          description: Battery Package type
+      description: Battery information
+    OrderReference:
+      required:
+      - type
+      - value
+      type: object
+      properties:
+        value:
+          enum:
+          - range[-infinity, 30]
+          type: string
+          description: Reference value
+          example: Test Reference
+        type:
+          enum:
+          - SHIPPER_REFERENCE
+          - CONSIGNEE_REFERENCE
+          - INVOICING_REFERENCE
+          - CUSTOMS_REFERENCE
+          - ORDER_NUMBER
+          - OTHER
+          type: string
+          description: 'The reference type for the associated reference.
+
+            This must be present if the reference is posted.'
+          xml:
+            attribute: true
+          example: SHIPPER_REFERENCE
+      description: References to be send along booking that can be later on used to identify linked information.
+    DevelopmentDTO:
+      type: object
+      properties:
+        message:
+          type: string
+          description: verbose, plain language description of the problem for the app developer with hints on how to fix it
+        exception:
+          type: string
+          description: dump from exception
+      description: Development
+      deprecated: true
+    Units:
+      type: object
+      properties:
+        dimension:
+          enum:
+          - KG
+          - M3
+          - DM3
+          - CM
+          - M
+          - LM
+          - LTR
+          - C
+          - LB
+          - FT3
+          - IN
+          - FT
+          - F
+          type: string
+          description: 'Dimension UOM:
+
+
+            CM = Centimeter
+
+            M = Meter (only for Air, Sea and Rail)
+
+            IN = Inch
+
+            FT = Feet (only for Air, Sea and Rail)'
+          default: CM
+        weight:
+          enum:
+          - KG
+          - M3
+          - DM3
+          - CM
+          - M
+          - LM
+          - LTR
+          - C
+          - LB
+          - FT3
+          - IN
+          - FT
+          - F
+          type: string
+          description: 'Weight UOM:
+
+            - KG = Kilo
+
+            - LB = Pound'
+          default: KG
+        volume:
+          enum:
+          - KG
+          - M3
+          - DM3
+          - CM
+          - M
+          - LM
+          - LTR
+          - C
+          - LB
+          - FT3
+          - IN
+          - FT
+          - F
+          type: string
+          description: 'Volume UOM:
+
+
+            M3 = Cubic meter
+
+            DM3 = Cubic decimetre (only for Air, Sea and Rail)
+
+            LTR = Litre
+
+            FT3 = Cubic feet'
+          default: M3
+        loadingSpace:
+          enum:
+          - KG
+          - M3
+          - DM3
+          - CM
+          - M
+          - LM
+          - LTR
+          - C
+          - LB
+          - FT3
+          - IN
+          - FT
+          - F
+          type: string
+          description: 'Loading Meters UOM:
+
+
+            LM = Load Meter (only for Road)'
+          default: LM
+        temperature:
+          enum:
+          - KG
+          - M3
+          - DM3
+          - CM
+          - M
+          - LM
+          - LTR
+          - C
+          - LB
+          - FT3
+          - IN
+          - FT
+          - F
+          type: string
+          description: 'Temperature UOM:
+
+            - C = Celsius
+
+            - F = Fahrenheit'
+          default: C
+      description: Defines the units of measurement (UOM) used for all measurements within the package section. It is recommended to use either all metric or all imperial UOM.
+    Container:
+      type: object
+      properties:
+        ref:
+          type: string
+          description: A reference identifying the container
+          example: TestContainerNumber1
+        type:
+          enum:
+          - 20DC
+          - 20GP
+          - 40DC
+          - 40GP
+          - 40HC
+          - 45HC
+          - 20RE
+          - 40RE
+          - 40REHC
+          - 45REHC
+          - 20OT
+          - 40OT
+          - 20FR
+          - 40FR
+          - 20PL
+          - 40PL
+          - 20GOH
+          - 40GOH
+          - 20DC_HT
+          - 20GP_SO
+          - 20HC
+          - 20OT_SO
+          - 22T0
+          - 20TC_SO
+          - 40DC_HT
+          - 40HC_HT
+          - 40HC_SO
+          - 40OT_SO
+          - 40DC_PW
+          - 40HC_PW
+          - 45HC_SO
+          - 45GPHC
+          - 45CS
+          - 20GP_FG
+          - 40GP_FG
+          - 40HC_FG
+          - UNDEFINED
+          type: string
+          description: "A container type is selected on the basis of the type and size of goods. \n- 20DC = 20' dry container\n- 20GP = 20' dry container\n- 40DC = 40' dry container\n- 40GP = 40' dry container\n- 20GP_SO = 20' dry - Shipper's Own container\n- 20HC = 20' high cube dry container\n- 40HC = 40' high cube dry container\n- 45HC = 45' high cube dry container\n- 20RE = 20' reefer container\n- 40RE = 40' reefer container\n- 40REHC = 40' high cube reefer container\n- 45REHC = 45' reefer container\n- 20OT = 20' open top container\n- 40OT = 40' open top container\n- 20OT_SO = 20' open top - Shipper's Own container\n- 40OT_SO = 40' open top - Shipper's Own container\n- 20DC_HT = 20' dry - Hard Top container\n- 40DC_HT = 40' Hard Top container\n- 40HC_HT = 40' high cube - Hard Top container\n- 40HC_SO = 40' high cube dry - Shipper's Own container\n- 45HC_SO = 45' high cube dry - Shipper's Own container\n- 40DC_PW = 40' dry pallet wide container\n- 40HC_PW = 40' high cube pallet wide container\n- 45GPHC = 45' high cube pallet wide container\n- 45CS = 45' cassette\n- 20FR = 20' flat rack container\n- 40FR = 40' flat rack container\n- 20PL = 20' platform container\n- 40PL = 40' platform container\n- 20GOH = 20' GOH container\n- 40GOH = 40' GOH container\n- 22T0 = 20' Tank container\n- 20TC_SO = 20' Tank - Shipper's Own container\n- 20GP_FG = 20' Food Grade Container\n- 40GP_FG = 40' Food Grade Container\n- 40HC_FG = 40' High cube dry (food grade) container\n- UNDEFINED = Other container type"
+          example: 20RE
+        genset:
+          type: boolean
+          description: A genset (generator set) is used to power the reefer container when normal power source is not available. E.g. when trucking over long distances or when chilled or sensitive cargo is being moved. Only available for reefer container types.
+          example: true
+        temp:
+          type: number
+          description: Maximum temperature allowed for moving the content in this container.Only available for reefer container types. UOM as specified in section “unitOfMeasure”. Accepted format decimal(3.1)
+          example: -20
+      description: Specify the required containers of a certain type. Additional attributes can be submitted for certain container types. More details on container types can be found at https://www.dsv.com/en/our-solutions/modes-of-transport/sea-freight/shipping-container-dimensions
+    SingleResponseEntityObject:
+      type: object
+    InsuranceService:
+      required:
+      - amount
+      - category
+      type: object
+      properties:
+        amount:
+          $ref: '#/components/schemas/Amount'
+        category:
+          enum:
+          - STD
+          - MTR
+          - HHD
+          - FRA
+          - UUG
+          type: string
+          description: 'Insurance category. Must be present if an amount is posted.
+
+            STD = Standard Goods
+
+            MTR = Motor vehicles, aircrafts, water- and pleasure crafts
+
+            HHD = Household goods
+
+            FRA = Fragile goods, furniture, marble ceramics, art, antiques, etc.
+
+            UUG = used and/or unpacked goods
+
+            Must be present if an amount is posted.'
+          example: STD
+      description: Insure your goods at DSV’s own insurance company. More information about this service can be found at https://www.dsv.com/en/our-solutions/modes-of-transport/value-added-services/cargo-insurance
+    SimpleService:
+      required:
+      - name
+      type: object
+      properties:
+        name:
+          type: string
+          description: "This is a subcategory used for additional services of local agreements.\n Please contact your local DSV contact for more information."
+      description: This is a subcategory used for additional services of local agreements. Please contact your local DSV contact for more information.
+    Sender:
+      type: object
+      properties:
+        address:
+          $ref: '#/components/schemas/Address'
+        contact:
+          $ref: '#/components/schemas/ContactPerson'
+      description: 'Name and address of the party sending the goods (shipper).
+
+        If address is not already available, it will be created from supplied address data.'
+    PortType:
+      required:
+      - code
+      type: object
+      properties:
+        code:
+          enum:
+          - range[-infinity, 32]
+          type: string
+          description: A valid UN location code with an seaport / airport / rail terminal
+          example: DK FDH
+        name:
+          type: string
+          description: The associated location name
+          example: Frederikshavn
+      description: UN Location code and Name of the departure rail terminal
+    LocalTime:
+      type: object
+      properties:
+        hour:
+          type: integer
+          format: int32
+        minute:
+          type: integer
+          format: int32
+        second:
+          type: integer
+          format: int32
+        nano:
+          type: integer
+          format: int32
+      description: The requested pickup/delivery time (end of time window) using the 24 hours format hh:mm:ss
+      example: '14:15:00'
+    ErrorDTO:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: string
+          description: Unique error code
+          example: ERR12345
+        message:
+          type: string
+          description: Error message passed to the user
+          example: 'Not found booking: 40257145990010785188'
+        fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/FieldDTO'
+          description: List of fields that didn't pass validation
+        development:
+          $ref: '#/components/schemas/DevelopmentDTO'
+      description: Error
+    Parties:
+      required:
+      - bookingParty
+      - receiver
+      - sender
+      type: object
+      properties:
+        sender:
+          $ref: '#/components/schemas/Sender'
+        receiver:
+          $ref: '#/components/schemas/Receiver'
+        delivery:
+          $ref: '#/components/schemas/Delivery'
+        pickup:
+          $ref: '#/components/schemas/Pickup'
+        notify:
+          $ref: '#/components/schemas/Notify'
+        freightPayer:
+          $ref: '#/components/schemas/FreightPayer'
+        bookingParty:
+          $ref: '#/components/schemas/BookingParty'
+        carrier:
+          $ref: '#/components/schemas/Carrier'
+        party:
+          type: array
+          items:
+            $ref: '#/components/schemas/Party'
+          description: reserved for future use
+      description: Contains all parties involved in the booking. See the party definition section for more details.
     Package:
       required:
       - description
@@ -950,106 +1954,6 @@ components:
           description: Set to "true" if the package require a certain temperature (or temperature range) during transport. "temperatureMin" and "temperatureMax" attributes are required in case this is flagged as "true"
           example: true
       description: Contains a single package line with all associated attributes like type, quantity, weight, etc.
-    Container:
-      type: object
-      properties:
-        ref:
-          type: string
-          description: A reference identifying the container
-          example: TestContainerNumber1
-        type:
-          enum:
-          - 20DC
-          - 20GP
-          - 40DC
-          - 40GP
-          - 40HC
-          - 45HC
-          - 20RE
-          - 40RE
-          - 40REHC
-          - 45REHC
-          - 20OT
-          - 40OT
-          - 20FR
-          - 40FR
-          - 20PL
-          - 40PL
-          - 20GOH
-          - 40GOH
-          - 20DC_HT
-          - 20GP_SO
-          - 20HC
-          - 20OT_SO
-          - 22T0
-          - 20TC_SO
-          - 40DC_HT
-          - 40HC_HT
-          - 40HC_SO
-          - 40OT_SO
-          - 40DC_PW
-          - 40HC_PW
-          - 45HC_SO
-          - 45GPHC
-          - 45CS
-          - 20GP_FG
-          - 40GP_FG
-          - 40HC_FG
-          - UNDEFINED
-          type: string
-          description: "A container type is selected on the basis of the type and size of goods. \n- 20DC = 20' dry container\n- 20GP = 20' dry container\n- 40DC = 40' dry container\n- 40GP = 40' dry container\n- 20GP_SO = 20' dry - Shipper's Own container\n- 20HC = 20' high cube dry container\n- 40HC = 40' high cube dry container\n- 45HC = 45' high cube dry container\n- 20RE = 20' reefer container\n- 40RE = 40' reefer container\n- 40REHC = 40' high cube reefer container\n- 45REHC = 45' reefer container\n- 20OT = 20' open top container\n- 40OT = 40' open top container\n- 20OT_SO = 20' open top - Shipper's Own container\n- 40OT_SO = 40' open top - Shipper's Own container\n- 20DC_HT = 20' dry - Hard Top container\n- 40DC_HT = 40' Hard Top container\n- 40HC_HT = 40' high cube - Hard Top container\n- 40HC_SO = 40' high cube dry - Shipper's Own container\n- 45HC_SO = 45' high cube dry - Shipper's Own container\n- 40DC_PW = 40' dry pallet wide container\n- 40HC_PW = 40' high cube pallet wide container\n- 45GPHC = 45' high cube pallet wide container\n- 45CS = 45' cassette\n- 20FR = 20' flat rack container\n- 40FR = 40' flat rack container\n- 20PL = 20' platform container\n- 40PL = 40' platform container\n- 20GOH = 20' GOH container\n- 40GOH = 40' GOH container\n- 22T0 = 20' Tank container\n- 20TC_SO = 20' Tank - Shipper's Own container\n- 20GP_FG = 20' Food Grade Container\n- 40GP_FG = 40' Food Grade Container\n- 40HC_FG = 40' High cube dry (food grade) container\n- UNDEFINED = Other container type"
-          example: 20RE
-        genset:
-          type: boolean
-          description: A genset (generator set) is used to power the reefer container when normal power source is not available. E.g. when trucking over long distances or when chilled or sensitive cargo is being moved. Only available for reefer container types.
-          example: true
-        temp:
-          type: number
-          description: Maximum temperature allowed for moving the content in this container.Only available for reefer container types. UOM as specified in section “unitOfMeasure”. Accepted format decimal(3.1)
-          example: -20
-      description: Specify the required containers of a certain type. Additional attributes can be submitted for certain container types. More details on container types can be found at https://www.dsv.com/en/our-solutions/modes-of-transport/sea-freight/shipping-container-dimensions
-    B2CService:
-      type: object
-      properties:
-        phone:
-          enum:
-          - range[-infinity, 32]
-          type: string
-          example: '+4512345678'
-        email:
-          enum:
-          - range[-infinity, 32]
-          type: string
-          example: B2CService@companyname.com
-    Parties:
-      required:
-      - bookingParty
-      - receiver
-      - sender
-      type: object
-      properties:
-        sender:
-          $ref: '#/components/schemas/Sender'
-        receiver:
-          $ref: '#/components/schemas/Receiver'
-        delivery:
-          $ref: '#/components/schemas/Delivery'
-        pickup:
-          $ref: '#/components/schemas/Pickup'
-        notify:
-          $ref: '#/components/schemas/Notify'
-        freightPayer:
-          $ref: '#/components/schemas/FreightPayer'
-        bookingParty:
-          $ref: '#/components/schemas/BookingParty'
-        carrier:
-          $ref: '#/components/schemas/Carrier'
-        party:
-          type: array
-          items:
-            $ref: '#/components/schemas/Party'
-          description: reserved for future use
-      description: Contains all parties involved in the booking. See the party definition section for more details.
     FreightPayer:
       type: object
       properties:
@@ -1058,225 +1962,15 @@ components:
         contact:
           $ref: '#/components/schemas/ContactPerson'
       description: Name and address of the party that receives the freight invoice.<BR>This address type is only available for product "Road".<BR>If provided for product "Air", "Sea", or "Rail" it will be ignored.
-    Pickup:
-      type: object
-      properties:
-        address:
-          $ref: '#/components/schemas/Address'
-        contact:
-          $ref: '#/components/schemas/ContactPerson'
-      description: Name and address of the party shipment is picked up.
-    PreAdviceService:
-      type: object
-      properties:
-        phone:
-          enum:
-          - range[-infinity, 32]
-          type: string
-          example: '+4512345678'
-        email:
-          enum:
-          - range[-infinity, 32]
-          type: string
-          example: PreAdvice@companyname.com
-      description: "This service will be deprecated.\n Please use \"preAdviceMailPickUp\" or \"preAdviceMailDelivery\""
-    DevelopmentDTO:
-      type: object
-      properties:
-        message:
-          type: string
-          description: verbose, plain language description of the problem for the app developer with hints on how to fix it
-        exception:
-          type: string
-          description: dump from exception
-      description: Development
-      deprecated: true
-    Party:
+    SpotQuoteNumberService:
       required:
-      - role
+      - number
       type: object
       properties:
-        address:
-          $ref: '#/components/schemas/Address'
-        contact:
-          $ref: '#/components/schemas/ContactPerson'
-        role:
+        number:
           type: string
-          description: Business role of the party
-      description: Reserved for future use.
-    Carrier:
-      type: object
-      properties:
-        address:
-          $ref: '#/components/schemas/Address'
-        contact:
-          $ref: '#/components/schemas/ContactPerson'
-      description: Name and address of the carrier
-    Battery:
-      type: object
-      properties:
-        batteryType:
-          enum:
-          - DRY
-          - LITHIUM
-          type: string
-          description: Battery type
-        batteryPackageType:
-          enum:
-          - IN_EQUIPMENT
-          - SEPARATE
-          - WITH_EQUIPMENT
-          type: string
-          description: Battery Package type
-      description: Battery information
-    FixTimeDeliveryService:
-      type: object
-    Units:
-      type: object
-      properties:
-        dimension:
-          enum:
-          - KG
-          - M3
-          - DM3
-          - CM
-          - M
-          - LM
-          - LTR
-          - C
-          - LB
-          - FT3
-          - IN
-          - FT
-          - F
-          type: string
-          description: 'Dimension UOM:
-
-
-            CM = Centimeter
-
-            M = Meter (only for Air, Sea and Rail)
-
-            IN = Inch
-
-            FT = Feet (only for Air, Sea and Rail)'
-          default: CM
-        weight:
-          enum:
-          - KG
-          - M3
-          - DM3
-          - CM
-          - M
-          - LM
-          - LTR
-          - C
-          - LB
-          - FT3
-          - IN
-          - FT
-          - F
-          type: string
-          description: 'Weight UOM:
-
-            - KG = Kilo
-
-            - LB = Pound'
-          default: KG
-        volume:
-          enum:
-          - KG
-          - M3
-          - DM3
-          - CM
-          - M
-          - LM
-          - LTR
-          - C
-          - LB
-          - FT3
-          - IN
-          - FT
-          - F
-          type: string
-          description: 'Volume UOM:
-
-
-            M3 = Cubic meter
-
-            DM3 = Cubic decimetre (only for Air, Sea and Rail)
-
-            LTR = Litre
-
-            FT3 = Cubic feet'
-          default: M3
-        loadingSpace:
-          enum:
-          - KG
-          - M3
-          - DM3
-          - CM
-          - M
-          - LM
-          - LTR
-          - C
-          - LB
-          - FT3
-          - IN
-          - FT
-          - F
-          type: string
-          description: 'Loading Meters UOM:
-
-
-            LM = Load Meter (only for Road)'
-          default: LM
-        temperature:
-          enum:
-          - KG
-          - M3
-          - DM3
-          - CM
-          - M
-          - LM
-          - LTR
-          - C
-          - LB
-          - FT3
-          - IN
-          - FT
-          - F
-          type: string
-          description: 'Temperature UOM:
-
-            - C = Celsius
-
-            - F = Fahrenheit'
-          default: C
-      description: Defines the units of measurement (UOM) used for all measurements within the package section. It is recommended to use either all metric or all imperial UOM.
-    DateTimeRange:
-      required:
-      - date
-      type: object
-      properties:
-        date:
-          type: string
-          description: The requested pickup/delivery date using the format YYYY-MM-DD
-          format: date
-          example: '2020-08-30'
-        start:
-          $ref: '#/components/schemas/LocalTime'
-        end:
-          $ref: '#/components/schemas/LocalTime'
-      description: Date with time range. Used e.g., for Pickup Date and Time.
-    RailPortSelectionService:
-      type: object
-      properties:
-        portOfLoading:
-          $ref: '#/components/schemas/PortType'
-        portOfDischarge:
-          $ref: '#/components/schemas/PortType'
-      description: The service allows to request the departure/arrival of the cargo on a specified port of loading/discharge. The UN location code is mandatory, the name is optional. This service can only be selected for bookings with mode of transport "Rail".
+          description: This field carries the quotation number as received on the spot quotation
+      description: You can fill in the reference received from DSV in a spot quotation to be used for invoicing this booking.
     Order:
       required:
       - bookingReferenceCode
@@ -1387,91 +2081,199 @@ components:
           type: string
           description: Specifies the product code.
       description: Main structure, represents the booking
-    SeaPortSelectionService:
+    BookingParty:
       type: object
       properties:
-        portOfLoading:
-          $ref: '#/components/schemas/PortType'
-        portOfDischarge:
-          $ref: '#/components/schemas/PortType'
-      description: The service allows to request the departure/arrival of the cargo on a specified port of loading/discharge. This service can only be selected for bookings with mode of transport "Sea". The port UN location code is mandatory, the port name is optional.
-    CashOnDeliveryService:
+        address:
+          $ref: '#/components/schemas/Address'
+        contact:
+          $ref: '#/components/schemas/ContactPerson'
+      description: Name and address of the party that created the booking.
+    Delivery:
+      type: object
+      properties:
+        address:
+          $ref: '#/components/schemas/Address'
+        contact:
+          $ref: '#/components/schemas/ContactPerson'
+      description: Name and address of the party where shipment is delivered
+    Product:
       required:
-      - amount
+      - name
       type: object
       properties:
-        amount:
-          $ref: '#/components/schemas/Amount'
-      description: Request DSV to collect payment for the goods you are sending. This service can only be selected for bookings with mode of transport "Road" in some countries. Please contact your local DSV office for more information.
-    InsuranceService:
-      required:
-      - amount
-      - category
-      type: object
-      properties:
-        amount:
-          $ref: '#/components/schemas/Amount'
-        category:
+        name:
           enum:
-          - STD
-          - MTR
-          - HHD
-          - FRA
-          - UUG
+          - Road
+          - Air
+          - Sea
+          - Rail
+          - Xpress
           type: string
-          description: 'Insurance category. Must be present if an amount is posted.
+          description: 'Main transport mode selection:
 
-            STD = Standard Goods
+            - Road
 
-            MTR = Motor vehicles, aircrafts, water- and pleasure crafts
+            - Air
 
-            HHD = Household goods
+            - Sea
 
-            FRA = Fragile goods, furniture, marble ceramics, art, antiques, etc.
+            - Rail'
+          example: Sea
+        billOfLading:
+          enum:
+          - Express
+          - Original
+          type: string
+          description: 'Select the Bill of Lading type.
 
-            UUG = used and/or unpacked goods
+            Mandatory when product.name = "Sea".
 
-            Must be present if an amount is posted.'
-          example: STD
-      description: Insure your goods at DSV’s own insurance company. More information about this service can be found at https://www.dsv.com/en/our-solutions/modes-of-transport/value-added-services/cargo-insurance
-    OrderReference:
+            - Original = physical Bill of Lading
+
+            - Express = electronic Bill of Lading
+
+            Not required for Air, Road, or Rail.'
+          example: Original
+        containerMode:
+          enum:
+          - LCL
+          - FCL
+          type: string
+          description: 'Select the Container mode.
+
+            Mandatory when product.name = "Sea".
+
+            Optional when product.name = "Rail".
+
+            - FCL = full container load
+
+            - LCL = less than container load
+
+            Not available for Air or Road.'
+          example: FCL
+        containers:
+          type: array
+          items:
+            $ref: '#/components/schemas/Container'
+          description: "This section is only available for the products \"Sea\" and \"Rail\" while the Container mode is \"FCL\". \n\nIt is used to specify the required containers of a certain type. Additional attributes can be submitted for certain container types.\n\nMore details on container types can be found at https://www.dsv.com/en/our-solutions/modes-of-transport/sea-freight/shipping-container-dimensions"
+          xml:
+            wrapped: true
+        dropOff:
+          type: boolean
+          description: "\"Select the Pickup mode\n\n- false = Pickup by DSV, \n- true = Cargo handover to DSV at Warehouse or Terminal \n\"Drop Off\" service is available in Shippers country and product mode is either \"Air\", \"Sea\" or \"Rail\""
+          example: false
+        handover:
+          type: boolean
+          description: 'Select the Delivery mode:
+
+
+            - false = Delivery by DSV
+
+            - true = Cargo handover by DSV
+
+            (dropOff becomes mandatory when "Handover" service is available in Shippers country and product is either "AIR", "SEA" or "RAIL")'
+          example: false
+      description: 'Dependency rules:
+
+        - If product.name = "Sea": billOfLading and containerMode are mandatory.
+
+        - If product.name = "Rail": containerMode is optional; billOfLading is not required.
+
+        - If product.name is "Air" or "Road": billOfLading and containerMode are not applicable.
+
+        - If product.name is "Rail" or "Sea" and containerMode = "FCL": the containers section becomes available.
+
+        - dropOff and handover may become mandatory depending on country/service availability.'
+    FieldDTO:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Error name
+          example: field_name
+        message:
+          type: string
+          description: Description of error
+          example: validation error
+        code:
+          type: string
+          description: Type of error
+          example: ERR12345
+      description: Field
+    AirportSelectionService:
+      type: object
+      properties:
+        airportOfDeparture:
+          $ref: '#/components/schemas/PortType'
+        airportOfDestination:
+          $ref: '#/components/schemas/PortType'
+      description: The service allows to request the departure/arrival of the cargo on a specified airport. The airport UN location code is mandatory, the airport name is optional. This service can only be selected for bookings with mode of transport "Air".
+    PalletExchangeService:
       required:
+      - quantity
       - type
-      - value
       type: object
       properties:
-        value:
-          enum:
-          - range[-infinity, 30]
-          type: string
-          description: Reference value
-          example: Test Reference
+        quantity:
+          type: integer
+          description: Number of pallets requested to be exchanged
+          format: int64
+          example: 2
         type:
           enum:
-          - SHIPPER_REFERENCE
-          - CONSIGNEE_REFERENCE
-          - INVOICING_REFERENCE
-          - CUSTOMS_REFERENCE
-          - ORDER_NUMBER
-          - OTHER
+          - BAG
+          - CAN
+          - CAS
+          - CLL
+          - CON
+          - CRT
+          - CTN
+          - DRM
+          - EUP
+          - EUR
+          - GIB
+          - HPL
+          - IBC
+          - IPL
+          - JCN
+          - KPL
+          - LOAD
+          - LOD
+          - LOT
+          - PKG
+          - PLL
+          - PLT
+          - PXL
+          - QPL
+          - UPL
+          - RLL
+          - PPL
           type: string
-          description: 'The reference type for the associated reference.
-
-            This must be present if the reference is posted.'
-          xml:
-            attribute: true
-          example: SHIPPER_REFERENCE
-      description: References to be send along booking that can be later on used to identify linked information.
-    PlaceBookingResponse:
-      required:
-      - bookingId
+          description: 'Currently only supported for Euro pallets. Must be present if quantity is posted: EUR'
+          example: EUR
+      description: Instruct DSV to exchange EUR pallets at the collection/delivery location. This service can only be selected for bookings with mode of transport “Road” in some countries. Please contact your local DSV office for more information.
+    Notify:
       type: object
       properties:
-        bookingId:
+        address:
+          $ref: '#/components/schemas/Address'
+        contact:
+          $ref: '#/components/schemas/ContactPerson'
+      description: Name and address of the party who will be notified
+    B2CService:
+      type: object
+      properties:
+        phone:
+          enum:
+          - range[-infinity, 32]
           type: string
-          description: Unique identifier of the DSV booking
-          example: '40257145990010780000'
-      description: Contains information about submitted booking
+          example: '+4512345678'
+        email:
+          enum:
+          - range[-infinity, 32]
+          type: string
+          example: B2CService@companyname.com
     DangerousGoods:
       required:
       - className
@@ -1643,414 +2445,81 @@ components:
 
 
         Please consult the white paper for Dangerous Goods here:  https://www.dsv.com/en/insights/expert-opinions/dangerous-goods for details what needs to be submitted in this section.'
-    Receiver:
+    PreAdviceService:
+      type: object
+      properties:
+        phone:
+          enum:
+          - range[-infinity, 32]
+          type: string
+          example: '+4512345678'
+        email:
+          enum:
+          - range[-infinity, 32]
+          type: string
+          example: PreAdvice@companyname.com
+      description: "This service will be deprecated.\n Please use \"preAdviceMailPickUp\" or \"preAdviceMailDelivery\""
+    CashOnDeliveryService:
+      required:
+      - amount
+      type: object
+      properties:
+        amount:
+          $ref: '#/components/schemas/Amount'
+      description: Request DSV to collect payment for the goods you are sending. This service can only be selected for bookings with mode of transport "Road" in some countries. Please contact your local DSV office for more information.
+    Party:
+      required:
+      - role
       type: object
       properties:
         address:
           $ref: '#/components/schemas/Address'
         contact:
           $ref: '#/components/schemas/ContactPerson'
-      description: Name and address of the party receiving the shipment (consignee).
-    SingleResponseEntityObject:
-      type: object
-    Amount:
-      required:
-      - currency
-      - value
-      type: object
-      properties:
-        value:
-          type: number
-          description: Cash amount requested
-          example: 123.45
-        currency:
-          enum:
-          - AED
-          - AFN
-          - ALL
-          - AMD
-          - ANG
-          - AOA
-          - ARS
-          - AUD
-          - AWG
-          - AZM
-          - BAM
-          - BBD
-          - BDT
-          - BGN
-          - BHD
-          - BIF
-          - BMD
-          - BND
-          - BOB
-          - BRL
-          - BSD
-          - BTN
-          - BWP
-          - BYR
-          - BZD
-          - CAD
-          - CDF
-          - CHF
-          - CLP
-          - CNY
-          - COP
-          - CRC
-          - CUP
-          - CVE
-          - CYP
-          - CZK
-          - DJF
-          - DKK
-          - DOP
-          - DZD
-          - EEK
-          - EGP
-          - ERN
-          - ETB
-          - EUR
-          - FJD
-          - FKP
-          - GBP
-          - GEL
-          - GHC
-          - GIP
-          - GMD
-          - GNF
-          - GTQ
-          - GYD
-          - HKD
-          - HNL
-          - HRK
-          - HTG
-          - HUF
-          - IDR
-          - ILS
-          - INR
-          - IQD
-          - IRR
-          - ISK
-          - JMD
-          - JOD
-          - JPY
-          - KES
-          - KGS
-          - KHR
-          - KMF
-          - KPW
-          - KRW
-          - KWD
-          - KYD
-          - KZT
-          - LAK
-          - LBP
-          - LKR
-          - LRD
-          - LSL
-          - LTL
-          - LVL
-          - LYD
-          - MAD
-          - MDL
-          - MGF
-          - MKD
-          - MMK
-          - MNT
-          - MOP
-          - MRO
-          - MTL
-          - MUR
-          - MVR
-          - MWK
-          - MXN
-          - MYR
-          - MZM
-          - NAD
-          - NGN
-          - NIO
-          - NOK
-          - NPR
-          - NZD
-          - OMR
-          - PAB
-          - PEN
-          - PGK
-          - PHP
-          - PKR
-          - PLN
-          - PYG
-          - QAR
-          - ROL
-          - RON
-          - RUB
-          - RWF
-          - SAR
-          - SBD
-          - SCR
-          - SDD
-          - SEK
-          - SGD
-          - SHP
-          - SIT
-          - SKK
-          - SLL
-          - SOS
-          - SRG
-          - STD
-          - SVC
-          - SYP
-          - SZL
-          - THB
-          - TJS
-          - TMM
-          - TND
-          - TOP
-          - TRL
-          - TRY
-          - TTD
-          - TWD
-          - TZS
-          - UAH
-          - UGX
-          - USD
-          - UYU
-          - UZS
-          - VEB
-          - VEF
-          - VND
-          - VUV
-          - WST
-          - XAF
-          - XAG
-          - XAU
-          - XCD
-          - XDR
-          - XOF
-          - XPD
-          - XPF
-          - XPT
-          - YER
-          - YUM
-          - ZAR
-          - ZMK
-          - ZWD
+        role:
           type: string
-          description: 3 letter ISO 4217 currency code of the cash amount Must be present if an amount is posted. (e.g. USD)
-          xml:
-            attribute: true
-          example: DKK
-      description: Represents the insurance amount
-    Product:
-      required:
-      - name
+          description: Business role of the party
+      description: Reserved for future use.
+    FixTimeDeliveryService:
+      type: object
+    SeaPortSelectionService:
       type: object
       properties:
-        name:
-          enum:
-          - Road
-          - Air
-          - Sea
-          - Rail
-          - Xpress
-          type: string
-          description: 'Main transport mode selection:
-
-            - Road
-
-            - Air
-
-            - Sea
-
-            - Rail'
-          example: Sea
-        billOfLading:
-          enum:
-          - Express
-          - Original
-          type: string
-          description: 'Select the Bill of Lading type.
-
-            Mandatory when product.name = "Sea".
-
-            - Original = physical Bill of Lading
-
-            - Express = electronic Bill of Lading
-
-            Not required for Air, Road, or Rail.'
-          example: Original
-        containerMode:
-          enum:
-          - LCL
-          - FCL
-          type: string
-          description: 'Select the Container mode.
-
-            Mandatory when product.name = "Sea".
-
-            Optional when product.name = "Rail".
-
-            - FCL = full container load
-
-            - LCL = less than container load
-
-            Not available for Air or Road.'
-          example: FCL
-        containers:
-          type: array
-          items:
-            $ref: '#/components/schemas/Container'
-          description: "This section is only available for the products \"Sea\" and \"Rail\" while the Container mode is \"FCL\". \n\nIt is used to specify the required containers of a certain type. Additional attributes can be submitted for certain container types.\n\nMore details on container types can be found at https://www.dsv.com/en/our-solutions/modes-of-transport/sea-freight/shipping-container-dimensions"
-          xml:
-            wrapped: true
-        dropOff:
-          type: boolean
-          description: "\"Select the Pickup mode\n\n- false = Pickup by DSV, \n- true = Cargo handover to DSV at Warehouse or Terminal \n\"Drop Off\" service is available in Shippers country and product mode is either \"Air\", \"Sea\" or \"Rail\""
-          example: false
-        handover:
-          type: boolean
-          description: 'Select the Delivery mode:
-
-
-            - false = Delivery by DSV
-
-            - true = Cargo handover by DSV
-
-            (dropOff becomes mandatory when "Handover" service is available in Shippers country and product is either "AIR", "SEA" or "RAIL")'
-          example: false
-      description: 'Dependency rules:
-
-        - If product.name = "Sea": billOfLading and containerMode are mandatory.
-
-        - If product.name = "Rail": containerMode is optional; billOfLading is not required.
-
-        - If product.name is "Air" or "Road": billOfLading and containerMode are not applicable.
-
-        - If product.name is "Rail" or "Sea" and containerMode = "FCL": the containers section becomes available.
-
-        - dropOff and handover may become mandatory depending on country/service availability.'
-    SimpleService:
+        portOfLoading:
+          $ref: '#/components/schemas/PortType'
+        portOfDischarge:
+          $ref: '#/components/schemas/PortType'
+      description: The service allows to request the departure/arrival of the cargo on a specified port of loading/discharge. This service can only be selected for bookings with mode of transport "Sea". The port UN location code is mandatory, the port name is optional.
+    ContactPerson:
       required:
       - name
       type: object
       properties:
         name:
           type: string
-          description: "This is a subcategory used for additional services of local agreements.\n Please contact your local DSV contact for more information."
-      description: This is a subcategory used for additional services of local agreements. Please contact your local DSV contact for more information.
-    OrderUpdates:
-      required:
-      - packages
-      type: object
-      properties:
-        packages:
-          type: array
-          items:
-            $ref: '#/components/schemas/Package'
-          description: The packages section contains all package lines that shall be included in the booking
-        units:
-          $ref: '#/components/schemas/Units'
-      description: This structure contains the parameters for updating packages in draft bookings
-      default: OrderUpdates
-      xml:
-        name: orderUpdates
-        namespace: http://www.mydsv.com/Order
-    Delivery:
-      type: object
-      properties:
-        address:
-          $ref: '#/components/schemas/Address'
-        contact:
-          $ref: '#/components/schemas/ContactPerson'
-      description: Name and address of the party where shipment is delivered
-    SpotQuoteNumberService:
-      required:
-      - number
-      type: object
-      properties:
-        number:
+          description: Name of the contact person
+          example: Test Name
+        email:
           type: string
-          description: This field carries the quotation number as received on the spot quotation
-      description: You can fill in the reference received from DSV in a spot quotation to be used for invoicing this booking.
-    Notify:
-      type: object
-      properties:
-        address:
-          $ref: '#/components/schemas/Address'
-        contact:
-          $ref: '#/components/schemas/ContactPerson'
-      description: Name and address of the party who will be notified
-    Sender:
-      type: object
-      properties:
-        address:
-          $ref: '#/components/schemas/Address'
-        contact:
-          $ref: '#/components/schemas/ContactPerson'
-      description: 'Name and address of the party sending the goods (shipper).
-
-        If address is not already available, it will be created from supplied address data.'
-    Incoterms:
-      required:
-      - code
-      - location
-      type: object
-      properties:
-        code:
+          description: Email address of the contact person
+          example: testemail@testcompany.com
+        telephone:
           enum:
-          - EXW
-          - FCA
-          - FAS
-          - FOB
-          - DDP
-          - CPT
-          - CIP
-          - DAF
-          - DES
-          - DEQ
-          - DDU
-          - DAT
-          - DAP
-          - CFR
-          - CIF
-          - DPU
+          - range[-infinity, 16]
           type: string
-          description: 'Incoterms® Code according to Incoterms® 2020
-
-
-            Ex Works (EXW)
-
-            Free Carrier (FCA)
-
-            Carriage Paid to (CPT)
-
-            Carriage and Insurance paid to (CIP)
-
-            Delivered at Place (DAP)
-
-            Delivered at Place Unloaded (DPU) NEW
-
-            Delivered Duty Paid (DDP)
-
-
-            The rules for sea and inland waterway transport also include:
-
-
-            Free Alongside Ship (FAS)
-
-            Free On Board (FOB)
-
-            Cost and Freight (CFR)
-
-            Cost Insurance and Freight (CIF)"
-
-            '
-          example: EXW
-        location:
+          description: Phone number of the contact person.
+          example: '+4512345678'
+      description: All fields related to Contact Person e.g. Name, Phone, email
+    PlaceBookingResponse:
+      required:
+      - bookingId
+      type: object
+      properties:
+        bookingId:
           type: string
-          description: The place should always be specified as precisely as possible, and not just be a city name.
-          example: TestCityPickup1
-      description: Incoterms® describe the rights and obligations applicable between the buyer and seller of the goods being transported. They set out when transfer of liability and control take place, who pays for what and who is liable in the event of any damage or loss of goods in transit. The place should always be specified as precisely as possible, and not just be a city name. For more information check the Incoterms® Information on https://www.dsv.com/en/insights/expert-opinions/what-are-incoterms
+          description: Unique identifier of the DSV booking
+          example: '40257145990010780000'
+      description: Contains information about submitted booking
     Services:
       type: object
       properties:
@@ -2706,499 +3175,30 @@ components:
           type: boolean
           description: Airline Express service. Only available for transport modes "Air"
       description: Specifies additional services that can be selected for a booking. Service availability depends on factors such as transport mode, route, and country. Some services may incur additional costs. Contact your local DSV representative for more details.
-    BookingParty:
+    Pickup:
       type: object
       properties:
         address:
           $ref: '#/components/schemas/Address'
         contact:
           $ref: '#/components/schemas/ContactPerson'
-      description: Name and address of the party that created the booking.
-    PortType:
-      required:
-      - code
+      description: Name and address of the party shipment is picked up.
+    Receiver:
       type: object
       properties:
-        code:
-          enum:
-          - range[-infinity, 32]
-          type: string
-          description: A valid UN location code with an seaport / airport / rail terminal
-          example: DK FDH
-        name:
-          type: string
-          description: The associated location name
-          example: Frederikshavn
-      description: UN Location code and Name of the departure rail terminal
-    AirportSelectionService:
+        address:
+          $ref: '#/components/schemas/Address'
+        contact:
+          $ref: '#/components/schemas/ContactPerson'
+      description: Name and address of the party receiving the shipment (consignee).
+    Carrier:
       type: object
       properties:
-        airportOfDeparture:
-          $ref: '#/components/schemas/PortType'
-        airportOfDestination:
-          $ref: '#/components/schemas/PortType'
-      description: The service allows to request the departure/arrival of the cargo on a specified airport. The airport UN location code is mandatory, the airport name is optional. This service can only be selected for bookings with mode of transport "Air".
-    CustomsClearance:
-      type: object
-      properties:
-        customsClearance:
-          enum:
-          - 'NO'
-          - BY_DSV
-          - BY_3RD
-          - BY_OWN
-          type: string
-          example: BY_DSV
-        customsExportDeclaration:
-          enum:
-          - 'NO'
-          - BY_DSV
-          - BY_3RD
-          - BY_OWN
-          type: string
-          example: BY_OWN
-    Address:
-      type: object
-      properties:
-        companyName:
-          enum:
-          - range[-infinity, 36]
-          type: string
-          description: Company Name is mandatory if the address is not provided via "mdm", "addressId" or based on a myDSV template. (length 36)
-          example: Test Company Name Inc.
-        addressId:
-          enum:
-          - range[-infinity, 40]
-          type: string
-          description: 'Customer addressId refers to an entry in the address book within DSV’s myDSV customer portal. If a unique match is found, that address will be used and all other address fields will be ignored. This validation has lower priority than the "mdm" field. If the addressId is not unique, full address details must be provided. When the provided address matches an existing one, it will be used; otherwise, a new entry will be created in the myDSV address book. (Length: 40)'
-          example: AddressID123
-        addressLine1:
-          enum:
-          - range[-infinity, 36]
-          type: string
-          description: Address line 1
-          example: Test Address Line 1
-        addressLine2:
-          enum:
-          - range[-infinity, 36]
-          type: string
-          example: Test Address Line 2
-        addressLine3:
-          type: string
-          readOnly: true
-        city:
-          enum:
-          - range[-infinity, 40]
-          type: string
-          description: City name  is mandatory if the address is not provided via "mdm", "addressId" or based on a myDSV template.
-          example: Test Address City
-        countryCode:
-          enum:
-          - AF
-          - AL
-          - DZ
-          - AS
-          - AD
-          - AO
-          - AI
-          - AQ
-          - AG
-          - AR
-          - AM
-          - AW
-          - AU
-          - AT
-          - AZ
-          - BS
-          - BH
-          - BD
-          - BB
-          - BY
-          - BE
-          - BZ
-          - BJ
-          - BM
-          - BT
-          - BO
-          - BQ
-          - BA
-          - BW
-          - BR
-          - IO
-          - BN
-          - BG
-          - BF
-          - BI
-          - KH
-          - CM
-          - CA
-          - CV
-          - KY
-          - CF
-          - TD
-          - CL
-          - CN
-          - CX
-          - CC
-          - CO
-          - KM
-          - CG
-          - CD
-          - CK
-          - CR
-          - CI
-          - HR
-          - CU
-          - CW
-          - CY
-          - CZ
-          - DK
-          - DJ
-          - DM
-          - DO
-          - EC
-          - EG
-          - SV
-          - GQ
-          - ER
-          - EE
-          - ET
-          - FK
-          - FO
-          - FJ
-          - FI
-          - FR
-          - GF
-          - PF
-          - TF
-          - GA
-          - GM
-          - GE
-          - DE
-          - GH
-          - GI
-          - GR
-          - GL
-          - GD
-          - GP
-          - GU
-          - GT
-          - GG
-          - GN
-          - GW
-          - GY
-          - HT
-          - HM
-          - VA
-          - HN
-          - HK
-          - HU
-          - IS
-          - IN
-          - ID
-          - IR
-          - IQ
-          - IE
-          - IM
-          - IL
-          - IT
-          - JM
-          - JP
-          - JE
-          - JO
-          - KZ
-          - KE
-          - KI
-          - KP
-          - KR
-          - KW
-          - KG
-          - LA
-          - LV
-          - LB
-          - LS
-          - LR
-          - LY
-          - LI
-          - LT
-          - LU
-          - MO
-          - MK
-          - MG
-          - MW
-          - MY
-          - MV
-          - ML
-          - MT
-          - MH
-          - MQ
-          - MR
-          - MU
-          - YT
-          - MX
-          - FM
-          - MD
-          - MC
-          - MN
-          - ME
-          - MS
-          - MA
-          - MZ
-          - MM
-          - NA
-          - NR
-          - NP
-          - NL
-          - NC
-          - NZ
-          - NI
-          - NE
-          - NG
-          - NU
-          - NF
-          - MP
-          - 'NO'
-          - OM
-          - PK
-          - PW
-          - PS
-          - PA
-          - PG
-          - PY
-          - PE
-          - PH
-          - PN
-          - PL
-          - PT
-          - PR
-          - QA
-          - RE
-          - RO
-          - RU
-          - RW
-          - BL
-          - SH
-          - KN
-          - LC
-          - MF
-          - PM
-          - VC
-          - WS
-          - SM
-          - ST
-          - SA
-          - SN
-          - RS
-          - SC
-          - SL
-          - SG
-          - SX
-          - SK
-          - SI
-          - SB
-          - SO
-          - ZA
-          - GS
-          - SS
-          - ES
-          - LK
-          - SD
-          - SR
-          - SJ
-          - SZ
-          - SE
-          - CH
-          - SY
-          - TW
-          - TJ
-          - TZ
-          - TH
-          - TL
-          - TG
-          - TK
-          - TO
-          - TT
-          - TN
-          - TR
-          - TM
-          - TC
-          - TV
-          - UG
-          - UA
-          - AE
-          - GB
-          - US
-          - UM
-          - UY
-          - UZ
-          - VU
-          - VE
-          - VN
-          - VG
-          - VI
-          - WF
-          - EH
-          - YE
-          - ZM
-          - ZW
-          - AX
-          - XK
-          type: string
-          description: 2 letter ISO country code (e.g. US)  is mandatory if the address is not provided via "mdm", "addressId" or based on a myDSV template.
-          example: DK
-        state:
-          enum:
-          - range[-infinity, 40]
-          type: string
-          description: State name or state code.
-        zipCode:
-          enum:
-          - range[-infinity, 10]
-          type: string
-          description: Postal code  is mandatory if the address is not provided via "mdm", "addressId" or based on a myDSV template.
-          example: '1234'
-        instructions:
-          enum:
-          - range[-infinity, 36]
-          type: string
-          description: Instructions related to this party on the booking (e.g. pickup instructions for the pickup address)
-          example: Specific Address Party Instrution
-          deprecated: true
-        mdm:
-          enum:
-          - range[-infinity, 10]
-          type: string
-          description: DSV debitor number ( MDM number)
-          example: '6412345678'
-        eori:
-          enum:
-          - EU Member State ISO 3166-1 alpha-2 Country Code + up to 15 alphanumeric uppercased characters
-          type: string
-          description: Economic Operators Registration and Identification number (EORI number).
-          example: DE123456789012AZ
-        approvedShipper:
-          type: string
-          description: Information about the sender/pickup being an approved shipper. Only available for transport modes "Air".
-      description: All fields related to the address of the business partner.
-    FieldDTO:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Error name
-          example: field_name
-        message:
-          type: string
-          description: Description of error
-          example: validation error
-        code:
-          type: string
-          description: Type of error
-          example: ERR12345
-      description: Field
-    LocalTime:
-      type: object
-      properties:
-        hour:
-          type: integer
-          format: int32
-        minute:
-          type: integer
-          format: int32
-        second:
-          type: integer
-          format: int32
-        nano:
-          type: integer
-          format: int32
-      description: The requested pickup/delivery time (end of time window) using the 24 hours format hh:mm:ss
-      example: '14:15:00'
-    PalletExchangeService:
-      required:
-      - quantity
-      - type
-      type: object
-      properties:
-        quantity:
-          type: integer
-          description: Number of pallets requested to be exchanged
-          format: int64
-          example: 2
-        type:
-          enum:
-          - BAG
-          - CAN
-          - CAS
-          - CLL
-          - CON
-          - CRT
-          - CTN
-          - DRM
-          - EUP
-          - EUR
-          - GIB
-          - HPL
-          - IBC
-          - IPL
-          - JCN
-          - KPL
-          - LOAD
-          - LOD
-          - LOT
-          - PKG
-          - PLL
-          - PLT
-          - PXL
-          - QPL
-          - UPL
-          - RLL
-          - PPL
-          type: string
-          description: 'Currently only supported for Euro pallets. Must be present if quantity is posted: EUR'
-          example: EUR
-      description: Instruct DSV to exchange EUR pallets at the collection/delivery location. This service can only be selected for bookings with mode of transport “Road” in some countries. Please contact your local DSV office for more information.
-    ErrorDTO:
-      required:
-      - code
-      - message
-      type: object
-      properties:
-        code:
-          type: string
-          description: Unique error code
-          example: ERR12345
-        message:
-          type: string
-          description: Error message passed to the user
-          example: 'Not found booking: 40257145990010785188'
-        fields:
-          type: array
-          items:
-            $ref: '#/components/schemas/FieldDTO'
-          description: List of fields that didn't pass validation
-        development:
-          $ref: '#/components/schemas/DevelopmentDTO'
-      description: Error
-    ContactPerson:
-      required:
-      - name
-      type: object
-      properties:
-        name:
-          type: string
-          description: Name of the contact person
-          example: Test Name
-        email:
-          type: string
-          description: Email address of the contact person
-          example: testemail@testcompany.com
-        telephone:
-          enum:
-          - range[-infinity, 16]
-          type: string
-          description: Phone number of the contact person.
-          example: '+4512345678'
-      description: All fields related to Contact Person e.g. Name, Phone, email
+        address:
+          $ref: '#/components/schemas/Address'
+        contact:
+          $ref: '#/components/schemas/ContactPerson'
+      description: Name and address of the carrier
   securitySchemes:
     apiKeyHeader:
       type: apiKey

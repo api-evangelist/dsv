@@ -149,14 +149,14 @@ paths:
                 toDateEnd: string
 components:
   schemas:
-    Receiver:
+    Delivery:
       type: object
       properties:
         address:
           $ref: '#/components/schemas/Address'
         contact:
           $ref: '#/components/schemas/ContactPerson'
-      description: Name and address of the party receiving the shipment (consignee).
+      description: Name and address of the party where shipment is delivered
     ShipmentSummaryParties:
       type: object
       properties:
@@ -169,41 +169,6 @@ components:
         pickup:
           $ref: '#/components/schemas/Pickup'
       description: All parties of the shipment summary are mentioned in this structure. See party definition for details.
-    GoodsSummaryDto:
-      type: object
-      properties:
-        totalColli:
-          type: number
-          description: Total number of collis in the shipment
-        totalWeight:
-          type: number
-          description: Total weight of the shipment
-        totalVolume:
-          type: number
-          description: Total volume of the shipment
-        totalLoadMeters:
-          type: number
-          description: 'Total loading meters of the shipment.
-
-            Only available for transport mode "ROAD"'
-    Pickup:
-      type: object
-      properties:
-        address:
-          $ref: '#/components/schemas/Address'
-        contact:
-          $ref: '#/components/schemas/ContactPerson'
-      description: Name and address of the party shipment is picked up.
-    DatesFilter:
-      type: object
-      properties:
-        bookingDate:
-          $ref: '#/components/schemas/DateFilter'
-        pickupDate:
-          $ref: '#/components/schemas/DateFilter'
-        deliveryDate:
-          $ref: '#/components/schemas/DateFilter'
-      description: Allows for searching Bookings/Shipments where the Booking/Pickup/Delivery date matches custom date range
     Address:
       type: object
       properties:
@@ -521,168 +486,105 @@ components:
           type: string
           description: Information about the sender/pickup being an approved shipper. Only available for transport modes "Air".
       description: All fields related to the address of the business partner.
-    Delivery:
+    DatesFilter:
+      type: object
+      properties:
+        bookingDate:
+          $ref: '#/components/schemas/DateFilter'
+        pickupDate:
+          $ref: '#/components/schemas/DateFilter'
+        deliveryDate:
+          $ref: '#/components/schemas/DateFilter'
+      description: Allows for searching Bookings/Shipments where the Booking/Pickup/Delivery date matches custom date range
+    TypeValueDTO:
+      type: object
+      properties:
+        type:
+          type: string
+          description: 'Type of reference: <ul><li>INVOICING_REFERENCE</li><li>ORDER_NUMBER</li><li>CONSIGNEE_REFERENCE</li><li>SHIPPER_REFERENCE</li><li>CUSTOMS_REFERENCE</li><li>OTHER</li><li>ROUTING</li></ul>'
+        value:
+          type: string
+          description: Reference value
+      description: References that can be used to identify linked information. It is allowed to send several references of the same reference type.
+    ContactPerson:
+      required:
+      - name
+      type: object
+      properties:
+        name:
+          maxLength: 34
+          type: string
+          description: Name of the contact person
+          example: Test Name
+        email:
+          maxLength: 34
+          type: string
+          description: Email address of the contact person
+          example: testemail@testcompany.com
+        telephone:
+          maxLength: 16
+          type: string
+          description: Phone number of the contact person.
+          example: '+4512345678'
+      description: All fields related to Contact Person e.g. Name, Phone, email
+    DateFilter:
+      required:
+      - option
+      type: object
+      properties:
+        option:
+          enum:
+          - TOMORROW
+          - TODAY
+          - NEXT_WEEK
+          - NEXT_MONTH
+          - YESTERDAY
+          - PAST_WEEK
+          - PAST_MONTH
+          - BETWEEN
+          - TOMORROW
+          - TODAY
+          - NEXT_WEEK
+          - NEXT_MONTH
+          - YESTERDAY
+          - PAST_WEEK
+          - PAST_MONTH
+          - BETWEEN
+          type: string
+          description: 'Available filter options for dates:
+
+            - PAST_MONTH - Past 30 days
+
+            - PAST_WEEK - Past 7 days
+
+            - YESTERDAY - Yesterday
+
+            - TODAY - Today
+
+            - TOMORROW - Tomorrow
+
+            - NEXT_WEEK - Next 7 days
+
+            - NEXT_MONTH - Next 30 days
+
+            - BETWEEN - Custom date range. Fields from and to must be present when this option is selected'
+        from:
+          type: string
+          description: "Start date of custom date range.\n Minimum value is 90 days ago. Format: 2024-07-13"
+        to:
+          type: string
+          description: "End date of custom date range (inclusive).\n Format: 2024-07-15"
+      description: Only include Bookings/Shipments where the Delivery date (actual/estimated/requested) matches selected filter
+    Sender:
       type: object
       properties:
         address:
           $ref: '#/components/schemas/Address'
         contact:
           $ref: '#/components/schemas/ContactPerson'
-      description: Name and address of the party where shipment is delivered
-    ListParamsDTO:
-      type: object
-      properties:
-        types:
-          enum:
-          - SENDER, RECEIVER, DOMESTIC, CROSS_TRADE
-          type: array
-          items:
-            enum:
-            - SENDER, RECEIVER, DOMESTIC, CROSS_TRADE
-            type: string
-            description: 'Only inlcude Bookings/Shipments where
+      description: 'Name and address of the party sending the goods (shipper).
 
-              - SENDER - the sender is in the same country as I am.
-
-              - RECEIVER - the receiver is in the same country as I am.
-
-              - DOMESTIC - the sender and the receiver are in the same country as I am.
-
-              - CROSS_TRADE - the sender and the receiver are in different countries as I am.'
-          description: 'Only inlcude Bookings/Shipments where
-
-            - SENDER - the sender is in the same country as I am.
-
-            - RECEIVER - the receiver is in the same country as I am.
-
-            - DOMESTIC - the sender and the receiver are in the same country as I am.
-
-            - CROSS_TRADE - the sender and the receiver are in different countries as I am.'
-        statuses:
-          enum:
-          - DRAFT, BOOKED, IN_PROGRESS, IN_TRANSIT, COMPLETED
-          type: array
-          items:
-            enum:
-            - DRAFT, BOOKED, IN_PROGRESS, IN_TRANSIT, COMPLETED
-            type: string
-            description: 'Only include Bookings/Shipments with this status:
-
-              - DRAFT - Booking not yet submitted
-
-              - BOOKED - Booking submitted, waiting for response from TMS
-
-              - IN_PROGRESS - Shipment created but not yet moving
-
-              - IN_TRANSIT - Shipment picked-up/cargo received, depending on the movement type.
-
-              - COMPLETED - Shipment delivered / handed over at destination, depending on the movement type.
-
-              - CANCELED - Shipment has been canceled
-
-              - REJECTED - Booking was rejected'
-          description: 'Only include Bookings/Shipments with this status:
-
-            - DRAFT - Booking not yet submitted
-
-            - BOOKED - Booking submitted, waiting for response from TMS
-
-            - IN_PROGRESS - Shipment created but not yet moving
-
-            - IN_TRANSIT - Shipment picked-up/cargo received, depending on the movement type.
-
-            - COMPLETED - Shipment delivered / handed over at destination, depending on the movement type.
-
-            - CANCELED - Shipment has been canceled
-
-            - REJECTED - Booking was rejected'
-        pickupDate:
-          enum:
-          - TOMORROW, TODAY, NEXT_WEEK, NEXT_MONTH, YESTERDAY, PAST_WEEK, PAST_MONTH
-          type: string
-          description: 'Only include Bookings/Shipments where the Pickup date (actual/estimated/requested) matches.
-
-            - PAST_MONTH - Past 30 days
-
-            - PAST_WEEK - Past 7 days
-
-            - YESTERDAY - Yesterday
-
-            - TODAY - Today
-
-            - TOMORROW - Tomorrow
-
-            - NEXT_WEEK - Next 7 days
-
-            - NEXT_MONTH - Next 30 days'
-        deliveryDate:
-          enum:
-          - TOMORROW, TODAY, NEXT_WEEK, NEXT_MONTH, YESTERDAY, PAST_WEEK, PAST_MONTH
-          type: string
-          description: 'Only include Bookings/Shipments where the Delivery date (actual/estimated/requested) matches.
-
-            - PAST_MONTH - Past 30 days
-
-            - PAST_WEEK - Past 7 days
-
-            - YESTERDAY - Yesterday
-
-            - TODAY - Today
-
-            - TOMORROW - Tomorrow
-
-            - NEXT_WEEK - Next 7 days
-
-            - NEXT_MONTH - Next 30 days'
-        transports:
-          enum:
-          - AIR, ROAD, SEA, RAIL
-          type: array
-          items:
-            enum:
-            - AIR, ROAD, SEA, RAIL
-            type: string
-            description: 'Only include Bookings/Shipments with this primary mode of transport:
-
-              - AIR - Airfreight
-
-              - ROAD - Roadfreight
-
-              - SEA - Seafreight
-
-              - RAIL - Railway
-
-              - XPRESS - Express parcel shipments'
-          description: 'Only include Bookings/Shipments with this primary mode of transport:
-
-            - AIR - Airfreight
-
-            - ROAD - Roadfreight
-
-            - SEA - Seafreight
-
-            - RAIL - Railway
-
-            - XPRESS - Express parcel shipments'
-        bookedBy:
-          type: array
-          items:
-            type: string
-            description: Only include Bookings/Shipments booked by this user ID
-          description: Only include Bookings/Shipments booked by this user ID
-        size:
-          type: integer
-          description: Number of returned bookings/shipments, min 1, max value 1000
-          format: int32
-        dates:
-          $ref: '#/components/schemas/DatesFilter'
-        mdm:
-          type: string
-          description: MDM number
-      description: This structure contains the filter parameters to limit the response
-      default: ListParams
-      xml:
-        name: params
+        If address is not already available, it will be created from supplied address data.'
     ShipmentSummaryAPI:
       required:
       - parties
@@ -1011,51 +913,95 @@ components:
 
             format: 2020-07-13T22:00:00'
           format: date-time
-    Sender:
+    GoodsSummaryDto:
       type: object
       properties:
-        address:
-          $ref: '#/components/schemas/Address'
-        contact:
-          $ref: '#/components/schemas/ContactPerson'
-      description: 'Name and address of the party sending the goods (shipper).
+        totalColli:
+          type: number
+          description: Total number of collis in the shipment
+        totalWeight:
+          type: number
+          description: Total weight of the shipment
+        totalVolume:
+          type: number
+          description: Total volume of the shipment
+        totalLoadMeters:
+          type: number
+          description: 'Total loading meters of the shipment.
 
-        If address is not already available, it will be created from supplied address data.'
-    TypeValueDTO:
+            Only available for transport mode "ROAD"'
+    ListParamsDTO:
       type: object
       properties:
-        type:
-          type: string
-          description: 'Type of reference: <ul><li>INVOICING_REFERENCE</li><li>ORDER_NUMBER</li><li>CONSIGNEE_REFERENCE</li><li>SHIPPER_REFERENCE</li><li>CUSTOMS_REFERENCE</li><li>OTHER</li><li>ROUTING</li></ul>'
-        value:
-          type: string
-          description: Reference value
-      description: References that can be used to identify linked information. It is allowed to send several references of the same reference type.
-    DateFilter:
-      required:
-      - option
-      type: object
-      properties:
-        option:
+        types:
           enum:
-          - TOMORROW
-          - TODAY
-          - NEXT_WEEK
-          - NEXT_MONTH
-          - YESTERDAY
-          - PAST_WEEK
-          - PAST_MONTH
-          - BETWEEN
-          - TOMORROW
-          - TODAY
-          - NEXT_WEEK
-          - NEXT_MONTH
-          - YESTERDAY
-          - PAST_WEEK
-          - PAST_MONTH
-          - BETWEEN
+          - SENDER, RECEIVER, DOMESTIC, CROSS_TRADE
+          type: array
+          items:
+            enum:
+            - SENDER, RECEIVER, DOMESTIC, CROSS_TRADE
+            type: string
+            description: 'Only inlcude Bookings/Shipments where
+
+              - SENDER - the sender is in the same country as I am.
+
+              - RECEIVER - the receiver is in the same country as I am.
+
+              - DOMESTIC - the sender and the receiver are in the same country as I am.
+
+              - CROSS_TRADE - the sender and the receiver are in different countries as I am.'
+          description: 'Only inlcude Bookings/Shipments where
+
+            - SENDER - the sender is in the same country as I am.
+
+            - RECEIVER - the receiver is in the same country as I am.
+
+            - DOMESTIC - the sender and the receiver are in the same country as I am.
+
+            - CROSS_TRADE - the sender and the receiver are in different countries as I am.'
+        statuses:
+          enum:
+          - DRAFT, BOOKED, IN_PROGRESS, IN_TRANSIT, COMPLETED
+          type: array
+          items:
+            enum:
+            - DRAFT, BOOKED, IN_PROGRESS, IN_TRANSIT, COMPLETED
+            type: string
+            description: 'Only include Bookings/Shipments with this status:
+
+              - DRAFT - Booking not yet submitted
+
+              - BOOKED - Booking submitted, waiting for response from TMS
+
+              - IN_PROGRESS - Shipment created but not yet moving
+
+              - IN_TRANSIT - Shipment picked-up/cargo received, depending on the movement type.
+
+              - COMPLETED - Shipment delivered / handed over at destination, depending on the movement type.
+
+              - CANCELED - Shipment has been canceled
+
+              - REJECTED - Booking was rejected'
+          description: 'Only include Bookings/Shipments with this status:
+
+            - DRAFT - Booking not yet submitted
+
+            - BOOKED - Booking submitted, waiting for response from TMS
+
+            - IN_PROGRESS - Shipment created but not yet moving
+
+            - IN_TRANSIT - Shipment picked-up/cargo received, depending on the movement type.
+
+            - COMPLETED - Shipment delivered / handed over at destination, depending on the movement type.
+
+            - CANCELED - Shipment has been canceled
+
+            - REJECTED - Booking was rejected'
+        pickupDate:
+          enum:
+          - TOMORROW, TODAY, NEXT_WEEK, NEXT_MONTH, YESTERDAY, PAST_WEEK, PAST_MONTH
           type: string
-          description: 'Available filter options for dates:
+          description: 'Only include Bookings/Shipments where the Pickup date (actual/estimated/requested) matches.
 
             - PAST_MONTH - Past 30 days
 
@@ -1069,37 +1015,91 @@ components:
 
             - NEXT_WEEK - Next 7 days
 
-            - NEXT_MONTH - Next 30 days
+            - NEXT_MONTH - Next 30 days'
+        deliveryDate:
+          enum:
+          - TOMORROW, TODAY, NEXT_WEEK, NEXT_MONTH, YESTERDAY, PAST_WEEK, PAST_MONTH
+          type: string
+          description: 'Only include Bookings/Shipments where the Delivery date (actual/estimated/requested) matches.
 
-            - BETWEEN - Custom date range. Fields from and to must be present when this option is selected'
-        from:
+            - PAST_MONTH - Past 30 days
+
+            - PAST_WEEK - Past 7 days
+
+            - YESTERDAY - Yesterday
+
+            - TODAY - Today
+
+            - TOMORROW - Tomorrow
+
+            - NEXT_WEEK - Next 7 days
+
+            - NEXT_MONTH - Next 30 days'
+        transports:
+          enum:
+          - AIR, ROAD, SEA, RAIL
+          type: array
+          items:
+            enum:
+            - AIR, ROAD, SEA, RAIL
+            type: string
+            description: 'Only include Bookings/Shipments with this primary mode of transport:
+
+              - AIR - Airfreight
+
+              - ROAD - Roadfreight
+
+              - SEA - Seafreight
+
+              - RAIL - Railway
+
+              - XPRESS - Express parcel shipments'
+          description: 'Only include Bookings/Shipments with this primary mode of transport:
+
+            - AIR - Airfreight
+
+            - ROAD - Roadfreight
+
+            - SEA - Seafreight
+
+            - RAIL - Railway
+
+            - XPRESS - Express parcel shipments'
+        bookedBy:
+          type: array
+          items:
+            type: string
+            description: Only include Bookings/Shipments booked by this user ID
+          description: Only include Bookings/Shipments booked by this user ID
+        size:
+          type: integer
+          description: Number of returned bookings/shipments, min 1, max value 1000
+          format: int32
+        dates:
+          $ref: '#/components/schemas/DatesFilter'
+        mdm:
           type: string
-          description: "Start date of custom date range.\n Minimum value is 90 days ago. Format: 2024-07-13"
-        to:
-          type: string
-          description: "End date of custom date range (inclusive).\n Format: 2024-07-15"
-      description: Only include Bookings/Shipments where the Delivery date (actual/estimated/requested) matches selected filter
-    ContactPerson:
-      required:
-      - name
+          description: MDM number
+      description: This structure contains the filter parameters to limit the response
+      default: ListParams
+      xml:
+        name: params
+    Pickup:
       type: object
       properties:
-        name:
-          maxLength: 34
-          type: string
-          description: Name of the contact person
-          example: Test Name
-        email:
-          maxLength: 34
-          type: string
-          description: Email address of the contact person
-          example: testemail@testcompany.com
-        telephone:
-          maxLength: 16
-          type: string
-          description: Phone number of the contact person.
-          example: '+4512345678'
-      description: All fields related to Contact Person e.g. Name, Phone, email
+        address:
+          $ref: '#/components/schemas/Address'
+        contact:
+          $ref: '#/components/schemas/ContactPerson'
+      description: Name and address of the party shipment is picked up.
+    Receiver:
+      type: object
+      properties:
+        address:
+          $ref: '#/components/schemas/Address'
+        contact:
+          $ref: '#/components/schemas/ContactPerson'
+      description: Name and address of the party receiving the shipment (consignee).
   securitySchemes:
     apiKeyHeader:
       type: apiKey

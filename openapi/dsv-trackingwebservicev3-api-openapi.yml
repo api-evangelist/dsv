@@ -35,16 +35,13 @@ paths:
       - TrackingWebServiceV3
 components:
   schemas:
-    GetShipmentDetailsRequest:
+    Location:
       type: object
       properties:
-        AccessKey:
+        LocationName:
           type: string
-          description: Authentication key
-        in:
-          $ref: '#/components/schemas/ShipmentDetailsRequest'
-      xml:
-        name: getPublicServiceShipmentDetails
+        type:
+          type: string
     StatusEvent:
       type: object
       properties:
@@ -56,6 +53,75 @@ components:
           type: string
         StatusInfo:
           type: string
+    SoapRequest:
+      type: object
+      properties:
+        Body:
+          $ref: '#/components/schemas/GetShipmentDetailsRequest'
+      xml:
+        name: Envelope
+    Shipment:
+      type: object
+      properties:
+        TransportMode:
+          type: string
+          description: 1=Ocean, 3=Road, 4=Air
+        ShipmentInfo:
+          properties:
+            ShipmentBasicInfo:
+              $ref: '#/components/schemas/ShipmentBasicInfo'
+    GetShipmentDetailsResponse:
+      type: object
+      properties:
+        out:
+          properties:
+            RequestID:
+              type: string
+            TimeOfRequest:
+              type: string
+              format: date-time
+            Shipment:
+              type: array
+              items:
+                $ref: '#/components/schemas/Shipment'
+    GetShipmentDetailsRequest:
+      type: object
+      properties:
+        AccessKey:
+          type: string
+          description: Authentication key
+        in:
+          $ref: '#/components/schemas/ShipmentDetailsRequest'
+      xml:
+        name: getPublicServiceShipmentDetails
+    SoapResponse:
+      type: object
+      properties:
+        Body:
+          $ref: '#/components/schemas/GetShipmentDetailsResponse'
+    ApplicationArea:
+      type: object
+      properties:
+        requestId:
+          type: string
+        CreationDateTime:
+          type: string
+          format: date-time
+    ShipmentBasicInfo:
+      type: object
+      properties:
+        UniqueID:
+          type: string
+        ShipmentNumberExport:
+          type: string
+        Location:
+          type: array
+          items:
+            $ref: '#/components/schemas/Location'
+        StatusEventList:
+          type: array
+          items:
+            $ref: '#/components/schemas/StatusEvent'
     ShipmentDetailsRequest:
       type: object
       properties:
@@ -76,72 +142,6 @@ components:
         shipmentDateTo:
           type: string
           format: date
-    ShipmentBasicInfo:
-      type: object
-      properties:
-        UniqueID:
-          type: string
-        ShipmentNumberExport:
-          type: string
-        Location:
-          type: array
-          items:
-            $ref: '#/components/schemas/Location'
-        StatusEventList:
-          type: array
-          items:
-            $ref: '#/components/schemas/StatusEvent'
-    Shipment:
-      type: object
-      properties:
-        TransportMode:
-          type: string
-          description: 1=Ocean, 3=Road, 4=Air
-        ShipmentInfo:
-          properties:
-            ShipmentBasicInfo:
-              $ref: '#/components/schemas/ShipmentBasicInfo'
-    ApplicationArea:
-      type: object
-      properties:
-        requestId:
-          type: string
-        CreationDateTime:
-          type: string
-          format: date-time
-    SoapRequest:
-      type: object
-      properties:
-        Body:
-          $ref: '#/components/schemas/GetShipmentDetailsRequest'
-      xml:
-        name: Envelope
-    GetShipmentDetailsResponse:
-      type: object
-      properties:
-        out:
-          properties:
-            RequestID:
-              type: string
-            TimeOfRequest:
-              type: string
-              format: date-time
-            Shipment:
-              type: array
-              items:
-                $ref: '#/components/schemas/Shipment'
-    SoapResponse:
-      type: object
-      properties:
-        Body:
-          $ref: '#/components/schemas/GetShipmentDetailsResponse'
-    Location:
-      type: object
-      properties:
-        LocationName:
-          type: string
-        type:
-          type: string
   securitySchemes:
     apiKeyHeader:
       type: apiKey
