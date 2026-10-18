@@ -38,5 +38,5 @@
     - connectors/applications/dsv
     vendor_link: https://www.dsv.com/en-in/
     builder: Fivetran
-  status: pending-generation
+  status: not-a-workflow
   arazzo: null
